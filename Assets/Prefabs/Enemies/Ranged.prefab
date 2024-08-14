@@ -243,7 +243,8 @@ MonoBehaviour:
   gunTrailPrefab: {fileID: 6681826990249321746, guid: a356371c5d1c5d0428e5bb41492cc4ea,
     type: 3}
   useProjectiles: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+    type: 3}
   shootingSource: {fileID: 7411039302416693509}
   shootingSounds:
   - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
