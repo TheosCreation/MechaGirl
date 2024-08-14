@@ -3,24 +3,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionsSlider<T> : OptionsBase
+public class OptionsSlider : OptionsBase
 {
     private Slider slider;
     private TMP_Text text;
     private Button resetButton;
-    private Action<T> updateValueAction;
-    private string playerPrefKey;
-    private T defaultValue;
+    private Action<FloatSetting> updateValueAction;
+    private FloatSetting floatSetting;
     private bool isPercentage;
 
-    public OptionsSlider(Slider slider, TMP_Text text, Button resetButton, Action<T> updateValueAction, string playerPrefKey, T defaultValue, bool isPercentage)
+    public OptionsSlider(Slider slider, TMP_Text text, Button resetButton, Action<FloatSetting> updateValueAction, FloatSetting floatSetting, bool isPercentage)
     {
         this.slider = slider;
         this.text = text;
         this.resetButton = resetButton;
         this.updateValueAction = updateValueAction;
-        this.playerPrefKey = playerPrefKey;
-        this.defaultValue = defaultValue;
+        this.floatSetting = floatSetting;
         this.isPercentage = isPercentage;
     }
 
@@ -28,10 +26,10 @@ public class OptionsSlider<T> : OptionsBase
     {
         if (slider != null)
         {
-            T value = GetPlayerPrefValue();
+            float value = GetPlayerPrefValue();
             slider.value = Convert.ToSingle(value);
             UpdateText(value);
-            updateValueAction(value);
+            updateValueAction(floatSetting);
 
             slider.onValueChanged.AddListener(OnSliderValueChanged);
         }
@@ -55,15 +53,18 @@ public class OptionsSlider<T> : OptionsBase
         }
     }
 
+    public override void Update()
+    {
+        updateValueAction(floatSetting);
+    }
     private void OnSliderValueChanged(float value)
     {
-        T typedValue = (T)Convert.ChangeType(value, typeof(T));
-        UpdateText(typedValue);
-        SaveValue(typedValue);
-        updateValueAction(typedValue);
+        UpdateText(value);
+        SaveValue(value);
+        updateValueAction(floatSetting);
     }
 
-    private void UpdateText(T value)
+    private void UpdateText(float value)
     {
         string settingsText = value.ToString();
         if(isPercentage)
@@ -73,31 +74,24 @@ public class OptionsSlider<T> : OptionsBase
         text.text = settingsText;
     }
 
-    private void SaveValue(T value)
+    private void SaveValue(float value)
     {
-        if (typeof(T) == typeof(float))
-        {
-            PlayerPrefs.SetFloat(playerPrefKey, Convert.ToSingle(value));
-        }
+        PlayerPrefs.SetFloat(floatSetting.name, Convert.ToSingle(value));
+
         // Add more types as needed
         PlayerPrefs.Save();
     }
 
-    private T GetPlayerPrefValue()
+    private float GetPlayerPrefValue()
     {
-        if (typeof(T) == typeof(float))
-        {
-            return (T)(object)PlayerPrefs.GetFloat(playerPrefKey, Convert.ToSingle(defaultValue));
-        }
-        // Add more types as needed
-        return defaultValue;
+        return PlayerPrefs.GetFloat(floatSetting.name, Convert.ToSingle(floatSetting.defaultValue));
     }
 
     public void ResetToDefault()
     {
-        slider.value = Convert.ToSingle(defaultValue);
-        UpdateText(defaultValue);
-        SaveValue(defaultValue);
-        updateValueAction(defaultValue);
+        slider.value = Convert.ToSingle(floatSetting.defaultValue);
+        UpdateText(floatSetting.defaultValue);
+        SaveValue(floatSetting.defaultValue);
+        updateValueAction(floatSetting);
     }
 }

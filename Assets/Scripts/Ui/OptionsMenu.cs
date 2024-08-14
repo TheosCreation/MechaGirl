@@ -82,19 +82,19 @@ public class OptionsMenu : MonoBehaviour
         };
     }
 
-    private OptionsSlider<float> CreateSliderOption(FloatSetting setting, Slider slider, TMP_Text text, Button resetButton, System.Action<FloatSetting> updateAction, bool isPercentage = false)
+    private OptionsSlider CreateSliderOption(FloatSetting setting, Slider slider, TMP_Text text, Button resetButton, System.Action<FloatSetting> updateAction, bool isPercentage = false)
     {
-        return new OptionsSlider<float>(slider, text, resetButton, value => updateAction(setting), setting.name, setting.defaultValue, isPercentage);
+        return new OptionsSlider(slider, text, resetButton, value => updateAction(setting), setting, isPercentage);
     }
 
     private OptionsToggle CreateToggleOption(BoolSetting setting, Toggle toggle, Button resetButton, System.Action<BoolSetting> updateAction)
     {
-        return new OptionsToggle(toggle, resetButton, value => updateAction(setting), setting.name, setting.defaultValue);
+        return new OptionsToggle(toggle, resetButton, value => updateAction(setting), setting);
     }
 
     private OptionsDropdown CreateDropdownOption(IntSetting setting, TMP_Dropdown dropdown, Button resetButton, System.Action<IntSetting> updateAction)
     {
-        return new OptionsDropdown(dropdown, resetButton, value => updateAction(setting), setting.name, setting.defaultValue);
+        return new OptionsDropdown(dropdown, resetButton, value => updateAction(setting), setting);
     }
 
     private void OnEnable()
@@ -102,6 +102,14 @@ public class OptionsMenu : MonoBehaviour
         foreach (var option in options)
         {
             option.Initialize();
+        }
+    }
+
+    public void UpdateOptions()
+    {
+        foreach (var option in options)
+        {
+            option.Update();
         }
     }
 

@@ -5,6 +5,8 @@ public class SettingsManager : MonoBehaviour
 {
     public Options options;
 
+    [SerializeField] private OptionsMenu menu;
+
     [SerializeField] private AudioMixer Mixer;
     [SerializeField] private InputManager input;
     [SerializeField] private PlayerLook look;
@@ -23,7 +25,27 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+    }
 
+    private void Start()
+    {
+        ApplyAllSettings();
+    }
+
+    public void ApplyAllSettings()
+    {
+        UpdateVolume(options.masterVolume);
+        UpdateVolume(options.sfxVolume);
+        UpdateVolume(options.musicVolume);
+        UpdateSensitivity(options.sensitivity);
+        UpdateLookSmoothing(options.lookSmoothing);
+        UpdateFov(options.fov);
+        UpdateTilt(options.tilt);
+        UpdateFullscreen(options.fullscreen);
+        UpdateVSync(options.vSync);
+        UpdateScreenShake(options.screenShake);
+        UpdateGraphicsQuality(options.graphicsQuality);
+        UpdateScreenResolution(options.resolution);
     }
 
     public void UpdateVolume(FloatSetting VolumeSetting)
