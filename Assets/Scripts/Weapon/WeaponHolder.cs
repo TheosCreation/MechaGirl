@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour
 {
+    private PlayerController playerController;
     private Weapon[] weapons;
     public Weapon currentWeapon;
+    private Weapon lastThrowWeapon;
     private int currentWeaponIndex = 0;
 
     private void Awake()
@@ -14,6 +16,7 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => currentWeapon.StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => currentWeapon.EndShooting();
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => ThrowWeapon();
+        playerController = GetComponentInParent<PlayerController>();
 
         weapons = GetComponentsInChildren<Weapon>();
     }
@@ -41,18 +44,20 @@ public class WeaponHolder : MonoBehaviour
     }
     void ThrowWeapon()
     {
-        if (currentWeapon != null)
+        if(currentWeaponIndex!= 0) {
+            lastThrowWeapon = currentWeapon;
+            currentWeapon.transform.SetParent(null);
+            Rigidbody rb = currentWeapon.gameObject.AddComponent<Rigidbody>();
+            currentWeapon.gameObject.AddComponent<BoxCollider>();
+            rb.isKinematic = false;
+            currentWeapon.GetComponent<SpriteRenderer>().enabled = true;
+            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+            Remove(currentWeapon);
+            SelectWeapon(0);
+        }
+        else if(lastThrowWeapon != null)
         {
-            if(currentWeaponIndex!= 0) { 
-                currentWeapon.transform.SetParent(null);
-                Rigidbody rb = currentWeapon.gameObject.AddComponent<Rigidbody>();
-                currentWeapon.gameObject.AddComponent<BoxCollider>();
-                rb.isKinematic = false;
-                currentWeapon.GetComponent<SpriteRenderer>().enabled = true;
-                rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-                Remove(currentWeapon);
-                SelectWeapon(0);
-            }
+            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
         }
     }
     private void SelectWeapon(int index)

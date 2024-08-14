@@ -48,8 +48,8 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 136
-  damage: 10
-  headShotMultiplier: 1.5
+  damage: 50
+  headShotMultiplier: 2
   hitMask:
     serializedVersion: 2
     m_Bits: 201

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.InputSystem; // Ensure you have the correct namespace for InputManager
 
 public class PlayerMovement : MonoBehaviour
@@ -120,6 +121,39 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
+    public void Teleport(Vector3 targetPosition)
+    {
+        StartCoroutine(DashTeleport(targetPosition));
+    }
+
+    IEnumerator DashTeleport(Vector3 targetPosition)
+    {
+        // Disable movement control during the dash teleport
+        movementController.SetFriction(false);
+        isDashing = true;
+
+        Vector3 startPosition = transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < dashDuration)
+        {
+            transform.position = Vector3.Lerp(startPosition, targetPosition, elapsedTime / dashDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure final position is set accurately
+        transform.position = targetPosition;
+
+        // Re-enable movement control after the dash teleport
+        isDashing = false;
+        movementController.SetFriction(true);
+
+        // Start the dash cooldown timer
+        Timer refreshTimer = gameObject.AddComponent<Timer>();
+        refreshTimer.SetTimer(dashCooldown, RefreshDash);
+        Destroy(refreshTimer, dashCooldown + (dashCooldown / 10));
+    }
 
     void Dash()
     {

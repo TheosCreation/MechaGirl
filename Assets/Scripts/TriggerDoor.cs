@@ -42,6 +42,7 @@ public class TriggerDoor : MonoBehaviour
     public void Lock()
     {
         locked = true;
+        _animator.SetBool("Open", false);
         UpdateOverlay();
     }
 
