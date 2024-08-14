@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         Health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()
