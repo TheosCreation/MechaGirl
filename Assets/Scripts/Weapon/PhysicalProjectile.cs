@@ -7,10 +7,11 @@ using UnityEngine;
 public class PhysicalProjectile : Projectile
 {
     // Start is called before the first frame update
-    public override void Initialize(float damage, Transform target)
+    [SerializeField] protected float speed = 20.0f; // Speed of the projectile
+    public override void Initialize(float damage, Transform target, PlayerController pc = null)
     {
         this.damage = damage;
-
+        playerController = pc;
         // Calculate direction towards target
         Vector3 direction;
         if (target != null)

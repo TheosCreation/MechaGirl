@@ -1,22 +1,25 @@
+using Runtime;
 using UnityEngine;
 
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] protected float speed = 20.0f; // Speed of the projectile
+
+    [Tab("Base")]
     [SerializeField] protected float lifetime = 5.0f; // Lifetime of the projectile
     [SerializeField] protected LayerMask collisionMask; // Layers to check for collision
+    [SerializeField] protected float damage = 10.0f;
+
+    protected PlayerController playerController;
 
     protected Rigidbody rb;
-    protected float damage;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        playerController = GetComponentInParent<PlayerController>();
     }
 
-    public virtual void Initialize(float damage, Transform target) { }
+    public virtual void Initialize(float damage, Transform target, PlayerController pc = null) { }
 
    
 }

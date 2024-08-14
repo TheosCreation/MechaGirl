@@ -26,12 +26,6 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] private float screenShakeAmount = 0.1f;
 
     [Tab("Setup")]
-    [SerializeField] private LayerMask hitMask;
-    [SerializeField] private float hitParticlesLifetime = 1.0f;
-    [SerializeField] private float particleOffset = 0.1f;
-    [SerializeField] private GameObject hitWallPrefab;
-    [SerializeField] private GameObject hitEnemyPrefab;
-    [SerializeField] private GameObject gunTrailPrefab;
 
     [Header("Projectile Settings")]
     [SerializeField] private bool useProjectiles = false;

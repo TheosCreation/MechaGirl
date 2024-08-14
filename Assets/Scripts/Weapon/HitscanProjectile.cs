@@ -5,19 +5,20 @@ using UnityEngine;
 
 public class HitscanProjectile : Projectile 
 {
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private float headShotMultiplier = 1.5f;
 
 
     [Tab("Setup")]
-    [SerializeField] private LayerMask hitMask;
-    [SerializeField] private float hitParticlesLifetime = 1.0f;
-    [SerializeField] private float particleOffset = 0.1f;
-    [SerializeField] private GameObject hitWallPrefab;
-    [SerializeField] private GameObject hitEnemyPrefab;
-    [SerializeField] private GameObject gunTrailPrefab;
-    public override void Initialize(float damage, Transform target)
+    [SerializeField] protected float headShotMultiplier = 1.5f;
+    [SerializeField] protected LayerMask hitMask;
+    [SerializeField] protected float hitParticlesLifetime = 1.0f;
+    [SerializeField] protected float particleOffset = 0.1f;
+    [SerializeField] protected GameObject hitWallPrefab;
+    [SerializeField] protected GameObject hitEnemyPrefab;
+    [SerializeField] protected GameObject gunTrailPrefab;
+    public override void Initialize(float damage, Transform target, PlayerController pc = null)
     {
+        playerController = pc;
+
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
@@ -26,6 +27,7 @@ public class HitscanProjectile : Projectile
         {
             targetPoint = hit.point;
             HandleHit(hit);
+       
         }
         else
         {
@@ -61,6 +63,7 @@ public class HitscanProjectile : Projectile
             if (hit.collider.gameObject.CompareTag("Body"))
             {
                 damageable.Damage(damage);
+                print(damageable.Health);
             }
             else
             {
@@ -83,5 +86,6 @@ public class HitscanProjectile : Projectile
                 Destroy(hitParticles.gameObject, hitParticlesLifetime);
             }
         }
+        Destroy(gameObject);
     }
 }
