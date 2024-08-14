@@ -1,5 +1,4 @@
 ﻿using Runtime;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -55,12 +54,35 @@ public class PlayerMovement : MonoBehaviour
             isJumping = true;
             jumpTimer.SetTimer(jumpDuration, JumpEnd);
         }
+        else if(canJump && isNearWall()) 
+        {
+            movementController.AddForce(Vector3.up * jumpForce);
+            canJump = false;
+
+            playerController.playerLook.PlayJumpAnimation(jumpDuration);
+
+            isJumping = true;
+            jumpTimer.SetTimer(jumpDuration, JumpEnd);
+        }
     }
 
     void JumpEnd()
     {
         isJumping = false;
         canJump = true;
+    }
+    private bool isNearWall()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, detectionDistance))
+        {
+            // Check if the hit object is on the wallLayer
+            Debug.Log("Wall detected: " + hit.collider.name);
+            Debug.DrawRay(transform.position, transform.forward * wallDistance, Color.red);
+            return true;
+        }
+
+        return false;
     }
 
     void Dash()

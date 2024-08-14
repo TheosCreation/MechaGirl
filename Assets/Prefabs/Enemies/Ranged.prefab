@@ -1119,7 +1119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 792046558176550903}
   target: {fileID: 0}
   updatePathTime: 0.8
   lookDistance: 100

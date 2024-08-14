@@ -68,7 +68,7 @@ public class ChaseState : IEnemyState
     public void Enter(Enemy enemy)
     {
         enemy.agent.SetDestination(enemy.target.position);
-        enemy.animator.SetBool("IsWalking", true);
+        enemy.animator.SetBool("IsMoving", true);
     }
 
     public void Execute(Enemy enemy)
@@ -93,7 +93,7 @@ public class ChaseState : IEnemyState
 
     public void Exit(Enemy enemy)
     {
-        enemy.animator.SetBool("IsWalking", false);
+        enemy.animator.SetBool("IsMoving", false);
     }
 }
 

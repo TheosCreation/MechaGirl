@@ -147,14 +147,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: -1656730044373133762}
   target: {fileID: 0}
   updatePathTime: 1
   lookDistance: 30
   fieldOfViewAngle: 360
-  loseSightDistance: 10
   isRanged: 0
   attackDistance: 0.1
+  loseDistance: 5
   attackDuration: 1
   maxHealth: 100
   defaultState: 1
