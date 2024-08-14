@@ -4578,7 +4578,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &591737042
 Transform:
   m_ObjectHideFlags: 0
@@ -11936,7 +11936,8 @@ MonoBehaviour:
   gunTrailPrefab: {fileID: 6681826990249321746, guid: a356371c5d1c5d0428e5bb41492cc4ea,
     type: 3}
   useProjectiles: 0
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+    type: 3}
   shootingSource: {fileID: 1495830614}
   shootingSounds:
   - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
@@ -11957,7 +11958,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.06
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -19977,7 +19978,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.95
+  m_fontSize: 48.8
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
