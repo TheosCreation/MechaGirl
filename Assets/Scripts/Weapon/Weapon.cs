@@ -133,7 +133,7 @@ public class Weapon : MonoBehaviour
 
         PlayRandomFiringSound();
 
-        if (useProjectiles)
+        if (true)
         {
             FireProjectile();
         }
@@ -158,73 +158,10 @@ public class Weapon : MonoBehaviour
     private void FireHitscan()
     {
         // Fire a raycast from the firing point
-        Ray ray = new Ray(firingPoint.position, firingPoint.forward);
-        RaycastHit hit;
-
-        Vector3 targetPoint;
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitMask))
-        {
-            targetPoint = hit.point;
-            HandleHit(hit);
-        }
-        else
-        {
-            targetPoint = firingPoint.position + firingPoint.forward * 1000f;
-        }
-
-        // Draw a debug ray to visualize the hitscan raycast
-        Debug.DrawRay(firingPoint.position, firingPoint.forward * 1000f, Color.red, 1.0f);
-
-        if (gunTrailPrefab != null)
-        {
-            GameObject gunTrailObject = Instantiate(gunTrailPrefab, firingPoint.position, Quaternion.LookRotation(targetPoint - firingPoint.position));
-            TrailMovement trail = gunTrailObject.GetComponent<TrailMovement>();
-            trail.hitpoint = targetPoint;
-            trail.hitnormal = hit.normal;
-        }
+        
     }
 
-    private void HandleHit(RaycastHit hit)
-    {
-        GameObject hitParticles;
-        IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
-        if (damageable == null)
-        {
-            damageable = hit.collider.GetComponent<IDamageable>();
-        }
-
-        if (damageable != null)
-        {
-            if(playerController)
-            {
-                UiManager.Instance.FlashHitMarker();
-            }
-            if (hit.collider.gameObject.CompareTag("Body"))
-            {
-                damageable.Damage(damage);
-            }
-            else
-            {
-                damageable.Damage(damage * headShotMultiplier);
-            }
-
-            if (hitEnemyPrefab != null)
-            {
-                Vector3 spawnPosition = hit.point + hit.normal * particleOffset;
-                hitParticles = Instantiate(hitEnemyPrefab, spawnPosition, Quaternion.LookRotation(-hit.normal));
-                Destroy(hitParticles.gameObject, hitParticlesLifetime);
-            }
-        }
-        else
-        {
-            if (hitWallPrefab != null)
-            {
-                Vector3 spawnPosition = hit.point + hit.normal * particleOffset;
-                hitParticles = Instantiate(hitWallPrefab, spawnPosition, Quaternion.LookRotation(-hit.normal));
-                Destroy(hitParticles.gameObject, hitParticlesLifetime);
-            }
-        }
-    }
+  
 
     private void PlayRandomFiringSound()
     {
