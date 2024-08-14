@@ -8,6 +8,8 @@ public class TriggerDoor : MonoBehaviour
     [SerializeField] private bool locked = false;
     private NavMeshSurface _navMeshSurface;
 
+    [SerializeField] private GameObject overlay;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -17,6 +19,8 @@ public class TriggerDoor : MonoBehaviour
         {
             Debug.LogError("NavMeshSurface component not found in parent hierarchy.");
         }
+
+        UpdateOverlay();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,11 +42,13 @@ public class TriggerDoor : MonoBehaviour
     public void Lock()
     {
         locked = true;
+        UpdateOverlay();
     }
 
     public void Unlock()
     {
         locked = false;
+        UpdateOverlay();
     }
 
     public void UpdateNavMesh()
@@ -50,6 +56,14 @@ public class TriggerDoor : MonoBehaviour
         if (_navMeshSurface != null)
         {
             _navMeshSurface.BuildNavMesh();
+        }
+    }
+
+    private void UpdateOverlay()
+    {
+        if (overlay != null)
+        {
+            overlay.SetActive(locked);
         }
     }
 }
