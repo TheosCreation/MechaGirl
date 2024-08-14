@@ -145,7 +145,14 @@ public class Weapon : MonoBehaviour
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         if (projectile != null)
         {
-            projectile.Initialize(damage, target, playerController);
+            if(playerController)
+            {
+                projectile.Initialize(damage, playerController.playerCamera.transform.forward, playerController);
+            }
+            else
+            {
+                projectile.Initialize(damage, firingPoint.transform.forward, playerController);
+            }
         }
     }
 
