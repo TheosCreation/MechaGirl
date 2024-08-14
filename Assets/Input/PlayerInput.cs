@@ -89,6 +89,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TeleportToWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""74ad1caf-5e20-4bdd-9917-b60a1094bbdf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -204,6 +213,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""85080e82-3d9e-48f8-86cc-12d852982640"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""62dd9236-5061-462d-a28b-837ac536f4b6"",
                     ""path"": ""<Mouse>/scroll"",
                     ""interactions"": """",
@@ -215,12 +235,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""85080e82-3d9e-48f8-86cc-12d852982640"",
-                    ""path"": ""<Mouse>/rightButton"",
+                    ""id"": ""2b993a44-efc3-48c8-bc27-aef050df79bb"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponThrow"",
+                    ""action"": ""TeleportToWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -286,6 +306,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_Shoot = m_InGame.FindAction("Shoot", throwIfNotFound: true);
         m_InGame_WeaponSwitch = m_InGame.FindAction("WeaponSwitch", throwIfNotFound: true);
         m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
+        m_InGame_TeleportToWeapon = m_InGame.FindAction("TeleportToWeapon", throwIfNotFound: true);
         // Ui
         m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
         m_Ui_Exit = m_Ui.FindAction("Exit", throwIfNotFound: true);
@@ -358,6 +379,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Shoot;
     private readonly InputAction m_InGame_WeaponSwitch;
     private readonly InputAction m_InGame_WeaponThrow;
+    private readonly InputAction m_InGame_TeleportToWeapon;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -369,6 +391,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_InGame_Shoot;
         public InputAction @WeaponSwitch => m_Wrapper.m_InGame_WeaponSwitch;
         public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
+        public InputAction @TeleportToWeapon => m_Wrapper.m_InGame_TeleportToWeapon;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -399,6 +422,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponThrow.started += instance.OnWeaponThrow;
             @WeaponThrow.performed += instance.OnWeaponThrow;
             @WeaponThrow.canceled += instance.OnWeaponThrow;
+            @TeleportToWeapon.started += instance.OnTeleportToWeapon;
+            @TeleportToWeapon.performed += instance.OnTeleportToWeapon;
+            @TeleportToWeapon.canceled += instance.OnTeleportToWeapon;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -424,6 +450,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponThrow.started -= instance.OnWeaponThrow;
             @WeaponThrow.performed -= instance.OnWeaponThrow;
             @WeaponThrow.canceled -= instance.OnWeaponThrow;
+            @TeleportToWeapon.started -= instance.OnTeleportToWeapon;
+            @TeleportToWeapon.performed -= instance.OnTeleportToWeapon;
+            @TeleportToWeapon.canceled -= instance.OnTeleportToWeapon;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -504,6 +533,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnWeaponThrow(InputAction.CallbackContext context);
+        void OnTeleportToWeapon(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

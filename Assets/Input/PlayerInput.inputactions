@@ -67,6 +67,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TeleportToWeapon",
+                    "type": "Button",
+                    "id": "74ad1caf-5e20-4bdd-9917-b60a1094bbdf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -182,6 +191,17 @@
                 },
                 {
                     "name": "",
+                    "id": "85080e82-3d9e-48f8-86cc-12d852982640",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "WeaponThrow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "62dd9236-5061-462d-a28b-837ac536f4b6",
                     "path": "<Mouse>/scroll",
                     "interactions": "",
@@ -193,12 +213,12 @@
                 },
                 {
                     "name": "",
-                    "id": "85080e82-3d9e-48f8-86cc-12d852982640",
-                    "path": "<Mouse>/rightButton",
+                    "id": "2b993a44-efc3-48c8-bc27-aef050df79bb",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponThrow",
+                    "action": "TeleportToWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

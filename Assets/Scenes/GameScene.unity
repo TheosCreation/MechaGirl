@@ -8378,6 +8378,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
+  canPickup: 0
 --- !u!95 &987869795
 Animator:
   serializedVersion: 7
@@ -13834,6 +13837,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
+  canPickup: 0
 --- !u!82 &1495830614
 AudioSource:
   m_ObjectHideFlags: 0
@@ -14086,6 +14092,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
+  canPickup: 0
 --- !u!82 &1511612814
 AudioSource:
   m_ObjectHideFlags: 0
@@ -22662,7 +22671,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 65.95
+  m_fontSize: 48.8
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1

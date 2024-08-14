@@ -40,8 +40,14 @@ public class Weapon : MonoBehaviour
     private Transform target; // Target to aim at
 
     private PlayerController playerController;
-
+    private WeaponHolder weaponHolder = null;
     private SpriteRenderer spriteRenderer;
+
+
+    public BoxCollider bc;
+    public Rigidbody rb;
+
+    public bool canPickup = false;
 
     private void Awake()
     {
@@ -53,6 +59,9 @@ public class Weapon : MonoBehaviour
         playerController = GetComponentInParent<PlayerController>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        rb = GetComponent<Rigidbody>();
+        bc = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -131,10 +140,7 @@ public class Weapon : MonoBehaviour
         {
             FireProjectile();
         }
-        else
-        {
-            FireHitscan();
-        }
+ 
     }
 
     private void FireProjectile()
@@ -155,14 +161,6 @@ public class Weapon : MonoBehaviour
             }
         }
     }
-
-    private void FireHitscan()
-    {
-        // Fire a raycast from the firing point
-        
-    }
-
-  
 
     private void PlayRandomFiringSound()
     {
@@ -192,4 +190,49 @@ public class Weapon : MonoBehaviour
     {
         target = newTarget;
     }
+    private void OnCollisionEnter(Collision collision)
+    {
+
+        if (collision.gameObject.CompareTag("Player")&&canPickup)
+        {
+            Debug.Log("HGFDSSSDFGH");
+            weaponHolder = collision.gameObject.GetComponentInChildren<WeaponHolder>();
+            PickupWeapon();
+        }
+    }
+    public void EnablePickup()
+    {
+        canPickup = true;
+    }
+    void PickupWeapon()
+    {
+        if (weaponHolder != null)
+        {
+            weaponHolder.AddWeapon(this);
+
+            BoxCollider bc = GetComponent<BoxCollider>();
+            if (bc != null)
+            {
+                bc.enabled = false;
+            }
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+            }
+
+            gameObject.SetActive(true);
+            transform.SetParent(weaponHolder.transform);
+            animator.SetTrigger("Equip");
+            equipTimer.SetTimer(equipTime, Equip);
+            canPickup = false;
+            weaponHolder.currentWeapon = this;
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Animator>().enabled = true;
+
+        }
+    }
+
 }
+
