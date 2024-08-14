@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponHolder : MonoBehaviour
@@ -12,6 +13,8 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.WeaponSwitch.performed += ctx => WeaponSwitch(ctx.ReadValue<Vector2>());
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => currentWeapon.StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => currentWeapon.EndShooting();
+        InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => ThrowWeapon();
+
         weapons = GetComponentsInChildren<Weapon>();
     }
 
@@ -36,7 +39,22 @@ public class WeaponHolder : MonoBehaviour
 
         SelectWeapon(currentWeaponIndex);
     }
-
+    void ThrowWeapon()
+    {
+        if (currentWeapon != null)
+        {
+            if(currentWeaponIndex!= 0) { 
+                currentWeapon.transform.SetParent(null);
+                Rigidbody rb = currentWeapon.gameObject.AddComponent<Rigidbody>();
+                currentWeapon.gameObject.AddComponent<BoxCollider>();
+                rb.isKinematic = false;
+                currentWeapon.GetComponent<SpriteRenderer>().enabled = true;
+                rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
+                Remove(currentWeapon);
+                SelectWeapon(0);
+            }
+        }
+    }
     private void SelectWeapon(int index)
     {
         // Logic to activate the selected weapon and deactivate others
@@ -48,6 +66,38 @@ public class WeaponHolder : MonoBehaviour
                 currentWeapon = weapons[i];
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
             }
+        }
+    }
+    public void Remove(Weapon weapon)
+    {
+        int indexToRemove = -1;
+
+        // Find the index of the weapon to remove
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            if (weapon == weapons[i])
+            {
+                indexToRemove = i;
+                break;
+            }
+        }
+
+        if (indexToRemove != -1)
+        {
+            // Create a new array with one less element
+            Weapon[] newWeapons = new Weapon[weapons.Length - 1];
+            for (int i = 0, j = 0; i < weapons.Length; i++)
+            {
+                if (i != indexToRemove)
+                {
+                    newWeapons[j++] = weapons[i];
+                }
+            }
+            weapons = newWeapons;
+        }
+        else
+        {
+            Debug.LogWarning("Weapon not found in the array.");
         }
     }
 }

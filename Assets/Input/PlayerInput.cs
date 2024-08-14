@@ -80,6 +80,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""WeaponThrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b71d7bc-2a88-4e4c-8485-f5863e3e1f0f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -203,6 +212,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponSwitch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85080e82-3d9e-48f8-86cc-12d852982640"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""WeaponThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -265,6 +285,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_Dash = m_InGame.FindAction("Dash", throwIfNotFound: true);
         m_InGame_Shoot = m_InGame.FindAction("Shoot", throwIfNotFound: true);
         m_InGame_WeaponSwitch = m_InGame.FindAction("WeaponSwitch", throwIfNotFound: true);
+        m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
         // Ui
         m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
         m_Ui_Exit = m_Ui.FindAction("Exit", throwIfNotFound: true);
@@ -336,6 +357,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Dash;
     private readonly InputAction m_InGame_Shoot;
     private readonly InputAction m_InGame_WeaponSwitch;
+    private readonly InputAction m_InGame_WeaponThrow;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -346,6 +368,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Dash => m_Wrapper.m_InGame_Dash;
         public InputAction @Shoot => m_Wrapper.m_InGame_Shoot;
         public InputAction @WeaponSwitch => m_Wrapper.m_InGame_WeaponSwitch;
+        public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -373,6 +396,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponSwitch.started += instance.OnWeaponSwitch;
             @WeaponSwitch.performed += instance.OnWeaponSwitch;
             @WeaponSwitch.canceled += instance.OnWeaponSwitch;
+            @WeaponThrow.started += instance.OnWeaponThrow;
+            @WeaponThrow.performed += instance.OnWeaponThrow;
+            @WeaponThrow.canceled += instance.OnWeaponThrow;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -395,6 +421,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponSwitch.started -= instance.OnWeaponSwitch;
             @WeaponSwitch.performed -= instance.OnWeaponSwitch;
             @WeaponSwitch.canceled -= instance.OnWeaponSwitch;
+            @WeaponThrow.started -= instance.OnWeaponThrow;
+            @WeaponThrow.performed -= instance.OnWeaponThrow;
+            @WeaponThrow.canceled -= instance.OnWeaponThrow;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -474,6 +503,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
+        void OnWeaponThrow(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {
