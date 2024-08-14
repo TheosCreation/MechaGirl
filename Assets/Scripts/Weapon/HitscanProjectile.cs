@@ -1,4 +1,5 @@
 using Runtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,10 +16,10 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected GameObject hitWallPrefab;
     [SerializeField] protected GameObject hitEnemyPrefab;
     [SerializeField] protected GameObject gunTrailPrefab;
-    public override void Initialize(float damage, Transform target, PlayerController pc)
+    public override void Initialize(float damage, Vector3 direction, PlayerController pc)
     {
         playerController = pc;
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
 
         Vector3 targetPoint;
@@ -34,7 +35,7 @@ public class HitscanProjectile : Projectile
         }
 
         // Draw a debug ray to visualize the hitscan raycast
-        Debug.DrawRay(transform.position, transform.forward * 1000f, Color.red, 1.0f);
+        Debug.DrawRay(transform.position, ray.direction, Color.red, 1.0f);
 
         if (gunTrailPrefab != null)
         {
@@ -54,8 +55,6 @@ public class HitscanProjectile : Projectile
             damageable = hit.collider.GetComponent<IDamageable>();
             print(damageable!=null);
         }
-
-        if (playerController)
         
         if (damageable != null)
         {

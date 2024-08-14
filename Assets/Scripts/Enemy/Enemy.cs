@@ -92,6 +92,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
 
