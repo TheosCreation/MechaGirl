@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     [Tab("Setup")]
 
     [Header("Projectile Settings")]
-    [SerializeField] private bool useProjectiles = false;
+    [SerializeField] private bool useProjectiles = true;
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Audio")]
@@ -140,12 +140,12 @@ public class Weapon : MonoBehaviour
     private void FireProjectile()
     {
         if (firingPoint == null || projectilePrefab == null) return;
-
+       
         GameObject projectileObject = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         if (projectile != null)
         {
-            projectile.Initialize(damage, target);
+            projectile.Initialize(damage, target, playerController);
         }
     }
 

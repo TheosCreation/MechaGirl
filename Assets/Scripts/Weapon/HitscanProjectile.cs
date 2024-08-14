@@ -15,10 +15,9 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected GameObject hitWallPrefab;
     [SerializeField] protected GameObject hitEnemyPrefab;
     [SerializeField] protected GameObject gunTrailPrefab;
-    public override void Initialize(float damage, Transform target, PlayerController pc = null)
+    public override void Initialize(float damage, Transform target, PlayerController pc)
     {
         playerController = pc;
-
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
@@ -47,23 +46,32 @@ public class HitscanProjectile : Projectile
     }
     private void HandleHit(RaycastHit hit)
     {
+    
         GameObject hitParticles;
         IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable == null)
         {
             damageable = hit.collider.GetComponent<IDamageable>();
+            print(damageable!=null);
         }
 
+        if (playerController)
+        
         if (damageable != null)
         {
             if (playerController)
             {
                 UiManager.Instance.FlashHitMarker();
+                print("shot from player hit");
+            }
+            else
+            {
+                print("shot from enemy hit");
             }
             if (hit.collider.gameObject.CompareTag("Body"))
             {
                 damageable.Damage(damage);
-                print(damageable.Health);
+          
             }
             else
             {

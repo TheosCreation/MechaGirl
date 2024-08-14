@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    public virtual void Initialize(float damage, Transform target, PlayerController pc = null) { }
+    public virtual void Initialize(float damage, Transform target, PlayerController pc) { }
 
    
 }
