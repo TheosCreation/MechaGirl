@@ -4562,61 +4562,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580729565}
   m_CullTransparentMesh: 1
---- !u!1 &591737041
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 591737042}
-  - component: {fileID: 591737043}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &591737042
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591737041}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &591737043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591737041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66de2df61089154da5c646c9f1b7627, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 4274951009702948806, guid: c706e8195c7015e4283ff288a109fc40, type: 3}
-  - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
-  areaCenter: {fileID: 0}
-  areaSize: {x: 50, y: 1, z: 50}
-  navMeshLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  initialSpawnInterval: 4
-  spawnIntervalDecreaseRate: 0.5
-  minimumSpawnInterval: 2
 --- !u!1 &613645025
 GameObject:
   m_ObjectHideFlags: 0
@@ -11924,17 +11869,6 @@ MonoBehaviour:
   headShotMultiplier: 2
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 193
-  hitParticlesLifetime: 0.2
-  particleOffset: 0.1
-  hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
-    type: 3}
-  hitEnemyPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
-    type: 3}
-  gunTrailPrefab: {fileID: 6681826990249321746, guid: a356371c5d1c5d0428e5bb41492cc4ea,
-    type: 3}
   useProjectiles: 0
   projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
@@ -12122,17 +12056,6 @@ MonoBehaviour:
   headShotMultiplier: 1.5
   screenShakeDuration: 0.02
   screenShakeAmount: 0.03
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 193
-  hitParticlesLifetime: 0.2
-  particleOffset: 0.1
-  hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
-    type: 3}
-  hitEnemyPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
-    type: 3}
-  gunTrailPrefab: {fileID: 6681826990249321746, guid: a356371c5d1c5d0428e5bb41492cc4ea,
-    type: 3}
   useProjectiles: 0
   projectilePrefab: {fileID: 0}
   shootingSource: {fileID: 1511612814}
@@ -19978,7 +19901,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48.8
+  m_fontSize: 65.95
   m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -20833,5 +20756,4 @@ SceneRoots:
   - {fileID: 1165862978}
   - {fileID: 1646142718}
   - {fileID: 1842574343}
-  - {fileID: 591737042}
   - {fileID: 1543548494}
