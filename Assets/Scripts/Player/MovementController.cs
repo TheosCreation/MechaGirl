@@ -49,6 +49,7 @@ public class MovementController : MonoBehaviour
         if (isGrounded)
         {
             SetGravity(false);
+            AddForce(Vector3.down * 0.05f);
             if (!movement && useFriction)
             {
                 ApplyFriction(friction);
