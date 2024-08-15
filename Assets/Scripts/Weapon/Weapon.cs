@@ -17,8 +17,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private bool canShoot = true;
     [SerializeField] private bool isShooting = false;
     [SerializeField] private float shootsPerSecond = 1.0f;
-    [SerializeField] private float damage = 10.0f;
-    [SerializeField] private float headShotMultiplier = 1.5f;
     private float shootTimer = 0.0f;
 
     [Header("Screen Shake")]
@@ -36,7 +34,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private AudioSource shootingSource;
     [SerializeField] private AudioClip[] shootingSounds;
 
-    private Animator animator;
+    protected Animator animator;
     private Transform target; // Target to aim at
 
     private PlayerController playerController;
@@ -164,7 +162,7 @@ public class Weapon : MonoBehaviour
         isShooting = true;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (!isEquip) return;
 

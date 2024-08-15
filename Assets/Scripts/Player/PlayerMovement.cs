@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool canDash = true;
     [SerializeField] private float dashForce = 15.0f;
     [SerializeField] private float dashDuration = 0.2f;
-    [SerializeField] private float dashCooldown = 1.0f;
+    [SerializeField] private float dashCooldown = 2.0f;
 
     Vector2 movementInput = Vector2.zero;
 
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
         movementController = GetComponent<MovementController>();
 
         InputManager.Instance.playerInput.InGame.Jump.started += _ctx => Jump();
-        InputManager.Instance.playerInput.InGame.Dash.started += _ctx => Dash();
+        InputManager.Instance.playerInput.InGame.Dash.started += _ctx => Dash(transform.forward, dashForce, dashDuration);
 
         jumpTimer = gameObject.AddComponent<Timer>();
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
@@ -123,16 +123,18 @@ public class PlayerMovement : MonoBehaviour
 
     public void Teleport(Vector3 targetPosition)
     {
-
+        Vector3 dashDirection = (targetPosition - transform.position).normalized;
+        float distance = Vector3.Distance(transform.position, targetPosition);
+        float scaledDashForce = dashForce * (1 + (distance * 0.1f)) * 0.5f;
+        Dash(dashDirection, scaledDashForce, dashDuration * 1.5f, true);
     }
 
-    void Dash()
+    void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
     {
         if (canDash)
         {
-            Vector3 dashDirection = transform.forward;
             // If input detected then apply it
-            if (movementInput.sqrMagnitude > Mathf.Epsilon)
+            if (movementInput.sqrMagnitude > Mathf.Epsilon && !ignoreInput)
             {
                 dashDirection = new Vector3(movementInput.x, 0, movementInput.y);
                 dashDirection.Normalize();

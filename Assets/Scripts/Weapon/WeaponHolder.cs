@@ -61,7 +61,6 @@ public class WeaponHolder : MonoBehaviour
             if (lastThrowWeapon != null)
             {
                 playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-                lastThrowWeapon = null;
             }
         }
     }

@@ -45,7 +45,6 @@ public class HitscanProjectile : Projectile
         if (damageable == null)
         {
             damageable = hit.collider.GetComponent<IDamageable>();
-            print(damageable!=null);
         }
         
         if (damageable != null)
@@ -53,12 +52,8 @@ public class HitscanProjectile : Projectile
             if (fromPlayer)
             {
                 UiManager.Instance.FlashHitMarker();
-                print("shot from player hit");
             }
-            else
-            {
-                print("shot from enemy hit");
-            }
+
             if (hit.collider.gameObject.CompareTag("Body") || hit.collider.gameObject.CompareTag("Player"))
             {
                 damageable.Damage(damage);

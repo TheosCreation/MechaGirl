@@ -1578,7 +1578,7 @@ Transform:
   m_GameObject: {fileID: 7564707813662068295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19999999, y: 1.22, z: 0.019000053}
+  m_LocalPosition: {x: 0, y: 1.1200001, z: 0.019000053}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1770,14 +1770,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 0f8f35af6c026a94785ef6756f8899ac, type: 3}
+  Sprite: {fileID: 21300000, guid: e053954b093a6fb40a1cce598747db21, type: 3}
   isEquip: 0
   equipTime: 0.3
   canShoot: 1
   isShooting: 0
   shootsPerSecond: 1.5
-  damage: 50
-  headShotMultiplier: 2
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0

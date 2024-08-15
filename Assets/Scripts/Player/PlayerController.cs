@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         if (other.gameObject.CompareTag("Weapon"))
         {
-            Debug.Log("wow ive hit a weapon lets try pick it up");
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
             weapon.PickUp(weaponHolder);
         }

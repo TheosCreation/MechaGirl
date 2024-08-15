@@ -89,8 +89,5 @@ public class TriggerDoor : MonoBehaviour
 
         // Scale the animator speed based on horizontal speed
         _animator.speed = minAnimSpeed + horizontalSpeed * speedMultiplier;
-
-        // Optional: Log the values for debugging
-        Debug.Log($"Horizontal Speed: {horizontalSpeed}, Animator Speed: {_animator.speed}");
     }
 }
