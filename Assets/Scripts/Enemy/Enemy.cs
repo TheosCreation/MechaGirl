@@ -5,7 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour, IDamageable
 {
     [HideInInspector] public NavMeshAgent agent;
-    [HideInInspector] public Animator animator;
+    public Animator animator;
     [HideInInspector] public Transform target;
     public EnemyStateMachine StateMachine;
 
@@ -45,7 +45,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
         Health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()

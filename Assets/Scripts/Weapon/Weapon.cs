@@ -17,42 +17,46 @@ public class Weapon : MonoBehaviour
     [SerializeField] private bool canShoot = true;
     [SerializeField] private bool isShooting = false;
     [SerializeField] private float shootsPerSecond = 1.0f;
-    [SerializeField] private float damage = 10.0f;
-    [SerializeField] private float headShotMultiplier = 1.5f;
     private float shootTimer = 0.0f;
 
     [Header("Screen Shake")]
     [Range(0.0f, 0.1f)][SerializeField] private float screenShakeDuration = 0.1f;
     [Range(0.0f, 0.1f)][SerializeField] private float screenShakeAmount = 0.1f;
 
-    [Tab("Setup")]
+    [Header("Pick Up")]
+    [SerializeField] private bool canPickup = true; // moved up to settings tab so easily visable
 
+    [Tab("Setup")]
     [Header("Projectile Settings")]
-    [SerializeField] private bool useProjectiles = true;
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Audio")]
     [SerializeField] private AudioSource shootingSource;
     [SerializeField] private AudioClip[] shootingSounds;
 
-    private Animator animator;
-    private Transform firingPoint; // The point from which projectiles are fired
+    protected Animator animator;
     private Transform target; // Target to aim at
 
     private PlayerController playerController;
-
     private SpriteRenderer spriteRenderer;
+
+    private BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    private Rigidbody rb;
+    private Timer pickupTimer;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        firingPoint = transform;
 
         equipTimer = gameObject.AddComponent<Timer>();
+        pickupTimer = gameObject.AddComponent<Timer>();
 
         playerController = GetComponentInParent<PlayerController>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        rb = GetComponent<Rigidbody>();
+        bc = GetComponent<BoxCollider>();
     }
 
     private void Update()
@@ -87,20 +91,65 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        animator.SetTrigger("Equip");
-
-        equipTimer.SetTimer(equipTime, Equip);
-    }
-
-    void Equip()
-    {
-        isEquip = true;
+        Equip();
     }
 
     private void OnDisable()
     {
         equipTimer.StopTimer();
         isEquip = false;
+    }
+
+    private void Equip()
+    {
+        bc.enabled = false;
+        rb.isKinematic = true;
+        animator.enabled = true;
+
+        if(playerController != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        animator.SetTrigger("Equip");
+
+        equipTimer.SetTimer(equipTime, EquipFinish);
+    }
+
+    private void EquipFinish()
+    {
+        isEquip = true;
+    }
+
+    public void Throw(Vector3 direction, float throwForce, float pickUpDelay)
+    {
+        transform.SetParent(null);
+
+        rb.isKinematic = false;
+        rb.AddForce(direction * throwForce, ForceMode.Impulse);
+
+        bc.enabled = true;
+        spriteRenderer.enabled = true;
+        animator.enabled = false;
+
+        //stop timer incase of repeat
+        pickupTimer.StopTimer();
+        pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
+
+        //disable script just like unequiping the weapon
+        this.enabled = false;
+    }
+
+    public void PickUp(WeaponHolder weaponHolder)
+    {
+        if(!canPickup) return;
+        canPickup = false;
+
+        //this will attach it to the weapon holder game object and add it to the weapons array
+        weaponHolder.AddWeapon(this);
+
+        //will disable unwanted stuff, will not play anims
+        Equip();
     }
 
     float CalculateFireRate()
@@ -113,7 +162,7 @@ public class Weapon : MonoBehaviour
         isShooting = true;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (!isEquip) return;
 
@@ -127,35 +176,40 @@ public class Weapon : MonoBehaviour
 
         PlayRandomFiringSound();
 
-        if (true)
-        {
-            FireProjectile();
-        }
-        else
-        {
-            FireHitscan();
-        }
+        FireProjectile();
     }
 
     private void FireProjectile()
     {
-        if (firingPoint == null || projectilePrefab == null) return;
-       
-        GameObject projectileObject = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile has not been set");
+            return;
+        }
+        Quaternion rotation = Quaternion.identity;
+        if (playerController)
+        {
+            rotation = playerController.playerCamera.transform.rotation;
+        }
+        else
+        {
+            rotation = transform.rotation;
+        }
+
+        GameObject projectileObject = Instantiate(projectilePrefab, transform.position, rotation);
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         if (projectile != null)
         {
-            projectile.Initialize(damage, target, playerController);
+            if(playerController)
+            {
+                projectile.Initialize(playerController.playerCamera.transform.forward, true);
+            }
+            else
+            {
+                projectile.Initialize(transform.transform.forward, false);
+            }
         }
     }
-
-    private void FireHitscan()
-    {
-        // Fire a raycast from the firing point
-        
-    }
-
-  
 
     private void PlayRandomFiringSound()
     {
@@ -176,13 +230,9 @@ public class Weapon : MonoBehaviour
         animator.SetBool("isWalking", isWalking);
     }
 
-    public void SetFiringPoint(Transform newFiringPoint)
-    {
-        firingPoint = newFiringPoint;
-    }
-
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
     }
 }
+

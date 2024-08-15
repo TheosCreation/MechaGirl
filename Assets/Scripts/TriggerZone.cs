@@ -13,6 +13,8 @@ public class TriggerZone : MonoBehaviour
     // This method is called when another collider enters the trigger zone
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player") return;
+
         if(active || reuseable)
         {
             onTriggerEnter?.Invoke();

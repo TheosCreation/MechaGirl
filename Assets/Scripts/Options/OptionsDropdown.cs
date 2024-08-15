@@ -7,17 +7,15 @@ public class OptionsDropdown : OptionsBase
 {
     private TMP_Dropdown dropdown;
     private Button resetButton;
-    private Action<int> updateValueAction;
-    private string playerPrefKey;
-    private int defaultValue;
+    private Action<IntSetting> updateValueAction;
+    private IntSetting intSetting;
 
-    public OptionsDropdown(TMP_Dropdown dropdown, Button resetButton, Action<int> updateValueAction, string playerPrefKey, int defaultValue)
+    public OptionsDropdown(TMP_Dropdown dropdown, Button resetButton, Action<IntSetting> updateValueAction, IntSetting intSetting)
     {
         this.dropdown = dropdown;
         this.resetButton = resetButton;
         this.updateValueAction = updateValueAction;
-        this.playerPrefKey = playerPrefKey;
-        this.defaultValue = defaultValue;
+        this.intSetting = intSetting;
     }
 
     public override void Initialize()
@@ -26,7 +24,7 @@ public class OptionsDropdown : OptionsBase
         {
             int value = GetPlayerPrefValue();
             dropdown.value = value;
-            updateValueAction(value);
+            updateValueAction(intSetting);
 
             dropdown.onValueChanged.AddListener(OnDropdownValueChanged);
         }
@@ -49,28 +47,31 @@ public class OptionsDropdown : OptionsBase
             resetButton.onClick.RemoveListener(ResetToDefault);
         }
     }
-
+    public override void Update()
+    {
+        updateValueAction(intSetting);
+    }
     private void OnDropdownValueChanged(int value)
     {
         SaveValue(value);
-        updateValueAction(value);
+        updateValueAction(intSetting);
     }
 
     private void SaveValue(int value)
     {
-        PlayerPrefs.SetInt(playerPrefKey, value);
+        PlayerPrefs.SetInt(intSetting.name, value);
         PlayerPrefs.Save();
     }
 
     private int GetPlayerPrefValue()
     {
-        return PlayerPrefs.GetInt(playerPrefKey, defaultValue);
+        return PlayerPrefs.GetInt(intSetting.name, intSetting.defaultValue);
     }
 
     public void ResetToDefault()
     {
-        dropdown.value = defaultValue;
-        SaveValue(defaultValue);
-        updateValueAction(defaultValue);
+        dropdown.value = intSetting.defaultValue;
+        SaveValue(intSetting.defaultValue);
+        updateValueAction(intSetting);
     }
 }

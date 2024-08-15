@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 {
     [HideInInspector] public Camera playerCamera;
     [HideInInspector] public PlayerLook playerLook;
+    [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public WeaponHolder weaponHolder;
 
     public int maxHealth = 100;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         playerCamera = GetComponentInChildren<Camera>();
         playerLook = GetComponent<PlayerLook>();
+        playerMovement = GetComponent<PlayerMovement>();
         weaponHolder = GetComponentInChildren<WeaponHolder>();
     }
 
@@ -58,5 +60,12 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Destroy(gameObject);
     }
 
-    
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Weapon"))
+        {
+            Weapon weapon = other.gameObject.GetComponent<Weapon>();
+            weapon.PickUp(weaponHolder);
+        }
+    }
 }

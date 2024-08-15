@@ -6,17 +6,15 @@ public class OptionsToggle : OptionsBase
 {
     private Toggle toggle;
     private Button resetButton;
-    private Action<bool> updateValueAction;
-    private string playerPrefKey;
-    private bool defaultValue;
+    private Action<BoolSetting> updateValueAction;
+    private BoolSetting boolSetting;
 
-    public OptionsToggle(Toggle toggle, Button resetButton, Action<bool> updateValueAction, string playerPrefKey, bool defaultValue)
+    public OptionsToggle(Toggle toggle, Button resetButton, Action<BoolSetting> updateValueAction, BoolSetting boolSetting)
     {
         this.toggle = toggle;
         this.resetButton = resetButton;
         this.updateValueAction = updateValueAction;
-        this.playerPrefKey = playerPrefKey;
-        this.defaultValue = defaultValue;
+        this.boolSetting = boolSetting;
     }
 
     public override void Initialize()
@@ -25,7 +23,7 @@ public class OptionsToggle : OptionsBase
         {
             bool value = GetPlayerPrefValue();
             toggle.isOn = value;
-            updateValueAction(value);
+            updateValueAction(boolSetting);
 
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
@@ -48,16 +46,20 @@ public class OptionsToggle : OptionsBase
             resetButton.onClick.RemoveListener(ResetToDefault);
         }
     }
+    public override void Update()
+    {
+        updateValueAction(boolSetting);
+    }
 
     private void OnToggleValueChanged(bool value)
     {
         SaveValue(value);
-        updateValueAction(value);
+        updateValueAction(boolSetting);
     }
 
     private void SaveValue(bool value)
     {
-        PlayerPrefs.SetInt(playerPrefKey, value ? 1 : 0);
+        PlayerPrefs.SetInt(boolSetting.name, value ? 1 : 0);
 
         // Add more types as needed
         PlayerPrefs.Save();
@@ -65,16 +67,16 @@ public class OptionsToggle : OptionsBase
 
     private bool GetPlayerPrefValue()
     {
-        return PlayerPrefs.GetInt(playerPrefKey, defaultValue ? 1 : 0) == 1;
+        return PlayerPrefs.GetInt(boolSetting.name, boolSetting.defaultValue ? 1 : 0) == 1;
     }
 
     public void ResetToDefault()
     {
         if (toggle != null)
         {
-            toggle.isOn = defaultValue;
-            SaveValue(defaultValue);
-            updateValueAction(defaultValue);
+            toggle.isOn = boolSetting.defaultValue;
+            SaveValue(boolSetting.defaultValue);
+            updateValueAction(boolSetting);
         }
     }
 }
