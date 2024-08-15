@@ -9,14 +9,15 @@ public class WeaponHolder : MonoBehaviour
     public Weapon currentWeapon;
     private Weapon lastThrowWeapon;
     private int currentWeaponIndex = 0;
+    [SerializeField] private float throwForce = 10.0f;
+    [SerializeField] private float pickUpDelay = 1.0f;
 
     private void Awake()
     {
         InputManager.Instance.playerInput.InGame.WeaponSwitch.performed += ctx => WeaponSwitch(ctx.ReadValue<Vector2>());
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => currentWeapon.StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => currentWeapon.EndShooting();
-        InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => ThrowWeapon();
-        InputManager.Instance.playerInput.InGame.TeleportToWeapon.started += _ctx => Teleport();
+        InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
         playerController = GetComponentInParent<PlayerController>();
 
         weapons = GetComponentsInChildren<Weapon>();
@@ -43,55 +44,53 @@ public class WeaponHolder : MonoBehaviour
 
         SelectWeapon(currentWeaponIndex);
     }
-    void ThrowWeapon()
+
+    void TryThrowWeapon()
     {
         if (currentWeaponIndex != 0)
         {
             lastThrowWeapon = currentWeapon;
-            currentWeapon.transform.SetParent(null);
-
-            Rigidbody rb = currentWeapon.GetComponent<Rigidbody>();
-            if (rb == null)
-            {
-                rb = currentWeapon.gameObject.AddComponent<Rigidbody>();
-            }
-            rb.isKinematic = false;
-
-            BoxCollider bc = currentWeapon.GetComponent<BoxCollider>();
-            if (bc == null)
-            {
-                bc = currentWeapon.gameObject.AddComponent<BoxCollider>();
-            }
-            bc.enabled = true;
-
-            currentWeapon.GetComponent<SpriteRenderer>().enabled = true;
-            currentWeapon.GetComponent<Animator>().enabled = false;
-            rb.AddForce(transform.forward * 10f, ForceMode.Impulse);
-
-            Timer pickupTimer = gameObject.AddComponent<Timer>();
-            pickupTimer.SetTimer(1, currentWeapon.EnablePickup);
-            Destroy(pickupTimer, 2);
+            currentWeapon.Throw(playerController.playerCamera.transform.forward, throwForce, pickUpDelay);
 
             Remove(currentWeapon);
+
             SelectWeapon(0);
         }
-    }
-
-
-    void Teleport()
-    {
-        if (lastThrowWeapon != null)
+        else
         {
-            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+            if (lastThrowWeapon != null)
+            {
+                playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+                lastThrowWeapon = null;
+            }
         }
     }
-     public void AddWeapon(Weapon weapon)
+
+    //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
+    public void AddWeapon(Weapon weapon)
     {
-        List<Weapon> weaponList = new List<Weapon>(weapons);
-        weaponList.Add(weapon);
-        weapons = weaponList.ToArray();
-        weapon.gameObject.SetActive(false); // Deactivate the weapon until it's selected again
+        // Create a new array with an additional slot
+        Weapon[] newWeaponsArray = new Weapon[weapons.Length + 1];
+
+        // Copy the existing weapons to the new array
+        for (int i = 0; i < weapons.Length; i++)
+        {
+            newWeaponsArray[i] = weapons[i];
+        }
+
+        // Add the new weapon to the end
+        newWeaponsArray[weapons.Length] = weapon;
+
+        // Replace the old array with the new one
+        weapons = newWeaponsArray;
+
+        weapon.enabled = false; //disable the weapon script as the game object stays active
+        weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
+        weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
+
+        SelectWeapon(weapons.Length - 1);
     }
+
     private void SelectWeapon(int index)
     {
         // Logic to activate the selected weapon and deactivate others
@@ -100,11 +99,13 @@ public class WeaponHolder : MonoBehaviour
             weapons[i].enabled = i == index;
             if (i == index)
             {
+                currentWeaponIndex = index;
                 currentWeapon = weapons[i];
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
             }
         }
     }
+
     public void Remove(Weapon weapon)
     {
         int indexToRemove = -1;

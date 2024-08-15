@@ -1,24 +1,17 @@
 using Runtime;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HitscanProjectile : Projectile 
 {
-
-
     [Tab("Setup")]
     [SerializeField] protected float headShotMultiplier = 1.5f;
-    [SerializeField] protected LayerMask hitMask;
     [SerializeField] protected float hitParticlesLifetime = 1.0f;
     [SerializeField] protected float particleOffset = 0.1f;
     [SerializeField] protected GameObject hitWallPrefab;
     [SerializeField] protected GameObject hitEnemyPrefab;
     [SerializeField] protected GameObject gunTrailPrefab;
-    public override void Initialize(float damage, Vector3 direction, PlayerController pc)
+    public override void Initialize(Vector3 direction, bool fromPlayer)
     {
-        playerController = pc;
         Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
 
@@ -26,12 +19,12 @@ public class HitscanProjectile : Projectile
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitMask))
         {
             targetPoint = hit.point;
-            HandleHit(hit);
+            HandleHit(hit, fromPlayer);
        
         }
         else
         {
-            targetPoint = transform.position + transform.forward * 1000f;
+            targetPoint = transform.position + direction * 1000f;
         }
 
         // Draw a debug ray to visualize the hitscan raycast
@@ -45,9 +38,8 @@ public class HitscanProjectile : Projectile
             trail.hitnormal = hit.normal;
         }
     }
-    private void HandleHit(RaycastHit hit)
+    private void HandleHit(RaycastHit hit, bool fromPlayer)
     {
-    
         GameObject hitParticles;
         IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable == null)
@@ -58,7 +50,7 @@ public class HitscanProjectile : Projectile
         
         if (damageable != null)
         {
-            if (playerController)
+            if (fromPlayer)
             {
                 UiManager.Instance.FlashHitMarker();
                 print("shot from player hit");
@@ -67,7 +59,7 @@ public class HitscanProjectile : Projectile
             {
                 print("shot from enemy hit");
             }
-            if (hit.collider.gameObject.CompareTag("Body"))
+            if (hit.collider.gameObject.CompareTag("Body") || hit.collider.gameObject.CompareTag("Player"))
             {
                 damageable.Damage(damage);
           

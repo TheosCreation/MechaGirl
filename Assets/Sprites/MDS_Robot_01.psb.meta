@@ -96,8 +96,8 @@ ScriptedImporter:
   layeredSpriteImportData:
   - name: Head
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -1033,8 +1033,8 @@ ScriptedImporter:
     spritePosition: {x: 144, y: 1399}
   - name: Arm_R
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -1807,8 +1807,8 @@ ScriptedImporter:
     spritePosition: {x: 546, y: 1214}
   - name: Chest_Front
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -2807,8 +2807,8 @@ ScriptedImporter:
     spritePosition: {x: 184, y: 1160}
   - name: Thigh_R
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -3736,8 +3736,8 @@ ScriptedImporter:
     spritePosition: {x: 354, y: 599}
   - name: Leg_R
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -4591,8 +4591,8 @@ ScriptedImporter:
     spritePosition: {x: 510, y: 308}
   - name: Thigh_L
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -5499,12 +5499,12 @@ ScriptedImporter:
     spritePosition: {x: 220, y: 508}
   - name: Leg_L
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 525
+      x: 529
       y: 624
       width: 192
       height: 612
@@ -7125,8 +7125,8 @@ ScriptedImporter:
     spritePosition: {x: 322, y: 1017}
   - name: Chest_Back
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -7873,8 +7873,8 @@ ScriptedImporter:
     spritePosition: {x: 237, y: 1182}
   - name: Arm_L
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -8656,8 +8656,8 @@ ScriptedImporter:
     spritePosition: {x: 115, y: 1103}
   - name: Ass
     originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    pivot: {x: 1, y: 0}
+    alignment: 8
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2

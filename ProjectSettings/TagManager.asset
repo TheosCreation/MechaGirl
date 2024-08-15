@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Head
   - Body
+  - Weapon
   - New tag
   layers:
   - Default
@@ -18,7 +19,7 @@ TagManager:
   - Enemy
   - Interactables
   - Trigger
-  - 
+  - Weapons
   - 
   - 
   - 
@@ -43,4 +44,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Weapons
+    uniqueID: 3857941233
     locked: 0

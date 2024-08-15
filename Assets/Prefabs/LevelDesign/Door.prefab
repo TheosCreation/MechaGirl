@@ -404,4 +404,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
+  speedMultiplier: 0.1
   overlay: {fileID: 372439730463222059}

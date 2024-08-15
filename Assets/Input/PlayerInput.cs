@@ -91,7 +91,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""TeleportToWeapon"",
+                    ""name"": ""WeaponPickUp"",
                     ""type"": ""Button"",
                     ""id"": ""74ad1caf-5e20-4bdd-9917-b60a1094bbdf"",
                     ""expectedControlType"": ""Button"",
@@ -240,7 +240,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""TeleportToWeapon"",
+                    ""action"": ""WeaponPickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -306,7 +306,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_Shoot = m_InGame.FindAction("Shoot", throwIfNotFound: true);
         m_InGame_WeaponSwitch = m_InGame.FindAction("WeaponSwitch", throwIfNotFound: true);
         m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
-        m_InGame_TeleportToWeapon = m_InGame.FindAction("TeleportToWeapon", throwIfNotFound: true);
+        m_InGame_WeaponPickUp = m_InGame.FindAction("WeaponPickUp", throwIfNotFound: true);
         // Ui
         m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
         m_Ui_Exit = m_Ui.FindAction("Exit", throwIfNotFound: true);
@@ -379,7 +379,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Shoot;
     private readonly InputAction m_InGame_WeaponSwitch;
     private readonly InputAction m_InGame_WeaponThrow;
-    private readonly InputAction m_InGame_TeleportToWeapon;
+    private readonly InputAction m_InGame_WeaponPickUp;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -391,7 +391,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_InGame_Shoot;
         public InputAction @WeaponSwitch => m_Wrapper.m_InGame_WeaponSwitch;
         public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
-        public InputAction @TeleportToWeapon => m_Wrapper.m_InGame_TeleportToWeapon;
+        public InputAction @WeaponPickUp => m_Wrapper.m_InGame_WeaponPickUp;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -422,9 +422,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponThrow.started += instance.OnWeaponThrow;
             @WeaponThrow.performed += instance.OnWeaponThrow;
             @WeaponThrow.canceled += instance.OnWeaponThrow;
-            @TeleportToWeapon.started += instance.OnTeleportToWeapon;
-            @TeleportToWeapon.performed += instance.OnTeleportToWeapon;
-            @TeleportToWeapon.canceled += instance.OnTeleportToWeapon;
+            @WeaponPickUp.started += instance.OnWeaponPickUp;
+            @WeaponPickUp.performed += instance.OnWeaponPickUp;
+            @WeaponPickUp.canceled += instance.OnWeaponPickUp;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -450,9 +450,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponThrow.started -= instance.OnWeaponThrow;
             @WeaponThrow.performed -= instance.OnWeaponThrow;
             @WeaponThrow.canceled -= instance.OnWeaponThrow;
-            @TeleportToWeapon.started -= instance.OnTeleportToWeapon;
-            @TeleportToWeapon.performed -= instance.OnTeleportToWeapon;
-            @TeleportToWeapon.canceled -= instance.OnTeleportToWeapon;
+            @WeaponPickUp.started -= instance.OnWeaponPickUp;
+            @WeaponPickUp.performed -= instance.OnWeaponPickUp;
+            @WeaponPickUp.canceled -= instance.OnWeaponPickUp;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -533,7 +533,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnWeaponThrow(InputAction.CallbackContext context);
-        void OnTeleportToWeapon(InputAction.CallbackContext context);
+        void OnWeaponPickUp(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

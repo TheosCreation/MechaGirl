@@ -25,10 +25,11 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] private float screenShakeDuration = 0.1f;
     [Range(0.0f, 0.1f)][SerializeField] private float screenShakeAmount = 0.1f;
 
-    [Tab("Setup")]
+    [Header("Pick Up")]
+    [SerializeField] private bool canPickup = true; // moved up to settings tab so easily visable
 
+    [Tab("Setup")]
     [Header("Projectile Settings")]
-    [SerializeField] private bool useProjectiles = true;
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Audio")]
@@ -36,25 +37,21 @@ public class Weapon : MonoBehaviour
     [SerializeField] private AudioClip[] shootingSounds;
 
     private Animator animator;
-    private Transform firingPoint; // The point from which projectiles are fired
     private Transform target; // Target to aim at
 
     private PlayerController playerController;
-    private WeaponHolder weaponHolder = null;
     private SpriteRenderer spriteRenderer;
 
-
-    public BoxCollider bc;
-    public Rigidbody rb;
-
-    public bool canPickup = false;
+    private BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    private Rigidbody rb;
+    private Timer pickupTimer;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        firingPoint = transform;
 
         equipTimer = gameObject.AddComponent<Timer>();
+        pickupTimer = gameObject.AddComponent<Timer>();
 
         playerController = GetComponentInParent<PlayerController>();
 
@@ -96,20 +93,65 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        animator.SetTrigger("Equip");
-
-        equipTimer.SetTimer(equipTime, Equip);
-    }
-
-    void Equip()
-    {
-        isEquip = true;
+        Equip();
     }
 
     private void OnDisable()
     {
         equipTimer.StopTimer();
         isEquip = false;
+    }
+
+    private void Equip()
+    {
+        bc.enabled = false;
+        rb.isKinematic = true;
+        animator.enabled = true;
+
+        if(playerController != null)
+        {
+            spriteRenderer.enabled = false;
+        }
+
+        animator.SetTrigger("Equip");
+
+        equipTimer.SetTimer(equipTime, EquipFinish);
+    }
+
+    private void EquipFinish()
+    {
+        isEquip = true;
+    }
+
+    public void Throw(Vector3 direction, float throwForce, float pickUpDelay)
+    {
+        transform.SetParent(null);
+
+        rb.isKinematic = false;
+        rb.AddForce(direction * throwForce, ForceMode.Impulse);
+
+        bc.enabled = true;
+        spriteRenderer.enabled = true;
+        animator.enabled = false;
+
+        //stop timer incase of repeat
+        pickupTimer.StopTimer();
+        pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
+
+        //disable script just like unequiping the weapon
+        this.enabled = false;
+    }
+
+    public void PickUp(WeaponHolder weaponHolder)
+    {
+        if(!canPickup) return;
+        canPickup = false;
+
+        //this will attach it to the weapon holder game object and add it to the weapons array
+        weaponHolder.AddWeapon(this);
+
+        //will disable unwanted stuff, will not play anims
+        Equip();
     }
 
     float CalculateFireRate()
@@ -136,28 +178,37 @@ public class Weapon : MonoBehaviour
 
         PlayRandomFiringSound();
 
-        if (true)
-        {
-            FireProjectile();
-        }
- 
+        FireProjectile();
     }
 
     private void FireProjectile()
     {
-        if (firingPoint == null || projectilePrefab == null) return;
-       
-        GameObject projectileObject = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile has not been set");
+            return;
+        }
+        Quaternion rotation = Quaternion.identity;
+        if (playerController)
+        {
+            rotation = playerController.playerCamera.transform.rotation;
+        }
+        else
+        {
+            rotation = transform.rotation;
+        }
+
+        GameObject projectileObject = Instantiate(projectilePrefab, transform.position, rotation);
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         if (projectile != null)
         {
             if(playerController)
             {
-                projectile.Initialize(damage, playerController.playerCamera.transform.forward, playerController);
+                projectile.Initialize(playerController.playerCamera.transform.forward, true);
             }
             else
             {
-                projectile.Initialize(damage, firingPoint.transform.forward, playerController);
+                projectile.Initialize(transform.transform.forward, false);
             }
         }
     }
@@ -181,58 +232,9 @@ public class Weapon : MonoBehaviour
         animator.SetBool("isWalking", isWalking);
     }
 
-    public void SetFiringPoint(Transform newFiringPoint)
-    {
-        firingPoint = newFiringPoint;
-    }
-
     public void SetTarget(Transform newTarget)
     {
         target = newTarget;
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-
-        if (collision.gameObject.CompareTag("Player")&&canPickup)
-        {
-            Debug.Log("HGFDSSSDFGH");
-            weaponHolder = collision.gameObject.GetComponentInChildren<WeaponHolder>();
-            PickupWeapon();
-        }
-    }
-    public void EnablePickup()
-    {
-        canPickup = true;
-    }
-    void PickupWeapon()
-    {
-        if (weaponHolder != null)
-        {
-            weaponHolder.AddWeapon(this);
-
-            BoxCollider bc = GetComponent<BoxCollider>();
-            if (bc != null)
-            {
-                bc.enabled = false;
-            }
-
-            Rigidbody rb = GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-            }
-
-            gameObject.SetActive(true);
-            transform.SetParent(weaponHolder.transform);
-            animator.SetTrigger("Equip");
-            equipTimer.SetTimer(equipTime, Equip);
-            canPickup = false;
-            weaponHolder.currentWeapon = this;
-            GetComponent<SpriteRenderer>().enabled = false;
-            GetComponent<Animator>().enabled = true;
-
-        }
-    }
-
 }
 

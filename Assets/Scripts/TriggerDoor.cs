@@ -1,12 +1,13 @@
 using Unity.AI.Navigation;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class TriggerDoor : MonoBehaviour
 {
     private Animator _animator;
     [SerializeField] private bool locked = false;
     private NavMeshSurface _navMeshSurface;
+    [SerializeField] private float minAnimSpeed = 1.0f;
+    [SerializeField] private float speedMultiplier = 0.1f;
 
     [SerializeField] private GameObject overlay;
 
@@ -28,6 +29,18 @@ public class TriggerDoor : MonoBehaviour
         if (other.CompareTag("Player") && !locked)
         {
             _animator.SetBool("Open", true);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && !locked)
+        {
+            Rigidbody playerRb = other.GetComponent<Rigidbody>();
+            if (playerRb != null)
+            {
+                AdjustDoorAnimationByPlayerSpeed(playerRb);
+            }
         }
     }
 
@@ -66,5 +79,18 @@ public class TriggerDoor : MonoBehaviour
         {
             overlay.SetActive(locked);
         }
+    }
+
+    public void AdjustDoorAnimationByPlayerSpeed(Rigidbody rb)
+    {
+        // Get the horizontal velocity magnitude
+        Vector3 horizontalVelocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
+        float horizontalSpeed = horizontalVelocity.magnitude;
+
+        // Scale the animator speed based on horizontal speed
+        _animator.speed = minAnimSpeed + horizontalSpeed * speedMultiplier;
+
+        // Optional: Log the values for debugging
+        Debug.Log($"Horizontal Speed: {horizontalSpeed}, Animator Speed: {_animator.speed}");
     }
 }

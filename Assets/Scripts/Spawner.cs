@@ -32,14 +32,28 @@ public class Spawner : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        // Spawn the enemies so the total enemy count is met
-        for (int i = 0; i < enemyCountToSpawn; i++)
+        int spawnedEnemies = 0;
+        int maxRetries = 100; // Set a limit to prevent an infinite loop
+
+        while (spawnedEnemies < enemyCountToSpawn && maxRetries > 0)
         {
-            SpawnEnemy();
+            if (SpawnEnemy())
+            {
+                spawnedEnemies++;
+            }
+            else
+            {
+                maxRetries--;
+            }
+        }
+
+        if (spawnedEnemies < enemyCountToSpawn)
+        {
+            Debug.LogWarning($"Only {spawnedEnemies} out of {enemyCountToSpawn} enemies were spawned successfully.");
         }
     }
 
-    private void SpawnEnemy()
+    private bool SpawnEnemy()
     {
         Vector3 randomPoint = GetRandomPointInArea();
 
@@ -60,12 +74,12 @@ public class Spawner : MonoBehaviour
                 {
                     enemy.SetTarget(player.transform);
                 }
+                return true;
             }
         }
-        else
-        {
-            Debug.LogWarning("Failed to find a valid point on the NavMesh. No enemy spawned this iteration.");
-        }
+
+        Debug.Log("Failed to find a valid point on the NavMesh. Trying again");
+        return false;
     }
 
     private GameObject GetRandomEnemyToSpawn()

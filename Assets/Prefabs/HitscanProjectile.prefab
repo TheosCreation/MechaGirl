@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7403473240689948015}
-  - component: {fileID: 481801669585364761}
+  - component: {fileID: 134945111961687759}
   m_Layer: 0
   m_Name: HitscanProjectile
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &481801669585364761
+--- !u!114 &134945111961687759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 4883112209185275442}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84e704d7122b1314d8617dc136ad0411, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ba14f49ff2add84d873f251bf877827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 1
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 136
-  damage: 50
-  headShotMultiplier: 2
   hitMask:
     serializedVersion: 2
-    m_Bits: 201
-  hitParticlesLifetime: 1
+    m_Bits: 217
+  damage: 50
+  headShotMultiplier: 2
+  hitParticlesLifetime: 0.3
   particleOffset: 0.1
   hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
     type: 3}

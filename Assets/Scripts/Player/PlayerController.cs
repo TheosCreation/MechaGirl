@@ -60,5 +60,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         //Destroy(gameObject);
     }
 
-    
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Weapon"))
+        {
+            Debug.Log("wow ive hit a weapon lets try pick it up");
+            Weapon weapon = other.gameObject.GetComponent<Weapon>();
+            weapon.PickUp(weaponHolder);
+        }
+    }
 }
