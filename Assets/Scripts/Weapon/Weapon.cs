@@ -39,8 +39,10 @@ public class Weapon : MonoBehaviour
         set
         {
             ammo = value;
-
-            UiManager.Instance.UpdateAmmoUi(ammo);
+            if(playerController != null)
+            {
+                UiManager.Instance.UpdateAmmoUi(ammo);
+            }
 
             if (ammo <= 0 && canThrow)
             {
@@ -141,7 +143,10 @@ public class Weapon : MonoBehaviour
 
         equipTimer.SetTimer(equipTime, EquipFinish);
 
-        UiManager.Instance.UpdateAmmoUi(Ammo);
+        if (playerController != null)
+        {
+            UiManager.Instance.UpdateAmmoUi(Ammo);
+        }
     }
 
     private void EquipFinish()
