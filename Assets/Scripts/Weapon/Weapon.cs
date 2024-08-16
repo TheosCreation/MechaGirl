@@ -6,6 +6,7 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
+    public Sprite icon;
     private Sprite currentSprite;
 
     [Header("Equip")]
@@ -137,16 +138,12 @@ public class Weapon : MonoBehaviour
         if(playerController != null)
         {
             spriteRenderer.enabled = false;
+            UiManager.Instance.UpdateAmmoUi(Ammo);
         }
 
         animator.SetTrigger("Equip");
 
         equipTimer.SetTimer(equipTime, EquipFinish);
-
-        if (playerController != null)
-        {
-            UiManager.Instance.UpdateAmmoUi(Ammo);
-        }
     }
 
     private void EquipFinish()

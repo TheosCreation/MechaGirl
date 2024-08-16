@@ -7738,6 +7738,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
+  icon: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
   isEquip: 0
   equipTime: 0.3
   canThrow: 0
@@ -7798,6 +7799,7 @@ MonoBehaviour:
   hurtScreen: {fileID: 352020343}
   healthBar: {fileID: 739336673}
   ammoText: {fileID: 1036710202}
+  weaponIconImage: {fileID: 1984734580}
 --- !u!114 &988200801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12884,6 +12886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 833b216e47d384d45bb5913d377232e0, type: 3}
+  icon: {fileID: 21300000, guid: 833b216e47d384d45bb5913d377232e0, type: 3}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
@@ -13188,6 +13191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: c51c0127afec16d4e82cadf2b3296a2f, type: 3}
+  icon: {fileID: 21300000, guid: c51c0127afec16d4e82cadf2b3296a2f, type: 3}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
