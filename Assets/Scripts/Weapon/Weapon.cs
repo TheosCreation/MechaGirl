@@ -28,6 +28,7 @@ public class Weapon : MonoBehaviour
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
+    [SerializeField] protected int ammo = 10;
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Audio")]
@@ -35,15 +36,15 @@ public class Weapon : MonoBehaviour
     [SerializeField] private AudioClip[] shootingSounds;
 
     protected Animator animator;
+
     private Transform target; // Target to aim at
 
     private PlayerController playerController;
     private SpriteRenderer spriteRenderer;
-
+    public WeaponHolder WeaponHolder;
     private BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
     private Rigidbody rb;
     private Timer pickupTimer;
-
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -102,6 +103,7 @@ public class Weapon : MonoBehaviour
 
     private void Equip()
     {
+     
         bc.enabled = false;
         rb.isKinematic = true;
         animator.enabled = true;
@@ -143,6 +145,11 @@ public class Weapon : MonoBehaviour
     public void PickUp(WeaponHolder weaponHolder)
     {
         if(!canPickup) return;
+        if (ammo <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
@@ -165,9 +172,17 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         if (!isEquip) return;
+        ammo--;
+        Debug.Log("Ammo: "+ ammo);
+        if (ammo <= 0)
+        {
 
+            WeaponHolder.TryThrowWeapon();
+    
+            return;
+        }
         animator.SetTrigger("Shoot");
-
+  
         // Trigger screen shake if applicable
         if (playerController != null)
         {

@@ -11,6 +11,7 @@ public class WeaponHolder : MonoBehaviour
     private int currentWeaponIndex = 0;
     [SerializeField] private float throwForce = 10.0f;
     [SerializeField] private float pickUpDelay = 1.0f;
+ 
 
     private void Awake()
     {
@@ -45,7 +46,7 @@ public class WeaponHolder : MonoBehaviour
         SelectWeapon(currentWeaponIndex);
     }
 
-    void TryThrowWeapon()
+    public void TryThrowWeapon()
     {
         if (currentWeaponIndex != 0)
         {
@@ -100,6 +101,7 @@ public class WeaponHolder : MonoBehaviour
             {
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
+                currentWeapon.WeaponHolder = this;
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
             }
         }
