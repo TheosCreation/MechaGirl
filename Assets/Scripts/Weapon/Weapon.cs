@@ -202,7 +202,10 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
-        Ammo--;
+        if (playerController != null)
+        {
+            Ammo--;
+        }
 
         animator.SetTrigger("Shoot");
   
