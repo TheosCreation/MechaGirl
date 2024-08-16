@@ -14,6 +14,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private FlashImage hitMarker;
     [SerializeField] private FlashImage hurtScreen;
     [SerializeField] private UiBar healthBar;
+    [SerializeField] private TMP_Text ammoText;
 
     //public Image image;
     //public UiBar bar;
@@ -53,6 +54,10 @@ public class UiManager : MonoBehaviour
     public void UpdateHealthUi(float health)
     {
         healthBar.UpdateBar(health);
+    }
+    public void UpdateAmmoUi(int ammo)
+    {
+        ammoText.text = ammo > 0 ? ammo.ToString() : "";  // Set to empty string if ammo is 0
     }
 
     public void UpdateWeaponImage(Sprite sprite)

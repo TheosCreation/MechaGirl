@@ -13,6 +13,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float equipTime = 0.5f;
     Timer equipTimer;
 
+    [Header("Throwing")]
+    [SerializeField] private bool canThrow = true;
+
     [Header("Shooting")]
     [SerializeField] private bool canShoot = true;
     [SerializeField] private bool isShooting = false;
@@ -28,7 +31,24 @@ public class Weapon : MonoBehaviour
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
-    [SerializeField] protected int ammo = 10;
+    [SerializeField] protected int startingAmmo = 10;
+    private int ammo;
+    public int Ammo
+    {
+        get => ammo;
+        set
+        {
+            ammo = value;
+
+            UiManager.Instance.UpdateAmmoUi(ammo);
+
+            if (ammo <= 0 && canThrow)
+            {
+                WeaponHolder.TryThrowWeapon();
+            }
+        }
+    }
+
     [SerializeField] private GameObject projectilePrefab;
 
     [Header("Audio")]
@@ -58,6 +78,11 @@ public class Weapon : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         bc = GetComponent<BoxCollider>();
+    }
+
+    private void Start()
+    {
+        Ammo = startingAmmo;
     }
 
     private void Update()
@@ -103,7 +128,6 @@ public class Weapon : MonoBehaviour
 
     private void Equip()
     {
-     
         bc.enabled = false;
         rb.isKinematic = true;
         animator.enabled = true;
@@ -116,6 +140,8 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Equip");
 
         equipTimer.SetTimer(equipTime, EquipFinish);
+
+        UiManager.Instance.UpdateAmmoUi(Ammo);
     }
 
     private void EquipFinish()
@@ -145,7 +171,7 @@ public class Weapon : MonoBehaviour
     public void PickUp(WeaponHolder weaponHolder)
     {
         if(!canPickup) return;
-        if (ammo <= 0)
+        if (Ammo <= 0)
         {
             Destroy(gameObject);
             return;
@@ -171,16 +197,8 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
-        if (!isEquip) return;
-        ammo--;
-        Debug.Log("Ammo: "+ ammo);
-        if (ammo <= 0)
-        {
+        Ammo--;
 
-            WeaponHolder.TryThrowWeapon();
-    
-            return;
-        }
         animator.SetTrigger("Shoot");
   
         // Trigger screen shake if applicable
