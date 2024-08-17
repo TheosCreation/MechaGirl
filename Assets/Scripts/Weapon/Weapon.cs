@@ -7,28 +7,28 @@ public class Weapon : MonoBehaviour
     [Header("Looks")]
     public Sprite Sprite;
     public Sprite icon;
-    private Sprite currentSprite;
+    protected Sprite currentSprite;
 
     [Header("Equip")]
     [SerializeField] private bool isEquip = false;
     [SerializeField] private float equipTime = 0.5f;
-    Timer equipTimer;
+    protected Timer equipTimer;
 
     [Header("Throwing")]
-    [SerializeField] private bool canThrow = true;
+    [SerializeField] protected bool canThrow = true;
 
     [Header("Shooting")]
-    [SerializeField] private bool canShoot = true;
-    [SerializeField] private bool isShooting = false;
-    [SerializeField] private float shootsPerSecond = 1.0f;
-    private float shootTimer = 0.0f;
+    [SerializeField] protected bool canShoot = true;
+    [SerializeField] protected bool isShooting = false;
+    [SerializeField] protected float shootsPerSecond = 1.0f;
+    protected float shootTimer = 0.0f;
 
     [Header("Screen Shake")]
-    [Range(0.0f, 0.1f)][SerializeField] private float screenShakeDuration = 0.1f;
-    [Range(0.0f, 0.1f)][SerializeField] private float screenShakeAmount = 0.1f;
+    [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeDuration = 0.1f;
+    [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
-    [SerializeField] private bool canPickup = true; // moved up to settings tab so easily visable
+    [SerializeField] protected bool canPickup = true; // moved up to settings tab so easily visable
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
@@ -40,7 +40,7 @@ public class Weapon : MonoBehaviour
         set
         {
             ammo = value;
-            if(playerController != null)
+            if (playerController != null)
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
             }
@@ -52,23 +52,24 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] protected GameObject projectilePrefab;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource shootingSource;
-    [SerializeField] private AudioClip[] shootingSounds;
+    [SerializeField] protected AudioSource shootingSource;
+    [SerializeField] protected AudioClip[] shootingSounds;
 
     protected Animator animator;
 
-    private Transform target; // Target to aim at
+    protected Transform target; // Target to aim at
 
-    private PlayerController playerController;
-    private SpriteRenderer spriteRenderer;
+    protected PlayerController playerController;
+    protected SpriteRenderer spriteRenderer;
     public WeaponHolder WeaponHolder;
-    private BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
-    private Rigidbody rb;
-    private Timer pickupTimer;
-    private void Awake()
+    protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    protected Rigidbody rb;
+    protected Timer pickupTimer;
+
+    protected void Awake()
     {
         animator = GetComponent<Animator>();
 
@@ -83,12 +84,12 @@ public class Weapon : MonoBehaviour
         bc = GetComponent<BoxCollider>();
     }
 
-    private void Start()
+    protected void Start()
     {
         Ammo = startingAmmo;
     }
 
-    private void Update()
+    protected void Update()
     {
         shootTimer -= Time.deltaTime;
         if (shootTimer < 0.0f && isShooting)
@@ -129,13 +130,13 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    private void Equip()
+    protected void Equip()
     {
         bc.enabled = false;
         rb.isKinematic = true;
         animator.enabled = true;
 
-        if(playerController != null)
+        if (playerController != null)
         {
             spriteRenderer.enabled = false;
             UiManager.Instance.UpdateAmmoUi(Ammo);
@@ -146,7 +147,7 @@ public class Weapon : MonoBehaviour
         equipTimer.SetTimer(equipTime, EquipFinish);
     }
 
-    private void EquipFinish()
+    protected void EquipFinish()
     {
         isEquip = true;
     }
@@ -172,7 +173,7 @@ public class Weapon : MonoBehaviour
 
     public void PickUp(WeaponHolder weaponHolder)
     {
-        if(!canPickup) return;
+        if (!canPickup) return;
         if (Ammo <= 0)
         {
             Destroy(gameObject);
@@ -187,7 +188,7 @@ public class Weapon : MonoBehaviour
         Equip();
     }
 
-    float CalculateFireRate()
+    protected float CalculateFireRate()
     {
         return 1 / shootsPerSecond;
     }
@@ -205,7 +206,7 @@ public class Weapon : MonoBehaviour
         }
 
         animator.SetTrigger("Shoot");
-  
+
         // Trigger screen shake if applicable
         if (playerController != null)
         {
@@ -217,7 +218,7 @@ public class Weapon : MonoBehaviour
         FireProjectile();
     }
 
-    private void FireProjectile()
+    protected void FireProjectile()
     {
         if (projectilePrefab == null)
         {
@@ -238,7 +239,7 @@ public class Weapon : MonoBehaviour
         Projectile projectile = projectileObject.GetComponent<Projectile>();
         if (projectile != null)
         {
-            if(playerController)
+            if (playerController)
             {
                 projectile.Initialize(playerController.playerCamera.transform.forward, true);
             }
@@ -249,7 +250,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    private void PlayRandomFiringSound()
+    protected void PlayRandomFiringSound()
     {
         if (shootingSounds.Length > 0 && shootingSource != null)
         {
@@ -273,4 +274,3 @@ public class Weapon : MonoBehaviour
         target = newTarget;
     }
 }
-

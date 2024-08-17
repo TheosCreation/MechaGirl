@@ -129,7 +129,7 @@ public class PlayerMovement : MonoBehaviour
         Dash(dashDirection, scaledDashForce, dashDuration * 1.5f, true);
     }
 
-    void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
+   public void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
     {
         if (canDash)
         {
