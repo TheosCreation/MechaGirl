@@ -8,6 +8,7 @@ public class PhysicalProjectile : Projectile
 {
     // Start is called before the first frame update
     [SerializeField] protected float speed = 20.0f; // Speed of the projectile
+    [SerializeField] protected bool destroy = true; // Does obj destroy on hit
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
         // Apply force to move the projectile
@@ -29,6 +30,9 @@ public class PhysicalProjectile : Projectile
         }
 
         // Destroy the projectile on collision
-        Destroy(gameObject);
+        if (destroy)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 wallNormal;
 
     [Header("Dash")]
-    [SerializeField] private bool isDashing = false;
+    [SerializeField] public bool isDashing = false;
     [SerializeField] private bool canDash = true;
     [SerializeField] private float dashForce = 15.0f;
     [SerializeField] private float dashDuration = 0.2f;
@@ -145,7 +145,6 @@ public class PlayerMovement : MonoBehaviour
             movementController.ResetHorizontalVelocity();
             movementController.AddForce(dashDirection * dashForce);
             movementController.SetFriction(false);
-            canDash = false;
             isDashing = true;
 
             Timer dashTimer = gameObject.AddComponent<Timer>();

@@ -6,14 +6,17 @@ public class Sword : Weapon
     [SerializeField] private float meleeRange = 1.5f;
     [SerializeField] private float meleeDamage = 20.0f;
     [SerializeField] private float dashLength = 10.0f;
+    [SerializeField] private float dashDuration = 1.0f;
     [SerializeField] private LayerMask targetLayer;
-
-    // Override the Awake method to call the base class's Awake method
+    
+    
     public override void Shoot()
     {
        base.Shoot();
         if(transform.parent == null) { return; }
-        playerController.playerMovement.Dash(transform.parent.parent.forward, 12, 0.1f);
+
+        playerController.playerMovement.Dash(transform.parent.parent.forward, dashLength, dashDuration);
+        
     }
     private void OnDrawGizmosSelected()
     {

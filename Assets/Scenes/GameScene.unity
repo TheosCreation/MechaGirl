@@ -1334,7 +1334,7 @@ MonoBehaviour:
   localEndPosition: {x: -16.67, y: -0.29, z: -4.7}
   enemyCountToSpawn: 4
   enemiesToSpawn:
-  - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
+  - {fileID: 4274951009702948806, guid: c706e8195c7015e4283ff288a109fc40, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -6245,8 +6245,8 @@ MonoBehaviour:
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
   canPickup: 1
-  startingAmmo: 10
-  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+  startingAmmo: 100
+  projectilePrefab: {fileID: 2567501356965547125, guid: dc1201aeb148b0b4089e4fab931dd095,
     type: 3}
   shootingSource: {fileID: 775724879}
   shootingSounds:
@@ -6255,6 +6255,7 @@ MonoBehaviour:
   meleeRange: 1.5
   meleeDamage: 20
   dashLength: 20
+  dashDuration: 1
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
