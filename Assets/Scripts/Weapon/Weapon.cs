@@ -241,12 +241,16 @@ public class Weapon : MonoBehaviour
         {
             if (playerController)
             {
+                projectile.owner = playerController.gameObject;
                 projectile.Initialize(playerController.playerCamera.transform.forward, true);
+     
             }
             else
             {
-                projectile.Initialize(transform.transform.forward, false);
+                projectile.owner = transform.parent.gameObject;
+                projectile.Initialize(transform.forward, false);
             }
+            Debug.Log(projectile.owner);
         }
     }
 

@@ -7,25 +7,45 @@ using UnityEngine;
 public class SwordsSwing : PhysicalProjectile
 {
     // Start is called before the first frame update
-    private GameObject player;
-    PlayerMovement playerMove;
+    public GameObject player;
+    public PlayerMovement playerMove;
+    public Enemy enemy;
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
         // Apply force to move the projectile
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerMove = player.GetComponent<PlayerMovement>();
-        rb.AddForce(direction * speed, ForceMode.VelocityChange);
+  
+        playerMove = owner.GetComponent<PlayerMovement>();
+        if (playerMove == null)
+        {
+            enemy = owner.GetComponent<Enemy>();
+        }
+        transform.rotation = new Quaternion(0,0,0,0);
 
-        // Destroy the projectile after its lifetime
-       
     }
     private void Update()
     {
-        transform.position = player.transform.position;
-        if (!playerMove.isDashing)
-        {
-            Destroy(gameObject);
+        if (owner == null) { 
+            Destroy(gameObject); 
+            return;
         }
+        transform.position = owner.transform.position;
+        if (playerMove != null)
+        {
+            if (!playerMove.isDashing)
+            {
+                Destroy(gameObject);             
+            }
+            return;
+        }
+        if(enemy != null)
+        {
+            if (!enemy.isDashing)
+            {
+                Destroy(gameObject);              
+            }
+            return;
+        }
+       
 
     }
 

@@ -1334,7 +1334,7 @@ MonoBehaviour:
   localEndPosition: {x: -16.67, y: -0.29, z: -4.7}
   enemyCountToSpawn: 4
   enemiesToSpawn:
-  - {fileID: 4274951009702948806, guid: c706e8195c7015e4283ff288a109fc40, type: 3}
+  - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -6254,7 +6254,7 @@ MonoBehaviour:
   WeaponHolder: {fileID: 1747992919}
   meleeRange: 1.5
   meleeDamage: 20
-  dashLength: 20
+  dashSpeed: 10
   dashDuration: 1
   targetLayer:
     serializedVersion: 2
