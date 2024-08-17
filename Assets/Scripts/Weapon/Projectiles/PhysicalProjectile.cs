@@ -20,8 +20,9 @@ public class PhysicalProjectile : Projectile
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit an object on the collisionMask
+        if (other.gameObject.layer == owner.layer) {  return; };
         if ((hitMask.value & (1 << other.gameObject.layer)) == 0) return;
-
+        
         // Deal damage if the object is damageable
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)

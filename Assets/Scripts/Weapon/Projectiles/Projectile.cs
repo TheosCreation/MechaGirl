@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected float lifetime = 5.0f; // Lifetime of the projectile
     [SerializeField] protected LayerMask hitMask;
     [SerializeField] protected float damage = 10.0f;
+    public GameObject owner;
 
     protected Rigidbody rb;
 

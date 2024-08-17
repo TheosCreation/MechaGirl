@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator animator;
     [HideInInspector] public Transform target;
     public EnemyStateMachine StateMachine;
-
+    private Vector3 dashDirection;
     [Header("Settings")]
     public float updatePathTime = 1.0f; // time to update the path towards the target
     public float lookDistance = 30f;
@@ -20,6 +20,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private Weapon weapon;
 
+    [Header("Dash Settings")]
+    public float dashSpeed = 10f;
+    public float dashDuration = 0.1f;
+    public bool isDashing = false;
+
+    [Header("Health")]
     public int maxHealth = 100;
     private float health;
     public float Health
@@ -60,6 +66,11 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
+
+        if (isDashing)
+        {
+            agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+        }
     }
 
     private void SetDefaultState()
@@ -151,5 +162,23 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             weapon.EndShooting();
         }
+    }
+    public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
+    {
+        dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
+        dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
+        dashDirection = transform.forward;
+        if (!isDashing)
+        {
+            isDashing = true;
+            Timer timer = gameObject.AddComponent<Timer>();
+            timer.SetTimer(dashDuration, StopDash);
+            Destroy(timer, dashDuration+(dashDuration/10));
+        }
+    }
+
+    private void StopDash()
+    {
+        isDashing = false;
     }
 }
