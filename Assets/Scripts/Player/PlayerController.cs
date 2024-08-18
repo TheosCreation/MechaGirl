@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         if (other.gameObject.CompareTag("Weapon"))
         {
             Weapon weapon = other.gameObject.GetComponent<Weapon>();
-            weapon.PickUp(weaponHolder);
+            weapon.PickUp(weaponHolder, this);
         }
     }
 }

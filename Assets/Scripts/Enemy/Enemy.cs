@@ -103,10 +103,17 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         OnDeath?.Invoke();
+        if (weapon == null)
+        {
+            weapon = GetComponentInChildren<Weapon>();
+        }
+
+        if (weapon != null)
+        {
+            weapon.Throw(Vector3.up, 0.5f, 0.0f);
+        }
+
         Destroy(gameObject);
-        weapon = GetComponentInChildren<Weapon>();
-        if(weapon == null) { return; }
-        weapon.Throw(Vector3.up,0.0f,0.0f);
     }
 
     public void SetTarget(Transform Target)

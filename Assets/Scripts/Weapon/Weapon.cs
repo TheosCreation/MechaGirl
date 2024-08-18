@@ -63,8 +63,9 @@ public class Weapon : MonoBehaviour
     protected Transform target; // Target to aim at
 
     protected PlayerController playerController;
+    [HideInInspector] public WeaponHolder WeaponHolder;
+
     protected SpriteRenderer spriteRenderer;
-    public WeaponHolder WeaponHolder;
     protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
     protected Rigidbody rb;
     protected Timer pickupTimer;
@@ -178,11 +179,17 @@ public class Weapon : MonoBehaviour
 
         //disable script just like unequiping the weapon
         this.enabled = false;
+
+        playerController = null;
+        WeaponHolder = null;
     }
 
-    public void PickUp(WeaponHolder weaponHolder)
+    public void PickUp(WeaponHolder weaponHolder, PlayerController pc)
     {
         if (!canPickup) return;
+
+        playerController = pc;
+
         if (Ammo <= 0)
         {
             Destroy(gameObject);
@@ -210,11 +217,7 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootTimer = CalculateFireRate();
-        if (playerController != null)
-        {
-            Ammo--;
-        }
-
+       
         animator.SetTrigger("Shoot");
 
         // Trigger screen shake if applicable
@@ -225,7 +228,12 @@ public class Weapon : MonoBehaviour
 
         PlayRandomFiringSound();
  
-        FireProjectile();
+        FireProjectile(); 
+        
+        if (playerController != null)
+        {
+            Ammo--;
+        }
     }
 
     protected void FireProjectile()
