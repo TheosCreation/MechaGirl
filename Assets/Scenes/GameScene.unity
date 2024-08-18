@@ -5741,10 +5741,6 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -1.2570801, y: -50.242737}
   m_SizeDelta: {x: 501.4176, y: 51.839996}
-  m_AnchorMin: {x: 0.026, y: 0.047000002}
-  m_AnchorMax: {x: 0.33900002, y: 0.095000006}
-  m_AnchoredPosition: {x: -59.47998, y: 59.077393}
-  m_SizeDelta: {x: -99.7706, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739336670
 MonoBehaviour:
@@ -6062,7 +6058,7 @@ Animator:
   m_GameObject: {fileID: 775724872}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 20ad6a4526589934b91b1466ee9f2610, type: 2}
+  m_Controller: {fileID: 22100000, guid: a59073dfd21461945b6ca90675051908, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6215,7 +6211,7 @@ SpriteRenderer:
   m_SortingLayerID: -437026063
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 65e11460c1d90bc4eb2096cb721cf4df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f26ae4ef477dabb44a502597f446094b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -6238,15 +6234,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8877946591cc744bf7a904296590b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 667114448308370171, guid: decd16025e05bc4408098bc47733e15c, type: 3}
-  icon: {fileID: 4570970744282514660, guid: decd16025e05bc4408098bc47733e15c, type: 3}
+  Sprite: {fileID: 21300000, guid: f26ae4ef477dabb44a502597f446094b, type: 3}
+  icon: {fileID: 21300000, guid: f26ae4ef477dabb44a502597f446094b, type: 3}
   isEquip: 0
   equipTime: 0.5
   canThrow: 1
   canShoot: 1
   isShooting: 0
   shootsPerSecond: 1
-  screenShakeDuration: 0.1
+  screenShakeDuration: 0.02
   screenShakeAmount: 0.1
   canPickup: 1
   startingAmmo: 100
@@ -9805,7 +9801,7 @@ MonoBehaviour:
   deceleration: 3
   canJump: 1
   isJumping: 0
-  jumpForce: 6
+  jumpForce: 10
   jumpDuration: 0.3
   wallDistance: 1
   maxWallJumps: 3
@@ -17300,7 +17296,7 @@ RectTransform:
   m_Father: {fileID: 926628522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.591}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}

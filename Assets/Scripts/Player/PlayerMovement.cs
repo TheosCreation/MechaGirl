@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 pushDirection = wallNormal.normalized;
 
+        movementController.ResetVerticalVelocity();
         // Apply the force in the calculated jump direction
         movementController.AddForce((Vector3.up + pushDirection) * jumpForce);
 
