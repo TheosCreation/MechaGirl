@@ -103,7 +103,7 @@ public class WeaponHolder : MonoBehaviour
                 currentWeapon = weapons[i];
                 currentWeapon.WeaponHolder = this;
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
-                UiManager.Instance.UpdateWeaponIcon(currentWeapon.icon);
+                UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);
             }
         }
     }

@@ -15,10 +15,14 @@ public class Enemy : MonoBehaviour, IDamageable
     public float fieldOfViewAngle = 110f;
     public bool isRanged = false;
     public float attackDistance = 0.1f;
+    public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
+    public float attackResumeRotationDelay = 0.02f;
 
-    private Weapon weapon;
+    [HideInInspector] public Timer delayTimer;
+    [HideInInspector] public Weapon weapon;
+    [HideInInspector] public bool canRotate = true;
 
     [Header("Dash Settings")]
     public float dashSpeed = 10f;
@@ -60,13 +64,18 @@ public class Enemy : MonoBehaviour, IDamageable
             .Build();
 
         SetDefaultState();
+        delayTimer = gameObject.AddComponent<Timer>();
+        weapon = GetComponentInChildren<Weapon>();
     }
 
     private void Update()
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
-
+        if(canRotate)
+        {
+            LookTowardsTarget();
+        }
         if (isDashing)
         {
             agent.Move(dashDirection * dashSpeed * Time.deltaTime);
@@ -190,5 +199,25 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopDash()
     {
         isDashing = false;
+    }
+
+    private void LookTowardsTarget()
+    {
+        if (target != null)
+        {
+            // Determine direction to look at
+            Vector3 directionToTarget = target.position - transform.position;
+            directionToTarget.y = 0; // Keep only the horizontal direction
+
+            // Determine the rotation needed to look at the target
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+            // Smoothly rotate the enemy towards the target
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * agent.angularSpeed
+            );
+        }
     }
 }

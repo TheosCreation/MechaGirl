@@ -1,4 +1,5 @@
 using Runtime;
+using System;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -6,7 +7,8 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
-    public Sprite icon;
+    public Sprite iconSprite;
+    public Sprite inGameSprite;
     protected Sprite currentSprite;
 
     [Header("Equip")]
@@ -22,6 +24,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected bool isShooting = false;
     [SerializeField] protected float shootsPerSecond = 1.0f;
     protected float shootTimer = 0.0f;
+    private float quickShootTimer = 0.0f;
 
     [Header("Screen Shake")]
     [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeDuration = 0.1f;
@@ -70,6 +73,10 @@ public class Weapon : MonoBehaviour
     protected Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
+
+
+    public event Action OnAttack;
+
     protected void Awake()
     {
         animator = GetComponent<Animator>();
@@ -93,6 +100,13 @@ public class Weapon : MonoBehaviour
     protected void Update()
     {
         shootTimer -= Time.deltaTime;
+        quickShootTimer -= Time.deltaTime;
+        if (quickShootTimer < 0.0f && isShooting)
+        {
+            //this is just a slight delay to stop the enemy from rotating
+            OnAttack?.Invoke();
+        }
+
         if (shootTimer < 0.0f && isShooting)
         {
             canShoot = true;
@@ -104,6 +118,7 @@ public class Weapon : MonoBehaviour
 
 
             shootTimer = CalculateFireRate();
+            quickShootTimer = shootTimer - 0.3f;
             if (playerController)
             {
                 shotDirection = playerController.playerCamera.transform.forward;
@@ -170,6 +185,7 @@ public class Weapon : MonoBehaviour
         rb.AddForce(direction * throwForce, ForceMode.Impulse);
 
         bc.enabled = true;
+        spriteRenderer.sprite = inGameSprite;
         spriteRenderer.enabled = true;
         animator.enabled = false;
 
@@ -182,6 +198,9 @@ public class Weapon : MonoBehaviour
 
         playerController = null;
         WeaponHolder = null;
+
+        //clear attached functions
+        OnAttack = null;
     }
 
     public void PickUp(WeaponHolder weaponHolder, PlayerController pc)
@@ -275,7 +294,7 @@ public class Weapon : MonoBehaviour
     {
         if (shootingSounds.Length > 0 && shootingSource != null)
         {
-            AudioClip randomClip = shootingSounds[Random.Range(0, shootingSounds.Length)];
+            AudioClip randomClip = shootingSounds[UnityEngine.Random.Range(0, shootingSounds.Length)];
             shootingSource.PlayOneShot(randomClip);
         }
     }

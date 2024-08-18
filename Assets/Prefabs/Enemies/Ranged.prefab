@@ -749,7 +749,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3354435173736930781}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
   m_Name: 
@@ -834,6 +834,9 @@ MonoBehaviour:
   attackDistance: 4.1
   loseDistance: 7
   attackDuration: 1
+  attackResumeRotationDelay: 0.02
+  weapon: {fileID: 0}
+  canRotate: 1
   dashSpeed: 10
   dashDuration: 0.1
   isDashing: 0
@@ -1561,8 +1564,7 @@ GameObject:
   - component: {fileID: 774203721787191304}
   - component: {fileID: 5112184208316157538}
   - component: {fileID: 5582952653681766668}
-  - component: {fileID: 9033743851426440988}
-  - component: {fileID: 8816171732721898989}
+  - component: {fileID: 4086531353381657770}
   - component: {fileID: 2237429842428943572}
   - component: {fileID: 7428592858313084202}
   m_Layer: 10
@@ -1581,7 +1583,7 @@ Transform:
   m_GameObject: {fileID: 7564707813662068295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1200001, z: 0.019000053}
+  m_LocalPosition: {x: 0.3, y: 1.1200001, z: 0.019000053}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1630,7 +1632,7 @@ SpriteRenderer:
   m_SortingLayerID: -437026063
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 65e11460c1d90bc4eb2096cb721cf4df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1761,7 +1763,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &9033743851426440988
+--- !u!114 &4086531353381657770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1770,17 +1772,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7564707813662068295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a649fff3197565d4ba3cafcd05761daf, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 65e11460c1d90bc4eb2096cb721cf4df, type: 3}
-  icon: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
+  iconSprite: {fileID: 21300000, guid: 373f1388dafd3304ebf876fd811bae2c, type: 3}
+  inGameSprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1.5
+  shootsPerSecond: 1
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0
@@ -1794,19 +1797,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   WeaponHolder: {fileID: 0}
-  ShotDelay: 1
---- !u!114 &8816171732721898989
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7564707813662068295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &2237429842428943572
 BoxCollider:
   m_ObjectHideFlags: 0

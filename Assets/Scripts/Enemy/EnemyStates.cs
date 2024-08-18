@@ -101,20 +101,35 @@ public class AttackingState : IEnemyState
 {
     private bool attackTriggered = false;
     private float attackStartTime;
+    private float rotationResumeTime;
 
     public void Enter(Enemy enemy)
     {
         // Start attack delay and animation
         enemy.agent.isStopped = true;
-        enemy.StartAttack();
+        enemy.canRotate = false;
+        enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
+
+        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
         attackTriggered = true;
         attackStartTime = Time.time;
+
+        // Stop rotation for a second after attack is triggered
+        rotationResumeTime = Time.time + enemy.attackStartDelay + enemy.attackResumeRotationDelay;
+    }
+
+    private void AttackExecuted(Enemy enemy)
+    {
+        enemy.canRotate = false;
+        rotationResumeTime = Time.time + enemy.attackResumeRotationDelay;
     }
 
     public void Execute(Enemy enemy)
     {
-        // Rotate towards the target
-        LookTowardsTarget(enemy);
+        if (Time.time >= rotationResumeTime)
+        {
+            enemy.canRotate = true;
+        }
 
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
@@ -133,26 +148,8 @@ public class AttackingState : IEnemyState
     {
         // Resume movement or other logic as needed
         enemy.agent.isStopped = false;
+        enemy.delayTimer.StopTimer();
         enemy.EndAttack();
-    }
-
-    private void LookTowardsTarget(Enemy enemy)
-    {
-        if (enemy.target != null)
-        {
-            // Determine direction to look at
-            Vector3 directionToTarget = enemy.target.position - enemy.transform.position;
-            directionToTarget.y = 0; // Keep only the horizontal direction
-
-            // Determine the rotation needed to look at the target
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-
-            // Smoothly rotate the enemy towards the target
-            enemy.transform.rotation = Quaternion.Slerp(
-                enemy.transform.rotation,
-                targetRotation,
-                Time.deltaTime * enemy.agent.angularSpeed
-            );
-        }
+        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
     }
 }
