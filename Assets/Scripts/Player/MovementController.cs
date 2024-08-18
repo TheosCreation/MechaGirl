@@ -43,6 +43,10 @@ public class MovementController : MonoBehaviour
 
     public bool movement = false;
 
+    private void Awake()
+    {
+        stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight, stepRayUpper.transform.position.z);
+    }
     private void Start()
     {
         rb = GetComponent<Rigidbody>();

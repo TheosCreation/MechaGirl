@@ -277,9 +277,10 @@ public class Weapon : MonoBehaviour
         isShooting = false;
     }
 
-    public void UpdateWalking(bool isWalking)
+    public void UpdateWalkingAnimations(bool isWalking, float right)
     {
         animator.SetBool("isWalking", isWalking);
+        animator.SetFloat("Right", right);
     }
 
     public void SetTarget(Transform newTarget)
