@@ -834,6 +834,9 @@ MonoBehaviour:
   attackDistance: 4.1
   loseDistance: 7
   attackDuration: 1
+  dashSpeed: 10
+  dashDuration: 0.1
+  isDashing: 0
   maxHealth: 100
   defaultState: 1
   currentState: 1
@@ -1558,7 +1561,7 @@ GameObject:
   - component: {fileID: 774203721787191304}
   - component: {fileID: 5112184208316157538}
   - component: {fileID: 5582952653681766668}
-  - component: {fileID: 1090121624037184655}
+  - component: {fileID: 9033743851426440988}
   - component: {fileID: 8816171732721898989}
   - component: {fileID: 2237429842428943572}
   - component: {fileID: 7428592858313084202}
@@ -1758,7 +1761,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1090121624037184655
+--- !u!114 &9033743851426440988
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1767,18 +1770,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7564707813662068295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
+  m_Script: {fileID: 11500000, guid: a649fff3197565d4ba3cafcd05761daf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: e053954b093a6fb40a1cce598747db21, type: 3}
+  Sprite: {fileID: 21300000, guid: 65e11460c1d90bc4eb2096cb721cf4df, type: 3}
+  icon: {fileID: 0}
   isEquip: 0
   equipTime: 0.3
+  canThrow: 1
   canShoot: 1
   isShooting: 0
   shootsPerSecond: 1.5
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0
+  startingAmmo: 10
   projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
   shootingSource: {fileID: 5112184208316157538}
@@ -1787,6 +1793,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  WeaponHolder: {fileID: 0}
+  ShotDelay: 1
 --- !u!114 &8816171732721898989
 MonoBehaviour:
   m_ObjectHideFlags: 0

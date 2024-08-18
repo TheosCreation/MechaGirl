@@ -17,11 +17,14 @@ public class Sword : Weapon
 
         if (playerController != null)
         {
-            playerController.playerMovement.Dash(transform.parent.parent.forward, dashSpeed, dashDuration);
+            playerController.playerMovement.Dash(playerController.playerCamera.transform.forward, dashSpeed, dashDuration, true);
+
         }
         else
         {
-            transform.parent.GetComponent<Enemy>().Dash(dashSpeed, dashDuration);
+            Enemy enemyRef = transform.parent.GetComponent<Enemy>();
+            enemyRef.Dash(dashSpeed, dashDuration);
+
         }
     }
     private void OnDrawGizmosSelected()

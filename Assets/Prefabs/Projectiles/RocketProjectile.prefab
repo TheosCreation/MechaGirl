@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1208070348544658421}
   - component: {fileID: 7853876216974281927}
-  - component: {fileID: 914342520687511003}
   - component: {fileID: -7144735408470037351}
   - component: {fileID: 5278198477854861123}
   - component: {fileID: 901053658116274019}
+  - component: {fileID: 5626004225044233273}
   m_Layer: 0
-  m_Name: SwordSwing
+  m_Name: RocketProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,29 +63,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &914342520687511003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2567501356965547125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4c0fc3c4a2600b47823b917d5cdc77a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifetime: 2
-  hitMask:
-    serializedVersion: 2
-    m_Bits: 136
-  damage: 100
-  owner: {fileID: 0}
-  speed: 20
-  destroy: 0
-  player: {fileID: 0}
-  playerMove: {fileID: 0}
-  enemy: {fileID: 0}
 --- !u!23 &-7144735408470037351
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -159,3 +136,23 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5626004225044233273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567501356965547125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ee36c2a250b5e409e3535563701c3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifetime: 5
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0
+  damage: 10
+  owner: {fileID: 0}
+  speed: 20
+  destroy: 1

@@ -19,6 +19,10 @@ public class SwordsSwing : PhysicalProjectile
         {
             enemy = owner.GetComponent<Enemy>();
         }
+        else
+        {
+            transform.localScale *= 3;
+        }
         transform.rotation = new Quaternion(0,0,0,0);
 
     }

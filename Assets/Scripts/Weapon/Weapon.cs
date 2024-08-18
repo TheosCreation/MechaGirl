@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
     protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
     protected Rigidbody rb;
     protected Timer pickupTimer;
-
+    protected Vector3 shotDirection;
     protected void Awake()
     {
         animator = GetComponent<Animator>();
@@ -101,7 +101,9 @@ public class Weapon : MonoBehaviour
         {
             canShoot = false;
 
+
             shootTimer = CalculateFireRate();
+
             Shoot();
         }
 
@@ -200,6 +202,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Shoot()
     {
+        shootTimer = CalculateFireRate();
         if (playerController != null)
         {
             Ammo--;
@@ -214,7 +217,14 @@ public class Weapon : MonoBehaviour
         }
 
         PlayRandomFiringSound();
-
+        if (playerController)
+        {
+            shotDirection = playerController.playerCamera.transform.forward;
+        }
+        else
+        {
+            shotDirection = transform.forward;
+        }
         FireProjectile();
     }
 
@@ -242,15 +252,14 @@ public class Weapon : MonoBehaviour
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
-                projectile.Initialize(playerController.playerCamera.transform.forward, true);
+                projectile.Initialize(shotDirection, true);
      
             }
             else
             {
                 projectile.owner = transform.parent.gameObject;
-                projectile.Initialize(transform.forward, false);
+                projectile.Initialize( shotDirection, false);
             }
-            Debug.Log(projectile.owner);
         }
     }
 
