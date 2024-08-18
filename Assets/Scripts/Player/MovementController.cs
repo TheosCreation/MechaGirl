@@ -27,6 +27,12 @@ public class MovementController : MonoBehaviour
     [SerializeField] private float groundCheckBoxWidth = 1.0f;
     public bool isGrounded = false;
 
+    [Header("Step Handling")]
+    [SerializeField] GameObject stepRayUpper;
+    [SerializeField] GameObject stepRayLower;
+    [SerializeField] float stepHeight = 0.3f;
+    [SerializeField] float stepSmooth = 2f;
+
     [Header("Slope Handling")]
     [SerializeField] private float maxSlopeAngle = 45.0f;
     private RaycastHit slopeHit;
@@ -49,7 +55,7 @@ public class MovementController : MonoBehaviour
         if (isGrounded)
         {
             SetGravity(false);
-            AddForce(Vector3.down * 0.05f);
+            AddForce(Vector3.down * 0.1f);
             if (!movement && useFriction)
             {
                 ApplyFriction(friction);
@@ -69,6 +75,7 @@ public class MovementController : MonoBehaviour
             rb.velocity = Vector3.zero;
         }
 
+        stepHandling();
     }
 
     private void OnDrawGizmos()
@@ -198,13 +205,13 @@ public class MovementController : MonoBehaviour
 
     private bool CheckGrounded()
     {
-        // Define the positions of the corners relative to feetTransform
+        // Define the positions of the corners relative to groundCheckPosition
         Vector3[] cornerOffsets = new Vector3[]
         {
-            new Vector3(-groundCheckBoxWidth, 0, 0), // Left
-            new Vector3(groundCheckBoxWidth, 0, 0),  // Right
-            new Vector3(0, 0, groundCheckBoxWidth),  // Front
-            new Vector3(0, 0, -groundCheckBoxWidth)  // Back
+        new Vector3(-groundCheckBoxWidth, 0, 0), // Left
+        new Vector3(groundCheckBoxWidth, 0, 0),  // Right
+        new Vector3(0, 0, groundCheckBoxWidth),  // Front
+        new Vector3(0, 0, -groundCheckBoxWidth)  // Back
         };
 
         // Perform raycasts from each corner
@@ -218,6 +225,51 @@ public class MovementController : MonoBehaviour
 
         // If none of the raycasts hit the ground, return false
         return false;
+    }
+
+    void stepHandling()
+    {
+        // Debug rays for step detection
+        if (debug)
+        {
+            Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward) * 0.1f, Color.yellow);
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward) * 0.2f, Color.cyan);
+            Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1) * 0.1f, Color.yellow);
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1) * 0.2f, Color.cyan);
+            Debug.DrawRay(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1) * 0.1f, Color.yellow);
+            Debug.DrawRay(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1) * 0.2f, Color.cyan);
+        }
+
+        // Step handling logic
+        RaycastHit hitLower;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(Vector3.forward), out hitLower, 0.1f))
+        {
+            RaycastHit hitUpper;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(Vector3.forward), out hitUpper, 0.2f))
+            {
+                rb.position -= new Vector3(0f, -stepSmooth * Time.deltaTime, 0f);
+            }
+        }
+
+        RaycastHit hitLower45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f))
+        {
+            RaycastHit hitUpper45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f))
+            {
+                rb.position -= new Vector3(0f, -stepSmooth * Time.deltaTime, 0f);
+            }
+        }
+
+        RaycastHit hitLowerMinus45;
+        if (Physics.Raycast(stepRayLower.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, 0.1f))
+        {
+            RaycastHit hitUpperMinus45;
+            if (!Physics.Raycast(stepRayUpper.transform.position, transform.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, 0.2f))
+            {
+                rb.position -= new Vector3(0f, -stepSmooth * Time.deltaTime, 0f);
+            }
+        }
     }
 
     private bool CheckOnSlope()
