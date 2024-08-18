@@ -104,6 +104,9 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         OnDeath?.Invoke();
         Destroy(gameObject);
+        weapon = GetComponentInChildren<Weapon>();
+        if(weapon == null) { return; }
+        weapon.Throw(Vector3.up,0.0f,0.0f);
     }
 
     public void SetTarget(Transform Target)

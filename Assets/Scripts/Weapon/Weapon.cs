@@ -103,7 +103,14 @@ public class Weapon : MonoBehaviour
 
 
             shootTimer = CalculateFireRate();
-
+            if (playerController)
+            {
+                shotDirection = playerController.playerCamera.transform.forward;
+            }
+            else
+            {
+                shotDirection = transform.forward;
+            }
             Shoot();
         }
 
@@ -217,14 +224,7 @@ public class Weapon : MonoBehaviour
         }
 
         PlayRandomFiringSound();
-        if (playerController)
-        {
-            shotDirection = playerController.playerCamera.transform.forward;
-        }
-        else
-        {
-            shotDirection = transform.forward;
-        }
+ 
         FireProjectile();
     }
 
