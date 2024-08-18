@@ -1643,7 +1643,7 @@ SpriteRenderer:
   m_Size: {x: 12.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!82 &5112184208316157538
@@ -1778,9 +1778,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
+  Sprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
   iconSprite: {fileID: 21300000, guid: 373f1388dafd3304ebf876fd811bae2c, type: 3}
-  inGameSprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
+  inGameSprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
