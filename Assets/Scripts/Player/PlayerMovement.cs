@@ -8,10 +8,15 @@ public class PlayerMovement : MonoBehaviour
     private MovementController movementController;
 
     [Header("Movement")]
-    public bool isMoving = false;
     [SerializeField] private float maxSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
     [SerializeField] private float deceleration = 2.0f;
+
+    [Header("Animations")]
+    [SerializeField] private float walkingRightTransition = 20.0f;
+    float smoothRight;
+    private float currentVelocity;
+
     [Header("Jump")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool isJumping = false;
@@ -50,6 +55,28 @@ public class PlayerMovement : MonoBehaviour
         dashCoolDownTimer = gameObject.AddComponent<Timer>();
 
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
+    }
+    private void FixedUpdate()
+    {
+        CheckLanding();
+
+        if (isDashing) return;
+
+
+        movementInput = InputManager.Instance.MovementVector;
+        float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
+        smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
+        playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput.x != 0, smoothRight);
+        if (movementInput == Vector2.zero)
+        {
+            movementController.movement = false;
+            return;
+        }
+
+        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
+        movement = movement.normalized;
+
+        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
     }
 
     void Jump()
@@ -171,30 +198,6 @@ public class PlayerMovement : MonoBehaviour
     {
         movementController.SetFriction(true);
         canDash = true;
-    }
-
-    private void FixedUpdate()
-    {
-        CheckLanding();
-
-        if (isDashing) return;
-
-        movementInput = InputManager.Instance.MovementVector;
-        if (movementInput == Vector2.zero)
-        {
-            isMoving = false;
-            movementController.movement = isMoving;
-            playerController.weaponHolder.currentWeapon.UpdateWalking(isMoving);
-            return;
-        }
-
-        isMoving = true;
-        playerController.weaponHolder.currentWeapon.UpdateWalking(isMoving);
-
-        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
-        movement = movement.normalized;
-
-        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
     }
 
     private void CheckLanding()
