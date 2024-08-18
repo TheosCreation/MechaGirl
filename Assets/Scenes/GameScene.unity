@@ -363,7 +363,7 @@ Transform:
   m_GameObject: {fileID: 41594679}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.98, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 34.500084, y: 27.264027, z: 82.65017}
+  size: {x: 34.500084, y: 27.463749, z: 82.65017}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -671,7 +671,7 @@ Transform:
   m_GameObject: {fileID: 84761822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 30.531736, z: 25.33588}
+  m_LocalPosition: {x: -1, y: 30.431875, z: 25.33588}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4452,7 +4452,7 @@ Transform:
   m_GameObject: {fileID: 536765791}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.90000224, z: 0.5}
+  m_LocalPosition: {x: 0, y: -1.0000002, z: 0.10000038}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9976,14 +9976,14 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  maxGroundDistance: 0.1
+  maxGroundDistance: 0.2
   groundCheckPosition: {fileID: 41594680}
-  groundCheckBoxWidth: 0.5
+  groundCheckBoxWidth: 0.4
   isGrounded: 0
   stepRayUpper: {fileID: 524124367}
   stepRayLower: {fileID: 536765791}
   stepHeight: 0.3
-  stepSmooth: 2
+  stepSmooth: 0.5
   maxSlopeAngle: 45
   isOnSlope: 0
   debug: 1
@@ -14233,7 +14233,7 @@ Transform:
   m_GameObject: {fileID: 1543695486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 19, z: -6.5}
+  m_LocalPosition: {x: 0, y: 18.7, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
