@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_RetroEffect
+  m_Name: Dithering
   m_Shader: {fileID: -6465566751694194690, guid: afee145fe8773164e8bb4895d5edd112,
     type: 3}
   m_Parent: {fileID: 0}
@@ -38,8 +38,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorResolution: 8
-    - _DitherSpread: 0.05
+    - _ColorResolution: 128
+    - _DitherSpread: 0
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

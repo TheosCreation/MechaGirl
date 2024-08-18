@@ -6241,7 +6241,7 @@ MonoBehaviour:
   canThrow: 1
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1
+  shootsPerSecond: 1.5
   screenShakeDuration: 0.02
   screenShakeAmount: 0.1
   canPickup: 1
@@ -6254,8 +6254,8 @@ MonoBehaviour:
   WeaponHolder: {fileID: 1747992919}
   meleeRange: 1.5
   meleeDamage: 20
-  dashSpeed: 10
-  dashDuration: 1
+  dashSpeed: 15
+  dashDuration: 0.35
   targetLayer:
     serializedVersion: 2
     m_Bits: 0

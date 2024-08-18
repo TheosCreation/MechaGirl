@@ -32,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashForce = 15.0f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 2.0f;
+    Timer dashTimer;
+    Timer dashCoolDownTimer;
 
     Vector2 movementInput = Vector2.zero;
 
@@ -44,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Dash.started += _ctx => Dash(transform.forward, dashForce, dashDuration);
 
         jumpTimer = gameObject.AddComponent<Timer>();
+        dashTimer = gameObject.AddComponent<Timer>();
+        dashCoolDownTimer = gameObject.AddComponent<Timer>();
+
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
     }
 
@@ -148,13 +153,11 @@ public class PlayerMovement : MonoBehaviour
             movementController.SetFriction(false);
             isDashing = true;
 
-            Timer dashTimer = gameObject.AddComponent<Timer>();
+            dashTimer.StopTimer();
             dashTimer.SetTimer(dashDuration, EndDash);
-            Destroy(dashTimer, dashDuration + (dashDuration / 10));
 
-            Timer refreshTimer = gameObject.AddComponent<Timer>();
-            refreshTimer.SetTimer(dashCooldown, RefreshDash);
-            Destroy(refreshTimer, dashCooldown + (dashCooldown / 10));
+            dashCoolDownTimer.StopTimer();
+            dashCoolDownTimer.SetTimer(dashCooldown, RefreshDash);
         }
     }
 
