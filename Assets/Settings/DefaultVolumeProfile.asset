@@ -263,6 +263,31 @@ MonoBehaviour:
   maxNits:
     m_OverrideState: 1
     m_Value: 1000
+--- !u!114 &-5067317918002113701
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1d7cf8148c178428c571426a8fcbea, type: 3}
+  m_Name: Dithering
+  m_EditorClassIdentifier: 
+  active: 1
+  patternIndex:
+    m_OverrideState: 1
+    m_Value: 0
+  ditherThreshold:
+    m_OverrideState: 1
+    m_Value: 512
+  ditherStrength:
+    m_OverrideState: 1
+    m_Value: 1
+  ditherScale:
+    m_OverrideState: 1
+    m_Value: 2
 --- !u!114 &-4341664352349692224
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -539,6 +564,7 @@ MonoBehaviour:
   - {fileID: 6311909532150423893}
   - {fileID: 7233781624028565746}
   - {fileID: -858587043382481226}
+  - {fileID: -5067317918002113701}
 --- !u!114 &382708481726701635
 MonoBehaviour:
   m_ObjectHideFlags: 3
