@@ -216,7 +216,7 @@ public class Enemy : MonoBehaviour, IDamageable
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 targetRotation,
-                Time.deltaTime * agent.angularSpeed
+                Time.deltaTime * 1000.0f
             );
         }
     }

@@ -73,7 +73,7 @@ public class Weapon : MonoBehaviour
     protected Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
-
+    private SpriteBillboard spriteBillboard;
 
     public event Action OnAttack;
 
@@ -90,6 +90,7 @@ public class Weapon : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         bc = GetComponent<BoxCollider>();
+        spriteBillboard = GetComponent<SpriteBillboard>();
     }
 
     protected void Start()
@@ -160,6 +161,7 @@ public class Weapon : MonoBehaviour
         bc.enabled = false;
         rb.isKinematic = true;
         animator.enabled = true;
+        spriteBillboard.enabled = false;
 
         if (playerController != null)
         {
@@ -201,6 +203,8 @@ public class Weapon : MonoBehaviour
 
         //clear attached functions
         OnAttack = null;
+
+        spriteBillboard.enabled = true;
     }
 
     public void PickUp(WeaponHolder weaponHolder, PlayerController pc)

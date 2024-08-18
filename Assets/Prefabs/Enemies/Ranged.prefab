@@ -803,7 +803,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 500
+  m_AngularSpeed: 1000
   m_StoppingDistance: 4
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -832,9 +832,11 @@ MonoBehaviour:
   fieldOfViewAngle: 360
   isRanged: 1
   attackDistance: 4.1
+  attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
   attackResumeRotationDelay: 0.02
+  delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
   dashSpeed: 10
@@ -1567,6 +1569,7 @@ GameObject:
   - component: {fileID: 4086531353381657770}
   - component: {fileID: 2237429842428943572}
   - component: {fileID: 7428592858313084202}
+  - component: {fileID: 3784322008298713217}
   m_Layer: 10
   m_Name: Revolver
   m_TagString: Weapon
@@ -1845,6 +1848,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3784322008298713217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7564707813662068295}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7775543357896521091
 GameObject:
   m_ObjectHideFlags: 0
