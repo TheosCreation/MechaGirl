@@ -981,7 +981,7 @@ MonoBehaviour:
   walkingRightTransition: 0.15
   canJump: 1
   isJumping: 0
-  jumpForce: 6
+  jumpForce: 8
   jumpDuration: 0.3
   wallDistance: 1
   maxWallJumps: 3
