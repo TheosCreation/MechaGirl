@@ -2089,7 +2089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde959bb3a3674c428e64179ad7e4122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoadFirst: GameScene
+  sceneToLoadFirst: Level1
   mainMenuScene: MainMenu
 --- !u!1 &272265689
 GameObject:
@@ -4299,8 +4299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   options: {fileID: 11400000, guid: 9ecda95e89149df44b5588c939c9ba77, type: 2}
   Mixer: {fileID: 24100000, guid: dca2b53473b18fe458174bfc810899af, type: 2}
-  input: {fileID: 0}
-  look: {fileID: 0}
+  player: {fileID: 0}
 --- !u!1 &757688923
 GameObject:
   m_ObjectHideFlags: 0

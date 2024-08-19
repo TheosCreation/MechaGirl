@@ -61,9 +61,9 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateSensitivity(FloatSetting sensitivitySetting)
     {
-        if (player.playerLook == null)
+        if (player == null)
         {
-            Debug.Log("PlayerLook has not been set yet");
+            Debug.Log("Player does not exist yet");
             return;
         }
         player.playerLook.lookSensitivity = PlayerPrefs.GetFloat(sensitivitySetting.name, sensitivitySetting.defaultValue) / 200;
@@ -89,9 +89,9 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateTilt(BoolSetting tiltSetting)
     {
-        if (player.playerLook == null)
+        if (player == null)
         {
-            Debug.Log("PlayerLook has not been set yet");
+            Debug.Log("Player does not exist yet");
             return;
         }
         int defaultValue = tiltSetting.defaultValue ? 1 : 0;
@@ -112,9 +112,9 @@ public class SettingsManager : MonoBehaviour
     
     public void UpdateScreenShake(FloatSetting screenShakeSetting)
     {
-        if (player.playerLook == null)
+        if (player == null)
         {
-            Debug.Log("PlayerLook has not been set yet");
+            Debug.Log("Player does not exist yet");
             return;
         }
         float screenShakePercentage = PlayerPrefs.GetFloat(screenShakeSetting.name, screenShakeSetting.defaultValue);
