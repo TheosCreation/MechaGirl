@@ -8,10 +8,15 @@ public class PlayerMovement : MonoBehaviour
     private MovementController movementController;
 
     [Header("Movement")]
-    public bool isMoving = false;
     [SerializeField] private float maxSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
     [SerializeField] private float deceleration = 2.0f;
+
+    [Header("Animations")]
+    [SerializeField] private float walkingRightTransition = 20.0f;
+    float smoothRight;
+    private float currentVelocity;
+
     [Header("Jump")]
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool isJumping = false;
@@ -27,11 +32,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 wallNormal;
 
     [Header("Dash")]
-    [SerializeField] private bool isDashing = false;
+    [SerializeField] public bool isDashing = false;
     [SerializeField] private bool canDash = true;
     [SerializeField] private float dashForce = 15.0f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 2.0f;
+    Timer dashTimer;
+    Timer dashCoolDownTimer;
 
     Vector2 movementInput = Vector2.zero;
 
@@ -44,7 +51,32 @@ public class PlayerMovement : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Dash.started += _ctx => Dash(transform.forward, dashForce, dashDuration);
 
         jumpTimer = gameObject.AddComponent<Timer>();
+        dashTimer = gameObject.AddComponent<Timer>();
+        dashCoolDownTimer = gameObject.AddComponent<Timer>();
+
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
+    }
+    private void FixedUpdate()
+    {
+        CheckLanding();
+
+        if (isDashing) return;
+
+
+        movementInput = InputManager.Instance.MovementVector;
+        float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
+        smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
+        playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput.x != 0, smoothRight);
+        if (movementInput == Vector2.zero)
+        {
+            movementController.movement = false;
+            return;
+        }
+
+        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
+        movement = movement.normalized;
+
+        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
     }
 
     void Jump()
@@ -78,6 +110,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 pushDirection = wallNormal.normalized;
 
+        movementController.ResetVerticalVelocity();
         // Apply the force in the calculated jump direction
         movementController.AddForce((Vector3.up + pushDirection) * jumpForce);
 
@@ -129,7 +162,7 @@ public class PlayerMovement : MonoBehaviour
         Dash(dashDirection, scaledDashForce, dashDuration * 1.5f, true);
     }
 
-    void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
+   public void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
     {
         if (canDash)
         {
@@ -145,16 +178,13 @@ public class PlayerMovement : MonoBehaviour
             movementController.ResetHorizontalVelocity();
             movementController.AddForce(dashDirection * dashForce);
             movementController.SetFriction(false);
-            canDash = false;
             isDashing = true;
 
-            Timer dashTimer = gameObject.AddComponent<Timer>();
+            dashTimer.StopTimer();
             dashTimer.SetTimer(dashDuration, EndDash);
-            Destroy(dashTimer, dashDuration + (dashDuration / 10));
 
-            Timer refreshTimer = gameObject.AddComponent<Timer>();
-            refreshTimer.SetTimer(dashCooldown, RefreshDash);
-            Destroy(refreshTimer, dashCooldown + (dashCooldown / 10));
+            dashCoolDownTimer.StopTimer();
+            dashCoolDownTimer.SetTimer(dashCooldown, RefreshDash);
         }
     }
 
@@ -168,30 +198,6 @@ public class PlayerMovement : MonoBehaviour
     {
         movementController.SetFriction(true);
         canDash = true;
-    }
-
-    private void FixedUpdate()
-    {
-        CheckLanding();
-
-        if (isDashing) return;
-
-        movementInput = InputManager.Instance.MovementVector;
-        if (movementInput == Vector2.zero)
-        {
-            isMoving = false;
-            movementController.movement = isMoving;
-            playerController.weaponHolder.currentWeapon.UpdateWalking(isMoving);
-            return;
-        }
-
-        isMoving = true;
-        playerController.weaponHolder.currentWeapon.UpdateWalking(isMoving);
-
-        Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
-        movement = movement.normalized;
-
-        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
     }
 
     private void CheckLanding()

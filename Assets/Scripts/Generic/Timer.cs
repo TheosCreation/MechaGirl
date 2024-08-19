@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -42,5 +43,10 @@ public class Timer : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         callback?.Invoke(parameter);
+    }
+
+    internal void SetTimer(float attackStartDelay, object v)
+    {
+        throw new NotImplementedException();
     }
 }

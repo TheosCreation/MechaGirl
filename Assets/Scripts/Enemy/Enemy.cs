@@ -8,18 +8,28 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator animator;
     [HideInInspector] public Transform target;
     public EnemyStateMachine StateMachine;
-
+    private Vector3 dashDirection;
     [Header("Settings")]
     public float updatePathTime = 1.0f; // time to update the path towards the target
     public float lookDistance = 30f;
     public float fieldOfViewAngle = 110f;
     public bool isRanged = false;
     public float attackDistance = 0.1f;
+    public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
+    public float attackResumeRotationDelay = 0.02f;
 
-    private Weapon weapon;
+    [HideInInspector] public Timer delayTimer;
+    [HideInInspector] public Weapon weapon;
+    [HideInInspector] public bool canRotate = true;
 
+    [Header("Dash Settings")]
+    public float dashSpeed = 10f;
+    public float dashDuration = 0.1f;
+    public bool isDashing = false;
+
+    [Header("Health")]
     public int maxHealth = 100;
     private float health;
     public float Health
@@ -54,12 +64,22 @@ public class Enemy : MonoBehaviour, IDamageable
             .Build();
 
         SetDefaultState();
+        delayTimer = gameObject.AddComponent<Timer>();
+        weapon = GetComponentInChildren<Weapon>();
     }
 
     private void Update()
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
+        if(canRotate)
+        {
+            LookTowardsTarget();
+        }
+        if (isDashing)
+        {
+            agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+        }
     }
 
     private void SetDefaultState()
@@ -92,6 +112,16 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Die()
     {
         OnDeath?.Invoke();
+        if (weapon == null)
+        {
+            weapon = GetComponentInChildren<Weapon>();
+        }
+
+        if (weapon != null)
+        {
+            weapon.Throw(Vector3.up, 0.5f, 0.0f);
+        }
+
         Destroy(gameObject);
     }
 
@@ -150,6 +180,44 @@ public class Enemy : MonoBehaviour, IDamageable
         if (weapon != null)
         {
             weapon.EndShooting();
+        }
+    }
+    public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
+    {
+        dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
+        dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
+        dashDirection = transform.forward;
+        if (!isDashing)
+        {
+            isDashing = true;
+            Timer timer = gameObject.AddComponent<Timer>();
+            timer.SetTimer(dashDuration, StopDash);
+            Destroy(timer, dashDuration+(dashDuration/10));
+        }
+    }
+
+    private void StopDash()
+    {
+        isDashing = false;
+    }
+
+    private void LookTowardsTarget()
+    {
+        if (target != null)
+        {
+            // Determine direction to look at
+            Vector3 directionToTarget = target.position - transform.position;
+            directionToTarget.y = 0; // Keep only the horizontal direction
+
+            // Determine the rotation needed to look at the target
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+            // Smoothly rotate the enemy towards the target
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                Time.deltaTime * 1000.0f
+            );
         }
     }
 }

@@ -8,6 +8,7 @@ public class PhysicalProjectile : Projectile
 {
     // Start is called before the first frame update
     [SerializeField] protected float speed = 20.0f; // Speed of the projectile
+    [SerializeField] protected bool destroy = true; // Does obj destroy on hit
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
         // Apply force to move the projectile
@@ -19,8 +20,9 @@ public class PhysicalProjectile : Projectile
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit an object on the collisionMask
+        if (other.gameObject.layer == owner.layer) {  return; };
         if ((hitMask.value & (1 << other.gameObject.layer)) == 0) return;
-
+        
         // Deal damage if the object is damageable
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
@@ -29,6 +31,9 @@ public class PhysicalProjectile : Projectile
         }
 
         // Destroy the projectile on collision
-        Destroy(gameObject);
+        if (destroy)
+        {
+            Destroy(gameObject);
+        }
     }
 }

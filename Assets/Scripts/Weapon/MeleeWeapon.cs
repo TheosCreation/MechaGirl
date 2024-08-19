@@ -3,9 +3,9 @@ using UnityEngine;
 public class MeleeWeapon : Weapon
 {
     [Header("Melee Attack Settings")]
-    [SerializeField] private float meleeRange = 1.5f;
-    [SerializeField] private float meleeDamage = 20.0f;
-    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] protected float meleeRange = 1.5f;
+    [SerializeField] protected float meleeDamage = 20.0f;
+    [SerializeField] protected LayerMask targetLayer;
 
     public override void Shoot()
     {

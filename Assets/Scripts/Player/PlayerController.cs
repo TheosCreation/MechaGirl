@@ -59,13 +59,4 @@ public class PlayerController : MonoBehaviour, IDamageable
         //handle death by destroying the gameobject then cleaning up the scene, show death screen with restart option
         //Destroy(gameObject);
     }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Weapon"))
-        {
-            Weapon weapon = other.gameObject.GetComponent<Weapon>();
-            weapon.PickUp(weaponHolder);
-        }
-    }
 }
