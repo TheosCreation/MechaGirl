@@ -36,7 +36,8 @@ class LevelManager : MonoBehaviour
             levelCompleteTime = Time.time - levelStartTime;
             isTimerRunning = false;
 
-            PauseManager.Instance.SetPaused(false);
+            PauseManager.Instance.SetPaused(true);
+            PauseManager.Instance.canUnpause = false;
 
             // Pass the time to the UIManager and open the level complete screen
             UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime);

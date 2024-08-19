@@ -16,4 +16,9 @@ public class LevelCompleteMenuManager : MonoBehaviour
 
         timeText.text = string.Format("{0}:{1:00}.{2:000}", minutes, seconds, milliseconds);
     }
+
+    public void OpenNextLevel()
+    {
+        GameManager.Instance.OpenNextLevel();
+    }
 }

@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
     public static PauseManager Instance { get; private set; }
 
     [SerializeField] private bool isPaused = false;
+    public bool canUnpause = true;
 
     private void Awake()
     {
@@ -26,6 +27,8 @@ public class PauseManager : MonoBehaviour
 
     private void CheckPaused()
     {
+        if (!canUnpause) return;
+
         if (isPaused)
         {
             Pause();
