@@ -691,6 +691,7 @@ MonoBehaviour:
   enemyCountToSpawn: 6
   enemiesToSpawn:
   - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
+  - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -2864,9 +2865,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localStartPosition: {x: 30.729729, y: 5.2271795, z: 45.569794}
   localEndPosition: {x: 50.22562, y: 3.9759464, z: 68.462906}
-  enemyCountToSpawn: 4
+  enemyCountToSpawn: 6
   enemiesToSpawn:
   - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
+  - {fileID: 4274951009702948806, guid: d7c1c5a9e58d948489ac9b4b57918db5, type: 3}
+  - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -3328,9 +3331,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   localStartPosition: {x: -25.88185, y: 12.570265, z: 64.827576}
   localEndPosition: {x: -44.646294, y: 11.257817, z: 47.22001}
-  enemyCountToSpawn: 4
+  enemyCountToSpawn: 8
   enemiesToSpawn:
   - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
+  - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
+  - {fileID: 4274951009702948806, guid: d7c1c5a9e58d948489ac9b4b57918db5, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 0
