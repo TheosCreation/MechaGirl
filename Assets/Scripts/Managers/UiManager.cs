@@ -9,6 +9,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject playerHud;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject deathScreen;
+    [SerializeField] private LevelCompleteMenuManager levelCompleteScreen;
 
     [SerializeField] private Image weaponImage;
     [SerializeField] private FlashImage hitMarker;
@@ -38,6 +39,7 @@ public class UiManager : MonoBehaviour
         Time.timeScale = 1;
         InputManager.Instance.EnableInGameInput();
         deathScreen.SetActive(false);
+        levelCompleteScreen.gameObject.SetActive(false);
     }
 
     public void PauseMenu(bool isPaused)
@@ -79,5 +81,13 @@ public class UiManager : MonoBehaviour
     public void FlashHurtScreen()
     {
         hurtScreen.Play(); 
+    }
+
+    public void OpenLevelCompleteScreen(float levelCompleteTime)
+    {
+        playerHud.SetActive(false); 
+        pauseMenu.SetActive(false);
+        levelCompleteScreen.gameObject.SetActive(true);
+        levelCompleteScreen.UpdateTimeText(levelCompleteTime);
     }
 }

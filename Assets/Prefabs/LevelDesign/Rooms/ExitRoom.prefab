@@ -154,8 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 632551897362269979}
   - component: {fileID: 7111414142022522403}
-  - component: {fileID: 7736677921873444439}
-  - component: {fileID: 6655524635170467028}
+  - component: {fileID: 1872045874143088092}
   m_Layer: 9
   m_Name: FinishLevelTrigger
   m_TagString: Untagged
@@ -199,7 +198,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 6, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0}
---- !u!114 &7736677921873444439
+--- !u!114 &1872045874143088092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -208,38 +207,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5011916882856746524}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbaba52310db26a409e724d974e96bbc, type: 3}
+  m_Script: {fileID: 11500000, guid: d52553447369ed24e89e38aa6a5e26d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reuseable: 0
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6655524635170467028}
-        m_TargetAssemblyTypeName: LoadScene, Assembly-CSharp
-        m_MethodName: Load
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6655524635170467028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5011916882856746524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e3b574227f6084f9bd28c5972cdb76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: LevelComplete
 --- !u!1 &6242534510545605409
 GameObject:
   m_ObjectHideFlags: 0

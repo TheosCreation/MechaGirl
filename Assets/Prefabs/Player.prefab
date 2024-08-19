@@ -978,7 +978,7 @@ MonoBehaviour:
   maxSpeed: 7
   acceleration: 12
   deceleration: 3
-  walkingRightTransition: 20
+  walkingRightTransition: 0.15
   canJump: 1
   isJumping: 0
   jumpForce: 6
