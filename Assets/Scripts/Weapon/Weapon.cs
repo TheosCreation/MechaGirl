@@ -84,7 +84,6 @@ public class Weapon : MonoBehaviour
         equipTimer = gameObject.AddComponent<Timer>();
         pickupTimer = gameObject.AddComponent<Timer>();
 
-        playerController = GetComponentInParent<PlayerController>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -95,6 +94,7 @@ public class Weapon : MonoBehaviour
 
     protected void Start()
     {
+        playerController = GetComponentInParent<PlayerController>();
         Ammo = startingAmmo;
     }
 
@@ -195,6 +195,7 @@ public class Weapon : MonoBehaviour
         pickupTimer.StopTimer();
         pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
 
+        isShooting = false;
         //disable script just like unequiping the weapon
         this.enabled = false;
 

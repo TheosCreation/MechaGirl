@@ -4,13 +4,8 @@ using UnityEngine.Audio;
 public class SettingsManager : MonoBehaviour
 {
     public Options options;
-
-    [SerializeField] private OptionsMenu menu;
-
     [SerializeField] private AudioMixer Mixer;
-    [SerializeField] private InputManager input;
-    [SerializeField] private PlayerLook look;
-
+    [SerializeField] private PlayerController player;
     public static SettingsManager Instance { get; private set; }
     private void Awake()
     {
@@ -29,6 +24,7 @@ public class SettingsManager : MonoBehaviour
 
     private void Start()
     {
+        player = FindFirstObjectByType<PlayerController>();
         ApplyAllSettings();
     }
 
@@ -65,24 +61,24 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateSensitivity(FloatSetting sensitivitySetting)
     {
-        if (look == null)
+        if (player.playerLook == null)
         {
             Debug.Log("PlayerLook has not been set yet");
             return;
         }
-        look.lookSensitivity = PlayerPrefs.GetFloat(sensitivitySetting.name, sensitivitySetting.defaultValue) / 200;
+        player.playerLook.lookSensitivity = PlayerPrefs.GetFloat(sensitivitySetting.name, sensitivitySetting.defaultValue) / 200;
     }
 
     public void UpdateLookSmoothing(FloatSetting lookSmoothingSetting)
     {
-        if (input == null)
+        if (InputManager.Instance == null)
         {
             Debug.Log("Input has not been set yet");
             return;
         }
         float lookSmoothingPercentage = PlayerPrefs.GetFloat(lookSmoothingSetting.name, lookSmoothingSetting.defaultValue);
         float normalizedLookSmoothing = lookSmoothingPercentage / 100f;
-        input.mouseSmoothTime = normalizedLookSmoothing * 0.03f;
+        InputManager.Instance.mouseSmoothTime = normalizedLookSmoothing * 0.03f;
     }
 
     public void UpdateFov(FloatSetting fovSetting)
@@ -93,14 +89,14 @@ public class SettingsManager : MonoBehaviour
 
     public void UpdateTilt(BoolSetting tiltSetting)
     {
-        if (look == null)
+        if (player.playerLook == null)
         {
             Debug.Log("PlayerLook has not been set yet");
             return;
         }
         int defaultValue = tiltSetting.defaultValue ? 1 : 0;
         int tiltStatus = PlayerPrefs.GetInt(tiltSetting.name, defaultValue);
-        look.tiltStatus = tiltStatus;
+        player.playerLook.tiltStatus = tiltStatus;
     }
     public void UpdateFullscreen(BoolSetting fullscreenSetting)
     {
@@ -116,14 +112,14 @@ public class SettingsManager : MonoBehaviour
     
     public void UpdateScreenShake(FloatSetting screenShakeSetting)
     {
-        if (look == null)
+        if (player.playerLook == null)
         {
             Debug.Log("PlayerLook has not been set yet");
             return;
         }
         float screenShakePercentage = PlayerPrefs.GetFloat(screenShakeSetting.name, screenShakeSetting.defaultValue);
         float normalizedScreenShake = screenShakePercentage / 100f;
-        look.shakeAmount = normalizedScreenShake;
+        player.playerLook.shakeAmount = normalizedScreenShake;
     }
 
     public void UpdateGraphicsQuality(IntSetting graphicsQualitySetting)
