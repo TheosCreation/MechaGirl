@@ -842,7 +842,7 @@ MonoBehaviour:
   dashSpeed: 10
   dashDuration: 0.1
   isDashing: 0
-  maxHealth: 100
+  maxHealth: 10
   defaultState: 1
   currentState: 1
 --- !u!1 &4368386415787076351

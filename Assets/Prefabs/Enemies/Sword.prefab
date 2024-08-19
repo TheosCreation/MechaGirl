@@ -832,9 +832,17 @@ MonoBehaviour:
   fieldOfViewAngle: 360
   isRanged: 1
   attackDistance: 4.1
+  attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
-  maxHealth: 100
+  attackResumeRotationDelay: 0.02
+  delayTimer: {fileID: 0}
+  weapon: {fileID: 0}
+  canRotate: 1
+  dashSpeed: 10
+  dashDuration: 0.1
+  isDashing: 0
+  maxHealth: 10
   defaultState: 1
   currentState: 1
 --- !u!1 &4368386415787076351
@@ -1219,7 +1227,7 @@ Transform:
   m_GameObject: {fileID: 5496996740841820959}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.104, y: 16.970001, z: -15.154001}
+  m_LocalPosition: {x: -0.746, y: 1.08, z: 0}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1232,7 +1240,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5496996740841820959}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1268,7 +1276,7 @@ SpriteRenderer:
   m_SortingLayerID: -437026063
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 65e11460c1d90bc4eb2096cb721cf4df, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d00d14d47835f84990ff7c145a1dc55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1387,7 +1395,7 @@ Animator:
   m_GameObject: {fileID: 5496996740841820959}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 20ad6a4526589934b91b1466ee9f2610, type: 2}
+  m_Controller: {fileID: 22100000, guid: a59073dfd21461945b6ca90675051908, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1418,7 +1426,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5496996740841820959}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c111f9033a1b1194d93e2e91be6c3cb7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1471,8 +1479,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8877946591cc744bf7a904296590b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 667114448308370171, guid: decd16025e05bc4408098bc47733e15c, type: 3}
-  icon: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: 017271f2a040dd8429f6c36c242f315a, type: 3}
+  iconSprite: {fileID: 21300000, guid: 9d00d14d47835f84990ff7c145a1dc55, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 017271f2a040dd8429f6c36c242f315a, type: 3}
   isEquip: 0
   equipTime: 0.5
   canThrow: 1
@@ -1481,8 +1490,8 @@ MonoBehaviour:
   shootsPerSecond: 1
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
-  canPickup: 1
-  startingAmmo: 100
+  canPickup: 0
+  startingAmmo: 2
   projectilePrefab: {fileID: 2567501356965547125, guid: dc1201aeb148b0b4089e4fab931dd095,
     type: 3}
   shootingSource: {fileID: 8693980941594343457}
@@ -1490,9 +1499,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   WeaponHolder: {fileID: 0}
   meleeRange: 1.5
-  meleeDamage: 20
-  dashLength: 20
-  dashDuration: 1
+  meleeDamage: 10
+  dashSpeed: 20
+  dashDuration: 0.5
   targetLayer:
     serializedVersion: 2
     m_Bits: 0

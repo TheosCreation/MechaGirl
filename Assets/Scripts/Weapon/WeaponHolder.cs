@@ -69,6 +69,23 @@ public class WeaponHolder : MonoBehaviour
     //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
     public void AddWeapon(Weapon weapon)
     {
+        foreach (Weapon existingWeapon in weapons)
+        {
+            if (existingWeapon.GetType() == weapon.GetType())
+            {
+                // Add ammo to the existing weapon
+                existingWeapon.Ammo += weapon.Ammo;
+
+                // Destroy the new weapon to avoid duplicates
+                Destroy(weapon.gameObject);
+
+                // Update UI if needed
+                UiManager.Instance.UpdateAmmoUi(existingWeapon.Ammo);
+
+                return;
+            }
+        }
+
         // Create a new array with an additional slot
         Weapon[] newWeaponsArray = new Weapon[weapons.Length + 1];
 
