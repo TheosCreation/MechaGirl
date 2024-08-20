@@ -88,6 +88,8 @@ class LevelManager : MonoBehaviour
         }
         PauseManager.Instance.SetPaused(false);
         SettingsManager.Instance.ApplyAllSettings();
+
+        playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
     }
 
     public void SetCheckPoint(Transform checkPointTransform)

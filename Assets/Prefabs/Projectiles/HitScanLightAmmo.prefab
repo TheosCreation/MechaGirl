@@ -48,9 +48,9 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 217
-  damage: 1
+  damage: 1.5
   owner: {fileID: 0}
-  headShotMultiplier: 2
+  headShotMultiplier: 1.5
   hitParticlesLifetime: 0.3
   particleOffset: 0.1
   hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,

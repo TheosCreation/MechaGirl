@@ -71,17 +71,17 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   singleSpriteImportData:
-  - name: 
+  - name: MDS_Robot_01_1
     originalName: 
-    pivot: {x: 0, y: 0}
+    pivot: {x: 0.5, y: 0.5}
     alignment: 0
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 0
       y: 0
-      width: 0
-      height: 0
+      width: 1000
+      height: 2000
     spriteID: 84301d7da20a79a4f99c6d93efe6adc9
     spriteBone: []
     spriteOutline: []
@@ -9618,7 +9618,7 @@ ScriptedImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     forceMaximumCompressionQuality_BC6H_BC7: 0
     crunchedCompression: 0
@@ -9780,7 +9780,7 @@ ScriptedImporter:
   rigPSDLayers: []
   sharedRigPSDLayers: []
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638592443945885303
+  platformSettingsDirtyTick: 638597908431654258
   spriteSizeExpandChanged: 0
   generateGOHierarchy: 0
   textureAssetName: 

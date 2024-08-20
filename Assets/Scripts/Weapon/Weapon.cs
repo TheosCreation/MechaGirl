@@ -47,6 +47,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
 
+    [HideInInspector] public float predictionTime = 0.2f;
+
     protected Animator animator;
 
     protected Transform target; // Target to aim at
@@ -75,7 +77,10 @@ public class Weapon : MonoBehaviour
 
             if (ammo <= 0 && isActiveAndEnabled)
             {
-                WeaponHolder.SwitchToWeaponWithAmmo();
+                if (WeaponHolder != null)
+                {
+                    WeaponHolder.SwitchToWeaponWithAmmo();
+                }
             }
         }
     }
@@ -126,7 +131,7 @@ public class Weapon : MonoBehaviour
 
 
             shootTimer = CalculateFireRate();
-            quickShootTimer = shootTimer - 0.3f;
+            quickShootTimer = shootTimer - predictionTime;
             if (playerController)
             {
                 shotDirection = playerController.playerCamera.transform.forward;

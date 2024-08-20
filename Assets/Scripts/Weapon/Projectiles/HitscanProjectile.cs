@@ -1,4 +1,5 @@
 using Runtime;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class HitscanProjectile : Projectile 
@@ -12,6 +13,11 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected GameObject gunTrailPrefab;
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
+        if (!fromPlayer)
+        {
+            //remove the Enemy layer from the hitMask
+            RemoveEnemyFromHitMask();
+        }
         Ray ray = new Ray(transform.position, direction);
         RaycastHit hit;
 

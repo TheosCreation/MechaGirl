@@ -80,7 +80,8 @@ MonoBehaviour:
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
-  attackResumeRotationDelay: 0.02
+  rotationFreezeTime: 0.4
+  attackResumeRotationDelay: 0.01
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
@@ -396,6 +397,7 @@ MonoBehaviour:
   shootingSource: {fileID: 8693980941594343457}
   shootingSounds:
   - {fileID: 8300000, guid: 2c5dc7b02ef563f498f40acadadddf4c, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   meleeRange: 1.5
   meleeDamage: 10
@@ -470,6 +472,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 1438939409791688091, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -518,6 +525,61 @@ PrefabInstance:
     - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2199974798438567513, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778377778925978090, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5480427298139875070, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5642249123075820988, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5811488432912182572, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271820222390365870, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AutoRebind
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6271820222390365870, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6821679780535722372, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169251663723845521, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616965973945543114, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125437967064159190, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -309,6 +309,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
 --- !u!1 &4274951009702948806
 GameObject:
@@ -390,7 +391,8 @@ MonoBehaviour:
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
-  attackResumeRotationDelay: 0.02
+  rotationFreezeTime: 0.4
+  attackResumeRotationDelay: 0.01
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
