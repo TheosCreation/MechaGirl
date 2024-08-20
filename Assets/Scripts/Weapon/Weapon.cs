@@ -1,5 +1,6 @@
 using Runtime;
 using System;
+using UnityEditor.Animations;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -9,6 +10,8 @@ public class Weapon : MonoBehaviour
     public Sprite Sprite;
     public Sprite iconSprite;
     public Sprite inGameSprite;
+    [SerializeField] private AnimatorOverrideController gunPlayerController;
+    [SerializeField] private AnimatorOverrideController gunInGameController;
     protected Sprite currentSprite;
 
     [Header("Equip")]
@@ -90,11 +93,11 @@ public class Weapon : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         bc = GetComponent<BoxCollider>();
         spriteBillboard = GetComponent<SpriteBillboard>();
+        playerController = GetComponentInParent<PlayerController>();
     }
 
     protected void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
         Ammo = startingAmmo;
     }
 
@@ -165,8 +168,13 @@ public class Weapon : MonoBehaviour
         rb.useGravity = true;
         if (playerController != null)
         {
+            animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
             UiManager.Instance.UpdateAmmoUi(Ammo);
+        }
+        else
+        {
+            animator.runtimeAnimatorController = gunInGameController;
         }
 
         animator.SetTrigger("Equip");
@@ -182,6 +190,8 @@ public class Weapon : MonoBehaviour
     public void Throw(Vector3 direction, float throwForce, float pickUpDelay)
     {
         transform.SetParent(null);
+
+        animator.runtimeAnimatorController = gunInGameController;
 
         rb.isKinematic = false;
         rb.AddForce(direction * throwForce, ForceMode.Impulse);

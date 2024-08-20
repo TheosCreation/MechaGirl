@@ -1635,15 +1635,15 @@ SpriteRenderer:
   m_SortingLayerID: -437026063
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: fabbbdb3c3a3ac84592faaaf0474d275, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 12.8, y: 6.4}
+  m_Size: {x: 4.096, y: 4.096}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!82 &5112184208316157538
@@ -1781,6 +1781,10 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
   iconSprite: {fileID: 21300000, guid: 373f1388dafd3304ebf876fd811bae2c, type: 3}
   inGameSprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: 20ad6a4526589934b91b1466ee9f2610,
+    type: 2}
+  gunInGameController: {fileID: 22100000, guid: e3cdf8015a15f68409916e4e93415837,
+    type: 2}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
@@ -1791,7 +1795,7 @@ MonoBehaviour:
   screenShakeAmount: 0.05
   canPickup: 0
   startingAmmo: 4
-  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+  projectilePrefab: {fileID: 4883112209185275442, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
     type: 3}
   shootingSource: {fileID: 5112184208316157538}
   shootingSounds:

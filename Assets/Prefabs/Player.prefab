@@ -227,6 +227,9 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
   iconSprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
   inGameSprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: 344b7e661be5d0e43b278c6dfa20dd5d,
+    type: 2}
+  gunInGameController: {fileID: 0}
   isEquip: 0
   equipTime: 0.3
   canThrow: 0
@@ -729,9 +732,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ca2c178c4f52934ab71801a060cd5cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
-  iconSprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
-  inGameSprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
+  Sprite: {fileID: 21300000, guid: bb69f20fec0eece4c9e64625eb6db204, type: 3}
+  iconSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: a76487ea4a45fea4094deaf1ea2a2a7c,
+    type: 2}
+  gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
+    type: 2}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
@@ -741,7 +748,7 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.03
   canPickup: 0
-  startingAmmo: 10
+  startingAmmo: 25
   projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
   shootingSource: {fileID: 4229107000865823858}
@@ -930,7 +937,7 @@ MonoBehaviour:
   controlGravity: 1
   useFriction: 1
   friction: 0.9
-  airFriction: 1
+  airFriction: 0.992
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -978,7 +985,7 @@ MonoBehaviour:
   maxSpeed: 7
   acceleration: 12
   deceleration: 3
-  walkingRightTransition: 0.15
+  walkingRightTransition: 0.025
   canJump: 1
   isJumping: 0
   jumpForce: 8
@@ -1196,7 +1203,7 @@ SpriteRenderer:
   m_Size: {x: 12.8, y: 6.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!82 &8553426414922508260
@@ -1331,9 +1338,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 833b216e47d384d45bb5913d377232e0, type: 3}
+  Sprite: {fileID: 21300000, guid: a0e8b1400650a9e44b144c3d83df2d89, type: 3}
   iconSprite: {fileID: 21300000, guid: 373f1388dafd3304ebf876fd811bae2c, type: 3}
   inGameSprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: 20ad6a4526589934b91b1466ee9f2610,
+    type: 2}
+  gunInGameController: {fileID: 22100000, guid: e3cdf8015a15f68409916e4e93415837,
+    type: 2}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
@@ -1343,8 +1354,8 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0
-  startingAmmo: 4
-  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+  startingAmmo: 8
+  projectilePrefab: {fileID: 4883112209185275442, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
     type: 3}
   shootingSource: {fileID: 8553426414922508260}
   shootingSounds:
