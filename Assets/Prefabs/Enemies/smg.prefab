@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 713174145428270396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.8179467, w: -0.5752941}
-  m_LocalPosition: {x: 3.2227807, y: -3.3964822, z: 0}
+  m_LocalPosition: {x: 3.07, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -300,7 +300,7 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.03
   canPickup: 0
-  startingAmmo: 10
+  startingAmmo: 25
   projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
   shootingSource: {fileID: 1657320952860308494}
@@ -380,7 +380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 3162298868746139290}
   target: {fileID: 0}
   updatePathTime: 0.8
   lookDistance: 100
@@ -528,6 +528,12 @@ PrefabInstance:
 --- !u!4 &2259141135596629203 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+    type: 3}
+  m_PrefabInstance: {fileID: 590478642522005511}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3162298868746139290 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2581533607449400989, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
     type: 3}
   m_PrefabInstance: {fileID: 590478642522005511}
   m_PrefabAsset: {fileID: 0}

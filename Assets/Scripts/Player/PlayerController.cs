@@ -65,20 +65,16 @@ public class PlayerController : MonoBehaviour, IDamageable
         PauseManager.Instance.PauseNoScreen();
         UiManager.Instance.OpenDeathScreen();
 
-        DestroyAllEnemies();
+        LevelManager.Instance.DestroyAllEnemies();
+        LevelManager.Instance.DestroyAllWeapons();
+
+        RemoveCamera();
 
         Destroy(gameObject);
     }
-
-    private void DestroyAllEnemies()
+    private void RemoveCamera()
     {
-        // Find all Enemy objects in the scene
-        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
-
-        // Loop through and destroy each enemy GameObject
-        foreach (Enemy enemy in enemies)
-        {
-            Destroy(enemy.gameObject);
-        }
+        LevelManager.Instance.tempCamera = GetComponentInChildren<Camera>().gameObject;
+        LevelManager.Instance.tempCamera.transform.SetParent(null);
     }
 }

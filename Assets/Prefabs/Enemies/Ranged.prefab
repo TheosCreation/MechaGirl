@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
-  animator: {fileID: 0}
+  animator: {fileID: 3997667365088890545}
   target: {fileID: 0}
   updatePathTime: 0.8
   lookDistance: 100
@@ -122,7 +122,7 @@ Transform:
   m_GameObject: {fileID: 7564707813662068295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.8179467, w: -0.5752941}
-  m_LocalPosition: {x: 2.48032, y: -1.0857155, z: 0.19000053}
+  m_LocalPosition: {x: 2.15, y: -0.89, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -534,6 +534,12 @@ Transform:
 --- !u!4 &2532084916311245084 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4002054898896197936, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1488970100299700268}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3997667365088890545 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2581533607449400989, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
     type: 3}
   m_PrefabInstance: {fileID: 1488970100299700268}
   m_PrefabAsset: {fileID: 0}

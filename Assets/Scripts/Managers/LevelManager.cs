@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 class LevelManager : MonoBehaviour
 {
@@ -7,8 +8,10 @@ class LevelManager : MonoBehaviour
     private float levelStartTime;
     private float levelCompleteTime;
     private bool isTimerRunning;
-    private Transform respawnTransform;
+    [SerializeField] private Transform respawnTransform;
     private PlayerSpawn playerSpawn;
+    [SerializeField] public GameObject tempCamera;
+    [HideInInspector] public UnityEvent OnPlayerRespawn;
 
     private void Awake()
     {
@@ -62,6 +65,7 @@ class LevelManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        OnPlayerRespawn?.Invoke();
         UiManager.Instance.OpenPlayerHud();
 
         //reset player health reset scene
@@ -75,12 +79,42 @@ class LevelManager : MonoBehaviour
         }
 
         //reset doors, remove enemies, reset trigger zones
+        //FindObjectsByType<TriggerDoor>()
+        SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
+        if (tempCamera != null)
+        {
+            Destroy(tempCamera);
+        }
         PauseManager.Instance.SetPaused(false);
+        SettingsManager.Instance.ApplyAllSettings();
     }
 
     public void SetCheckPoint(Transform checkPointTransform)
     {
-        respawnTransform = checkPointTransform;
+        respawnTransform.position = checkPointTransform.position;
+        respawnTransform.rotation = checkPointTransform.rotation;
+    }
+
+    public void DestroyAllEnemies()
+    {
+        // Find all Enemy objects in the scene
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        // Loop through and destroy each enemy GameObject
+        foreach (Enemy enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
+    }
+
+    public void DestroyAllWeapons()
+    {
+        Weapon[] weapons = FindObjectsByType<Weapon>(FindObjectsSortMode.None);
+
+        foreach (Weapon weapon in weapons)
+        {
+            Destroy(weapon.gameObject);
+        }
     }
 }

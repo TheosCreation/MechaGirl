@@ -299,7 +299,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                projectile.owner = transform.parent.gameObject;
+                projectile.owner = GetComponentInParent<Enemy>().gameObject;
                 projectile.Initialize( shotDirection, false);
             }
         }

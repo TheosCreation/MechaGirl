@@ -995,8 +995,8 @@ MonoBehaviour:
   isDashing: 0
   canDash: 1
   dashForce: 25
-  dashDuration: 0.3
-  dashCooldown: 1
+  dashDuration: 0.2
+  dashCooldown: 0.55
 --- !u!114 &1032469067366187872
 MonoBehaviour:
   m_ObjectHideFlags: 0

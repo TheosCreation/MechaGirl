@@ -5,7 +5,7 @@ public class SettingsManager : MonoBehaviour
 {
     public Options options;
     [SerializeField] private AudioMixer Mixer;
-    [SerializeField] private PlayerController player;
+    [HideInInspector] public PlayerController player;
     public static SettingsManager Instance { get; private set; }
     private void Awake()
     {

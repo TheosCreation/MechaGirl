@@ -1,17 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerCheckPoint : MonoBehaviour
 {
-    private bool active = true;
+    public UnityEvent OnPlayerRespawn;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
 
-        if(active)
-        {
-            LevelManager.Instance.SetCheckPoint(transform);
-            active = false;
-        }
+        LevelManager.Instance.SetCheckPoint(transform);
+        LevelManager.Instance.OnPlayerRespawn = OnPlayerRespawn;
+        Destroy(gameObject);
     }
 }
