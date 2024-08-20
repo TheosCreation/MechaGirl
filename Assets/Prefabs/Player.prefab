@@ -244,6 +244,7 @@ MonoBehaviour:
   shootingSource: {fileID: 2775055471723194841}
   shootingSounds:
   - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   meleeRange: 2
   meleeDamage: 100
@@ -757,6 +758,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
 --- !u!1 &2692979825899768291
 GameObject:
@@ -1233,7 +1235,7 @@ Animator:
   m_GameObject: {fileID: 3260850198187933253}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a59073dfd21461945b6ca90675051908, type: 2}
+  m_Controller: {fileID: 22100000, guid: 8d67658f9ac0ab94a92229e3227f7f21, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1339,6 +1341,7 @@ MonoBehaviour:
   shootingSource: {fileID: 2810744445539682342}
   shootingSounds:
   - {fileID: 8300000, guid: 2c5dc7b02ef563f498f40acadadddf4c, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   meleeRange: 1.5
   meleeDamage: 10
@@ -1678,6 +1681,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  predictionTime: 0.2
   WeaponHolder: {fileID: 0}
 --- !u!114 &5508518778985591359
 MonoBehaviour:
