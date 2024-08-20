@@ -201,7 +201,7 @@ public class Weapon : MonoBehaviour
     {
         transform.SetParent(null);
 
-        animator.runtimeAnimatorController = gunInGameController;
+        //animator.runtimeAnimatorController = gunInGameController;
 
         rb.isKinematic = false;
         rb.AddForce(direction * throwForce, ForceMode.Impulse);
@@ -216,8 +216,6 @@ public class Weapon : MonoBehaviour
         pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
 
         isShooting = false;
-        //disable script just like unequiping the weapon
-        this.enabled = false;
 
         playerController = null;
         WeaponHolder = null;
@@ -226,6 +224,8 @@ public class Weapon : MonoBehaviour
         OnAttack = null;
 
         spriteBillboard.enabled = true;
+        //disable script just like unequiping the weapon
+        this.enabled = false;
     }
 
     public void PickUp(WeaponHolder weaponHolder, PlayerController pc)
