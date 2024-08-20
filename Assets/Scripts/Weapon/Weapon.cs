@@ -79,7 +79,8 @@ public class Weapon : MonoBehaviour
             {
                 if (WeaponHolder != null)
                 {
-                    WeaponHolder.SwitchToWeaponWithAmmo();
+                    spriteRenderer.color = Color.red;
+                    WeaponHolder.TryThrowWeapon();
                 }
             }
         }
@@ -232,6 +233,12 @@ public class Weapon : MonoBehaviour
         if (!canPickup) return;
 
         playerController = pc;
+
+        if (Ammo <= 0)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         canPickup = false;
 
