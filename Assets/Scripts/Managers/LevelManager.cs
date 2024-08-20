@@ -55,6 +55,14 @@ class LevelManager : MonoBehaviour
 
             // Pass the time to the UIManager and open the level complete screen
             UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime);
+
+            if(levelCompleteTime < GameManager.Instance.GameState.level1BestTime)
+            {
+                GameManager.Instance.GameState.level1BestTime = levelCompleteTime;
+
+                //save the game state
+                GameManager.Instance.SerializeJson();
+            }
         }
     }
 

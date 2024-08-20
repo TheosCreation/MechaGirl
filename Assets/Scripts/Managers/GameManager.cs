@@ -1,14 +1,20 @@
+using Assets.Scripts.JsonSerialization;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    [HideInInspector] public GameState GameState;
     public string mainMenuScene = "MainMenu";
-
     public int currentLevelIndex = 0;
     private string[] levelScenes;
+
+    private IDataService DataService = new JsonDataService();
+    private long SaveTime;
 
     private void Awake()
     {
@@ -27,6 +33,20 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    public void SerializeJson()
+    {
+        long startTime = DateTime.Now.Ticks;
+        if(DataService.SaveData("/game-state.json", GameState, false))
+        {
+            SaveTime = DateTime.Now.Ticks - startTime;
+            Debug.Log("Save Time: " +  SaveTime);
+        }
+        else
+        {
+            Debug.LogError("Could not save file!");
         }
     }
 
