@@ -1,6 +1,5 @@
 using Runtime;
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -39,7 +38,6 @@ public class Weapon : MonoBehaviour
     [Tab("Setup")]
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
-    
 
     [SerializeField] protected GameObject projectilePrefab;
 
