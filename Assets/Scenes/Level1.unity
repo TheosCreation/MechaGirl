@@ -463,8 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066d28d2dce7d6c4483007343900d343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localStartPosition: {x: 14.5, y: -1.36, z: 23.86}
-  localEndPosition: {x: -16.67, y: -0.29, z: -4.7}
+  localStartPosition: {x: 13.990591, y: -1.3600006, z: 23.221344}
+  localEndPosition: {x: -16.210375, y: -0.29000092, z: 10.866055}
   enemyCountToSpawn: 4
   enemiesToSpawn:
   - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
