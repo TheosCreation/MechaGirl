@@ -11,6 +11,11 @@ public class PhysicalProjectile : Projectile
     [SerializeField] protected bool destroy = true; // Does obj destroy on hit
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
+        if (!fromPlayer)
+        {
+            //remove the Enemy layer from the hitMask
+            RemoveEnemyFromHitMask();
+        }
         // Apply force to move the projectile
         rb.AddForce(direction * speed, ForceMode.VelocityChange);
 

@@ -60,6 +60,13 @@ public class PauseManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    public void PauseNoScreen()
+    {
+        InputManager.Instance.DisableInGameInput(); 
+        Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     private void UnPause()
     {
         Time.timeScale = 1;

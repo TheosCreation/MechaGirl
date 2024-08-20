@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour, IDamageable
             }
         }
     }
+    private Vector3 respawnPosition;
 
     public event Action OnDeath;
 
@@ -39,6 +40,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        SetMaxHealth();
+    }
+
+    public void SetMaxHealth()
+    {
         Health = maxHealth;
     }
 
@@ -56,7 +62,19 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        //handle death by destroying the gameobject then cleaning up the scene, show death screen with restart option
-        //Destroy(gameObject);
+        PauseManager.Instance.PauseNoScreen();
+        UiManager.Instance.OpenDeathScreen();
+
+        LevelManager.Instance.DestroyAllEnemies();
+        LevelManager.Instance.DestroyAllWeapons();
+
+        RemoveCamera();
+
+        Destroy(gameObject);
+    }
+    private void RemoveCamera()
+    {
+        LevelManager.Instance.tempCamera = GetComponentInChildren<Camera>().gameObject;
+        LevelManager.Instance.tempCamera.transform.SetParent(null);
     }
 }

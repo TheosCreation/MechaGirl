@@ -179,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
             movementController.AddForce(dashDirection * dashForce);
             movementController.SetFriction(false);
             isDashing = true;
-
+            canDash = false;
             dashTimer.StopTimer();
             dashTimer.SetTimer(dashDuration, EndDash);
 

@@ -20,4 +20,12 @@ public class Projectile : MonoBehaviour
     }
 
     public virtual void Initialize(Vector3 direction, bool fromPlayer) { }
+
+    protected void RemoveEnemyFromHitMask()
+    {
+        int hitMaskValue = hitMask.value;
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        hitMaskValue &= ~(1 << enemyLayer);
+        hitMask = (LayerMask)hitMaskValue;
+    }
 }

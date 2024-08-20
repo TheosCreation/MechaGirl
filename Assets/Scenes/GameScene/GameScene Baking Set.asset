@@ -186,7 +186,7 @@ MonoBehaviour:
   lightingScenario: Default
   version: 0
   freezePlacement: 0
-  simplificationLevels: 3
+  simplificationLevels: 2
   minDistanceBetweenProbes: 1
   renderersLayerMask:
     serializedVersion: 2

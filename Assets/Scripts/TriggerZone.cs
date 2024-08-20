@@ -21,4 +21,9 @@ public class TriggerZone : MonoBehaviour
             active = false;
         }
     }
+
+    public void Reset()
+    {
+        active = true;
+    }
 }

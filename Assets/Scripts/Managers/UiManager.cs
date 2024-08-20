@@ -48,6 +48,13 @@ public class UiManager : MonoBehaviour
         playerHud.SetActive(!isPaused);
     }
 
+    public void OpenPlayerHud()
+    {
+        playerHud.SetActive(true);
+        deathScreen.SetActive(false);
+        pauseMenu.SetActive(false);
+    }
+
     public void OpenDeathScreen()
     {
         deathScreen.SetActive(true);

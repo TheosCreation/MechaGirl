@@ -24,7 +24,7 @@ public class Weapon : MonoBehaviour
 
     [Header("Shooting")]
     [SerializeField] protected bool canShoot = true;
-    [SerializeField] protected bool isShooting = false;
+    public bool isShooting = false;
     [SerializeField] protected float shootsPerSecond = 1.0f;
     protected float shootTimer = 0.0f;
     private float quickShootTimer = 0.0f;
@@ -38,31 +38,16 @@ public class Weapon : MonoBehaviour
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
-    [SerializeField] protected int startingAmmo = 10;
-    private int ammo;
-    public int Ammo
-    {
-        get => ammo;
-        set
-        {
-            ammo = value;
-            if (playerController != null)
-            {
-                UiManager.Instance.UpdateAmmoUi(ammo);
-            }
-
-            if (ammo <= 0 && canThrow)
-            {
-                WeaponHolder.TryThrowWeapon();
-            }
-        }
-    }
+    public int startingAmmo = 10;
+    
 
     [SerializeField] protected GameObject projectilePrefab;
 
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
+
+    [HideInInspector] public float predictionTime = 0.2f;
 
     protected Animator animator;
 
@@ -77,6 +62,28 @@ public class Weapon : MonoBehaviour
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     private SpriteBillboard spriteBillboard;
+
+    private int ammo;
+    public int Ammo
+    {
+        get => ammo;
+        set
+        {
+            ammo = value;
+            if (playerController != null && isActiveAndEnabled)
+            {
+                UiManager.Instance.UpdateAmmoUi(ammo);
+            }
+
+            if (ammo <= 0 && isActiveAndEnabled)
+            {
+                if (WeaponHolder != null)
+                {
+                    WeaponHolder.SwitchToWeaponWithAmmo();
+                }
+            }
+        }
+    }
 
     public event Action OnAttack;
 
@@ -94,6 +101,8 @@ public class Weapon : MonoBehaviour
         bc = GetComponent<BoxCollider>();
         spriteBillboard = GetComponent<SpriteBillboard>();
         playerController = GetComponentInParent<PlayerController>();
+
+        ammo = startingAmmo;
     }
 
     protected void Start()
@@ -116,13 +125,13 @@ public class Weapon : MonoBehaviour
             canShoot = true;
         }
 
-        if (canShoot && isShooting && isEquip)
+        if (canShoot && isShooting && isEquip && Ammo > 0)
         {
             canShoot = false;
 
 
             shootTimer = CalculateFireRate();
-            quickShootTimer = shootTimer - 0.3f;
+            quickShootTimer = shootTimer - predictionTime;
             if (playerController)
             {
                 shotDirection = playerController.playerCamera.transform.forward;
@@ -224,18 +233,14 @@ public class Weapon : MonoBehaviour
 
         playerController = pc;
 
-        if (Ammo <= 0)
-        {
-            Destroy(gameObject);
-            return;
-        }
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        weaponHolder.AddWeapon(this);
-
-        //will disable unwanted stuff, will not play anims
-        Equip();
+        if(weaponHolder.AddWeapon(this))
+        {
+            //if is new weapon lets equip it
+            Equip();
+        }
     }
 
     protected float CalculateFireRate()
@@ -299,7 +304,7 @@ public class Weapon : MonoBehaviour
             }
             else
             {
-                projectile.owner = transform.parent.gameObject;
+                projectile.owner = GetComponentInParent<Enemy>().gameObject;
                 projectile.Initialize( shotDirection, false);
             }
         }

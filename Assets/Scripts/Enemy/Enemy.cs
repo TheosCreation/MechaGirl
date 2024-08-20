@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
-    public float attackResumeRotationDelay = 0.02f;
+    public float rotationFreezeTime = 0.4f;
+    public float attackResumeRotationDelay = 0.01f;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
@@ -120,7 +121,6 @@ public class Enemy : MonoBehaviour, IDamageable
         if (weapon != null)
         {
             weapon.Throw(Vector3.up, 0.0f, 0.0f);
-            weapon.GetComponent<Rigidbody>().useGravity = false;
         }
 
         Destroy(gameObject);
@@ -163,6 +163,7 @@ public class Enemy : MonoBehaviour, IDamageable
             }
             if (weapon != null)
             {
+                weapon.predictionTime = rotationFreezeTime;
                 weapon.StartShooting();
             }
             else
