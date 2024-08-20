@@ -996,7 +996,7 @@ MonoBehaviour:
   maxWallJumps: 3
   isDashing: 0
   canDash: 1
-  dashForce: 25
+  dashForce: 40
   dashDuration: 0.2
   dashCooldown: 0.55
 --- !u!114 &1032469067366187872
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 1063886760058708068}
-  throwForce: 12
+  throwForce: 20
   pickUpDelay: 0.5
 --- !u!1 &4429112426131733179
 GameObject:
