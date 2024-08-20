@@ -33,7 +33,7 @@ public class JsonDataService : IDataService
     }
     public T LoadData<T>(string RelativePath, bool Encrypted)
     {
-        throw new System.NotImplementedException();
+        string path = Application.persistentDataPath + RelativePath;
     }
   
 }
