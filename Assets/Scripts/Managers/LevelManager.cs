@@ -7,6 +7,8 @@ class LevelManager : MonoBehaviour
     private float levelStartTime;
     private float levelCompleteTime;
     private bool isTimerRunning;
+    private Transform respawnTransform;
+    private PlayerSpawn playerSpawn;
 
     private void Awake()
     {
@@ -18,6 +20,15 @@ class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
             return;
+        }
+    }
+
+    private void Start()
+    {
+        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
+        if(playerSpawn == null)
+        {
+            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
         }
     }
 
@@ -47,5 +58,25 @@ class LevelManager : MonoBehaviour
     public float GetLevelCompleteTime()
     {
         return levelCompleteTime;
+    }
+
+    public void RespawnPlayer()
+    {
+        UiManager.Instance.OpenPlayerHud();
+
+        //reset player health reset scene
+        if (respawnTransform != null)
+        {
+            playerSpawn.SpawnPlayer(respawnTransform.position, respawnTransform.rotation);
+        }
+        else
+        {
+            playerSpawn.SpawnPlayer(Vector3.zero, Quaternion.identity);
+        }
+    }
+
+    public void SetCheckPoint(Transform checkPointTransform)
+    {
+        respawnTransform = checkPointTransform;
     }
 }

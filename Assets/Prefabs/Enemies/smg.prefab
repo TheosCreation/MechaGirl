@@ -94,12 +94,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 713174145428270396}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.633, y: 1.212, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.8179467, w: -0.5752941}
+  m_LocalPosition: {x: 3.2227802, y: -3.3964813, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 195759607885323213}
+  m_Father: {fileID: 2208099434435170394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1657320952860308494
 AudioSource:
@@ -350,6 +350,10 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: bb69f20fec0eece4c9e64625eb6db204, type: 3}
   iconSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
   inGameSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: a76487ea4a45fea4094deaf1ea2a2a7c,
+    type: 2}
+  gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
+    type: 2}
   isEquip: 0
   equipTime: 0.3
   canThrow: 1
@@ -1091,7 +1095,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 6351431924889605012}
   - {fileID: 1248977964138386090}
   - {fileID: 4487063867119175102}
   m_Father: {fileID: 0}
@@ -1888,7 +1891,8 @@ Transform:
   m_LocalPosition: {x: 1.3600857, y: 1.5078948, z: 0}
   m_LocalScale: {x: 1.0000002, y: 1.0000002, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6351431924889605012}
   m_Father: {fileID: 3258462247903631858}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7995200777487452480
