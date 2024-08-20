@@ -4807,6 +4807,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 4183565338522576732, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
       propertyPath: m_LocalScale.x

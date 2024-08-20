@@ -63,12 +63,14 @@ public class WeaponHolder : MonoBehaviour
     {
         if (currentWeaponIndex != 0)
         {
-            lastThrowWeapon = currentWeapon;
-            currentWeapon.Throw(playerController.playerCamera.transform.forward, throwForce, pickUpDelay);
-
-            Remove(currentWeapon);
+            Weapon weaponToThrow = currentWeapon;
 
             SelectWeapon(0);
+
+            weaponToThrow.Throw(playerController.playerCamera.transform.forward, throwForce, pickUpDelay);
+            Remove(weaponToThrow);
+
+            lastThrowWeapon = weaponToThrow;
         }
         else
         {

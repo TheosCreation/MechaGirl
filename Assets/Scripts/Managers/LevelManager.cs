@@ -73,7 +73,17 @@ class LevelManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        OnPlayerRespawn?.Invoke();
+        if (OnPlayerRespawn == null)
+        {
+            ResetDoors(); 
+            ResetTriggers();
+            ResetCheckPoints();
+        }
+        else
+        {
+            OnPlayerRespawn.Invoke();
+        }
+
         UiManager.Instance.OpenPlayerHud();
 
         //reset player health reset scene
@@ -87,7 +97,7 @@ class LevelManager : MonoBehaviour
         }
 
         //reset doors, remove enemies, reset trigger zones
-        //FindObjectsByType<TriggerDoor>()
+        //
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
         if (tempCamera != null)
@@ -125,6 +135,33 @@ class LevelManager : MonoBehaviour
         foreach (Weapon weapon in weapons)
         {
             Destroy(weapon.gameObject);
+        }
+    }
+
+    public void ResetDoors()
+    {
+        TriggerDoor[] doors = FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None);
+        foreach (TriggerDoor door in doors)
+        {
+            door.Reset();
+        }
+    }
+
+    public void ResetTriggers()
+    {
+        TriggerZone[] triggerZones = FindObjectsByType<TriggerZone>(FindObjectsSortMode.None);
+        foreach (TriggerZone triggerZone in triggerZones)
+        {
+            triggerZone.Reset();
+        }
+    }
+    
+    public void ResetCheckPoints()
+    {
+        TriggerCheckPoint[] checkPoints = FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None);
+        foreach (TriggerCheckPoint checkPoint in checkPoints)
+        {
+            checkPoint.Reset();
         }
     }
 }
