@@ -1,11 +1,14 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    public string sceneToLoadFirst = "GameScene";
     public string mainMenuScene = "MainMenu";
+
+    public int currentLevelIndex = 0;
+    private string[] levelScenes;
 
     private void Awake()
     {
@@ -13,6 +16,13 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            // Get scenes that start with "Level" and store them
+            levelScenes = Enumerable.Range(0, SceneManager.sceneCountInBuildSettings)
+                .Select(i => System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)))
+                .Where(name => name.StartsWith("Level"))
+                .OrderBy(name => name)
+                .ToArray();
         }
         else
         {
@@ -22,7 +32,29 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(sceneToLoadFirst);
+        if (levelScenes.Length > 0)
+        {
+            currentLevelIndex = 0;
+            SceneManager.LoadScene(levelScenes[currentLevelIndex]);
+        }
+        else
+        {
+            Debug.LogError("No levels found that start with 'Level'.");
+        }
+    }
+
+    public void OpenNextLevel()
+    {
+        if (currentLevelIndex < levelScenes.Length - 1)
+        {
+            currentLevelIndex++;
+            SceneManager.LoadScene(levelScenes[currentLevelIndex]);
+        }
+        else
+        {
+            Debug.Log("No more levels to load, returning to main menu.");
+            ExitToMainMenu();
+        }
     }
 
     public void ExitToMainMenu()

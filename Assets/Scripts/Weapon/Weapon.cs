@@ -162,7 +162,7 @@ public class Weapon : MonoBehaviour
         rb.isKinematic = true;
         animator.enabled = true;
         spriteBillboard.enabled = false;
-
+        rb.useGravity = true;
         if (playerController != null)
         {
             spriteRenderer.enabled = false;

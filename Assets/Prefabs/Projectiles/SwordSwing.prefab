@@ -79,7 +79,7 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 136
-  damage: 100
+  damage: 10
   owner: {fileID: 0}
   speed: 20
   destroy: 0

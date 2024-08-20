@@ -457,10 +457,10 @@ GameObject:
   - component: {fileID: 4229107000865823858}
   - component: {fileID: 8761732938109151783}
   - component: {fileID: 4335488501700886057}
-  - component: {fileID: 2420576938289323809}
   - component: {fileID: 7422272052564055396}
   - component: {fileID: 4757502989225890165}
   - component: {fileID: 4930404572215993802}
+  - component: {fileID: 8374165860435579583}
   m_Layer: 10
   m_Name: Smg
   m_TagString: Weapon
@@ -657,40 +657,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &2420576938289323809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2540019241456337324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b19bdaf8253eb84799bdb7f8a3fc649, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: c51c0127afec16d4e82cadf2b3296a2f, type: 3}
-  iconSprite: {fileID: 21300000, guid: c51c0127afec16d4e82cadf2b3296a2f, type: 3}
-  inGameSprite: {fileID: 21300000, guid: c51c0127afec16d4e82cadf2b3296a2f, type: 3}
-  isEquip: 0
-  equipTime: 0.3
-  canThrow: 1
-  canShoot: 1
-  isShooting: 0
-  shootsPerSecond: 11
-  screenShakeDuration: 0.02
-  screenShakeAmount: 0.03
-  canPickup: 0
-  startingAmmo: 20
-  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
-    type: 3}
-  shootingSource: {fileID: 4229107000865823858}
-  shootingSounds:
-  - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
-  - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
-  - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
-  - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
-  WeaponHolder: {fileID: 0}
 --- !u!114 &7422272052564055396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -751,6 +717,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &8374165860435579583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2540019241456337324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ca2c178c4f52934ab71801a060cd5cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
+  iconSprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 8b3f07393fca40e4a89c0d60feb53e07, type: 3}
+  isEquip: 0
+  equipTime: 0.3
+  canThrow: 1
+  canShoot: 1
+  isShooting: 0
+  shootsPerSecond: 11
+  screenShakeDuration: 0.02
+  screenShakeAmount: 0.03
+  canPickup: 0
+  startingAmmo: 10
+  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+    type: 3}
+  shootingSource: {fileID: 4229107000865823858}
+  shootingSounds:
+  - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
+  - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
+  - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
+  - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  WeaponHolder: {fileID: 0}
 --- !u!1 &2692979825899768291
 GameObject:
   m_ObjectHideFlags: 0
@@ -978,10 +978,10 @@ MonoBehaviour:
   maxSpeed: 7
   acceleration: 12
   deceleration: 3
-  walkingRightTransition: 20
+  walkingRightTransition: 0.15
   canJump: 1
   isJumping: 0
-  jumpForce: 6
+  jumpForce: 8
   jumpDuration: 0.3
   wallDistance: 1
   maxWallJumps: 3

@@ -48,7 +48,8 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 217
-  damage: 50
+  damage: 2
+  owner: {fileID: 0}
   headShotMultiplier: 2
   hitParticlesLifetime: 0.3
   particleOffset: 0.1

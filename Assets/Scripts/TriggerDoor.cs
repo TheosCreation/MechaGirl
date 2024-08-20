@@ -1,5 +1,6 @@
 using Unity.AI.Navigation;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TriggerDoor : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class TriggerDoor : MonoBehaviour
     [SerializeField] private float speedMultiplier = 0.1f;
 
     [SerializeField] private GameObject overlay;
+
+    public UnityEvent onTriggerEnter;
+    private bool triggerEventActive = true;
 
     void Start()
     {
@@ -28,7 +32,12 @@ public class TriggerDoor : MonoBehaviour
     {
         if (other.CompareTag("Player") && !locked)
         {
-            _animator.SetBool("Open", true);
+            _animator.SetBool("Open", true); 
+            if (triggerEventActive)
+            {
+                onTriggerEnter?.Invoke();
+                triggerEventActive = false;
+            }
         }
     }
 
