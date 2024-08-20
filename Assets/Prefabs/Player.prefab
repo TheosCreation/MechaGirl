@@ -282,7 +282,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 7, y: 7, z: 7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5848914487712911208
 Rigidbody:
@@ -692,7 +692,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 7, y: 7, z: 7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4930404572215993802
 Rigidbody:
@@ -735,7 +735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: bb69f20fec0eece4c9e64625eb6db204, type: 3}
   iconSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
-  inGameSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 5ca09f19c37894342a82800b567fedcd, type: 3}
   gunPlayerController: {fileID: 22100000, guid: a76487ea4a45fea4094deaf1ea2a2a7c,
     type: 2}
   gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
@@ -1235,7 +1235,7 @@ Animator:
   m_GameObject: {fileID: 3260850198187933253}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 8d67658f9ac0ab94a92229e3227f7f21, type: 2}
+  m_Controller: {fileID: 22100000, guid: a59073dfd21461945b6ca90675051908, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1278,7 +1278,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 7, y: 10, z: 7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &2192775968619892150
 Rigidbody:
@@ -1321,8 +1321,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: 017271f2a040dd8429f6c36c242f315a, type: 3}
   iconSprite: {fileID: 21300000, guid: 9d00d14d47835f84990ff7c145a1dc55, type: 3}
-  inGameSprite: {fileID: 21300000, guid: 017271f2a040dd8429f6c36c242f315a, type: 3}
-  gunPlayerController: {fileID: 22100000, guid: 8d67658f9ac0ab94a92229e3227f7f21,
+  inGameSprite: {fileID: 21300000, guid: 20bb37ed13369fc44a07c94a40c8bcde, type: 3}
+  gunPlayerController: {fileID: 22100000, guid: a59073dfd21461945b6ca90675051908,
     type: 2}
   gunInGameController: {fileID: 22100000, guid: 8d67658f9ac0ab94a92229e3227f7f21,
     type: 2}
@@ -1714,7 +1714,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 7, y: 7, z: 7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7441608631704400258
 Rigidbody:

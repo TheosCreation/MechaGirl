@@ -243,7 +243,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 5, y: 5, z: 5}
+  m_Size: {x: 7, y: 7, z: 7}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1244114723538824339
 Rigidbody:
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: bb69f20fec0eece4c9e64625eb6db204, type: 3}
   iconSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
-  inGameSprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  inGameSprite: {fileID: 21300000, guid: 5ca09f19c37894342a82800b567fedcd, type: 3}
   gunPlayerController: {fileID: 22100000, guid: a76487ea4a45fea4094deaf1ea2a2a7c,
     type: 2}
   gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
