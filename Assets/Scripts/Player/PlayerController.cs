@@ -64,5 +64,21 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         PauseManager.Instance.PauseNoScreen();
         UiManager.Instance.OpenDeathScreen();
+
+        DestroyAllEnemies();
+
+        Destroy(gameObject);
+    }
+
+    private void DestroyAllEnemies()
+    {
+        // Find all Enemy objects in the scene
+        Enemy[] enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
+
+        // Loop through and destroy each enemy GameObject
+        foreach (Enemy enemy in enemies)
+        {
+            Destroy(enemy.gameObject);
+        }
     }
 }

@@ -73,6 +73,10 @@ class LevelManager : MonoBehaviour
         {
             playerSpawn.SpawnPlayer(Vector3.zero, Quaternion.identity);
         }
+
+        //reset doors, remove enemies, reset trigger zones
+
+        PauseManager.Instance.SetPaused(false);
     }
 
     public void SetCheckPoint(Transform checkPointTransform)

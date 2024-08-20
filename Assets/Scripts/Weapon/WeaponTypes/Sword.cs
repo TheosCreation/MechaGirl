@@ -12,8 +12,7 @@ public class Sword : Weapon
     
     public override void Shoot()
     {
-       base.Shoot();
-        if(transform.parent == null) { return; }
+        if (transform.parent == null) { return; }
 
         if (playerController != null)
         {
@@ -24,8 +23,9 @@ public class Sword : Weapon
         {
             Enemy enemyRef = transform.parent.GetComponent<Enemy>();
             enemyRef.Dash(dashSpeed, dashDuration);
-
         }
+
+        base.Shoot();
     }
     private void OnDrawGizmosSelected()
     {
