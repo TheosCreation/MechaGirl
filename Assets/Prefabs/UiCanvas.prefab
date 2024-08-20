@@ -6051,6 +6051,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 5190652897577179948}
+  bestTimeText: {fileID: 947852065009160493}
 --- !u!1 &3170559676928715326
 GameObject:
   m_ObjectHideFlags: 0

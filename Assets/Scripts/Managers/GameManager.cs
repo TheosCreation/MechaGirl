@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
 
     private IDataService DataService = new JsonDataService();
     private long SaveTime;
+    private long LoadTime;
 
     private void Awake()
     {
@@ -35,6 +36,23 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        UnSerializeJson();
+    }
+
+    public void UnSerializeJson()
+    {
+        long startTime = DateTime.Now.Ticks;
+        try
+        {
+            GameState data = DataService.LoadData<GameState>("/game-state.json", false);
+            LoadTime = DateTime.Now.Ticks - startTime;
+            Debug.Log("Load Time: " + LoadTime);
+        }
+        catch
+        {
+            Debug.Log($"Could not read file!");
         }
     }
 

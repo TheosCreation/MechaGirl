@@ -13,7 +13,7 @@ public class JsonDataService : IDataService
         {
             if (File.Exists(path))
             {
-                Debug.Log("Data exists. Deleting old file and wrinting a new one");
+                Debug.Log("Data exists. Deleting old file and writing a new one");
                 File.Delete(path);
             }
             else
@@ -31,9 +31,27 @@ public class JsonDataService : IDataService
             return false;
         }
     }
+
     public T LoadData<T>(string RelativePath, bool Encrypted)
     {
-        throw new System.NotImplementedException();
+        string path = Application.persistentDataPath + RelativePath;
+
+        if(!File.Exists(path))
+        {
+            Debug.LogError($"Cannot load file at {path}. File does not exist!");
+            throw new FileNotFoundException($"{path} does not exist!");
+        }
+
+        try
+        {
+            T data = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
+            return data;
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
+            throw e;
+        }
     }
   
 }

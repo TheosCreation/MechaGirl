@@ -96,5 +96,6 @@ public class UiManager : MonoBehaviour
         pauseMenu.SetActive(false);
         levelCompleteScreen.gameObject.SetActive(true);
         levelCompleteScreen.UpdateTimeText(levelCompleteTime);
+        levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.level1BestTime);
     }
 }

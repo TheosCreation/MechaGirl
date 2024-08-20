@@ -20,7 +20,7 @@ public class WeaponPickUp : MonoBehaviour
             }
         }
     }
-    //TODO : Add this to enemy
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Weapon"))
