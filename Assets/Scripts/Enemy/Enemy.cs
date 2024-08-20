@@ -120,7 +120,6 @@ public class Enemy : MonoBehaviour, IDamageable
         if (weapon != null)
         {
             weapon.Throw(Vector3.up, 0.0f, 0.0f);
-            weapon.GetComponent<Rigidbody>().useGravity = false;
         }
 
         Destroy(gameObject);

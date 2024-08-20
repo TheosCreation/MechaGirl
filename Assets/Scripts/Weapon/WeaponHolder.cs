@@ -11,23 +11,36 @@ public class WeaponHolder : MonoBehaviour
     private int currentWeaponIndex = 0;
     [SerializeField] private float throwForce = 10.0f;
     [SerializeField] private float pickUpDelay = 1.0f;
- 
+    private bool isShooting = false;
 
     private void Awake()
     {
         InputManager.Instance.playerInput.InGame.WeaponSwitch.performed += ctx => WeaponSwitch(ctx.ReadValue<Vector2>());
-        InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => currentWeapon.StartShooting();
-        InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => currentWeapon.EndShooting();
+        InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => StartShooting();
+        InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => EndShooting();
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
         playerController = GetComponentInParent<PlayerController>();
 
         weapons = GetComponentsInChildren<Weapon>();
     }
-
     void Start()
     {
         // Initialize the first weapon if needed
         SelectWeapon(currentWeaponIndex);
+    }
+
+    private void EndShooting()
+    {
+        isShooting = false;
+    }
+    private void StartShooting()
+    {
+        isShooting = true;
+    }
+
+    public void FixedUpdate()
+    {
+        currentWeapon.isShooting = isShooting;
     }
 
     private void WeaponSwitch(Vector2 scrollInput)
@@ -67,22 +80,19 @@ public class WeaponHolder : MonoBehaviour
     }
 
     //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
-    public void AddWeapon(Weapon weapon)
+    public bool AddWeapon(Weapon weapon)
     {
         foreach (Weapon existingWeapon in weapons)
         {
             if (existingWeapon.GetType() == weapon.GetType())
             {
                 // Add ammo to the existing weapon
-                existingWeapon.Ammo += weapon.Ammo;
+                existingWeapon.Ammo += weapon.startingAmmo;
 
                 // Destroy the new weapon to avoid duplicates
                 Destroy(weapon.gameObject);
 
-                // Update UI if needed
-                UiManager.Instance.UpdateAmmoUi(existingWeapon.Ammo);
-
-                return;
+                return false;
             }
         }
 
@@ -106,6 +116,8 @@ public class WeaponHolder : MonoBehaviour
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
 
         SelectWeapon(weapons.Length - 1);
+
+        return true;
     }
 
     private void SelectWeapon(int index)
@@ -114,6 +126,7 @@ public class WeaponHolder : MonoBehaviour
         for (int i = 0; i < weapons.Length; i++)
         {
             weapons[i].enabled = i == index;
+            weapons[i].isShooting = false;
             if (i == index)
             {
                 currentWeaponIndex = index;
@@ -156,5 +169,20 @@ public class WeaponHolder : MonoBehaviour
         {
             Debug.LogWarning("Weapon not found in the array.");
         }
+    }
+
+    public void SwitchToWeaponWithAmmo()
+    {
+        for (int i = 1; i < weapons.Length; i++)
+        {
+            // Check if the weapon has ammo
+            if (weapons[i].Ammo > 0)
+            {
+                // Switch to this weapon
+                SelectWeapon(i);
+                return;
+            }
+        }
+        SelectWeapon(0);
     }
 }
