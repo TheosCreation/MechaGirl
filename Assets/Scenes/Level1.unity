@@ -607,6 +607,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158194071}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &343197271 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8020735303323016433, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6305193442666250139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &447042500
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: MainMenu
-  currentLevelIndex: 0
 --- !u!1 &1856130910
 GameObject:
   m_ObjectHideFlags: 0
@@ -5022,6 +5033,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -113.9
       objectReference: {fileID: 0}
+    - target: {fileID: 5559192297534720973, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+        type: 3}
+      propertyPath: levelCompleteTitle
+      value: 
+      objectReference: {fileID: 343197271}
     - target: {fileID: 6204303322586136565, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
       propertyPath: m_Sprite

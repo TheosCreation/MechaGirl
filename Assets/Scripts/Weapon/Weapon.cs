@@ -176,7 +176,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected void Equip()
+    private void Attach()
     {
         if (Ammo > 0)
         {
@@ -185,13 +185,25 @@ public class Weapon : MonoBehaviour
 
         bc.enabled = false;
         rb.isKinematic = true;
-        animator.enabled = true;
         spriteBillboard.enabled = false;
         rb.useGravity = true;
         if (playerController != null)
         {
             animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
+        }
+        else
+        {
+            animator.runtimeAnimatorController = gunInGameController;
+        }
+    }
+
+    protected void Equip()
+    {
+        Attach();
+        animator.enabled = true;
+        if (playerController != null)
+        {
             if(!ignoreAmmo)
             {
                 UiManager.Instance.UpdateAmmoUi(Ammo);
@@ -200,10 +212,6 @@ public class Weapon : MonoBehaviour
             {
                 UiManager.Instance.UpdateAmmoUi(0);
             }
-        }
-        else
-        {
-            animator.runtimeAnimatorController = gunInGameController;
         }
 
         animator.SetTrigger("Equip");
@@ -260,7 +268,7 @@ public class Weapon : MonoBehaviour
         if(weaponHolder.AddWeapon(this))
         {
             //if is new weapon lets equip it
-            Equip();
+            Attach();
         }
     }
 
