@@ -232,6 +232,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         foreach (var sr in spriteRenderers)
         {
+            if(sr.GetComponent<Weapon>() != null) { continue; };
             sr.color = Color.red;
         }
         yield return new WaitForSeconds(0.1f);

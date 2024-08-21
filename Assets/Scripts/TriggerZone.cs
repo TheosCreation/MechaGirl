@@ -7,6 +7,7 @@ public class TriggerZone : MonoBehaviour
 
     // UnityEvent that can be configured in the Inspector
     public UnityEvent onTriggerEnter;
+    public UnityEvent onTriggerExit;
 
     private bool active = true;
 
@@ -18,6 +19,17 @@ public class TriggerZone : MonoBehaviour
         if(active || reuseable)
         {
             onTriggerEnter?.Invoke();
+            active = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag != "Player") return;
+
+        if (active || reuseable)
+        {
+            onTriggerExit?.Invoke();
             active = false;
         }
     }
