@@ -15,6 +15,7 @@ public class WeaponHolder : MonoBehaviour
     private bool isShooting = false;
     private bool isSwitching = false;
     private float scrollSwitchDelay = 0.2f;
+    public ParticleSystem pickupParticle;
 
     private void Awake()
     {
@@ -106,6 +107,11 @@ public class WeaponHolder : MonoBehaviour
     //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
     public bool AddWeapon(Weapon weapon)
     {
+        if (lastThrowWeapon == weapon)
+        {
+            lastThrowWeapon = null;
+        }
+    
         foreach (Weapon existingWeapon in weapons)
         {
             if (existingWeapon.GetType() == weapon.GetType())
@@ -131,6 +137,7 @@ public class WeaponHolder : MonoBehaviour
 
         // Add the new weapon to the end
         newWeaponsArray[weapons.Length] = weapon;
+        pickupParticle.Play();
 
         // Replace the old array with the new one
         weapons = newWeaponsArray;
@@ -156,10 +163,7 @@ public class WeaponHolder : MonoBehaviour
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
                 currentWeapon.WeaponHolder = this;
-                if(lastThrowWeapon == weapons[i])
-                {
-                    lastThrowWeapon = null; 
-                }
+      
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
                 UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);
             }
