@@ -392,7 +392,7 @@ MonoBehaviour:
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
-  rotationFreezeTime: 0.4
+  rotationFreezeTime: 1
   attackResumeRotationDelay: 0.01
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
