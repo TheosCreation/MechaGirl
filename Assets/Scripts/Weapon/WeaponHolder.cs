@@ -139,7 +139,7 @@ public class WeaponHolder : MonoBehaviour
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
 
-        SelectWeapon(weapons.Length - 1);
+        //SelectWeapon(weapons.Length - 1);
 
         return true;
     }

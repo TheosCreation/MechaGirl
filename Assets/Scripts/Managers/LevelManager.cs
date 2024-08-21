@@ -63,7 +63,7 @@ class LevelManager : MonoBehaviour
             }
 
             // Pass the time to the UIManager and open the level complete screen
-            UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime);
+            UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime, GameManager.Instance.GameState.currentLevelIndex + 1);
         }
     }
 
@@ -108,7 +108,7 @@ class LevelManager : MonoBehaviour
         PauseManager.Instance.SetPaused(false);
         SettingsManager.Instance.ApplyAllSettings();
 
-        playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
+        //playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
     }
 
     public void SetCheckPoint(Transform checkPointTransform)
