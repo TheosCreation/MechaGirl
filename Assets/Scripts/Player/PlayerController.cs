@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
     }
 
-    private void Die()
+    public void Die()
     {
         PauseManager.Instance.PauseNoScreen();
         UiManager.Instance.OpenDeathScreen();

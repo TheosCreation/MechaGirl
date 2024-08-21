@@ -18,6 +18,9 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Image weaponIconImage;
 
+    [SerializeField] private GameObject tutorialHud;
+    [SerializeField] private TMP_Text tutorialText;
+
     //public Image image;
     //public UiBar bar;
 
@@ -69,7 +72,13 @@ public class UiManager : MonoBehaviour
     {
         ammoText.text = ammo > 0 ? ammo.ToString() : "";  // Set to empty string if ammo is 0
     }
+    public void SetTutorialText(string text)
+    {
+        tutorialText.text = text;
     
+        tutorialHud.SetActive(!(text == ""));
+      
+    }
     public void UpdateWeaponIcon(Sprite weaponIcon)
     {
         weaponIconImage.sprite = weaponIcon;

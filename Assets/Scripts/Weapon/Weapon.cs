@@ -73,10 +73,10 @@ public class Weapon : MonoBehaviour
             if (playerController != null && isActiveAndEnabled)
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
-            }
+            }   
             if (!ignoreAmmo)
             {
-                if (ammo <= 0 && isActiveAndEnabled)
+                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)
                 {
                     weaponColor = Color.red;
                  
