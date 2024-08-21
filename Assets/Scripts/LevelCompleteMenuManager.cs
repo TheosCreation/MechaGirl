@@ -1,14 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelCompleteMenuManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text levelCompleteTitle;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private TMP_Text bestTimeText;
+    [SerializeField] private Button button;
 
+    private void OnEnable()
+    {
+        SetComponents(false);
+
+        Timer timer = gameObject.AddComponent<Timer>();
+        timer.SetTimer(0.5f, SetComponents, true);
+    }
+
+    private void SetComponents(bool enabled)
+    {
+        levelCompleteTitle.gameObject.SetActive(enabled);
+        timeText.gameObject.SetActive(enabled);
+        bestTimeText.gameObject.SetActive(enabled);
+        button.gameObject.SetActive(enabled);
+    }
     public void UpdateBestTimeText(float time)
     {
         // Format the time into minutes:seconds.milliseconds
