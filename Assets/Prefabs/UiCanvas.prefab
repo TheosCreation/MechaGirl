@@ -3084,8 +3084,8 @@ RectTransform:
   m_GameObject: {fileID: 5756770108947291301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 8803208006362885773}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3115,7 +3115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4431,6 +4431,11 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1250578599952538113, guid: 20a3b5ea939e4cf4aa4b3df54c7c6fdd,
+        type: 3}
+      propertyPath: m_Value
+      value: 0.99999994
+      objectReference: {fileID: 0}
     - target: {fileID: 1814937607880445582, guid: 20a3b5ea939e4cf4aa4b3df54c7c6fdd,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -4824,7 +4829,7 @@ PrefabInstance:
     - target: {fileID: 6673878150644907466, guid: 20a3b5ea939e4cf4aa4b3df54c7c6fdd,
         type: 3}
       propertyPath: m_fontSize
-      value: 65.95
+      value: 64.7
       objectReference: {fileID: 0}
     - target: {fileID: 6676683487160454923, guid: 20a3b5ea939e4cf4aa4b3df54c7c6fdd,
         type: 3}
