@@ -110,6 +110,6 @@ public class UiManager : MonoBehaviour
         levelCompleteScreen.gameObject.SetActive(true);
         levelCompleteScreen.UpdateLevelNumber(currentLevelNumber);
         levelCompleteScreen.UpdateTimeText(levelCompleteTime);
-        levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.level1BestTime);
+        levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.GetBestTimeForCurrentLevel());
     }
 }
