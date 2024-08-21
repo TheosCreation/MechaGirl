@@ -44,25 +44,23 @@ MonoBehaviour:
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
       m_Values:
-      - {fileID: 11400000, guid: cad296f9bada87740b8d8a3565e9263d, type: 2}
-      - {fileID: 11400000, guid: 00264165c6e963d429f9c6bb424a7dce, type: 2}
-      - {fileID: 11400000, guid: 8d5892a98ed4fe848b9663439abde0fa, type: 2}
+      - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
+      - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
+      - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
     bakingSets:
-    - {fileID: 11400000, guid: cad296f9bada87740b8d8a3565e9263d, type: 2}
-    - {fileID: 11400000, guid: 00264165c6e963d429f9c6bb424a7dce, type: 2}
-    - {fileID: 11400000, guid: 8d5892a98ed4fe848b9663439abde0fa, type: 2}
+    - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
     sceneBounds:
       m_Keys:
       - 99c9720ab356a0642a771bea13969a05
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
       m_Values:
-      - m_Center: {x: -13.5, y: 27, z: 54}
-        m_Extent: {x: 40.5, y: 27, z: 54}
+      - m_Center: {x: 0, y: 40.5, z: 81}
+        m_Extent: {x: 81, y: 40.5, z: 81}
       - m_Center: {x: 0, y: 0, z: 81}
         m_Extent: {x: 81, y: 81, z: 81}
-      - m_Center: {x: 27, y: 0, z: 13.5}
-        m_Extent: {x: 54, y: 27, z: 67.5}
+      - m_Center: {x: 0, y: 0, z: 81}
+        m_Extent: {x: 81, y: 81, z: 81}
     hasProbeVolumes:
       m_Keys:
       - 99c9720ab356a0642a771bea13969a05
