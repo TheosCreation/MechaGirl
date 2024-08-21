@@ -89,6 +89,10 @@ public class UiManager : MonoBehaviour
     {
         hurtScreen.Play(); 
     }
+    public void UpdateWeaponImageColor(Color newColor)
+    {
+        weaponImage.color = newColor;
+    }
 
     public void OpenLevelCompleteScreen(float levelCompleteTime)
     {

@@ -246,6 +246,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
+  ignoreAmmo: 1
   meleeRange: 2
   meleeDamage: 100
   targetLayer:
@@ -760,6 +761,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
+  ignoreAmmo: 0
 --- !u!1 &2692979825899768291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,6 +1345,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2c5dc7b02ef563f498f40acadadddf4c, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
+  ignoreAmmo: 0
   meleeRange: 1.5
   meleeDamage: 10
   dashSpeed: 20
@@ -1683,6 +1686,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
+  ignoreAmmo: 0
 --- !u!114 &5508518778985591359
 MonoBehaviour:
   m_ObjectHideFlags: 0

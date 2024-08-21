@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class WeaponHolder : MonoBehaviour
     [SerializeField] private float throwForce = 10.0f;
     [SerializeField] private float pickUpDelay = 1.0f;
     private bool isShooting = false;
+    private bool isSwitching = false;
+    private float scrollSwitchDelay = 0.2f;
 
     private void Awake()
     {
@@ -43,21 +46,33 @@ public class WeaponHolder : MonoBehaviour
     {
         currentWeapon.isShooting = isShooting;
     }
-
-    private void WeaponSwitch(Vector2 scrollInput)
+    private void WeaponSwitch(Vector2 direction)
     {
-        if (scrollInput.y > 0)
+        if (!isSwitching)
+        {
+            StartCoroutine(WeaponSwitchDelay(direction));
+        }
+    }
+
+    private IEnumerator WeaponSwitchDelay(Vector2 direction)
+    {
+        isSwitching = true;
+        if (direction.y > 0)
         {
             // Scroll up, switch to the next weapon
             currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Length;
         }
-        else if (scrollInput.y < 0)
+        else if (direction.y < 0)
         {
             // Scroll down, switch to the previous weapon
             currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
         }
 
         SelectWeapon(currentWeaponIndex);
+
+        yield return new WaitForSeconds(scrollSwitchDelay);
+
+        isSwitching = false;
     }
     private void DashToWeapon()
     {

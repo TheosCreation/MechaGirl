@@ -60,8 +60,10 @@ public class Weapon : MonoBehaviour
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     private SpriteBillboard spriteBillboard;
-
+    private Color weaponColor;
     private int ammo;
+
+    [SerializeField] private bool ignoreAmmo = false;
     public int Ammo
     {
         get => ammo;
@@ -72,13 +74,12 @@ public class Weapon : MonoBehaviour
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
             }
-
-            if (ammo <= 0 && isActiveAndEnabled)
+            if (!ignoreAmmo)
             {
-                if (WeaponHolder != null)
+                if (ammo <= 0 && isActiveAndEnabled)
                 {
-                    spriteRenderer.color = Color.red;
-                    WeaponHolder.TryThrowWeapon();
+                    weaponColor = Color.red;
+                    UiManager.Instance.UpdateWeaponImageColor(weaponColor);
                 }
             }
         }
@@ -106,7 +107,10 @@ public class Weapon : MonoBehaviour
 
     protected void Start()
     {
-        Ammo = startingAmmo;
+        if (!ignoreAmmo)
+        {
+            Ammo = startingAmmo;
+        }
     }
 
     protected void Update()
@@ -124,22 +128,25 @@ public class Weapon : MonoBehaviour
             canShoot = true;
         }
 
-        if (canShoot && isShooting && isEquip && Ammo > 0)
+        if (canShoot && isShooting && isEquip)
         {
-            canShoot = false;
+            if(Ammo > 0 || ignoreAmmo)
+            {
+                canShoot = false;
 
 
-            shootTimer = CalculateFireRate();
-            quickShootTimer = shootTimer - predictionTime;
-            if (playerController)
-            {
-                shotDirection = playerController.playerCamera.transform.forward;
+                shootTimer = CalculateFireRate();
+                quickShootTimer = shootTimer - predictionTime;
+                if (playerController)
+                {
+                    shotDirection = playerController.playerCamera.transform.forward;
+                }
+                else
+                {
+                    shotDirection = transform.forward;
+                }
+                Shoot();
             }
-            else
-            {
-                shotDirection = transform.forward;
-            }
-            Shoot();
         }
 
         if (currentSprite != Sprite)
@@ -169,6 +176,11 @@ public class Weapon : MonoBehaviour
 
     protected void Equip()
     {
+        if (Ammo > 0)
+        {
+            weaponColor = Color.white;
+        }
+
         bc.enabled = false;
         rb.isKinematic = true;
         animator.enabled = true;
@@ -188,6 +200,7 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Equip");
 
         equipTimer.SetTimer(equipTime, EquipFinish);
+        UiManager.Instance.UpdateWeaponImageColor(weaponColor);
     }
 
     protected void EquipFinish()
