@@ -167,7 +167,7 @@ PrefabInstance:
     - target: {fileID: 5443606404637431075, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 84.59
+      value: 84.28
       objectReference: {fileID: 0}
     - target: {fileID: 5443606404637431075, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 83.96695, y: 77.584, z: 154.26782}
+  size: {x: 83.96695, y: 25.315071, z: 125.95421}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -318,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 84761822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.141403, y: 9, z: 94.6581}
+  m_LocalPosition: {x: 6.141403, y: 12.679135, z: 80.50129}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1067,10 +1067,50 @@ PrefabInstance:
       propertyPath: OnPlayerRespawn.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: Reset
       objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.93884474
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.86278665
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.04712885
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0.068606615
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 2.1616911e-16
+      objectReference: {fileID: 0}
     - target: {fileID: 4183565338522576732, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
       propertyPath: m_Name
       value: CheckPoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10.7
       objectReference: {fileID: 0}
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
@@ -1080,7 +1120,7 @@ PrefabInstance:
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
@@ -2845,11 +2885,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7335402352752264333, guid: 2f0b70d1cb7a7f542807424bf06d7f39,
-        type: 3}
-      propertyPath: musicToPlay.Array.size
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3947,10 +3982,50 @@ PrefabInstance:
       propertyPath: OnPlayerRespawn.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: Reset
       objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.9599683
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.6831555
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.0025958335
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.10529501
+      objectReference: {fileID: 0}
+    - target: {fileID: 3762287244183175814, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -1.4669855e-17
+      objectReference: {fileID: 0}
     - target: {fileID: 4183565338522576732, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
       propertyPath: m_Name
       value: CheckPoint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 8.71
+      objectReference: {fileID: 0}
+    - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 8.71
       objectReference: {fileID: 0}
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
@@ -3960,7 +4035,7 @@ PrefabInstance:
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.5
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7610355288968470204, guid: 5f65e2d37528a874390cbe96924fcbf5,
         type: 3}
