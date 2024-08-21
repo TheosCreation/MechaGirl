@@ -467,9 +467,7 @@ MonoBehaviour:
   localEndPosition: {x: -16.210375, y: -0.29000092, z: 10.866055}
   enemyCountToSpawn: 4
   enemiesToSpawn:
-  - {fileID: 4274951009702948806, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
   - {fileID: 4274951009702948806, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
-  - {fileID: 4274951009702948806, guid: d7c1c5a9e58d948489ac9b4b57918db5, type: 3}
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 1
