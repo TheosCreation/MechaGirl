@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,11 @@ class LevelManager : MonoBehaviour
     private PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
+    [HideInInspector] public bool resetLevel = true;
+
+    private List<TriggerDoor> triggerDoors = new List<TriggerDoor>();
+    private List<TriggerZone> triggerZones = new List<TriggerZone>();
+    private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
 
     private void Awake()
     {
@@ -26,10 +32,15 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
+        // Register all objects at the start
+        triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
+        triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
+        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None)); 
+        
         playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if(playerSpawn == null)
+        if (playerSpawn == null)
         {
             Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
         }
@@ -72,9 +83,17 @@ class LevelManager : MonoBehaviour
         return levelCompleteTime;
     }
 
+    public void KillCurrentPlayer()
+    {
+        if (playerSpawn.playerSpawned)
+        {
+            playerSpawn.playerSpawned.Die();
+        }
+    }
+
     public void RespawnPlayer()
     {
-        if (OnPlayerRespawn == null)
+        if (resetLevel)
         {
             ResetDoors(); 
             ResetTriggers();
@@ -82,7 +101,7 @@ class LevelManager : MonoBehaviour
         }
         else
         {
-            OnPlayerRespawn.Invoke();
+            OnPlayerRespawn?.Invoke();
         }
 
         UiManager.Instance.OpenPlayerHud();
@@ -141,16 +160,14 @@ class LevelManager : MonoBehaviour
 
     public void ResetDoors()
     {
-        TriggerDoor[] doors = FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None);
-        foreach (TriggerDoor door in doors)
+        foreach (TriggerDoor door in triggerDoors)
         {
-            door.Reset();
+            door.Unlock();
         }
     }
 
     public void ResetTriggers()
     {
-        TriggerZone[] triggerZones = FindObjectsByType<TriggerZone>(FindObjectsSortMode.None);
         foreach (TriggerZone triggerZone in triggerZones)
         {
             triggerZone.Reset();
@@ -159,7 +176,6 @@ class LevelManager : MonoBehaviour
     
     public void ResetCheckPoints()
     {
-        TriggerCheckPoint[] checkPoints = FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None);
         foreach (TriggerCheckPoint checkPoint in checkPoints)
         {
             checkPoint.Reset();

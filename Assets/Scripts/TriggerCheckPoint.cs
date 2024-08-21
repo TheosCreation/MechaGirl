@@ -24,6 +24,7 @@ public class TriggerCheckPoint : MonoBehaviour
             active = false;
             LevelManager.Instance.SetCheckPoint(transform);
             LevelManager.Instance.OnPlayerRespawn = OnPlayerRespawn;
+            LevelManager.Instance.resetLevel = false;
             spriteRenderer.enabled = false;
             boxCollider.enabled = false;
         }
