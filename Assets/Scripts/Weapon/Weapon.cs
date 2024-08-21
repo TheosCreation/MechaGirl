@@ -79,8 +79,13 @@ public class Weapon : MonoBehaviour
                 if (ammo <= 0 && isActiveAndEnabled)
                 {
                     weaponColor = Color.red;
-                    UiManager.Instance.UpdateWeaponImageColor(weaponColor);
+                 
                 }
+                else if(ammo > 0 && weaponColor == Color.red)
+                {
+                    weaponColor = Color.white;
+                }
+                UiManager.Instance.UpdateWeaponImageColor(weaponColor);
             }
         }
     }

@@ -156,6 +156,10 @@ public class WeaponHolder : MonoBehaviour
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
                 currentWeapon.WeaponHolder = this;
+                if(lastThrowWeapon == weapons[i])
+                {
+                    lastThrowWeapon = null; 
+                }
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
                 UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);
             }
