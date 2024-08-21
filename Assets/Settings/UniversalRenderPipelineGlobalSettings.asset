@@ -57,8 +57,8 @@ MonoBehaviour:
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
       m_Values:
-      - m_Center: {x: -13.5, y: 27, z: 54}
-        m_Extent: {x: 40.5, y: 27, z: 54}
+      - m_Center: {x: 0, y: 40.5, z: 81}
+        m_Extent: {x: 81, y: 40.5, z: 81}
       - m_Center: {x: 0, y: 0, z: 81}
         m_Extent: {x: 81, y: 81, z: 81}
       - m_Center: {x: 27, y: 0, z: 13.5}
@@ -68,7 +68,8 @@ MonoBehaviour:
       - 99c9720ab356a0642a771bea13969a05
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
-      m_Values: 010101
+      - 0201efa811fb54f4687ba4ea81a548fd
+      m_Values: 01010100
   m_ShaderStrippingSetting:
     m_Version: 0
     m_ExportShaderVariants: 1

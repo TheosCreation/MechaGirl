@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Sprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
-  iconSprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
+  iconSprite: {fileID: 21300000, guid: f0767dd9095dac14d9300c42c4aa704b, type: 3}
   inGameSprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
   gunPlayerController: {fileID: 22100000, guid: 344b7e661be5d0e43b278c6dfa20dd5d,
     type: 2}
