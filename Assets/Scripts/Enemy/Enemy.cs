@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +25,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public bool canRotate = true;
+    private SpriteRenderer[] spriteRenderers;
 
     [Header("Dash Settings")]
     public float dashSpeed = 10f;
@@ -56,6 +58,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         Health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()
@@ -102,7 +105,10 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Damage(float damageAmount)
     {
         Health -= damageAmount;
+        StartCoroutine(FlashRed());
+        
     }
+
 
     public void Heal(float healAmount)
     {
@@ -220,6 +226,18 @@ public class Enemy : MonoBehaviour, IDamageable
                 targetRotation,
                 Time.deltaTime * 1000.0f
             );
+        }
+    }
+    private IEnumerator FlashRed()
+    {
+        foreach (var sr in spriteRenderers)
+        {
+            sr.color = Color.red;
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (var sr in spriteRenderers)
+        {
+            sr.color = Color.white;
         }
     }
 }

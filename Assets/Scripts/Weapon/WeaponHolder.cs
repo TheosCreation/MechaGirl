@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class WeaponHolder : MonoBehaviour
     [SerializeField] private float throwForce = 10.0f;
     [SerializeField] private float pickUpDelay = 1.0f;
     private bool isShooting = false;
+    private bool isSwitching = false;
+    private float scrollSwitchDelay = 0.2f;
+    public ParticleSystem pickupParticle;
 
     private void Awake()
     {
@@ -43,21 +47,33 @@ public class WeaponHolder : MonoBehaviour
     {
         currentWeapon.isShooting = isShooting;
     }
-
-    private void WeaponSwitch(Vector2 scrollInput)
+    private void WeaponSwitch(Vector2 direction)
     {
-        if (scrollInput.y > 0)
+        if (!isSwitching)
+        {
+            StartCoroutine(WeaponSwitchDelay(direction));
+        }
+    }
+
+    private IEnumerator WeaponSwitchDelay(Vector2 direction)
+    {
+        isSwitching = true;
+        if (direction.y > 0)
         {
             // Scroll up, switch to the next weapon
             currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Length;
         }
-        else if (scrollInput.y < 0)
+        else if (direction.y < 0)
         {
             // Scroll down, switch to the previous weapon
             currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
         }
 
         SelectWeapon(currentWeaponIndex);
+
+        yield return new WaitForSeconds(scrollSwitchDelay);
+
+        isSwitching = false;
     }
     private void DashToWeapon()
     {
@@ -91,6 +107,11 @@ public class WeaponHolder : MonoBehaviour
     //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
     public bool AddWeapon(Weapon weapon)
     {
+        if (lastThrowWeapon == weapon)
+        {
+            lastThrowWeapon = null;
+        }
+    
         foreach (Weapon existingWeapon in weapons)
         {
             if (existingWeapon.GetType() == weapon.GetType())
@@ -116,6 +137,7 @@ public class WeaponHolder : MonoBehaviour
 
         // Add the new weapon to the end
         newWeaponsArray[weapons.Length] = weapon;
+        pickupParticle.Play();
 
         // Replace the old array with the new one
         weapons = newWeaponsArray;
@@ -124,7 +146,7 @@ public class WeaponHolder : MonoBehaviour
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
 
-        SelectWeapon(weapons.Length - 1);
+        //SelectWeapon(weapons.Length - 1);
 
         return true;
     }
@@ -141,6 +163,7 @@ public class WeaponHolder : MonoBehaviour
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
                 currentWeapon.WeaponHolder = this;
+      
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
                 UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);
             }

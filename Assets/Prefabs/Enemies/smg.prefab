@@ -292,7 +292,7 @@ MonoBehaviour:
   gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
     type: 2}
   isEquip: 0
-  equipTime: 0.3
+  equipTime: 0.1
   canThrow: 1
   canShoot: 1
   isShooting: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.03
   canPickup: 0
-  startingAmmo: 10
+  startingAmmo: 15
   projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
   shootingSource: {fileID: 1657320952860308494}
@@ -311,6 +311,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
+  ignoreAmmo: 0
 --- !u!1 &4274951009702948806
 GameObject:
   m_ObjectHideFlags: 0
