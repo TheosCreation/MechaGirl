@@ -20,12 +20,12 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.2030631, g: 0.2030631, b: 0.2030631, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 1, g: 1, b: 1, a: 1}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -429,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 106.010574, y: 30.175085, z: 128.71515}
+  size: {x: 106.01059, y: 30.175085, z: 128.71516}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -443,7 +443,7 @@ MonoBehaviour:
     e00: 1
     e01: 0
     e02: 0
-    e03: -9.32795
+    e03: -9.327957
     e10: 0
     e11: 1
     e12: 0
@@ -451,12 +451,12 @@ MonoBehaviour:
     e20: 0
     e21: 0
     e22: 1
-    e23: -81.88176
+    e23: -81.88177
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: -1122731409
+  cachedHashCode: -800914259
   fillEmptySpaces: 0
   version: 1
   globalVolume: 0
@@ -469,7 +469,7 @@ Transform:
   m_GameObject: {fileID: 84761822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.32795, y: 10.913756, z: 81.88176}
+  m_LocalPosition: {x: 9.327957, y: 10.913756, z: 81.88177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1387,7 +1387,7 @@ PrefabInstance:
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_AreaSize.y
-      value: 30.19868
+      value: 35.737156
       objectReference: {fileID: 0}
     - target: {fileID: 2872408959074336196, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
@@ -1966,12 +1966,12 @@ PrefabInstance:
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_AreaSize.x
-      value: 22.25288
+      value: 22.730732
       objectReference: {fileID: 0}
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_AreaSize.y
-      value: 19.493835
+      value: 20.254677
       objectReference: {fileID: 0}
     - target: {fileID: 2872408959074336196, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
@@ -4163,7 +4163,7 @@ PrefabInstance:
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_AreaSize.y
-      value: 31.828747
+      value: 32.67772
       objectReference: {fileID: 0}
     - target: {fileID: 2112457540177197559, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
@@ -5999,7 +5999,7 @@ PrefabInstance:
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_AreaSize.y
-      value: 17.243431
+      value: 20.054443
       objectReference: {fileID: 0}
     - target: {fileID: 2112457540177197559, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
@@ -6173,7 +6173,7 @@ PrefabInstance:
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_Range
-      value: 20.9
+      value: 25.87
       objectReference: {fileID: 0}
     - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
