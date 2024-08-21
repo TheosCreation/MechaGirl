@@ -89,12 +89,17 @@ public class UiManager : MonoBehaviour
     {
         hurtScreen.Play(); 
     }
+    public void UpdateWeaponImageColor(Color newColor)
+    {
+        weaponImage.color = newColor;
+    }
 
-    public void OpenLevelCompleteScreen(float levelCompleteTime)
+    public void OpenLevelCompleteScreen(float levelCompleteTime, int currentLevelNumber)
     {
         playerHud.SetActive(false); 
         pauseMenu.SetActive(false);
         levelCompleteScreen.gameObject.SetActive(true);
+        levelCompleteScreen.UpdateLevelNumber(currentLevelNumber);
         levelCompleteScreen.UpdateTimeText(levelCompleteTime);
         levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.level1BestTime);
     }

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,8 @@ public class WeaponHolder : MonoBehaviour
     [SerializeField] private float throwForce = 10.0f;
     [SerializeField] private float pickUpDelay = 1.0f;
     private bool isShooting = false;
+    private bool isSwitching = false;
+    private float scrollSwitchDelay = 0.2f;
 
     private void Awake()
     {
@@ -19,6 +22,7 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => EndShooting();
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
+        InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashToWeapon();
         playerController = GetComponentInParent<PlayerController>();
 
         weapons = GetComponentsInChildren<Weapon>();
@@ -42,23 +46,41 @@ public class WeaponHolder : MonoBehaviour
     {
         currentWeapon.isShooting = isShooting;
     }
-
-    private void WeaponSwitch(Vector2 scrollInput)
+    private void WeaponSwitch(Vector2 direction)
     {
-        if (scrollInput.y > 0)
+        if (!isSwitching)
+        {
+            StartCoroutine(WeaponSwitchDelay(direction));
+        }
+    }
+
+    private IEnumerator WeaponSwitchDelay(Vector2 direction)
+    {
+        isSwitching = true;
+        if (direction.y > 0)
         {
             // Scroll up, switch to the next weapon
             currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Length;
         }
-        else if (scrollInput.y < 0)
+        else if (direction.y < 0)
         {
             // Scroll down, switch to the previous weapon
             currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
         }
 
         SelectWeapon(currentWeaponIndex);
-    }
 
+        yield return new WaitForSeconds(scrollSwitchDelay);
+
+        isSwitching = false;
+    }
+    private void DashToWeapon()
+    {
+        if (lastThrowWeapon != null)
+        {
+            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+        }
+    }
     public void TryThrowWeapon()
     {
         if (currentWeaponIndex != 0)
@@ -117,7 +139,7 @@ public class WeaponHolder : MonoBehaviour
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
 
-        SelectWeapon(weapons.Length - 1);
+        //SelectWeapon(weapons.Length - 1);
 
         return true;
     }

@@ -1,6 +1,5 @@
 using Runtime;
 using System;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -39,7 +38,6 @@ public class Weapon : MonoBehaviour
     [Tab("Setup")]
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
-    
 
     [SerializeField] protected GameObject projectilePrefab;
 
@@ -62,8 +60,10 @@ public class Weapon : MonoBehaviour
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     private SpriteBillboard spriteBillboard;
-
+    private Color weaponColor = Color.white;
     private int ammo;
+
+    [SerializeField] private bool ignoreAmmo = false;
     public int Ammo
     {
         get => ammo;
@@ -74,13 +74,12 @@ public class Weapon : MonoBehaviour
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
             }
-
-            if (ammo <= 0 && isActiveAndEnabled)
+            if (!ignoreAmmo)
             {
-                if (WeaponHolder != null)
+                if (ammo <= 0 && isActiveAndEnabled)
                 {
-                    spriteRenderer.color = Color.red;
-                    WeaponHolder.TryThrowWeapon();
+                    weaponColor = Color.red;
+                    UiManager.Instance.UpdateWeaponImageColor(weaponColor);
                 }
             }
         }
@@ -126,22 +125,25 @@ public class Weapon : MonoBehaviour
             canShoot = true;
         }
 
-        if (canShoot && isShooting && isEquip && Ammo > 0)
+        if (canShoot && isShooting && isEquip)
         {
-            canShoot = false;
+            if(Ammo > 0 || ignoreAmmo)
+            {
+                canShoot = false;
 
 
-            shootTimer = CalculateFireRate();
-            quickShootTimer = shootTimer - predictionTime;
-            if (playerController)
-            {
-                shotDirection = playerController.playerCamera.transform.forward;
+                shootTimer = CalculateFireRate();
+                quickShootTimer = shootTimer - predictionTime;
+                if (playerController)
+                {
+                    shotDirection = playerController.playerCamera.transform.forward;
+                }
+                else
+                {
+                    shotDirection = transform.forward;
+                }
+                Shoot();
             }
-            else
-            {
-                shotDirection = transform.forward;
-            }
-            Shoot();
         }
 
         if (currentSprite != Sprite)
@@ -169,27 +171,48 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected void Equip()
+    private void Attach()
     {
+        if (Ammo > 0)
+        {
+            weaponColor = Color.white;
+        }
+
         bc.enabled = false;
         rb.isKinematic = true;
-        animator.enabled = true;
         spriteBillboard.enabled = false;
         rb.useGravity = true;
         if (playerController != null)
         {
             animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
-            UiManager.Instance.UpdateAmmoUi(Ammo);
         }
         else
         {
             animator.runtimeAnimatorController = gunInGameController;
         }
+    }
+
+    protected void Equip()
+    {
+        Attach();
+        animator.enabled = true;
+        if (playerController != null)
+        {
+            if(!ignoreAmmo)
+            {
+                UiManager.Instance.UpdateAmmoUi(Ammo);
+            }
+            else
+            {
+                UiManager.Instance.UpdateAmmoUi(0);
+            }
+        }
 
         animator.SetTrigger("Equip");
 
         equipTimer.SetTimer(equipTime, EquipFinish);
+        UiManager.Instance.UpdateWeaponImageColor(weaponColor);
     }
 
     protected void EquipFinish()
@@ -234,19 +257,13 @@ public class Weapon : MonoBehaviour
 
         playerController = pc;
 
-        if (Ammo <= 0)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
         if(weaponHolder.AddWeapon(this))
         {
             //if is new weapon lets equip it
-            Equip();
+            Attach();
         }
     }
 
@@ -276,7 +293,7 @@ public class Weapon : MonoBehaviour
  
         FireProjectile(); 
         
-        if (playerController != null)
+        if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
         }
