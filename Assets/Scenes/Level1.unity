@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 34.500084, y: 28.834534, z: 86.706314}
+  size: {x: 70.584, y: 70.584, z: 86.706314}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 84761822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 29.746483, z: 30.377344}
+  m_LocalPosition: {x: -0.08000183, y: 36, z: 30.377344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3620,7 +3620,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicToPlay:
-  - {fileID: 8300000, guid: 4c631aab8a0c59449918c64fcb42d007, type: 3}
   - {fileID: 8300000, guid: 9e89ea6000bc4a54ebc90c1bb3d42154, type: 3}
   - {fileID: 8300000, guid: ec058668d59b8f243930b8398cecadeb, type: 3}
   - {fileID: 8300000, guid: 7c732ae1a8f62dc44b9159f7046bedfe, type: 3}
@@ -3629,7 +3628,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8b9e564de00fe514fa8d7019c1ccd07d, type: 3}
   - {fileID: 8300000, guid: 6e52103e7c70fbb4b819923c8b51608b, type: 3}
   - {fileID: 8300000, guid: 689f4996ab8daee4d9b7298098c467cf, type: 3}
-  - {fileID: 8300000, guid: a35797a67ef60494ba44e0f8bfdf156c, type: 3}
   - {fileID: 8300000, guid: a35797a67ef60494ba44e0f8bfdf156c, type: 3}
 --- !u!82 &1646142720
 AudioSource:

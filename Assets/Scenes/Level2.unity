@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 83.96695, y: 22.392672, z: 125.75581}
+  size: {x: 83.96695, y: 77.584, z: 154.26782}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -318,7 +318,7 @@ Transform:
   m_GameObject: {fileID: 84761822}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.141403, y: 14.140336, z: 80.40209}
+  m_LocalPosition: {x: 6.141403, y: 9, z: 94.6581}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2845,6 +2845,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7335402352752264333, guid: 2f0b70d1cb7a7f542807424bf06d7f39,
+        type: 3}
+      propertyPath: musicToPlay.Array.size
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3711,7 +3716,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuScene: MainMenu
-  currentLevelIndex: 0
 --- !u!1001 &1852059632
 PrefabInstance:
   m_ObjectHideFlags: 0
