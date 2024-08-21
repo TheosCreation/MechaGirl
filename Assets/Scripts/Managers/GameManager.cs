@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     [HideInInspector] public GameState GameState;
     public string mainMenuScene = "MainMenu";
-    public int currentLevelIndex = 0;
     private string[] levelScenes;
 
     private IDataService DataService = new JsonDataService();
@@ -74,8 +73,8 @@ public class GameManager : MonoBehaviour
     {
         if (levelScenes.Length > 0)
         {
-            currentLevelIndex = 0;
-            SceneManager.LoadScene(levelScenes[currentLevelIndex]);
+            GameState.currentLevelIndex = 0;
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]);
         }
         else
         {
@@ -85,10 +84,10 @@ public class GameManager : MonoBehaviour
 
     public void OpenNextLevel()
     {
-        if (currentLevelIndex < levelScenes.Length - 1)
+        if (GameState.currentLevelIndex < levelScenes.Length - 1)
         {
-            currentLevelIndex++;
-            SceneManager.LoadScene(levelScenes[currentLevelIndex]);
+            GameState.currentLevelIndex++;
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]);
         }
         else
         {
