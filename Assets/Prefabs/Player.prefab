@@ -224,20 +224,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f56e1a0ed5b3edc4fb0cf89283068bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
-  iconSprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
-  inGameSprite: {fileID: 21300000, guid: f883dbe0e6f3a0f4c857ecc86ae4dce0, type: 3}
+  Sprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
+  iconSprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
+  inGameSprite: {fileID: 21300000, guid: ceb59fb9a49f1d94f8607a61f11e7add, type: 3}
   gunPlayerController: {fileID: 22100000, guid: 344b7e661be5d0e43b278c6dfa20dd5d,
     type: 2}
   gunInGameController: {fileID: 0}
   isEquip: 0
-  equipTime: 0.3
+  equipTime: 0.2
   canThrow: 0
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1
-  screenShakeDuration: 0.1
-  screenShakeAmount: 0.1
+  shootsPerSecond: 1.6
+  screenShakeDuration: 0.05
+  screenShakeAmount: 0.03
   canPickup: 1
   startingAmmo: 0
   projectilePrefab: {fileID: 0}
@@ -247,8 +247,8 @@ MonoBehaviour:
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 1
-  meleeRange: 2
-  meleeDamage: 100
+  meleeRange: 2.5
+  meleeDamage: 4
   targetLayer:
     serializedVersion: 2
     m_Bits: 128

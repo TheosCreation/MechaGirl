@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     private SpriteBillboard spriteBillboard;
-    private Color weaponColor;
+    private Color weaponColor = Color.white;
     private int ammo;
 
     [SerializeField] private bool ignoreAmmo = false;
@@ -107,10 +107,7 @@ public class Weapon : MonoBehaviour
 
     protected void Start()
     {
-        if (!ignoreAmmo)
-        {
-            Ammo = startingAmmo;
-        }
+        Ammo = startingAmmo;
     }
 
     protected void Update()
@@ -190,7 +187,14 @@ public class Weapon : MonoBehaviour
         {
             animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
-            UiManager.Instance.UpdateAmmoUi(Ammo);
+            if(!ignoreAmmo)
+            {
+                UiManager.Instance.UpdateAmmoUi(Ammo);
+            }
+            else
+            {
+                UiManager.Instance.UpdateAmmoUi(0);
+            }
         }
         else
         {
@@ -245,12 +249,6 @@ public class Weapon : MonoBehaviour
 
         playerController = pc;
 
-        if (Ammo <= 0)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
@@ -287,7 +285,7 @@ public class Weapon : MonoBehaviour
  
         FireProjectile(); 
         
-        if (playerController != null)
+        if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
         }
