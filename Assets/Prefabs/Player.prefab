@@ -1047,7 +1047,7 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0
-  startingAmmo: 6
+  startingAmmo: 8
   projectilePrefab: {fileID: 4883112209185275442, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
     type: 3}
   shootingSource: {fileID: 8553426414922508260}
