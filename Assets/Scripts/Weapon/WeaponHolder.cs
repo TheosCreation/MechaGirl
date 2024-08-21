@@ -19,6 +19,7 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => EndShooting();
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
+        InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashToWeapon();
         playerController = GetComponentInParent<PlayerController>();
 
         weapons = GetComponentsInChildren<Weapon>();
@@ -58,7 +59,13 @@ public class WeaponHolder : MonoBehaviour
 
         SelectWeapon(currentWeaponIndex);
     }
-
+    private void DashToWeapon()
+    {
+        if (lastThrowWeapon != null)
+        {
+            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+        }
+    }
     public void TryThrowWeapon()
     {
         if (currentWeaponIndex != 0)
