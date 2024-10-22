@@ -131,6 +131,9 @@ public class AttackingState : IEnemyState
             enemy.canRotate = true;
         }
 
+        // Rotate the weapon holder to face the player if its a ranged weapon
+
+
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
 

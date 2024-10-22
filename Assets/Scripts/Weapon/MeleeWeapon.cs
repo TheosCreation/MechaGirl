@@ -7,6 +7,12 @@ public class MeleeWeapon : Weapon
     [SerializeField] protected float meleeDamage = 20.0f;
     [SerializeField] protected LayerMask targetLayer;
 
+    protected override void Attach()
+    {
+        base.Attach();
+        spriteBillboard.enabled = false;
+    }
+
     public override void Shoot()
     {
         // Perform a slicing attack and deal damage to enemies in range

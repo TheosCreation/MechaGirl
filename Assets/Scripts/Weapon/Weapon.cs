@@ -7,6 +7,10 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
+    public Vector3 AnimationPosition = Vector3.zero; 
+    protected Vector3 currentAnimationPosition = Vector3.zero;
+    public Vector3 AnimationRotation = Vector3.zero; 
+    protected Vector3 currentAnimationRotation = Vector3.zero;
     public Sprite iconSprite;
     public Sprite inGameSprite;
     [SerializeField] private AnimatorOverrideController gunPlayerController;
@@ -59,7 +63,7 @@ public class Weapon : MonoBehaviour
     protected Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
-    private SpriteBillboard spriteBillboard;
+    protected SpriteBillboard spriteBillboard;
     private Color weaponColor = Color.white;
     private int ammo;
 
@@ -139,14 +143,6 @@ public class Weapon : MonoBehaviour
 
                 shootTimer = CalculateFireRate();
                 quickShootTimer = shootTimer - predictionTime;
-                if (playerController)
-                {
-                    shotDirection = playerController.playerCamera.transform.forward;
-                }
-                else
-                {
-                    shotDirection = transform.forward;
-                }
                 Shoot();
             }
         }
@@ -163,6 +159,24 @@ public class Weapon : MonoBehaviour
                 spriteRenderer.sprite = currentSprite;
             }
         }
+
+        if(AnimationPosition != currentAnimationPosition)
+        {
+            currentAnimationPosition = AnimationPosition;
+            if (playerController != null)
+            {
+                UiManager.Instance.UpdateWeaponAnimationPosition(currentAnimationPosition);
+            }
+        }
+        
+        if(AnimationRotation != currentAnimationRotation)
+        {
+            currentAnimationRotation = AnimationRotation;
+            if (playerController != null)
+            {
+                UiManager.Instance.UpdateWeaponAnimationRotation(currentAnimationRotation);
+            }
+        }
     }
 
     private void OnEnable()
@@ -176,7 +190,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    private void Attach()
+    protected virtual void Attach()
     {
         if (Ammo > 0)
         {
@@ -185,16 +199,18 @@ public class Weapon : MonoBehaviour
 
         bc.enabled = false;
         rb.isKinematic = true;
-        spriteBillboard.enabled = false;
         rb.useGravity = true;
         if (playerController != null)
         {
             animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
+            spriteBillboard.enabled = false;
         }
         else
         {
             animator.runtimeAnimatorController = gunInGameController;
+
+            //spriteBillboard.enabled = false;
         }
     }
 
@@ -287,6 +303,15 @@ public class Weapon : MonoBehaviour
         shootTimer = CalculateFireRate();
        
         animator.SetTrigger("Shoot");
+
+        if (playerController)
+        {
+            shotDirection = playerController.playerCamera.transform.forward;
+        }
+        else
+        {
+            shotDirection = transform.forward;
+        }
 
         // Trigger screen shake if applicable
         if (playerController != null)

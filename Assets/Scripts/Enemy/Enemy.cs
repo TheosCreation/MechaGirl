@@ -190,6 +190,7 @@ public class Enemy : MonoBehaviour, IDamageable
             weapon.EndShooting();
         }
     }
+
     public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
     {
         dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
