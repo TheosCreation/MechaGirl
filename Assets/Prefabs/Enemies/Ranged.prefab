@@ -45,7 +45,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 1000
@@ -76,8 +76,8 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 1
-  attackDistance: 4.1
-  attackStartDelay: 0.1
+  attackDistance: 8
+  attackStartDelay: 1
   loseDistance: 7
   attackDuration: 1
   rotationFreezeTime: 0.4
@@ -85,6 +85,10 @@ MonoBehaviour:
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
+  bulletsPerBurst: 1
+  burstDelay: 5
+  minRadius: 10
+  maxRadius: 10
   dashSpeed: 10
   dashDuration: 0.1
   isDashing: 0

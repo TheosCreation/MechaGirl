@@ -27,6 +27,12 @@ public class Enemy : MonoBehaviour, IDamageable
     [HideInInspector] public bool canRotate = true;
     private SpriteRenderer[] spriteRenderers;
 
+    [Header("Shooting Settings")]
+    public int bulletsPerBurst = 3;
+    public float burstDelay = 0.5f;
+    public float minRadius = 1f;
+    public float maxRadius = 5f;
+
     [Header("Dash Settings")]
     public float dashSpeed = 10f;
     public float dashDuration = 0.1f;

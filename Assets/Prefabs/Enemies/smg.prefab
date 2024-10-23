@@ -85,6 +85,10 @@ MonoBehaviour:
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
+  bulletsPerBurst: 5
+  burstDelay: 0.5
+  minRadius: 5
+  maxRadius: 20
   dashSpeed: 10
   dashDuration: 0.1
   isDashing: 0

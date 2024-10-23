@@ -80,7 +80,7 @@ public class Weapon : MonoBehaviour
             }   
             if (!ignoreAmmo)
             {
-                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)
+                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)    
                 {
                     weaponColor = Color.red;
                  
@@ -122,16 +122,18 @@ public class Weapon : MonoBehaviour
     protected void Update()
     {
         shootTimer -= Time.deltaTime;
-        quickShootTimer -= Time.deltaTime;
+        /*quickShootTimer -= Time.deltaTime;
         if (quickShootTimer < 0.0f && isShooting)
         {
             //this is just a slight delay to stop the enemy from rotating
-            OnAttack?.Invoke();
-        }
+           
+        }*/
 
         if (shootTimer < 0.0f && isShooting)
         {
+        
             canShoot = true;
+   
         }
 
         if (canShoot && isShooting && isEquip)
@@ -310,6 +312,8 @@ public class Weapon : MonoBehaviour
         }
         else
         {
+            OnAttack?.Invoke();
+
             shotDirection = transform.forward;
         }
 
