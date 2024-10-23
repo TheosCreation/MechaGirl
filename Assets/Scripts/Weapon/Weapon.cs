@@ -43,7 +43,8 @@ public class Weapon : MonoBehaviour
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
 
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Projectile enemyProjectilePrefab;
+    [SerializeField] protected Projectile playerProjectilePrefab;
 
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
@@ -247,6 +248,7 @@ public class Weapon : MonoBehaviour
     {
         transform.SetParent(null);
 
+        transform.localScale = Vector3.one;
         //animator.runtimeAnimatorController = gunInGameController;
 
         rb.isKinematic = false;
@@ -335,7 +337,7 @@ public class Weapon : MonoBehaviour
 
     protected void FireProjectile()
     {
-        if (projectilePrefab == null)
+        if (enemyProjectilePrefab == null)
         {
             Debug.LogError("Projectile has not been set");
             return;
@@ -350,8 +352,15 @@ public class Weapon : MonoBehaviour
             rotation = transform.rotation;
         }
 
-        GameObject projectileObject = Instantiate(projectilePrefab, transform.position, rotation);
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        Projectile projectile = null;
+        if (playerController != null)
+        {
+            projectile = Instantiate(playerProjectilePrefab, transform.position, rotation);
+        }
+        else
+        {
+            projectile = Instantiate(enemyProjectilePrefab, transform.position, rotation);
+        }
         if (projectile != null)
         {
             if (playerController)

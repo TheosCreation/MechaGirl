@@ -31,13 +31,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5405316629874128243}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.8179467, w: -0.5752941}
+  m_LocalRotation: {x: 0, y: 0, z: 0.81794894, w: 0.57529086}
   m_LocalPosition: {x: 2.15, y: -0.89, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 109.76}
 --- !u!212 &2974118847284677436
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -243,7 +243,9 @@ MonoBehaviour:
   screenShakeAmount: 0.05
   canPickup: 0
   startingAmmo: 5
-  projectilePrefab: {fileID: 4883112209185275442, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
+  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 7ee5cafd8d840754389cd9fda8fdd5ae,
+    type: 3}
+  playerProjectilePrefab: {fileID: 134945111961687759, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
     type: 3}
   shootingSource: {fileID: 7280797812169667926}
   shootingSounds:
@@ -273,7 +275,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 7, y: 10, z: 7}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4967222603671074334
 Rigidbody:

@@ -1246,7 +1246,7 @@ PrefabInstance:
     - target: {fileID: 1533987953422378513, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3307221995691362999, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
@@ -5920,6 +5920,11 @@ PrefabInstance:
     - target: {fileID: 1317428355545862612, guid: acbf4588de89e28438b338fa318fd8ba,
         type: 3}
       propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2626629482714968451, guid: acbf4588de89e28438b338fa318fd8ba,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3490203386571244874, guid: acbf4588de89e28438b338fa318fd8ba,

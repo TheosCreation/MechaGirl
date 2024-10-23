@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7856420458759094927}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.8179467, w: -0.5752941}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.07, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -179,7 +179,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 071bdbb0db5003a43b8d3f20ee21d3c9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5ca09f19c37894342a82800b567fedcd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -243,7 +243,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 7, y: 10, z: 7}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8476288437569274656
 Rigidbody:
@@ -303,7 +303,9 @@ MonoBehaviour:
   screenShakeAmount: 0.03
   canPickup: 0
   startingAmmo: 15
-  projectilePrefab: {fileID: 4883112209185275442, guid: 514e9bb13e0816d49a84901a9b098713,
+  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 7ee5cafd8d840754389cd9fda8fdd5ae,
+    type: 3}
+  playerProjectilePrefab: {fileID: 134945111961687759, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}
   shootingSource: {fileID: 8222962086532144061}
   shootingSounds:
