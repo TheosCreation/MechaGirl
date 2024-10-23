@@ -10,7 +10,6 @@ public class MeleeWeapon : Weapon
     protected override void Attach()
     {
         base.Attach();
-        spriteBillboard.enabled = false;
     }
 
     public override void Shoot()

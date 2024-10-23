@@ -739,6 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2959889856872969295}
   - component: {fileID: 8722297526080847936}
+  - component: {fileID: 470953783007029359}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -755,7 +756,7 @@ Transform:
   m_GameObject: {fileID: 3533542281797729294}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.104, y: -0.05, z: 0.327}
+  m_LocalPosition: {x: 0.104, y: -0.05, z: 0.592}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -779,6 +780,24 @@ MonoBehaviour:
   throwForce: 20
   pickUpDelay: 0.5
   pickupParticle: {fileID: 816325510017641512}
+--- !u!114 &470953783007029359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3533542281797729294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422d6b45520543d44ab5fb83371f7946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionalSway: 30
+  swaySmoothness: 20
+  bobbingFrequency: 7
+  verticalBobbingAmplitude: 40
+  horizontalBobbingAmplitude: 20
+  bobbingHorizontalSmoothing: 20
 --- !u!1 &4429112426131733179
 GameObject:
   m_ObjectHideFlags: 0
@@ -1085,6 +1104,11 @@ PrefabInstance:
     - target: {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
         type: 3}
       propertyPath: isEquip
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974118847284677436, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5405316629874128243, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,

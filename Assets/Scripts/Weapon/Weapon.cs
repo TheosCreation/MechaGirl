@@ -200,20 +200,19 @@ public class Weapon : MonoBehaviour
             weaponColor = Color.white;
         }
 
+        spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
         rb.useGravity = true;
         if (playerController != null)
         {
-            animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
-            spriteBillboard.enabled = false;
+            animator.runtimeAnimatorController = gunPlayerController;
         }
         else
         {
+            spriteRenderer.enabled = true;
             animator.runtimeAnimatorController = gunInGameController;
-
-            //spriteBillboard.enabled = false;
         }
     }
 
@@ -231,6 +230,13 @@ public class Weapon : MonoBehaviour
             {
                 UiManager.Instance.UpdateAmmoUi(0);
             }
+
+            spriteRenderer.enabled = false;
+        }
+        else
+        {
+
+            spriteRenderer.enabled = true;
         }
 
         animator.SetTrigger("Equip");

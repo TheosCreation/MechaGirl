@@ -133,10 +133,20 @@ public class Spawner : MonoBehaviour
     private void HandleEnemyDeath()
     {
         deadEnemyCount++;
-        if (waves == null || waves.Length < currentWaveIndex)
+
+        // Check if waves array is initialized and has elements
+        if (waves == null || waves.Length == 0)
         {
             Debug.LogError("Waves array is not initialized or empty!");
             return;
+        }
+
+        // Check if the current wave index is valid
+        if (currentWaveIndex >= waves.Length)
+        {
+            // Trigger the OnAllEnemiesDead event when all enemies are dead
+            OnAllEnemiesDead?.Invoke();
+            return; // Exit if no more waves are available
         }
 
         // Check if all enemies in the current wave are dead
@@ -147,18 +157,19 @@ public class Spawner : MonoBehaviour
             deadEnemyCount = 0;
             currentWaveIndex++;
 
-            if (currentWaveIndex >= waves.Length)
-            {
-
-                // Trigger the OnAllEnemiesDead event when all enemies are dead
-                OnAllEnemiesDead?.Invoke();
-            }
-            else
+            // Check if the next wave exists before starting it
+            if (currentWaveIndex < waves.Length)
             {
                 StartWave();
             }
+            else
+            {
+                // Trigger the OnAllEnemiesDead event if all waves are completed
+                OnAllEnemiesDead?.Invoke();
+            }
         }
     }
+
 
     private int GetEnemyCountInWave(Wave? wave)
     { 

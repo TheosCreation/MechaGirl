@@ -11,6 +11,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private LevelCompleteMenuManager levelCompleteScreen;
 
+    [SerializeField] private Transform weaponSwayTransform;
     [SerializeField] private Image weaponImage;
     [SerializeField] private FlashImage hitMarker;
     [SerializeField] private FlashImage hurtScreen;
@@ -91,19 +92,36 @@ public class UiManager : MonoBehaviour
 
     public void UpdateWeaponAnimationPosition(Vector3 position)
     {
+        // Get the screen's center point in world space
+        Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane));
+
+        // Adjust the position so that (0,0) is the screen center
+        Vector3 adjustedPosition = screenCenter + position;
+
+        // Update the weapon's local position relative to its parent
+        weaponImage.transform.localPosition = adjustedPosition;
+    }
+
+
+    public void UpdateWeaponAnimationRotation(Vector3 rotation)
+    {
+        weaponImage.transform.localRotation = Quaternion.Euler(rotation);
+    }
+
+    public void UpdateWeaponSwayPosition(Vector3 position)
+    {
         // Get the screen's center point
         Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
 
         // Adjust the position so that (0,0) is the screen center
         Vector3 adjustedPosition = screenCenter + position;
 
-        // Update the weapon's position
-        weaponImage.transform.position = adjustedPosition;
+        weaponSwayTransform.transform.position = adjustedPosition;
     }
 
-    public void UpdateWeaponAnimationRotation(Vector3 rotation)
+    public void UpdateWeaponSwayRotation(Quaternion rotation)
     {
-        weaponImage.transform.rotation = Quaternion.Euler(rotation);
+        weaponSwayTransform.rotation = rotation;
     }
 
     public void FlashHitMarker()

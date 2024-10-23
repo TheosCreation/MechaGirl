@@ -4369,6 +4369,7 @@ MonoBehaviour:
   pauseMenu: {fileID: 273926152461329599}
   deathScreen: {fileID: 8736311065188634017}
   levelCompleteScreen: {fileID: 5559192297534720973}
+  weaponSwayTransform: {fileID: 8600207341680033798}
   weaponImage: {fileID: 1091232673853679033}
   hitMarker: {fileID: 3067251258607330604}
   hurtScreen: {fileID: 3153888566879266348}

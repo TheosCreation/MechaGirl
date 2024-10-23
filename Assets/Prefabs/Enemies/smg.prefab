@@ -80,8 +80,6 @@ MonoBehaviour:
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
-  rotationFreezeTime: 0.06
-  attackResumeRotationDelay: 0.01
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
   canRotate: 1
@@ -441,6 +439,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 250.22699
+      objectReference: {fileID: 0}
+    - target: {fileID: 4877262536630434289, guid: 72859a62f75af27418db6fb9b72189d3,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7856420458759094927, guid: 72859a62f75af27418db6fb9b72189d3,
         type: 3}
