@@ -22,6 +22,11 @@ public class PauseMenu : MonoBehaviour
         mainPage.SetActive(false);
     }
 
+    public void ResumeGame()
+    {
+        PauseManager.Instance.SetPaused(false);
+    }
+
     public void ExitToMainMenu()
     {
         GameManager.Instance.ExitToMainMenu();

@@ -44,10 +44,12 @@ MonoBehaviour:
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
       m_Values:
-      - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
-      - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
+      - {fileID: 11400000, guid: 4cb00ae8a868678448c94519c11d66b8, type: 2}
+      - {fileID: 11400000, guid: 916209df100fae64ca2f79e34d772bde, type: 2}
       - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
     bakingSets:
+    - {fileID: 11400000, guid: 4cb00ae8a868678448c94519c11d66b8, type: 2}
+    - {fileID: 11400000, guid: 916209df100fae64ca2f79e34d772bde, type: 2}
     - {fileID: 11400000, guid: db7cfa603e3cab945af19a5fe6c2c881, type: 2}
     sceneBounds:
       m_Keys:
@@ -67,7 +69,7 @@ MonoBehaviour:
       - fd53bd1ecc6fd09408eb8695c482ef35
       - 34cf727e2cde9164992dc69c7a257c95
       - 0201efa811fb54f4687ba4ea81a548fd
-      m_Values: 01010100
+      m_Values: 00000000
   m_ShaderStrippingSetting:
     m_Version: 0
     m_ExportShaderVariants: 1

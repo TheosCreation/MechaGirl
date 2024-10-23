@@ -1,16 +1,31 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
+
+[Serializable]
+struct EnemySpawn
+{
+    public Enemy enemyPrefab; // Make this public to be accessible
+    public int count;         // Number of enemies to spawn
+}
+
+[Serializable]
+struct Wave
+{
+    public EnemySpawn[] enemiesToSpawn; // List of enemy types and counts in the wave
+}
 
 public class Spawner : MonoBehaviour
 {
     public Vector3 localStartPosition;
     public Vector3 localEndPosition;
 
-    [SerializeField] private int enemyCountToSpawn = 0;
-    [SerializeField] private GameObject[] enemiesToSpawn;
+    [SerializeField] private Wave[] waves;
     [SerializeField] private LayerMask navMeshLayer;
 
+    private int currentWaveIndex = 0;
     private int deadEnemyCount = 0;
 
     public UnityEvent OnAllEnemiesDead;
@@ -30,38 +45,48 @@ public class Spawner : MonoBehaviour
         Gizmos.DrawWireCube(worldStartPosition + size / 2, size);
     }
 
-    public void SpawnEnemies()
+    public void StartWave()
+    {
+        if (currentWaveIndex >= waves.Length)
+        {
+            Debug.LogWarning("All waves have been completed.");
+            return;
+        }
+
+        // Spawn the enemies for the current wave
+        SpawnEnemiesForWave(waves[currentWaveIndex]);
+    }
+
+    private void SpawnEnemiesForWave(Wave wave)
     {
         int spawnedEnemies = 0;
-        int maxRetries = 100; // Set a limit to prevent an infinite loop
 
-        while (spawnedEnemies < enemyCountToSpawn && maxRetries > 0)
+        foreach (EnemySpawn enemySpawn in wave.enemiesToSpawn)
         {
-            if (SpawnEnemy())
+            for (int i = 0; i < enemySpawn.count; i++)
             {
-                spawnedEnemies++;
-            }
-            else
-            {
-                maxRetries--;
+                if (SpawnEnemy(enemySpawn.enemyPrefab))
+                {
+                    spawnedEnemies++;
+                }
             }
         }
 
-        if (spawnedEnemies < enemyCountToSpawn)
+        if (spawnedEnemies == 0)
         {
-            Debug.LogWarning($"Only {spawnedEnemies} out of {enemyCountToSpawn} enemies were spawned successfully.");
+            Debug.LogWarning("No enemies were spawned in this wave.");
         }
     }
 
-    private bool SpawnEnemy()
+    private bool SpawnEnemy(Enemy enemyPrefab)
     {
         Vector3 randomPoint = GetRandomPointInArea();
 
         // Check if the random point is on the NavMesh
         if (IsPointOnNavMesh(randomPoint))
         {
-            GameObject enemyObj = Instantiate(GetRandomEnemyToSpawn(), randomPoint, Quaternion.identity);
-            Enemy enemy = enemyObj.GetComponent<Enemy>();
+            // Instantiate the enemy at the random point
+            Enemy enemy = Instantiate(enemyPrefab, randomPoint, Quaternion.identity);
 
             if (enemy != null)
             {
@@ -78,21 +103,8 @@ public class Spawner : MonoBehaviour
             }
         }
 
-        Debug.Log("Failed to find a valid point on the NavMesh. Trying again");
+        Debug.Log("Failed to find a valid point on the NavMesh. Trying again.");
         return false;
-    }
-
-    private GameObject GetRandomEnemyToSpawn()
-    {
-        if (enemiesToSpawn == null || enemiesToSpawn.Length == 0)
-        {
-            Debug.LogWarning("No enemies set for spawning.");
-            return null;
-        }
-
-        // Select a random index from the enemies array
-        int randomIndex = Random.Range(0, enemiesToSpawn.Length);
-        return enemiesToSpawn[randomIndex];
     }
 
     private Vector3 GetRandomPointInArea()
@@ -122,10 +134,34 @@ public class Spawner : MonoBehaviour
     {
         deadEnemyCount++;
 
-        if (deadEnemyCount >= enemyCountToSpawn)
+        // Check if all enemies in the current wave are dead
+        int enemyCountInCurrentWave = GetEnemyCountInWave(waves[currentWaveIndex]);
+        if (deadEnemyCount >= enemyCountInCurrentWave)
         {
-            // Trigger the OnAllEnemiesDead event when all enemies are dead
-            OnAllEnemiesDead?.Invoke();
+            // Move to the next wave
+            deadEnemyCount = 0;
+            currentWaveIndex++;
+
+            if (currentWaveIndex >= waves.Length)
+            {
+
+                // Trigger the OnAllEnemiesDead event when all enemies are dead
+                OnAllEnemiesDead?.Invoke();
+            }
+            else
+            {
+                StartWave();
+            }
         }
+    }
+
+    private int GetEnemyCountInWave(Wave wave)
+    {
+        int totalEnemies = 0;
+        foreach (EnemySpawn enemySpawn in wave.enemiesToSpawn)
+        {
+            totalEnemies += enemySpawn.count;
+        }
+        return totalEnemies;
     }
 }
