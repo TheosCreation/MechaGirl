@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public EnemyStateMachine StateMachine;
     private Vector3 dashDirection;
     [Header("Settings")]
-    public float updatePathTime = 1.0f; // time to update the path towards the target
+    public float updatePathTime = 1.0f;
     public float lookDistance = 30f;
     public float fieldOfViewAngle = 110f;
     public bool isRanged = false;
@@ -19,8 +19,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
-    public float rotationFreezeTime = 0.4f;
-    public float attackResumeRotationDelay = 0.01f;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
@@ -175,7 +173,7 @@ public class Enemy : MonoBehaviour, IDamageable
             }
             if (weapon != null)
             {
-                weapon.predictionTime = rotationFreezeTime;
+
                 weapon.StartShooting();
             }
             else

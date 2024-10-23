@@ -366,12 +366,16 @@ public class Weapon : MonoBehaviour
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
+              
                 projectile.Initialize(shotDirection, true);
+                projectile.ownerLayer = playerController.gameObject.layer;
      
             }
             else
             {
-                projectile.owner = GetComponentInParent<Enemy>().gameObject;
+                GameObject enemyRef =  GetComponentInParent<Enemy>().gameObject;
+                projectile.owner = enemyRef;
+                projectile.ownerLayer = enemyRef.layer;
                 projectile.Initialize( shotDirection, false);
             }
         }

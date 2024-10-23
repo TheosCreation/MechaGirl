@@ -133,6 +133,11 @@ public class Spawner : MonoBehaviour
     private void HandleEnemyDeath()
     {
         deadEnemyCount++;
+        if (waves == null || waves.Length < currentWaveIndex)
+        {
+            Debug.LogError("Waves array is not initialized or empty!");
+            return;
+        }
 
         // Check if all enemies in the current wave are dead
         int enemyCountInCurrentWave = GetEnemyCountInWave(waves[currentWaveIndex]);
@@ -155,13 +160,27 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private int GetEnemyCountInWave(Wave wave)
-    {
+    private int GetEnemyCountInWave(Wave? wave)
+    { 
+        if (!wave.HasValue)
+        {
+            Debug.LogError("Wave is null!");
+            return 0;
+        }
+
+        var actualWave = wave.Value;
+        if (actualWave.enemiesToSpawn == null)
+        {
+            Debug.LogError("enemiesToSpawn list is null!");
+            return 0;
+        }
+
         int totalEnemies = 0;
-        foreach (EnemySpawn enemySpawn in wave.enemiesToSpawn)
+        foreach (EnemySpawn enemySpawn in actualWave.enemiesToSpawn)
         {
             totalEnemies += enemySpawn.count;
         }
         return totalEnemies;
     }
+
 }

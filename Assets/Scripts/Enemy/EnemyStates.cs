@@ -112,20 +112,15 @@ public class AttackingState : IEnemyState
     {
         // Start attack delay and animation
         enemy.agent.isStopped = true;
-        enemy.canRotate = false;
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
         enemy.weapon.OnAttack += () => AttackExecuted(enemy);
         attackStartTime = Time.time;
-
-        // Stop rotation for a second after attack is triggered
-        rotationResumeTime = Time.time + enemy.attackStartDelay + enemy.attackResumeRotationDelay;
     }
 
     private void AttackExecuted(Enemy enemy)
     {
-        enemy.canRotate = false;
-        rotationResumeTime = Time.time + enemy.attackResumeRotationDelay;
+
 
         bulletsFired++;
         if (bulletsFired >= enemy.bulletsPerBurst)
@@ -142,7 +137,7 @@ public class AttackingState : IEnemyState
             if (NavMesh.SamplePosition(randomSpot, out hit, distanceFromEnemy, NavMesh.AllAreas))
             {
                 enemy.agent.isStopped = false;
-                enemy.agent.SetDestination(hit.position);
+                enemy.agent.SetDestination(hit.position); 
                 enemy.EndAttack();
             }
             else
@@ -157,10 +152,6 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
-        if (Time.time >= rotationResumeTime)
-        {
-            enemy.canRotate = true;
-        }
 
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
