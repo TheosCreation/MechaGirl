@@ -143,9 +143,10 @@ public class WeaponHolder : MonoBehaviour
         weapon.enabled = false; //disable the weapon script as the game object stays active
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
-
-        //SelectWeapon(weapons.Length - 1);
-
+        if (currentWeapon.GetType() == weapons[0].GetType())
+        { 
+            SelectWeapon(weapons.Length - 1);
+        }
         return true;
     }
 
