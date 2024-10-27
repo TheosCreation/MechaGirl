@@ -43,6 +43,7 @@ public class LookingState : IEnemyState
 
         if (timer >= wanderTimer)
         {
+            if (enemy.isLaunching) return;
             Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderRadius, -1);
             enemy.agent.SetDestination(newPos);
             timer = 0;
@@ -70,7 +71,7 @@ public class ChaseState : IEnemyState
     float timer = 0.0f;
     public void Enter(Enemy enemy)
     {
-        enemy.agent.SetDestination(enemy.target.position);
+        if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         enemy.animator.SetBool("IsMoving", true);
     }
 
@@ -91,7 +92,7 @@ public class ChaseState : IEnemyState
         if (timer < 0.0f)
         {
             timer = enemy.updatePathTime;
-            enemy.agent.SetDestination(enemy.target.position);
+            if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         }
     }
 
@@ -111,7 +112,7 @@ public class AttackingState : IEnemyState
     public void Enter(Enemy enemy)
     {
         // Start attack delay and animation
-        enemy.agent.isStopped = true;
+        if (!enemy.isLaunching) enemy.agent.isStopped = true;
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
         enemy.weapon.OnAttack += () => AttackExecuted(enemy);
@@ -136,8 +137,11 @@ public class AttackingState : IEnemyState
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomSpot, out hit, distanceFromEnemy, NavMesh.AllAreas))
             {
-                enemy.agent.isStopped = false;
-                enemy.agent.SetDestination(hit.position); 
+                if (!enemy.isLaunching)
+                {
+                    enemy.agent.isStopped = false;
+                    enemy.agent.SetDestination(hit.position);
+                }
                 enemy.EndAttack();
             }
             else
@@ -152,6 +156,7 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.isLaunching) return;
 
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
@@ -166,8 +171,8 @@ public class AttackingState : IEnemyState
             else if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
             {
                 // Allow shooting again if the enemy has reached the destination
-                enemy.agent.isStopped = true;
                 enemy.StartAttack();
+                enemy.agent.isStopped = true;
             }
         }
     }
@@ -175,10 +180,10 @@ public class AttackingState : IEnemyState
 
     public void Exit(Enemy enemy)
     {
-        // Resume movement or other logic as needed
-        enemy.agent.isStopped = false;
         enemy.delayTimer.StopTimer();
         enemy.EndAttack();
         enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
+
+        if (!enemy.isLaunching) enemy.agent.isStopped = false;
     }
 }

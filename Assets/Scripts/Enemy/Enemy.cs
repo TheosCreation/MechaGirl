@@ -24,7 +24,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
-    [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
@@ -41,6 +40,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public float dashSpeed = 10f;
     public float dashDuration = 0.1f;
     public bool isDashing = false;
+
+    [Header("Launch Settings")]
+    private Timer launchTimer;
+    public bool isLaunching = false;
+    [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [Header("Health")]
     public int maxHealth = 100;
@@ -80,6 +84,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         SetDefaultState();
         delayTimer = gameObject.AddComponent<Timer>();
+        launchTimer = gameObject.AddComponent<Timer>();
         weapon = GetComponentInChildren<Weapon>();
     }
 
@@ -116,21 +121,40 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Damage(float damageAmount)
     {
         Health -= damageAmount;
-        Dash(-damageAmount, 1f);
         StartCoroutine(FlashRed());
-        LaunchUpwards(damageAmount);
+
+        if (health > 0)
+        {
+            isLaunching = true;
+            StartCoroutine(LaunchUpwards(damageAmount));
+        }
     }
 
-    private void LaunchUpwards(float damageAmount)
+    private IEnumerator LaunchUpwards(float damageAmount)
     {
+        yield return null;
+
         float upwardForce = Mathf.Clamp(damageAmount, 0, launchbackThreshold);
 
-        if (agent.isStopped) return;
+        agent.enabled = false;
         rb.useGravity = true;
         rb.isKinematic = false;
-        agent.isStopped = true;
         rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
+
+        yield return new WaitForFixedUpdate();
+        yield return new WaitUntil(() => rb.velocity.magnitude < 0.05f);
+
+        EndLaunch();
     }
+
+    private void EndLaunch()
+    {
+        agent.enabled = true;
+        isLaunching = false;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+
     public void Heal(float healAmount)
     {
         float newHealth = Health + healAmount;
@@ -232,7 +256,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopDash()
     {
         isDashing = false;
-        if (!agent.isStopped) return;
         agent.isStopped = false;
         rb.useGravity = false;
         rb.isKinematic = true;
