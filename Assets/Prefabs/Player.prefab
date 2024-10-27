@@ -267,6 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotateY: 0
 --- !u!65 &7475387121170856824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -690,7 +691,7 @@ MonoBehaviour:
   maxWallJumps: 3
   isDashing: 0
   canDash: 1
-  dashForce: 40
+  dashForce: 20
   dashDuration: 0.2
   dashCooldown: 0.55
 --- !u!114 &1032469067366187872

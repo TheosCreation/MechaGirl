@@ -13,6 +13,7 @@ using UnityEngine;
 public class SpriteBillboard : MonoBehaviour
 {
     Transform target;
+    [SerializeField] private bool rotateY = false;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class SpriteBillboard : MonoBehaviour
     private void Update()
     {
         Vector3 directionToTarget = target.position - transform.position;
-        directionToTarget.y = 0; // Keep only the horizontal direction
+        if(!rotateY) directionToTarget.y = 0; // Keep only the horizontal direction
 
         // Determine the rotation needed to look at the target
         Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);

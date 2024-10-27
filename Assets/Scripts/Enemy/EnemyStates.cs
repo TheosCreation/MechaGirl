@@ -156,7 +156,10 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
-        if (enemy.isLaunching) return;
+        if (!enemy.agent.enabled) return;
+
+        Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
+        enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
 
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);

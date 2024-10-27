@@ -98,7 +98,10 @@ public class Enemy : MonoBehaviour, IDamageable
         }
         if (isDashing)
         {
-            agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+            if(agent.enabled)
+            {
+                agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+            }
         }
     }
 
