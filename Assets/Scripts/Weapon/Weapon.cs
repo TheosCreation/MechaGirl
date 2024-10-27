@@ -258,7 +258,7 @@ public class Weapon : MonoBehaviour
         //animator.runtimeAnimatorController = gunInGameController;
 
         rb.isKinematic = false;
-        rb.AddForce(direction * throwForce, ForceMode.Impulse);
+        rb.AddForce(direction * throwForce, ForceMode.VelocityChange);
 
         bc.enabled = true;
         animator.enabled = false;

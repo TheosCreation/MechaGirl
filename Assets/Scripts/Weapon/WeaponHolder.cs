@@ -79,7 +79,8 @@ public class WeaponHolder : MonoBehaviour
     {
         if (lastThrowWeapon != null)
         {
-            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position);
+            lastThrowWeapon.PickUp(this, playerController);
         }
     }
     public void TryThrowWeapon()
@@ -97,10 +98,7 @@ public class WeaponHolder : MonoBehaviour
         }
         else
         {
-            if (lastThrowWeapon != null)
-            {
-                playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-            }
+            DashToWeapon();
         }
     }
 

@@ -29,6 +29,7 @@ public class Spawner : MonoBehaviour
     private int deadEnemyCount = 0;
 
     public UnityEvent OnAllEnemiesDead;
+    private bool spawnerComplete = false;
 
     private void OnDrawGizmos()
     {
@@ -146,6 +147,7 @@ public class Spawner : MonoBehaviour
         {
             // Trigger the OnAllEnemiesDead event when all enemies are dead
             OnAllEnemiesDead?.Invoke();
+            spawnerComplete = true;
             return; // Exit if no more waves are available
         }
 
@@ -192,6 +194,15 @@ public class Spawner : MonoBehaviour
             totalEnemies += enemySpawn.count;
         }
         return totalEnemies;
+    }
+
+    public void Reset()
+    {
+        if(!spawnerComplete)
+        {
+            currentWaveIndex = 0;
+            deadEnemyCount = 0;
+        }
     }
 
 }

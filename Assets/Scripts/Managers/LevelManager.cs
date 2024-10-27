@@ -18,6 +18,7 @@ class LevelManager : MonoBehaviour
     private List<TriggerDoor> triggerDoors = new List<TriggerDoor>();
     private List<TriggerZone> triggerZones = new List<TriggerZone>();
     private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
+    private List<Spawner> spawners = new List<Spawner>();
 
     private void Awake()
     {
@@ -37,7 +38,8 @@ class LevelManager : MonoBehaviour
         // Register all objects at the start
         triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
         triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
-        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None)); 
+        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None));
+        spawners.AddRange(FindObjectsByType<Spawner>(FindObjectsSortMode.None)); 
         
         playerSpawn = FindFirstObjectByType<PlayerSpawn>();
         if (playerSpawn == null)
@@ -102,6 +104,7 @@ class LevelManager : MonoBehaviour
             ResetDoors(); 
             ResetTriggers();
             ResetCheckPoints();
+            ResetSpawners();
         }
         else
         {
@@ -183,6 +186,14 @@ class LevelManager : MonoBehaviour
         foreach (TriggerCheckPoint checkPoint in checkPoints)
         {
             checkPoint.Reset();
+        }
+    }
+
+    public void ResetSpawners()
+    {
+        foreach(Spawner spawner in spawners)
+        {
+            spawner.Reset();
         }
     }
 }

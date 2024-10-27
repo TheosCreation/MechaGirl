@@ -778,7 +778,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 2980478904453071313}
   throwForce: 20
-  pickUpDelay: 0.5
+  pickUpDelay: 0.25
   pickupParticle: {fileID: 816325510017641512}
 --- !u!114 &470953783007029359
 MonoBehaviour:
@@ -797,7 +797,7 @@ MonoBehaviour:
   bobbingFrequency: 7
   verticalBobbingAmplitude: 40
   horizontalBobbingAmplitude: 20
-  bobbingHorizontalSmoothing: 20
+  bobbingHorizontalSmoothing: 75
 --- !u!1 &4429112426131733179
 GameObject:
   m_ObjectHideFlags: 0
