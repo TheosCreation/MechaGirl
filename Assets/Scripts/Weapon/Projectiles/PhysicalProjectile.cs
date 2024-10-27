@@ -36,7 +36,6 @@ public class PhysicalProjectile : Projectile
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-        Debug.Log(ownerLayer + " = " + other.gameObject.layer + " ? " + (other.gameObject.layer == ownerLayer));
             damageable.Damage(damage);
         }
 

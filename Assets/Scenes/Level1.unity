@@ -354,10 +354,10 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 0
+      count: 4
     - enemyPrefab: {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec,
         type: 3}
-      count: 6
+      count: 0
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 1

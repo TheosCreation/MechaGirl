@@ -1,10 +1,15 @@
+
 using System;
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+[RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageable
 {
+    Rigidbody rb;
     [HideInInspector] public NavMeshAgent agent;
     public Animator animator;
     [HideInInspector] public Transform target;
@@ -19,6 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
+    [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
@@ -61,6 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         Health = maxHealth;
@@ -80,7 +87,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
-        if(canRotate)
+        if (canRotate)
         {
             LookTowardsTarget();
         }
@@ -109,11 +116,21 @@ public class Enemy : MonoBehaviour, IDamageable
     public void Damage(float damageAmount)
     {
         Health -= damageAmount;
+        Dash(-damageAmount, 1f);
         StartCoroutine(FlashRed());
-        
+        LaunchUpwards(damageAmount);
     }
 
+    private void LaunchUpwards(float damageAmount)
+    {
+        float upwardForce = Mathf.Clamp(damageAmount, 0, launchbackThreshold);
 
+        if (agent.isStopped) return;
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        agent.isStopped = true;
+        rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
+    }
     public void Heal(float healAmount)
     {
         float newHealth = Health + healAmount;
@@ -197,9 +214,12 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
     {
+        
         dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
-        dashDirection = transform.forward;
+        Quaternion rotation = Quaternion.AngleAxis(-30 , Vector3.right);
+        dashDirection = transform.up;
+        Debug.Log(dashDirection);
         if (!isDashing)
         {
             isDashing = true;
@@ -212,6 +232,10 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopDash()
     {
         isDashing = false;
+        if (!agent.isStopped) return;
+        agent.isStopped = false;
+        rb.useGravity = false;
+        rb.isKinematic = true;
     }
 
     private void LookTowardsTarget()
