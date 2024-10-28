@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
 
         yield return new WaitForFixedUpdate();
-        yield return new WaitUntil(() => rb.velocity.magnitude < 0.05f);
+        yield return new WaitUntil(() => rb.velocity.magnitude < 0.005f);
 
         EndLaunch();
     }
@@ -259,9 +259,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopDash()
     {
         isDashing = false;
-        agent.isStopped = false;
-        rb.useGravity = false;
-        rb.isKinematic = true;
+
     }
 
     private void LookTowardsTarget()
