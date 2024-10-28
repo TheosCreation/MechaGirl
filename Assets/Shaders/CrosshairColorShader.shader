@@ -3,6 +3,7 @@ Shader "Custom/CrosshairColorShader"
     Properties
     {
         _MainTex ("RenderTexture", 2D) = "white" {}
+        _StencilRef ("Stencil Reference", Range(0, 255)) = 1 // Stencil reference value
     }
     SubShader
     {
@@ -13,7 +14,7 @@ Shader "Custom/CrosshairColorShader"
         {
             Stencil
             {
-                Ref 1
+                Ref [_StencilRef] // Use the stencil reference property
                 Comp Equal
                 Pass Keep
             }
