@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
         movementController = GetComponent<MovementController>();
 
         InputManager.Instance.playerInput.InGame.Jump.started += _ctx => Jump();
-        InputManager.Instance.playerInput.InGame.Dash.started += _ctx => Dash(transform.forward, dashForce, dashDuration);
 
         jumpTimer = gameObject.AddComponent<Timer>();
         dashTimer = gameObject.AddComponent<Timer>();
@@ -162,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
         Dash(dashDirection, scaledDashForce, dashDuration * 1.5f, true);
     }
 
-   public void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
+    public void Dash(Vector3 dashDirection, float dashForce, float dashDuration, bool ignoreInput = false)
     {
         if (canDash)
         {

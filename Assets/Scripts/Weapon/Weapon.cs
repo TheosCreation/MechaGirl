@@ -7,6 +7,10 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
+    public Vector3 AnimationPosition = Vector3.zero; 
+    protected Vector3 currentAnimationPosition = Vector3.zero;
+    public Vector3 AnimationRotation = Vector3.zero; 
+    protected Vector3 currentAnimationRotation = Vector3.zero;
     public Sprite iconSprite;
     public Sprite inGameSprite;
     [SerializeField] private AnimatorOverrideController gunPlayerController;
@@ -39,7 +43,8 @@ public class Weapon : MonoBehaviour
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
 
-    [SerializeField] protected GameObject projectilePrefab;
+    [SerializeField] protected Projectile enemyProjectilePrefab;
+    [SerializeField] protected Projectile playerProjectilePrefab;
 
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
@@ -59,7 +64,7 @@ public class Weapon : MonoBehaviour
     protected Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
-    private SpriteBillboard spriteBillboard;
+    protected SpriteBillboard spriteBillboard;
     private Color weaponColor = Color.white;
     private int ammo;
 
@@ -73,10 +78,10 @@ public class Weapon : MonoBehaviour
             if (playerController != null && isActiveAndEnabled)
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
-            }
+            }   
             if (!ignoreAmmo)
             {
-                if (ammo <= 0 && isActiveAndEnabled)
+                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)    
                 {
                     weaponColor = Color.red;
                  
@@ -118,16 +123,18 @@ public class Weapon : MonoBehaviour
     protected void Update()
     {
         shootTimer -= Time.deltaTime;
-        quickShootTimer -= Time.deltaTime;
+        /*quickShootTimer -= Time.deltaTime;
         if (quickShootTimer < 0.0f && isShooting)
         {
             //this is just a slight delay to stop the enemy from rotating
-            OnAttack?.Invoke();
-        }
+           
+        }*/
 
         if (shootTimer < 0.0f && isShooting)
         {
+        
             canShoot = true;
+   
         }
 
         if (canShoot && isShooting && isEquip)
@@ -139,14 +146,6 @@ public class Weapon : MonoBehaviour
 
                 shootTimer = CalculateFireRate();
                 quickShootTimer = shootTimer - predictionTime;
-                if (playerController)
-                {
-                    shotDirection = playerController.playerCamera.transform.forward;
-                }
-                else
-                {
-                    shotDirection = transform.forward;
-                }
                 Shoot();
             }
         }
@@ -163,6 +162,24 @@ public class Weapon : MonoBehaviour
                 spriteRenderer.sprite = currentSprite;
             }
         }
+
+        if(AnimationPosition != currentAnimationPosition)
+        {
+            currentAnimationPosition = AnimationPosition;
+            if (playerController != null)
+            {
+                UiManager.Instance.UpdateWeaponAnimationPosition(currentAnimationPosition);
+            }
+        }
+        
+        if(AnimationRotation != currentAnimationRotation)
+        {
+            currentAnimationRotation = AnimationRotation;
+            if (playerController != null)
+            {
+                UiManager.Instance.UpdateWeaponAnimationRotation(currentAnimationRotation);
+            }
+        }
     }
 
     private void OnEnable()
@@ -176,24 +193,25 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    private void Attach()
+    protected virtual void Attach()
     {
         if (Ammo > 0)
         {
             weaponColor = Color.white;
         }
 
+        spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
-        spriteBillboard.enabled = false;
         rb.useGravity = true;
         if (playerController != null)
         {
-            animator.runtimeAnimatorController = gunPlayerController;
             spriteRenderer.enabled = false;
+            animator.runtimeAnimatorController = gunPlayerController;
         }
         else
         {
+            spriteRenderer.enabled = true;
             animator.runtimeAnimatorController = gunInGameController;
         }
     }
@@ -212,6 +230,13 @@ public class Weapon : MonoBehaviour
             {
                 UiManager.Instance.UpdateAmmoUi(0);
             }
+
+            spriteRenderer.enabled = false;
+        }
+        else
+        {
+
+            spriteRenderer.enabled = true;
         }
 
         animator.SetTrigger("Equip");
@@ -229,10 +254,11 @@ public class Weapon : MonoBehaviour
     {
         transform.SetParent(null);
 
+        transform.localScale = Vector3.one;
         //animator.runtimeAnimatorController = gunInGameController;
 
         rb.isKinematic = false;
-        rb.AddForce(direction * throwForce, ForceMode.Impulse);
+        rb.AddForce(direction * throwForce, ForceMode.VelocityChange);
 
         bc.enabled = true;
         animator.enabled = false;
@@ -288,6 +314,17 @@ public class Weapon : MonoBehaviour
        
         animator.SetTrigger("Shoot");
 
+        if (playerController)
+        {
+            shotDirection = playerController.playerCamera.transform.forward;
+        }
+        else
+        {
+            OnAttack?.Invoke();
+
+            shotDirection = transform.forward;
+        }
+
         // Trigger screen shake if applicable
         if (playerController != null)
         {
@@ -306,7 +343,7 @@ public class Weapon : MonoBehaviour
 
     protected void FireProjectile()
     {
-        if (projectilePrefab == null)
+        if (enemyProjectilePrefab == null)
         {
             Debug.LogError("Projectile has not been set");
             return;
@@ -321,19 +358,30 @@ public class Weapon : MonoBehaviour
             rotation = transform.rotation;
         }
 
-        GameObject projectileObject = Instantiate(projectilePrefab, transform.position, rotation);
-        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        Projectile projectile = null;
+        if (playerController != null)
+        {
+            projectile = Instantiate(playerProjectilePrefab, transform.position, rotation);
+        }
+        else
+        {
+            projectile = Instantiate(enemyProjectilePrefab, transform.position, rotation);
+        }
         if (projectile != null)
         {
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
+              
                 projectile.Initialize(shotDirection, true);
+                projectile.ownerLayer = playerController.gameObject.layer;
      
             }
             else
             {
-                projectile.owner = GetComponentInParent<Enemy>().gameObject;
+                GameObject enemyRef =  GetComponentInParent<Enemy>().gameObject;
+                projectile.owner = enemyRef;
+                projectile.ownerLayer = enemyRef.layer;
                 projectile.Initialize( shotDirection, false);
             }
         }

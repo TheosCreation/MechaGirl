@@ -55,15 +55,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Dash"",
-                    ""type"": ""Button"",
-                    ""id"": ""fd15d790-b645-484c-a857-aa7434be9f8e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""1799dd3e-3ffe-4c55-8a4d-b36f1477e650"",
@@ -191,17 +182,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b0ed6920-6c04-46b1-86db-fc15a29b39cc"",
-                    ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Dash"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ee489d61-8537-4b12-a155-6425f6a3d20f"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -322,7 +302,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_Movement = m_InGame.FindAction("Movement", throwIfNotFound: true);
         m_InGame_Look = m_InGame.FindAction("Look", throwIfNotFound: true);
         m_InGame_Jump = m_InGame.FindAction("Jump", throwIfNotFound: true);
-        m_InGame_Dash = m_InGame.FindAction("Dash", throwIfNotFound: true);
         m_InGame_Shoot = m_InGame.FindAction("Shoot", throwIfNotFound: true);
         m_InGame_WeaponSwitch = m_InGame.FindAction("WeaponSwitch", throwIfNotFound: true);
         m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
@@ -396,7 +375,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_Movement;
     private readonly InputAction m_InGame_Look;
     private readonly InputAction m_InGame_Jump;
-    private readonly InputAction m_InGame_Dash;
     private readonly InputAction m_InGame_Shoot;
     private readonly InputAction m_InGame_WeaponSwitch;
     private readonly InputAction m_InGame_WeaponThrow;
@@ -408,7 +386,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_InGame_Movement;
         public InputAction @Look => m_Wrapper.m_InGame_Look;
         public InputAction @Jump => m_Wrapper.m_InGame_Jump;
-        public InputAction @Dash => m_Wrapper.m_InGame_Dash;
         public InputAction @Shoot => m_Wrapper.m_InGame_Shoot;
         public InputAction @WeaponSwitch => m_Wrapper.m_InGame_WeaponSwitch;
         public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
@@ -431,9 +408,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Dash.started += instance.OnDash;
-            @Dash.performed += instance.OnDash;
-            @Dash.canceled += instance.OnDash;
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
@@ -459,9 +433,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Dash.started -= instance.OnDash;
-            @Dash.performed -= instance.OnDash;
-            @Dash.canceled -= instance.OnDash;
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
@@ -558,7 +529,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnDash(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnWeaponThrow(InputAction.CallbackContext context);

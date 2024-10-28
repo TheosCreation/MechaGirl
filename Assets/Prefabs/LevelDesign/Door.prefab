@@ -50,7 +50,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &935519243754278289
 Transform:
@@ -97,7 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7c90a85ca965b1d41ae27fc8036b6a44, type: 2}
+  - {fileID: 2100000, guid: 6f99a8595eed1104cad03fd05af2910d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -407,3 +407,6 @@ MonoBehaviour:
   minAnimSpeed: 1
   speedMultiplier: 0.3
   overlay: {fileID: 372439730463222059}
+  onTriggerEnter:
+    m_PersistentCalls:
+      m_Calls: []

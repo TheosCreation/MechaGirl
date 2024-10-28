@@ -11,12 +11,16 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private LevelCompleteMenuManager levelCompleteScreen;
 
+    [SerializeField] private Transform weaponSwayTransform;
     [SerializeField] private Image weaponImage;
     [SerializeField] private FlashImage hitMarker;
     [SerializeField] private FlashImage hurtScreen;
     [SerializeField] private UiBar healthBar;
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Image weaponIconImage;
+
+    [SerializeField] private GameObject tutorialHud;
+    [SerializeField] private TMP_Text tutorialText;
 
     //public Image image;
     //public UiBar bar;
@@ -69,7 +73,13 @@ public class UiManager : MonoBehaviour
     {
         ammoText.text = ammo > 0 ? ammo.ToString() : "";  // Set to empty string if ammo is 0
     }
+    public void SetTutorialText(string text)
+    {
+        tutorialText.text = text;
     
+        tutorialHud.SetActive(!(text == ""));
+      
+    }
     public void UpdateWeaponIcon(Sprite weaponIcon)
     {
         weaponIconImage.sprite = weaponIcon;
@@ -78,6 +88,40 @@ public class UiManager : MonoBehaviour
     public void UpdateWeaponImage(Sprite sprite)
     {
         weaponImage.sprite = sprite;
+    }
+
+    public void UpdateWeaponAnimationPosition(Vector3 position)
+    {
+        // Get the screen's center point in world space
+        Vector3 screenCenter = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2f, Screen.height / 2f, Camera.main.nearClipPlane));
+
+        // Adjust the position so that (0,0) is the screen center
+        Vector3 adjustedPosition = screenCenter + position;
+
+        // Update the weapon's local position relative to its parent
+        weaponImage.transform.localPosition = adjustedPosition;
+    }
+
+
+    public void UpdateWeaponAnimationRotation(Vector3 rotation)
+    {
+        weaponImage.transform.localRotation = Quaternion.Euler(rotation);
+    }
+
+    public void UpdateWeaponSwayPosition(Vector3 position)
+    {
+        // Get the screen's center point
+        Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
+
+        // Adjust the position so that (0,0) is the screen center
+        Vector3 adjustedPosition = screenCenter + position;
+
+        weaponSwayTransform.transform.position = adjustedPosition;
+    }
+
+    public void UpdateWeaponSwayRotation(Quaternion rotation)
+    {
+        weaponSwayTransform.rotation = rotation;
     }
 
     public void FlashHitMarker()
@@ -101,6 +145,6 @@ public class UiManager : MonoBehaviour
         levelCompleteScreen.gameObject.SetActive(true);
         levelCompleteScreen.UpdateLevelNumber(currentLevelNumber);
         levelCompleteScreen.UpdateTimeText(levelCompleteTime);
-        levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.level1BestTime);
+        levelCompleteScreen.UpdateBestTimeText(GameManager.Instance.GameState.GetBestTimeForCurrentLevel());
     }
 }

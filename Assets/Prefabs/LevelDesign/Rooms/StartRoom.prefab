@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343242109384182546}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -158,6 +158,7 @@ MonoBehaviour:
   OnPlayerRespawn:
     m_PersistentCalls:
       m_Calls: []
+  resetLevel: 1
 --- !u!1 &6146327118977667875
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,7 +440,7 @@ PrefabInstance:
     - target: {fileID: 235611933640131463, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.380001
+      value: 2.478
       objectReference: {fileID: 0}
     - target: {fileID: 235611933640131463, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
@@ -481,6 +482,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
+        type: 3}
+      propertyPath: m_Range
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
+        type: 3}
+      propertyPath: m_Intensity
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
+        type: 3}
+      propertyPath: m_AreaSize.x
+      value: 7.164036
+      objectReference: {fileID: 0}
+    - target: {fileID: 438061478556309207, guid: 44b32520b08eddc4ca326de7f2da2e44,
+        type: 3}
+      propertyPath: m_AreaSize.y
+      value: 7.164036
+      objectReference: {fileID: 0}
+    - target: {fileID: 2872408959074336196, guid: 44b32520b08eddc4ca326de7f2da2e44,
+        type: 3}
+      propertyPath: m_Range
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 2872408959074336196, guid: 44b32520b08eddc4ca326de7f2da2e44,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
@@ -518,7 +544,7 @@ PrefabInstance:
     - target: {fileID: 1533987953422378513, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3307221995691362999, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}

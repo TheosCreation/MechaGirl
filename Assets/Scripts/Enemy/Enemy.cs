@@ -1,17 +1,22 @@
+
 using System;
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+[RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageable
 {
+    Rigidbody rb;
     [HideInInspector] public NavMeshAgent agent;
     public Animator animator;
     [HideInInspector] public Transform target;
     public EnemyStateMachine StateMachine;
     private Vector3 dashDirection;
     [Header("Settings")]
-    public float updatePathTime = 1.0f; // time to update the path towards the target
+    public float updatePathTime = 1.0f;
     public float lookDistance = 30f;
     public float fieldOfViewAngle = 110f;
     public bool isRanged = false;
@@ -19,18 +24,27 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
-    public float rotationFreezeTime = 0.4f;
-    public float attackResumeRotationDelay = 0.01f;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public bool canRotate = true;
     private SpriteRenderer[] spriteRenderers;
 
+    [Header("Shooting Settings")]
+    public int bulletsPerBurst = 3;
+    public float burstDelay = 0.5f;
+    public float minRadius = 1f;
+    public float maxRadius = 5f;
+
     [Header("Dash Settings")]
     public float dashSpeed = 10f;
     public float dashDuration = 0.1f;
     public bool isDashing = false;
+
+    [Header("Launch Settings")]
+    private Timer launchTimer;
+    public bool isLaunching = false;
+    [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [Header("Health")]
     public int maxHealth = 100;
@@ -57,6 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         Health = maxHealth;
@@ -69,6 +84,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         SetDefaultState();
         delayTimer = gameObject.AddComponent<Timer>();
+        launchTimer = gameObject.AddComponent<Timer>();
         weapon = GetComponentInChildren<Weapon>();
     }
 
@@ -76,13 +92,16 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
-        if(canRotate)
+        if (canRotate)
         {
             LookTowardsTarget();
         }
         if (isDashing)
         {
-            agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+            if(agent.enabled)
+            {
+                agent.Move(dashDirection * dashSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -106,9 +125,38 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Health -= damageAmount;
         StartCoroutine(FlashRed());
-        
+
+        if (health > 0)
+        {
+            isLaunching = true;
+            StartCoroutine(LaunchUpwards(damageAmount));
+        }
     }
 
+    private IEnumerator LaunchUpwards(float damageAmount)
+    {
+        yield return null;
+
+        float upwardForce = Mathf.Clamp(damageAmount, 0, launchbackThreshold);
+
+        agent.enabled = false;
+        rb.useGravity = true;
+        rb.isKinematic = false;
+        rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
+
+        yield return new WaitForFixedUpdate();
+        yield return new WaitUntil(() => rb.velocity.magnitude < 0.005f);
+
+        EndLaunch();
+    }
+
+    private void EndLaunch()
+    {
+        agent.enabled = true;
+        isLaunching = false;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
 
     public void Heal(float healAmount)
     {
@@ -169,7 +217,7 @@ public class Enemy : MonoBehaviour, IDamageable
             }
             if (weapon != null)
             {
-                weapon.predictionTime = rotationFreezeTime;
+
                 weapon.StartShooting();
             }
             else
@@ -190,11 +238,15 @@ public class Enemy : MonoBehaviour, IDamageable
             weapon.EndShooting();
         }
     }
+
     public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
     {
+        
         dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
-        dashDirection = transform.forward;
+        Quaternion rotation = Quaternion.AngleAxis(-30 , Vector3.right);
+        dashDirection = transform.up;
+        Debug.Log(dashDirection);
         if (!isDashing)
         {
             isDashing = true;
@@ -207,6 +259,7 @@ public class Enemy : MonoBehaviour, IDamageable
     private void StopDash()
     {
         isDashing = false;
+
     }
 
     private void LookTowardsTarget()
@@ -232,6 +285,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         foreach (var sr in spriteRenderers)
         {
+            if(sr.GetComponent<Weapon>() != null) { continue; };
             sr.color = Color.red;
         }
         yield return new WaitForSeconds(0.1f);

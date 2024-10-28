@@ -79,7 +79,8 @@ public class WeaponHolder : MonoBehaviour
     {
         if (lastThrowWeapon != null)
         {
-            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
+            playerController.playerMovement.Teleport(lastThrowWeapon.transform.position);
+            lastThrowWeapon.PickUp(this, playerController);
         }
     }
     public void TryThrowWeapon()
@@ -97,10 +98,7 @@ public class WeaponHolder : MonoBehaviour
         }
         else
         {
-            if (lastThrowWeapon != null)
-            {
-                playerController.playerMovement.Teleport(lastThrowWeapon.transform.position + new Vector3(0.0f, 1.0f, 0.0f));
-            }
+            DashToWeapon();
         }
     }
 
@@ -145,9 +143,10 @@ public class WeaponHolder : MonoBehaviour
         weapon.enabled = false; //disable the weapon script as the game object stays active
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
-
-        //SelectWeapon(weapons.Length - 1);
-
+        if (currentWeapon.GetType() == weapons[0].GetType())
+        { 
+            SelectWeapon(weapons.Length - 1);
+        }
         return true;
     }
 

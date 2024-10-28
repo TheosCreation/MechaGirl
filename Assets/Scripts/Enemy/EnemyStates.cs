@@ -32,14 +32,18 @@ public class LookingState : IEnemyState
     {
         timer += Time.deltaTime;
 
-        if (enemy.IsTargetInFOV())
+        if (enemy.IsTargetInFOV() )
         {
-            enemy.StateMachine.ChangeState(new ChaseState(), enemy);
-            return;
+            if (enemy.target)
+            {
+                enemy.StateMachine.ChangeState(new ChaseState(), enemy);
+                return;
+            }
         }
 
         if (timer >= wanderTimer)
         {
+            if (enemy.isLaunching) return;
             Vector3 newPos = RandomNavSphere(enemy.transform.position, wanderRadius, -1);
             enemy.agent.SetDestination(newPos);
             timer = 0;
@@ -67,12 +71,13 @@ public class ChaseState : IEnemyState
     float timer = 0.0f;
     public void Enter(Enemy enemy)
     {
-        enemy.agent.SetDestination(enemy.target.position);
+        if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         enemy.animator.SetBool("IsMoving", true);
     }
 
     public void Execute(Enemy enemy)
     {
+        if (!enemy.target) return;
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
@@ -87,7 +92,7 @@ public class ChaseState : IEnemyState
         if (timer < 0.0f)
         {
             timer = enemy.updatePathTime;
-            enemy.agent.SetDestination(enemy.target.position);
+            if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         }
     }
 
@@ -99,57 +104,89 @@ public class ChaseState : IEnemyState
 
 public class AttackingState : IEnemyState
 {
-    private bool attackTriggered = false;
+
     private float attackStartTime;
     private float rotationResumeTime;
+    private int bulletsFired = 0;
 
     public void Enter(Enemy enemy)
     {
         // Start attack delay and animation
-        enemy.agent.isStopped = true;
-        enemy.canRotate = false;
+        if (!enemy.isLaunching) enemy.agent.isStopped = true;
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
         enemy.weapon.OnAttack += () => AttackExecuted(enemy);
-        attackTriggered = true;
         attackStartTime = Time.time;
-
-        // Stop rotation for a second after attack is triggered
-        rotationResumeTime = Time.time + enemy.attackStartDelay + enemy.attackResumeRotationDelay;
     }
 
     private void AttackExecuted(Enemy enemy)
     {
-        enemy.canRotate = false;
-        rotationResumeTime = Time.time + enemy.attackResumeRotationDelay;
+
+
+        bulletsFired++;
+        if (bulletsFired >= enemy.bulletsPerBurst)
+        {
+            Vector3 randomDirection = Random.onUnitSphere;
+
+            float distanceFromEnemy = Random.Range(enemy.minRadius, enemy.maxRadius);
+
+            distanceFromEnemy = Mathf.Min(distanceFromEnemy, enemy.maxRadius);
+
+            Vector3 randomSpot = enemy.transform.position + randomDirection * distanceFromEnemy;
+
+            NavMeshHit hit;
+            if (NavMesh.SamplePosition(randomSpot, out hit, distanceFromEnemy, NavMesh.AllAreas))
+            {
+                if (!enemy.isLaunching)
+                {
+                    enemy.agent.isStopped = false;
+                    enemy.agent.SetDestination(hit.position);
+                }
+                enemy.EndAttack();
+            }
+            else
+            {
+                Debug.LogError("No valid pos found");
+            }
+            bulletsFired = 0;
+        }
     }
+
+
 
     public void Execute(Enemy enemy)
     {
-        if (Time.time >= rotationResumeTime)
-        {
-            enemy.canRotate = true;
-        }
+        if (!enemy.agent.enabled) return;
+
+        Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
+        enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
 
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
 
-        if (attackTriggered && Time.time >= attackStartTime + enemy.attackDuration)
+        if (Time.time >= attackStartTime + enemy.attackDuration)
         {
-            if (distanceToTarget >= enemy.loseDistance)
+            if (!enemy.agent.pathPending && distanceToTarget >= enemy.attackDistance)
             {
                 // Switch back to chasing if the target is out of sight
                 enemy.StateMachine.ChangeState(new ChaseState(), enemy);
             }
+            else if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+            {
+                // Allow shooting again if the enemy has reached the destination
+                enemy.StartAttack();
+                enemy.agent.isStopped = true;
+            }
         }
     }
 
+
     public void Exit(Enemy enemy)
     {
-        // Resume movement or other logic as needed
-        enemy.agent.isStopped = false;
         enemy.delayTimer.StopTimer();
         enemy.EndAttack();
         enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
+
+        if (!enemy.isLaunching) enemy.agent.isStopped = false;
     }
 }

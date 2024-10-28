@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,12 @@ class LevelManager : MonoBehaviour
     private PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
+    [HideInInspector] public bool resetLevel = true;
+
+    private List<TriggerDoor> triggerDoors = new List<TriggerDoor>();
+    private List<TriggerZone> triggerZones = new List<TriggerZone>();
+    private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
+    private List<Spawner> spawners = new List<Spawner>();
 
     private void Awake()
     {
@@ -26,10 +33,16 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    private void Start()
+    void Start()
     {
+        // Register all objects at the start
+        triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
+        triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
+        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None));
+        spawners.AddRange(FindObjectsByType<Spawner>(FindObjectsSortMode.None)); 
+        
         playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if(playerSpawn == null)
+        if (playerSpawn == null)
         {
             Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
         }
@@ -54,12 +67,16 @@ class LevelManager : MonoBehaviour
             PauseManager.Instance.canUnpause = false;
 
 
-            if(levelCompleteTime < GameManager.Instance.GameState.level1BestTime)
-            {
-                GameManager.Instance.GameState.level1BestTime = levelCompleteTime;
+            // Get the best time for the current level
+            float bestTimeForCurrentLevel = GameManager.Instance.GameState.GetBestTimeForCurrentLevel();
 
-                //save the game state
-                GameManager.Instance.SerializeJson();
+            if (levelCompleteTime < bestTimeForCurrentLevel)
+            {
+                // Update the best time for the current level
+                GameManager.Instance.GameState.SetBestTimeForCurrentLevel(levelCompleteTime);
+
+                // Save the game state
+                GameManager.Instance.SerializeGameStateToJson();
             }
 
             // Pass the time to the UIManager and open the level complete screen
@@ -72,17 +89,26 @@ class LevelManager : MonoBehaviour
         return levelCompleteTime;
     }
 
+    public void KillCurrentPlayer()
+    {
+        if (playerSpawn.playerSpawned)
+        {
+            playerSpawn.playerSpawned.Die();
+        }
+    }
+
     public void RespawnPlayer()
     {
-        if (OnPlayerRespawn == null)
+        if (resetLevel)
         {
             ResetDoors(); 
             ResetTriggers();
             ResetCheckPoints();
+            ResetSpawners();
         }
         else
         {
-            OnPlayerRespawn.Invoke();
+            OnPlayerRespawn?.Invoke();
         }
 
         UiManager.Instance.OpenPlayerHud();
@@ -141,16 +167,14 @@ class LevelManager : MonoBehaviour
 
     public void ResetDoors()
     {
-        TriggerDoor[] doors = FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None);
-        foreach (TriggerDoor door in doors)
+        foreach (TriggerDoor door in triggerDoors)
         {
-            door.Reset();
+            door.Unlock();
         }
     }
 
     public void ResetTriggers()
     {
-        TriggerZone[] triggerZones = FindObjectsByType<TriggerZone>(FindObjectsSortMode.None);
         foreach (TriggerZone triggerZone in triggerZones)
         {
             triggerZone.Reset();
@@ -159,10 +183,17 @@ class LevelManager : MonoBehaviour
     
     public void ResetCheckPoints()
     {
-        TriggerCheckPoint[] checkPoints = FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None);
         foreach (TriggerCheckPoint checkPoint in checkPoints)
         {
             checkPoint.Reset();
+        }
+    }
+
+    public void ResetSpawners()
+    {
+        foreach(Spawner spawner in spawners)
+        {
+            spawner.Reset();
         }
     }
 }

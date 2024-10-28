@@ -37,7 +37,7 @@ public class SwordsSwing : PhysicalProjectile
         {
             if (!playerMove.isDashing)
             {
-                Destroy(gameObject);             
+                Destroy(gameObject);                
             }
             return;
         }

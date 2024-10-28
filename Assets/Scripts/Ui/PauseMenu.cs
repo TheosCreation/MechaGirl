@@ -22,8 +22,28 @@ public class PauseMenu : MonoBehaviour
         mainPage.SetActive(false);
     }
 
+    public void ResumeGame()
+    {
+        PauseManager.Instance.SetPaused(false);
+    }
+
     public void ExitToMainMenu()
     {
         GameManager.Instance.ExitToMainMenu();
+    }
+
+    public void ResetLevel()
+    {
+        LevelManager.Instance.resetLevel = true;
+        LevelManager.Instance.KillCurrentPlayer();
+        PauseManager.Instance.SetPaused(true);
+        LevelManager.Instance.RespawnPlayer();
+    }
+
+    public void ResetToCheckPoint()
+    {
+        LevelManager.Instance.KillCurrentPlayer();
+        PauseManager.Instance.SetPaused(true);
+        LevelManager.Instance.RespawnPlayer();
     }
 }

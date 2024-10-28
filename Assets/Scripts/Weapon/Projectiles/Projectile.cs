@@ -10,13 +10,15 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected LayerMask hitMask;
     [SerializeField] protected float damage = 10.0f;
     public GameObject owner;
-
+    public int ownerLayer = -1;
     protected Rigidbody rb;
 
     private void Awake()
-    {
+    {   
+
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifetime);
+
     }
 
     public virtual void Initialize(Vector3 direction, bool fromPlayer) { }

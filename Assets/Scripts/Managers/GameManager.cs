@@ -18,7 +18,6 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        GameState = new GameState();
 
         if (Instance == null)
         {
@@ -31,16 +30,18 @@ public class GameManager : MonoBehaviour
                 .Where(name => name.StartsWith("Level"))
                 .OrderBy(name => name)
                 .ToArray();
+
+            GameState = new GameState(levelScenes.Length);
         }
         else
         {
             Destroy(gameObject);
         }
 
-        UnSerializeJson();
+        UnSerializeGameStateFromJson();
     }
 
-    public void UnSerializeJson()
+    public void UnSerializeGameStateFromJson()
     {
         long startTime = DateTime.Now.Ticks;
         try
@@ -51,11 +52,11 @@ public class GameManager : MonoBehaviour
         }
         catch
         {
-            Debug.Log($"Could not read file!");
+            Debug.Log("Game state file does not exist, fresh start");
         }
     }
 
-    public void SerializeJson()
+    public void SerializeGameStateToJson()
     {
         long startTime = DateTime.Now.Ticks;
         if(DataService.SaveData("/game-state.json", GameState, false))
