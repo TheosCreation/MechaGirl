@@ -74,9 +74,6 @@ class LevelManager : MonoBehaviour
             {
                 // Update the best time for the current level
                 GameManager.Instance.GameState.SetBestTimeForCurrentLevel(levelCompleteTime);
-
-                // Save the game state
-                GameManager.Instance.SerializeGameStateToJson();
             }
 
             // Pass the time to the UIManager and open the level complete screen

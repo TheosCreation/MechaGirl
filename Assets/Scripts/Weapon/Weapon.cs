@@ -282,9 +282,9 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PickUp(WeaponHolder weaponHolder, PlayerController pc)
+    public void PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
     {
-        if (!canPickup) return;
+        if (!canPickup && !ignorePickup) return;
 
         playerController = pc;
 

@@ -1,9 +1,9 @@
 using Assets.Scripts.JsonSerialization;
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,29 +16,37 @@ public class GameManager : MonoBehaviour
     private long SaveTime;
     private long LoadTime;
 
+    private string gameStateFilePath;
+
+
     private void Awake()
     {
-
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-
-            // Get scenes that start with "Level" and store them
-            levelScenes = Enumerable.Range(0, SceneManager.sceneCountInBuildSettings)
-                .Select(i => System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)))
-                .Where(name => name.StartsWith("Level"))
-                .OrderBy(name => name)
-                .ToArray();
-
-            GameState = new GameState(levelScenes.Length);
         }
         else
         {
             Destroy(gameObject);
         }
+    }
 
+    public IEnumerator Init()
+    {
+        // Get scenes that start with "Level" and store them
+        levelScenes = Enumerable.Range(0, SceneManager.sceneCountInBuildSettings)
+            .Select(i => System.IO.Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i)))
+            .Where(name => name.StartsWith("Level"))
+            .OrderBy(name => name)
+            .ToArray();
+
+        gameStateFilePath = "/game-state.json";
         UnSerializeGameStateFromJson();
+
+        yield return null;
+
+        Debug.Log("GameManager initialization complete.");
     }
 
     public void UnSerializeGameStateFromJson()
@@ -46,27 +54,51 @@ public class GameManager : MonoBehaviour
         long startTime = DateTime.Now.Ticks;
         try
         {
-            GameState data = DataService.LoadData<GameState>("/game-state.json", false);
-            LoadTime = DateTime.Now.Ticks - startTime;
-            Debug.Log("Load Time: " + LoadTime);
+            GameState data = DataService.LoadData<GameState>(gameStateFilePath, false);
+            if (data != null)
+            {
+                GameState = data; // Load the game state if data is present
+                Debug.Log("Game state loaded successfully.");
+            }
+            else
+            {
+                // If the file doesn't exist or is empty, ensure a fresh start
+                GameState = new GameState(levelScenes.Length);
+                Debug.Log("No game state data found, starting fresh.");
+            }
         }
-        catch
+        catch (Exception ex)
         {
-            Debug.Log("Game state file does not exist, fresh start");
-        }
-    }
+            // Log the error but ensure the game can still proceed
+            Debug.LogError("Error loading game state: " + ex.Message);
 
+            // Initialize default game state to ensure gameplay can continue
+            GameState = new GameState(levelScenes.Length);
+            Debug.Log("Initialized fresh game state to allow the game to proceed.");
+        }
+
+        // Record load time for performance tracking
+        LoadTime = DateTime.Now.Ticks - startTime;
+        Debug.Log("Load Time: " + LoadTime);
+    }
     public void SerializeGameStateToJson()
     {
         long startTime = DateTime.Now.Ticks;
-        if(DataService.SaveData("/game-state.json", GameState, false))
+        try
         {
-            SaveTime = DateTime.Now.Ticks - startTime;
-            Debug.Log("Save Time: " +  SaveTime);
+            if (DataService.SaveData(gameStateFilePath, GameState, false))
+            {
+                SaveTime = DateTime.Now.Ticks - startTime;
+                Debug.Log("Game state saved successfully. Save Time: " + SaveTime);
+            }
+            else
+            {
+                Debug.LogError("Failed to save game state.");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Debug.LogError("Could not save file!");
+            Debug.LogError("Error saving game state: " + ex.Message);
         }
     }
 
@@ -108,5 +140,10 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Quit");
         Application.Quit();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SerializeGameStateToJson();
     }
 }

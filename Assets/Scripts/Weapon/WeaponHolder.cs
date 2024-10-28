@@ -80,7 +80,7 @@ public class WeaponHolder : MonoBehaviour
         if (lastThrowWeapon != null)
         {
             playerController.playerMovement.Teleport(lastThrowWeapon.transform.position);
-            lastThrowWeapon.PickUp(this, playerController);
+            lastThrowWeapon.PickUp(this, playerController, true);
         }
     }
     public void TryThrowWeapon()
