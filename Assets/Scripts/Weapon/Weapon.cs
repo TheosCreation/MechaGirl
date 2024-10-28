@@ -184,6 +184,8 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
+        // We equip if the weapon has been selected and is held
+        if (playerController == null) return;
         Equip();
     }
 
