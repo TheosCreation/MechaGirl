@@ -246,7 +246,6 @@ public class Enemy : MonoBehaviour, IDamageable
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
         Quaternion rotation = Quaternion.AngleAxis(-30 , Vector3.right);
         dashDirection = transform.up;
-        Debug.Log(dashDirection);
         if (!isDashing)
         {
             isDashing = true;

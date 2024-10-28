@@ -22,9 +22,6 @@ public class PhysicalProjectile : Projectile
 
         // Destroy the projectile after its lifetime
         Destroy(gameObject, lifetime);
-
-        Debug.Log(owner);
-       
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private long LoadTime;
 
     private string gameStateFilePath;
+    public bool isInit = false;
 
 
     private void Awake()
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
         yield return null;
 
         Debug.Log("GameManager initialization complete.");
+        isInit = true;
     }
 
     public void UnSerializeGameStateFromJson()
@@ -107,7 +109,7 @@ public class GameManager : MonoBehaviour
         if (levelScenes.Length > 0)
         {
             GameState.currentLevelIndex = 0;
-            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]);
+            SceneManager.LoadSceneAsync(levelScenes[GameState.currentLevelIndex]);
         }
         else
         {
@@ -120,7 +122,7 @@ public class GameManager : MonoBehaviour
         if (GameState.currentLevelIndex < levelScenes.Length - 1)
         {
             GameState.currentLevelIndex++;
-            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]);
+            SceneManager.LoadSceneAsync(levelScenes[GameState.currentLevelIndex]); //May required load screen
         }
         else
         {

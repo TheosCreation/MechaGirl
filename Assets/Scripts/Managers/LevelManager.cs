@@ -35,6 +35,11 @@ class LevelManager : MonoBehaviour
 
     void Start()
     {
+        if(!GameManager.Instance.isInit)
+        {
+            GameManager.Instance.Init();
+        }
+
         // Register all objects at the start
         triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
         triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
