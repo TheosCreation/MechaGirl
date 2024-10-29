@@ -779,8 +779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 2980478904453071313}
-  throwForce: 20
-  pickUpDelay: 0.4
+  throwForce: 40
+  pickUpDelay: 1
   pickupParticle: {fileID: 816325510017641512}
 --- !u!114 &470953783007029359
 MonoBehaviour:

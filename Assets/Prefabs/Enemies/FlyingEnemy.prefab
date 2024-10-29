@@ -104,7 +104,7 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 0
-  attackDistance: 4.1
+  attackDistance: 1
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
@@ -123,8 +123,11 @@ MonoBehaviour:
   maxHealth: 100
   defaultState: 0
   currentState: 0
-  verticalMovementRange: 2
+  verticalMovementRange: 3
   verticalMovementSpeed: 1
+  minimumHeightAboveGround: 1
+  maximumHeightBelowCeiling: 5
+  smoothTime: 0.3
   children:
   - {fileID: 8187505603555233600}
   - {fileID: 3354435173736930781}
