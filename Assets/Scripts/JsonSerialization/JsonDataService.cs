@@ -9,6 +9,7 @@ public class JsonDataService : IDataService
     public bool SaveData<T>(string RelativePath, T Data, bool Encrypted)
     {
         string path = Application.persistentDataPath + RelativePath;
+        Debug.Log(path);
         try
         {
             if (File.Exists(path))

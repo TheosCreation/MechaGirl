@@ -109,7 +109,7 @@ public class GameManager : MonoBehaviour
         if (levelScenes.Length > 0)
         {
             GameState.currentLevelIndex = 0;
-            SceneManager.LoadSceneAsync(levelScenes[GameState.currentLevelIndex]);
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]);
         }
         else
         {
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         if (GameState.currentLevelIndex < levelScenes.Length - 1)
         {
             GameState.currentLevelIndex++;
-            SceneManager.LoadSceneAsync(levelScenes[GameState.currentLevelIndex]); //May required load screen
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]); //May required load screen
         }
         else
         {

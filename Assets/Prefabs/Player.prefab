@@ -748,11 +748,46 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMelee: 1
+  interactableTransform: {fileID: 3112140266885498223}
   meleeDistance: 2
   meleeDamage: 10
+  meleeCooldown: 1.5
+  throwForce: 2
   hitMask:
     serializedVersion: 2
     m_Bits: 384
+  currentHeldKeycard: {fileID: 0}
+--- !u!1 &2838313414985441038
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3112140266885498223}
+  m_Layer: 0
+  m_Name: KeycardHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3112140266885498223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2838313414985441038}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.695, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2959889856872969295}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3533542281797729294
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +819,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3112140266885498223}
   - {fileID: 4249629698851845101}
   - {fileID: 4088395124389580750}
   m_Father: {fileID: 6984749821573097308}
