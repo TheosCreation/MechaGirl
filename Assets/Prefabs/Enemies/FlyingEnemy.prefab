@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 195759607885323213}
   - component: {fileID: 7390658371230026253}
-  - component: {fileID: 4518206362362337328}
   - component: {fileID: 2149757717314550231}
+  - component: {fileID: 6095716343603737473}
   m_Layer: 7
-  m_Name: Sword
+  m_Name: FlyingEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,44 +58,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &4518206362362337328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274951009702948806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 651d01c9331ccc0429c3fc3b7a53f3e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 0}
-  animator: {fileID: 792046558176550903}
-  target: {fileID: 0}
-  updatePathTime: 0.8
-  lookDistance: 100
-  fieldOfViewAngle: 360
-  isRanged: 1
-  attackDistance: 4.1
-  attackStartDelay: 0.1
-  loseDistance: 7
-  attackDuration: 1
-  delayTimer: {fileID: 0}
-  weapon: {fileID: 0}
-  canRotate: 1
-  bulletsPerBurst: 100
-  burstDelay: 0.5
-  minRadius: 1
-  maxRadius: 1
-  dashSpeed: 10
-  dashDuration: 0.1
-  isDashing: 0
-  isLaunching: 0
-  launchbackThreshold: 30
-  maxHealth: 10
-  defaultState: 1
-  currentState: 1
 --- !u!54 &2149757717314550231
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -123,6 +85,49 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6095716343603737473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4274951009702948806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 216768814785b6949ae57b4f2664e8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agent: {fileID: 0}
+  animator: {fileID: 792046558176550903}
+  target: {fileID: 0}
+  updatePathTime: 0.8
+  lookDistance: 100
+  fieldOfViewAngle: 360
+  isRanged: 0
+  attackDistance: 4.1
+  attackStartDelay: 0.1
+  loseDistance: 7
+  attackDuration: 1
+  delayTimer: {fileID: 0}
+  weapon: {fileID: 0}
+  canRotate: 1
+  bulletsPerBurst: 3
+  burstDelay: 0.5
+  minRadius: 1
+  maxRadius: 5
+  dashSpeed: 10
+  dashDuration: 0.1
+  isDashing: 0
+  isLaunching: 0
+  launchbackThreshold: 30
+  maxHealth: 100
+  defaultState: 0
+  currentState: 0
+  verticalMovementRange: 2
+  verticalMovementSpeed: 1
+  children:
+  - {fileID: 8187505603555233600}
+  - {fileID: 3354435173736930781}
 --- !u!1 &8187505603555233600
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,7 +155,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 195759607885323213}
@@ -350,6 +355,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
         type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -396,6 +406,11 @@ PrefabInstance:
     - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1687682002055007444, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2043845442294348526, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
@@ -581,6 +596,12 @@ Animator:
 --- !u!4 &2208099434435170394 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4002054898896197936, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2967477458190600554}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3354435173736930781 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 550494694405330103, guid: 4cb5f512d0108c64c906a27aa8bdf07f,
     type: 3}
   m_PrefabInstance: {fileID: 2967477458190600554}
   m_PrefabAsset: {fileID: 0}
