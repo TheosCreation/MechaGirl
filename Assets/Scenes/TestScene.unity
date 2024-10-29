@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 473b5c7f493461c4bb01012824a6b96c,
+  m_LightingDataAsset: {fileID: 112000000, guid: 94524dd422af75d4aa062a8ab05c7778,
     type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: d53decf4365d6bf4bbfcaa518cf60770,
     type: 2}
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bakingSet: {fileID: 11400000, guid: 4cb00ae8a868678448c94519c11d66b8, type: 2}
+  bakingSet: {fileID: 11400000, guid: afee8f35015e6f445bdac59e70816803, type: 2}
   sceneGUID: 8452a715faebead4b83d92daac020891
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 34.500084, y: 26.584652, z: 86.53631}
+  size: {x: 34.500084, y: 26.584652, z: 86.536316}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1419,7 +1419,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: -1
   overridesSubdivLevels: 0
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
@@ -1432,12 +1432,12 @@ MonoBehaviour:
     e20: 0
     e21: 0
     e22: 1
-    e23: -48.057343
+    e23: -47.972347
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: 578026751
+  cachedHashCode: 2117356115
   fillEmptySpaces: 0
   version: 1
   globalVolume: 0
@@ -1450,7 +1450,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.97234}
+  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
