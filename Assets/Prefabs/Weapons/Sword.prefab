@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateY: 0
+  rotateY: 1
 --- !u!65 &1653645814557346363
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -304,6 +304,8 @@ MonoBehaviour:
   screenShakeAmount: 0.1
   canPickup: 0
   startingAmmo: 2
+  casingToSpawn: {fileID: 0}
+  casingSpawnTransform: {fileID: 0}
   enemyProjectilePrefab: {fileID: 914342520687511003, guid: dc1201aeb148b0b4089e4fab931dd095,
     type: 3}
   playerProjectilePrefab: {fileID: 914342520687511003, guid: dc1201aeb148b0b4089e4fab931dd095,
