@@ -145,7 +145,7 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
 
         yield return new WaitForFixedUpdate();
-        yield return new WaitUntil(() => rb.velocity.magnitude < 0.005f);
+        yield return new WaitForSeconds(0.2f);
 
         EndLaunch();
     }
