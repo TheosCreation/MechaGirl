@@ -13,6 +13,7 @@ public class UiManager : MonoBehaviour
 
     [SerializeField] private Transform weaponSwayTransform;
     [SerializeField] private Image weaponImage;
+    public Image crosshairImage;
     [SerializeField] private FlashImage hitMarker;
     [SerializeField] private FlashImage hurtScreen;
     [SerializeField] private UiBar healthBar;

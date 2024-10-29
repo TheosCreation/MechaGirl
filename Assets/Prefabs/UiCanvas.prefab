@@ -1410,7 +1410,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 128
+  m_fontSize: 112.5
   m_fontSizeBase: 128
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -4371,6 +4371,7 @@ MonoBehaviour:
   levelCompleteScreen: {fileID: 5559192297534720973}
   weaponSwayTransform: {fileID: 8600207341680033798}
   weaponImage: {fileID: 1091232673853679033}
+  crosshairImage: {fileID: 0}
   hitMarker: {fileID: 3067251258607330604}
   hurtScreen: {fileID: 3153888566879266348}
   healthBar: {fileID: 6519503598601738289}

@@ -7,9 +7,9 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
-    public Vector3 AnimationPosition = Vector3.zero; 
+    public Vector3 AnimationPosition = Vector3.zero;
     protected Vector3 currentAnimationPosition = Vector3.zero;
-    public Vector3 AnimationRotation = Vector3.zero; 
+    public Vector3 AnimationRotation = Vector3.zero;
     protected Vector3 currentAnimationRotation = Vector3.zero;
     public Sprite iconSprite;
     public Sprite inGameSprite;
@@ -78,15 +78,15 @@ public class Weapon : MonoBehaviour
             if (playerController != null && isActiveAndEnabled)
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
-            }   
+            }
             if (!ignoreAmmo)
             {
-                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)    
+                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)
                 {
                     weaponColor = Color.red;
-                 
+
                 }
-                else if(ammo > 0 && weaponColor == Color.red)
+                else if (ammo > 0 && weaponColor == Color.red)
                 {
                     weaponColor = Color.white;
                 }
@@ -132,14 +132,14 @@ public class Weapon : MonoBehaviour
 
         if (shootTimer < 0.0f && isShooting)
         {
-        
+
             canShoot = true;
-   
+
         }
 
         if (canShoot && isShooting && isEquip)
         {
-            if(Ammo > 0 || ignoreAmmo)
+            if (Ammo > 0 || ignoreAmmo)
             {
                 canShoot = false;
 
@@ -163,7 +163,7 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        if(AnimationPosition != currentAnimationPosition)
+        if (AnimationPosition != currentAnimationPosition)
         {
             currentAnimationPosition = AnimationPosition;
             if (playerController != null)
@@ -171,8 +171,8 @@ public class Weapon : MonoBehaviour
                 UiManager.Instance.UpdateWeaponAnimationPosition(currentAnimationPosition);
             }
         }
-        
-        if(AnimationRotation != currentAnimationRotation)
+
+        if (AnimationRotation != currentAnimationRotation)
         {
             currentAnimationRotation = AnimationRotation;
             if (playerController != null)
@@ -184,6 +184,8 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
+        // We equip if the weapon has been selected and is held
+        if (playerController == null) return;
         Equip();
     }
 
@@ -222,7 +224,7 @@ public class Weapon : MonoBehaviour
         animator.enabled = true;
         if (playerController != null)
         {
-            if(!ignoreAmmo)
+            if (!ignoreAmmo)
             {
                 UiManager.Instance.UpdateAmmoUi(Ammo);
             }
@@ -265,6 +267,7 @@ public class Weapon : MonoBehaviour
         spriteRenderer.enabled = true;
         spriteRenderer.sprite = inGameSprite;
 
+        canPickup = false;
         //stop timer incase of repeat
         pickupTimer.StopTimer();
         pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
@@ -282,16 +285,16 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PickUp(WeaponHolder weaponHolder, PlayerController pc)
+    public void PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
     {
-        if (!canPickup) return;
+        if (!canPickup && !ignorePickup) return;
 
         playerController = pc;
 
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if(weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this))
         {
             //if is new weapon lets equip it
             Attach();
@@ -311,7 +314,7 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootTimer = CalculateFireRate();
-       
+
         animator.SetTrigger("Shoot");
 
         if (playerController)
@@ -332,9 +335,9 @@ public class Weapon : MonoBehaviour
         }
 
         PlayRandomFiringSound();
- 
-        FireProjectile(); 
-        
+
+        FireProjectile();
+
         if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
@@ -372,17 +375,17 @@ public class Weapon : MonoBehaviour
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
-              
+
                 projectile.Initialize(shotDirection, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
-     
+
             }
             else
             {
-                GameObject enemyRef =  GetComponentInParent<Enemy>().gameObject;
+                GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize( shotDirection, false);
+                projectile.Initialize(shotDirection, false);
             }
         }
     }

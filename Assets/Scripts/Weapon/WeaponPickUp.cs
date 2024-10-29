@@ -28,7 +28,7 @@ public class WeaponPickUp : MonoBehaviour
             if (isPlayer)
             {
                 Weapon weapon = other.gameObject.GetComponent<Weapon>();
-                weapon.PickUp(player.weaponHolder, player);
+                weapon.PickUp(player.weaponHolder, player, false);
             }
             else
             {

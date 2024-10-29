@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private EnemyState defaultState = EnemyState.Looking;
     [SerializeField] private EnemyState currentState;
 
-    private void Start()
+    protected void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour, IDamageable
         weapon = GetComponentInChildren<Weapon>();
     }
 
-    private void Update()
+    protected void Update()
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private void SetDefaultState()
+    protected void SetDefaultState()
     {
         switch (defaultState)
         {
@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private IEnumerator LaunchUpwards(float damageAmount)
+    protected IEnumerator LaunchUpwards(float damageAmount)
     {
         yield return null;
 
@@ -150,7 +150,7 @@ public class Enemy : MonoBehaviour, IDamageable
         EndLaunch();
     }
 
-    private void EndLaunch()
+    protected void EndLaunch()
     {
         agent.enabled = true;
         isLaunching = false;
@@ -246,7 +246,6 @@ public class Enemy : MonoBehaviour, IDamageable
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
         Quaternion rotation = Quaternion.AngleAxis(-30 , Vector3.right);
         dashDirection = transform.up;
-        Debug.Log(dashDirection);
         if (!isDashing)
         {
             isDashing = true;

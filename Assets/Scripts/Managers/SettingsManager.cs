@@ -63,7 +63,6 @@ public class SettingsManager : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.Log("Player does not exist yet");
             return;
         }
         player.playerLook.lookSensitivity = PlayerPrefs.GetFloat(sensitivitySetting.name, sensitivitySetting.defaultValue) / 200;
@@ -73,7 +72,6 @@ public class SettingsManager : MonoBehaviour
     {
         if (InputManager.Instance == null)
         {
-            Debug.Log("Input has not been set yet");
             return;
         }
         float lookSmoothingPercentage = PlayerPrefs.GetFloat(lookSmoothingSetting.name, lookSmoothingSetting.defaultValue);
@@ -91,7 +89,6 @@ public class SettingsManager : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.Log("Player does not exist yet");
             return;
         }
         int defaultValue = tiltSetting.defaultValue ? 1 : 0;
@@ -114,7 +111,6 @@ public class SettingsManager : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.Log("Player does not exist yet");
             return;
         }
         float screenShakePercentage = PlayerPrefs.GetFloat(screenShakeSetting.name, screenShakeSetting.defaultValue);

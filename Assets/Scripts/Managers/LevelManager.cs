@@ -35,6 +35,11 @@ class LevelManager : MonoBehaviour
 
     void Start()
     {
+        if(!GameManager.Instance.isInit)
+        {
+            GameManager.Instance.Init();
+        }
+
         // Register all objects at the start
         triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
         triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
@@ -74,9 +79,6 @@ class LevelManager : MonoBehaviour
             {
                 // Update the best time for the current level
                 GameManager.Instance.GameState.SetBestTimeForCurrentLevel(levelCompleteTime);
-
-                // Save the game state
-                GameManager.Instance.SerializeGameStateToJson();
             }
 
             // Pass the time to the UIManager and open the level complete screen
