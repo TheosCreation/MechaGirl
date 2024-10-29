@@ -477,6 +477,7 @@ GameObject:
   - component: {fileID: 8559582919939915744}
   - component: {fileID: 1032469067366187872}
   - component: {fileID: 4249391650860452977}
+  - component: {fileID: 2056583139159155209}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -734,6 +735,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b38da02f9fa18c41a56ab5492982784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2056583139159155209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692979825899768291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1009aa00665eca648bec7aca5d5cf5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canMelee: 1
+  meleeDistance: 2
+  meleeDamage: 10
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!1 &3533542281797729294
 GameObject:
   m_ObjectHideFlags: 0
