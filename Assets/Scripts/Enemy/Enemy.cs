@@ -9,7 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageable
 {
-    Rigidbody rb;
+    protected Rigidbody rb;
     [HideInInspector] public NavMeshAgent agent;
     public Animator animator;
     [HideInInspector] public Transform target;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public bool canRotate = true;
-    private SpriteRenderer[] spriteRenderers;
+    protected SpriteRenderer[] spriteRenderers;
 
     [Header("Shooting Settings")]
     public int bulletsPerBurst = 3;

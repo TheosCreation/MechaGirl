@@ -695,7 +695,7 @@ MonoBehaviour:
   maxWallJumps: 3
   isDashing: 0
   canDash: 1
-  dashForce: 20
+  dashForce: 30
   dashDuration: 0.2
   dashCooldown: 0.55
 --- !u!114 &1032469067366187872
