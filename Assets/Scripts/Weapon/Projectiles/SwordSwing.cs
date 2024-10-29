@@ -10,7 +10,7 @@ public class SwordsSwing : PhysicalProjectile
     public GameObject player;
     public PlayerMovement playerMove;
     public Enemy enemy;
-    public override void Initialize(Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
         // Apply force to move the projectile
   

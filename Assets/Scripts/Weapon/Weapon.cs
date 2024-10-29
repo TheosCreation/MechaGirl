@@ -380,7 +380,7 @@ public class Weapon : MonoBehaviour
             {
                 projectile.owner = playerController.gameObject;
 
-                projectile.Initialize(shotDirection, true);
+                projectile.Initialize(playerController.playerCamera.transform.position, shotDirection, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
 
             }
@@ -389,7 +389,7 @@ public class Weapon : MonoBehaviour
                 GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize(shotDirection, false);
+                projectile.Initialize(transform.position, shotDirection, false);
             }
         }
     }

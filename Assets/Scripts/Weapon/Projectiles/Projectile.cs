@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public virtual void Initialize(Vector3 direction, bool fromPlayer)
+    public virtual void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
     }
 

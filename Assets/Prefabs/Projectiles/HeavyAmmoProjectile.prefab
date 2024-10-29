@@ -76,7 +76,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 2184
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -122,8 +122,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   damage: 1
-  casingToSpawn: {fileID: 572047263200891013, guid: d93a2c2f2cdaa1a4592a6c8f00551bdd,
-    type: 3}
   owner: {fileID: 0}
   ownerLayer: -1
   speed: 10
