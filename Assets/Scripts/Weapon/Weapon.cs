@@ -184,7 +184,10 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        Equip();
+        if (transform.parent != null)
+        {
+            Equip();
+        }
     }
 
     private void OnDisable()
@@ -201,7 +204,7 @@ public class Weapon : MonoBehaviour
         }
 
         spriteBillboard.enabled = false;
-        bc.enabled = false;
+       
         rb.isKinematic = true;
         rb.useGravity = true;
         if (playerController != null)
@@ -213,7 +216,9 @@ public class Weapon : MonoBehaviour
         {
             spriteRenderer.enabled = true;
             animator.runtimeAnimatorController = gunInGameController;
+            
         }
+     
     }
 
     protected void Equip()
