@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -23,6 +21,7 @@ public class PhysicalProjectile : Projectile
         // Destroy the projectile after its lifetime
         Destroy(gameObject, lifetime);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit an object on the collisionMask
@@ -36,6 +35,15 @@ public class PhysicalProjectile : Projectile
             damageable.Damage(damage);
         }
 
+        // Destroy the projectile on collision
+        if (destroyOnHit)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
         // Destroy the projectile on collision
         if (destroyOnHit)
         {
