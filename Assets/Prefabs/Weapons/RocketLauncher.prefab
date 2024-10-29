@@ -229,7 +229,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -285,7 +285,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006ba027599b78479bea7cc13d1cbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: 7acedef64d7bd0d43b239f585f6e8cca, type: 3}
+  Sprite: {fileID: 21300000, guid: a0e8b1400650a9e44b144c3d83df2d89, type: 3}
   AnimationPosition: {x: 0, y: 0, z: 0}
   AnimationRotation: {x: 0, y: 0, z: 0}
   iconSprite: {fileID: 21300000, guid: d5633312c26bf8441acc5e9033a263a4, type: 3}

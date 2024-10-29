@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
@@ -7,6 +8,7 @@ public class PhysicalProjectile : Projectile
     // Start is called before the first frame update
     [SerializeField] protected float speed = 20.0f; // Speed of the projectile
     [SerializeField] protected bool destroyOnHit = true; // Does obj destroy on hit
+    public UnityEvent onCollision;
 
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
@@ -34,7 +36,7 @@ public class PhysicalProjectile : Projectile
         {
             damageable.Damage(damage);
         }
-
+        onCollision?.Invoke();
         // Destroy the projectile on collision
         if (destroyOnHit)
         {
@@ -44,6 +46,7 @@ public class PhysicalProjectile : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
+        onCollision?.Invoke();
         // Destroy the projectile on collision
         if (destroyOnHit)
         {

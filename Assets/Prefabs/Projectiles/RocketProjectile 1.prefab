@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -6249107292930552045}
   - component: {fileID: 901053658116274019}
   - component: {fileID: 5626004225044233273}
+  - component: {fileID: 4788088210291721268}
   m_Layer: 0
   m_Name: RocketProjectile 1
   m_TagString: Untagged
@@ -126,6 +127,36 @@ MonoBehaviour:
   ownerLayer: -1
   speed: 10
   destroyOnHit: 1
+  onCollision:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4788088210291721268}
+        m_TargetAssemblyTypeName: ExplosionSpawner, Assembly-CSharp
+        m_MethodName: SpawnExplosion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &4788088210291721268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2567501356965547125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5875951c8fb1d4384331251bc9a188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2583168012860547609, guid: c72f9ea871b304542b1a10d410be4f93,
+    type: 3}
+  explosionDamage: 10
 --- !u!1 &4559087840190114408
 GameObject:
   m_ObjectHideFlags: 0
