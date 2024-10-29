@@ -123,21 +123,12 @@ MonoBehaviour:
   maxHealth: 10
   defaultState: 0
   currentState: 0
-  raycastDistance: 2
+  raycastDistance: 5
   moveSpeed: 5
   numberOfRays: 64
-  flatteningFactor: 1
-  randomMovementIntensity: 2
-  chaseIntensity: 5
   randomMovementInterval: 3
-  obstacleAvoidanceIntensity: 1
-  obstacleAvoidanceThreshold: 1
-  minX: -10
-  maxX: 10
-  minY: 0
-  maxY: 5
-  minZ: -10
-  maxZ: 10
+  flatteningFactor: 2
+  biasTowardsPlayer: 0.7
 --- !u!1 &8187505603555233600
 GameObject:
   m_ObjectHideFlags: 0

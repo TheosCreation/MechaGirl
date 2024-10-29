@@ -1,141 +1,108 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class FlyingEnemy : Enemy
 {
-    [Header("Movement Settings")]
+    [Header("Flying enemy")]
     public float raycastDistance = 2.0f;
     public float moveSpeed = 5f;
-    public int numberOfRays = 64; 
-    public float flatteningFactor = 2.0f;
-    public float randomMovementIntensity = 2.0f; // Control random movement intensity
-    public float chaseIntensity = 5.0f; // How hard it chases the player
-
-    [Header("Steering Settings")]
-    public float maxSpeed = 5f;
-    public float maxForce = 10f;
-    public float mass = 1f; // Mass of the enemy for acceleration calculations
-    private Vector3 velocity;
-    private Vector3 steering;
-
-    [Header("Random Movement Settings")]
-    public float randomMovementInterval = 1.0f; // Reduced from 2.0f
-
-    [Header("Obstacle Avoidance Settings")]
-    public float obstacleAvoidanceIntensity = 1.0f; // Control obstacle avoidance intensity
-    public float obstacleAvoidanceThreshold = 1.0f; // Threshold distance for obstacle avoidance
-
+    public int numberOfRays = 32;
+    public float randomMovementInterval = 2.0f; // Time interval to change random direction
+    [Range(0.1f, 5)]
+    public float flatteningFactor = 2.0f; // Cntrol flattening
     private Vector3 randomDirection;
     private float timeSinceLastRandomDirectionChange;
-    private Vector3 wanderTarget;
-
-    // Bounds for the movement area (adjust as needed)
-    [Header("Movement Bounds")]
-    public float minX = -10f, maxX = 10f;
-    public float minY = 0f, maxY = 5f;
-    public float minZ = -10f, maxZ = 10f;
+    private Transform playerTransform;
+    [Range(0, 2)]
+    public float biasTowardsPlayer = 0.7f; 
     protected new void Start()
     {
         base.Start();
-        velocity = Vector3.zero;
-        steering = Vector3.zero; 
-        agent.enabled = false;
-        rb.useGravity = false;
-        wanderTarget = Random.onUnitSphere * 2.0f;
-        rb.isKinematic = false;
+        agent.enabled = false; // Disable NavMeshAgent
+        rb.useGravity = false; // Disable gravity for flying
+        rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found! Make sure the player has the tag 'Player'.");
+        }
+
         ChangeRandomDirection();
     }
-
     protected new void Update()
     {
         PerformRaycastMovement();
+        UpdateRandomMovement();
     }
 
     private void PerformRaycastMovement()
     {
         Vector3 moveDirection = Vector3.zero;
-        Vector3 desiredVelocity = Vector3.zero;
         bool playerDetected = false;
 
+        float goldenAngle = Mathf.PI * (3 - Mathf.Sqrt(5)); // Approximate 2.39996323
 
         for (int i = 0; i < numberOfRays; i++)
         {
-            float theta = Random.Range(0f, Mathf.PI * 2f); // Azimuthal angle
-            float phi = Mathf.Acos(2f * Random.Range(0f, 1f) - 1f); // Polar angle
+            // Calculate uniformly distributed points on a sphere using the Fibonacci sphere algorithm
+            float t = (float)i / numberOfRays;
+            float inclination = Mathf.Acos(1 - 2 * t); // Inclination angle (theta) from 0 to π
+            float azimuth = goldenAngle * i; // Azimuthal angle (phi)
 
-            Vector3 direction = new Vector3(
-                Mathf.Sin(phi) * Mathf.Cos(theta),
-                Mathf.Sin(phi) * Mathf.Sin(theta),
-                Mathf.Cos(phi)
-            );
+            // Convert spherical coordinates to Cartesian coordinates
+            float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = Mathf.Cos(inclination);
 
+            Vector3 direction = new Vector3(x, y, z);
 
+            // Apply flattening to the vertical component
+            direction.y /= flatteningFactor;
+
+            // Normalize the direction vector after flattening
+            direction.Normalize();
+
+            // Perform the raycast in the calculated direction
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, raycastDistance))
             {
+                // Draw the ray in red if it hits something
                 Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
 
                 if (hit.collider.CompareTag("Player"))
                 {
                     playerDetected = true;
-                    moveDirection += direction * chaseIntensity;
-                    break; // Found the player, no need to check other rays
+                    moveDirection += direction;
+                    break;
                 }
                 else if (hit.collider.CompareTag("Untagged"))
                 {
+                    // Calculate avoidance force based on distance
                     float distance = hit.distance;
-                    if (distance < obstacleAvoidanceThreshold)
-                    {
-                        float avoidanceMultiplier = (obstacleAvoidanceThreshold - distance) / obstacleAvoidanceThreshold;
-                        Vector3 avoidanceDirection = hit.normal; // Use the normal to push away from the obstacle
-                        moveDirection += avoidanceDirection * avoidanceMultiplier * obstacleAvoidanceIntensity;
-                        // Visualize the avoidance direction
-                        Debug.DrawRay(hit.point, avoidanceDirection, Color.blue);
-                    }
+                    float avoidanceMultiplier = distance != 0 ? 1f / distance : 100f; // Avoid division by zero
+                    moveDirection -= direction * avoidanceMultiplier;
                 }
             }
             else
             {
+                // Draw the ray in green if it doesn't hit anything
                 Debug.DrawRay(transform.position, direction * raycastDistance, Color.green);
             }
         }
+
         if (playerDetected)
         {
             // Move towards the player
-            desiredVelocity += moveDirection.normalized * maxSpeed;
+            rb.velocity = moveDirection.normalized * moveSpeed;
         }
         else
         {
-            // Wander around
-            UpdateRandomMovement();
-            Wander(ref desiredVelocity);
-            KeepWithinBounds(ref desiredVelocity);
-        }
-
-        // Obstacle avoidance steering
-        ObstacleAvoidance(ref desiredVelocity);
-
-        // Calculate steering force
-        steering = desiredVelocity - velocity;
-        steering = Vector3.ClampMagnitude(steering, maxForce);
-        steering /= mass; // Apply mass
-
-        // Update velocity and position
-        velocity = Vector3.ClampMagnitude(velocity + steering * Time.deltaTime, maxSpeed);
-        rb.velocity = velocity;
-    }
-    private void ObstacleAvoidance(ref Vector3 desiredVelocity)
-    {
-        RaycastHit hit;
-        // Cast rays in the direction of current velocity
-        if (Physics.Raycast(transform.position, velocity.normalized, out hit, obstacleAvoidanceThreshold))
-        {
-            if (hit.collider.CompareTag("Untagged"))
-            {
-                Vector3 avoidanceDirection = Vector3.Reflect(velocity.normalized, hit.normal);
-                avoidanceDirection.Normalize();
-                desiredVelocity += avoidanceDirection * obstacleAvoidanceIntensity * (1f - hit.distance / obstacleAvoidanceThreshold);
-                Debug.DrawRay(hit.point, avoidanceDirection * obstacleAvoidanceIntensity, Color.red);
-            }
+            // Blend random movement with avoidance
+            moveDirection += randomDirection;
+            rb.velocity = moveDirection.normalized * moveSpeed;
         }
     }
 
@@ -152,48 +119,29 @@ public class FlyingEnemy : Enemy
 
     private void ChangeRandomDirection()
     {
-        randomDirection = new Vector3(
+        // Generate a random variation
+        Vector3 randomVariation = new Vector3(
             Random.Range(-1f, 1f),
-            Random.Range(-1f, 1f) / flatteningFactor,
+            Random.Range(-1f, 1f) / flatteningFactor, // Flatten vertically
             Random.Range(-1f, 1f)
         ).normalized;
-    }
 
-    private void Wander(ref Vector3 desiredVelocity)
-    {
-        float wanderRadius = 2.0f;
-        float wanderDistance = 5.0f;
-        float wanderJitter = 1.0f;
-
-        // Update the target position on the wander circle
-        wanderTarget += new Vector3(
-            Random.Range(-1f, 1f) * wanderJitter,
-            Random.Range(-1f, 1f) * wanderJitter,
-            Random.Range(-1f, 1f) * wanderJitter
-        );
-
-        // Normalize and set to wander radius
-        wanderTarget = wanderTarget.normalized * wanderRadius;
-
-        // Calculate target position in world space
-        Vector3 targetLocal = wanderTarget + Vector3.forward * wanderDistance;
-        Vector3 targetWorld = transform.TransformPoint(targetLocal);
-
-        // Set desired velocity towards the target
-        Vector3 wanderDirection = (targetWorld - transform.position).normalized * maxSpeed;
-        desiredVelocity += wanderDirection * randomMovementIntensity;
-    }
-
-    private void KeepWithinBounds(ref Vector3 moveDirection)
-    {
-        Vector3 position = transform.position;
-        Vector3 center = new Vector3((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
-
-        Vector3 directionToCenter = (center - position).normalized;
-
-        if (position.x < minX || position.x > maxX || position.y < minY || position.y > maxY || position.z < minZ || position.z > maxZ)
+        if (playerTransform != null)
         {
-            moveDirection += directionToCenter * obstacleAvoidanceIntensity;
+            // Direction towards the player
+            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+
+            // Define how strongly the enemy is biased towards the player
+            float biasTowardsPlayer = 0.7f; // Value between 0 (no bias) and 1 (full bias)
+
+            // Blend the random variation with the direction to the player
+            randomDirection = Vector3.Lerp(randomVariation, directionToPlayer, biasTowardsPlayer).normalized;
+        }
+        else
+        {
+            // If player is not found, use random variation
+            randomDirection = randomVariation;
         }
     }
+
 }
