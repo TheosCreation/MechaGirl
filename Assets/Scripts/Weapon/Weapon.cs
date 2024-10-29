@@ -267,6 +267,7 @@ public class Weapon : MonoBehaviour
         spriteRenderer.enabled = true;
         spriteRenderer.sprite = inGameSprite;
 
+        canPickup = false;
         //stop timer incase of repeat
         pickupTimer.StopTimer();
         pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
