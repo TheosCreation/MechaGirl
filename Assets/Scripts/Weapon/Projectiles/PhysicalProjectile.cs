@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
@@ -9,8 +8,9 @@ public class PhysicalProjectile : Projectile
     // Start is called before the first frame update
     [SerializeField] protected float speed = 20.0f; // Speed of the projectile
     [SerializeField] protected bool destroyOnHit = true; // Does obj destroy on hit
+    public UnityEvent onCollision;
 
-    public override void Initialize(Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
         if (!fromPlayer)
         {
@@ -23,6 +23,7 @@ public class PhysicalProjectile : Projectile
         // Destroy the projectile after its lifetime
         Destroy(gameObject, lifetime);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit an object on the collisionMask
@@ -35,7 +36,17 @@ public class PhysicalProjectile : Projectile
         {
             damageable.Damage(damage);
         }
+        onCollision?.Invoke();
+        // Destroy the projectile on collision
+        if (destroyOnHit)
+        {
+            Destroy(gameObject);
+        }
+    }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        onCollision?.Invoke();
         // Destroy the projectile on collision
         if (destroyOnHit)
         {

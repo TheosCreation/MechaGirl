@@ -9,7 +9,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageable
 {
-    Rigidbody rb;
+    protected Rigidbody rb;
     [HideInInspector] public NavMeshAgent agent;
     public Animator animator;
     [HideInInspector] public Transform target;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon weapon;
     [HideInInspector] public bool canRotate = true;
-    private SpriteRenderer[] spriteRenderers;
+    protected SpriteRenderer[] spriteRenderers;
 
     [Header("Shooting Settings")]
     public int bulletsPerBurst = 3;
@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private EnemyState defaultState = EnemyState.Looking;
     [SerializeField] private EnemyState currentState;
 
-    private void Start()
+    protected void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -88,7 +88,7 @@ public class Enemy : MonoBehaviour, IDamageable
         weapon = GetComponentInChildren<Weapon>();
     }
 
-    private void Update()
+    protected void Update()
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState(); // Update currentState for display
@@ -105,7 +105,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private void SetDefaultState()
+    protected void SetDefaultState()
     {
         switch (defaultState)
         {
@@ -133,7 +133,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    private IEnumerator LaunchUpwards(float damageAmount)
+    protected IEnumerator LaunchUpwards(float damageAmount)
     {
         yield return null;
 
@@ -150,7 +150,7 @@ public class Enemy : MonoBehaviour, IDamageable
         EndLaunch();
     }
 
-    private void EndLaunch()
+    protected void EndLaunch()
     {
         agent.enabled = true;
         isLaunching = false;

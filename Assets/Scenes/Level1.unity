@@ -358,6 +358,9 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec,
         type: 3}
       count: 0
+    - enemyPrefab: {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9,
+        type: 3}
+      count: 2
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 1

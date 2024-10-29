@@ -7,15 +7,15 @@ public class Weapon : MonoBehaviour
     [Tab("Settings")]
     [Header("Looks")]
     public Sprite Sprite;
-    public Vector3 AnimationPosition = Vector3.zero; 
+    public Vector3 AnimationPosition = Vector3.zero;
     protected Vector3 currentAnimationPosition = Vector3.zero;
-    public Vector3 AnimationRotation = Vector3.zero; 
+    public Vector3 AnimationRotation = Vector3.zero;
     protected Vector3 currentAnimationRotation = Vector3.zero;
     public Sprite iconSprite;
     public Sprite inGameSprite;
     [SerializeField] private AnimatorOverrideController gunPlayerController;
     [SerializeField] private AnimatorOverrideController gunInGameController;
-    protected Sprite currentSprite;
+    protected Sprite currentSprite; 
 
     [Header("Equip")]
     [SerializeField] private bool isEquip = false;
@@ -42,6 +42,8 @@ public class Weapon : MonoBehaviour
     [Tab("Setup")]
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
+    [SerializeField] protected Casing casingToSpawn;
+    [SerializeField] protected Transform casingSpawnTransform;
 
     [SerializeField] protected Projectile enemyProjectilePrefab;
     [SerializeField] protected Projectile playerProjectilePrefab;
@@ -78,15 +80,15 @@ public class Weapon : MonoBehaviour
             if (playerController != null && isActiveAndEnabled)
             {
                 UiManager.Instance.UpdateAmmoUi(ammo);
-            }   
+            }
             if (!ignoreAmmo)
             {
-                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)    
+                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)
                 {
                     weaponColor = Color.red;
-                 
+
                 }
-                else if(ammo > 0 && weaponColor == Color.red)
+                else if (ammo > 0 && weaponColor == Color.red)
                 {
                     weaponColor = Color.white;
                 }
@@ -132,14 +134,14 @@ public class Weapon : MonoBehaviour
 
         if (shootTimer < 0.0f && isShooting)
         {
-        
+
             canShoot = true;
-   
+
         }
 
         if (canShoot && isShooting && isEquip)
         {
-            if(Ammo > 0 || ignoreAmmo)
+            if (Ammo > 0 || ignoreAmmo)
             {
                 canShoot = false;
 
@@ -163,7 +165,7 @@ public class Weapon : MonoBehaviour
             }
         }
 
-        if(AnimationPosition != currentAnimationPosition)
+        if (AnimationPosition != currentAnimationPosition)
         {
             currentAnimationPosition = AnimationPosition;
             if (playerController != null)
@@ -171,8 +173,8 @@ public class Weapon : MonoBehaviour
                 UiManager.Instance.UpdateWeaponAnimationPosition(currentAnimationPosition);
             }
         }
-        
-        if(AnimationRotation != currentAnimationRotation)
+
+        if (AnimationRotation != currentAnimationRotation)
         {
             currentAnimationRotation = AnimationRotation;
             if (playerController != null)
@@ -224,7 +226,7 @@ public class Weapon : MonoBehaviour
         animator.enabled = true;
         if (playerController != null)
         {
-            if(!ignoreAmmo)
+            if (!ignoreAmmo)
             {
                 UiManager.Instance.UpdateAmmoUi(Ammo);
             }
@@ -267,6 +269,7 @@ public class Weapon : MonoBehaviour
         spriteRenderer.enabled = true;
         spriteRenderer.sprite = inGameSprite;
 
+        canPickup = false;
         //stop timer incase of repeat
         pickupTimer.StopTimer();
         pickupTimer.SetTimer(pickUpDelay, () => canPickup = true);
@@ -293,7 +296,7 @@ public class Weapon : MonoBehaviour
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if(weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this))
         {
             //if is new weapon lets equip it
             Attach();
@@ -313,7 +316,7 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootTimer = CalculateFireRate();
-       
+
         animator.SetTrigger("Shoot");
 
         if (playerController)
@@ -334,9 +337,11 @@ public class Weapon : MonoBehaviour
         }
 
         PlayRandomFiringSound();
- 
-        FireProjectile(); 
-        
+
+        FireProjectile();
+
+        SpawnCasing();
+
         if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
@@ -374,18 +379,26 @@ public class Weapon : MonoBehaviour
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
-              
-                projectile.Initialize(shotDirection, true);
+
+                projectile.Initialize(playerController.playerCamera.transform.position, shotDirection, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
-     
+
             }
             else
             {
-                GameObject enemyRef =  GetComponentInParent<Enemy>().gameObject;
+                GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize( shotDirection, false);
+                projectile.Initialize(transform.position, shotDirection, false);
             }
+        }
+    }
+
+    protected void SpawnCasing()
+    {
+        if (casingToSpawn != null)
+        {
+            Instantiate(casingToSpawn, casingSpawnTransform.position, Quaternion.identity);
         }
     }
 
