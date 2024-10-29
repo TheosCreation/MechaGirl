@@ -984,6 +984,11 @@ PrefabInstance:
       propertyPath: canPickup
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9096343382523243712, guid: 72859a62f75af27418db6fb9b72189d3,
+        type: 3}
+      propertyPath: startingAmmo
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
