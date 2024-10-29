@@ -49,7 +49,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 217
   damage: 5
+  casingToSpawn: {fileID: 572047263200891013, guid: d93a2c2f2cdaa1a4592a6c8f00551bdd,
+    type: 3}
   owner: {fileID: 0}
+  ownerLayer: -1
   headShotMultiplier: 2
   hitParticlesLifetime: 0.3
   particleOffset: 0.1

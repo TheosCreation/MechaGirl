@@ -13,6 +13,7 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected GameObject gunTrailPrefab;
     public override void Initialize(Vector3 direction, bool fromPlayer)
     {
+        base.Initialize(direction, fromPlayer);
         if (!fromPlayer)
         {
             //remove the Enemy layer from the hitMask

@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1235708191370312542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8148753823998273119}
+  m_Layer: 10
+  m_Name: EjectPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8148753823998273119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235708191370312542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.09, y: 0.007, z: -0.152}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4379462000134257703}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7856420458759094927
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,7 +66,8 @@ Transform:
   m_LocalPosition: {x: 3.07, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 8148753823998273119}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &8222962086532144061
@@ -200,7 +232,7 @@ Animator:
   m_GameObject: {fileID: 7856420458759094927}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: a76487ea4a45fea4094deaf1ea2a2a7c, type: 2}
+  m_Controller: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -304,7 +336,10 @@ MonoBehaviour:
   screenShakeAmount: 0.03
   canPickup: 0
   startingAmmo: 15
-  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 7ee5cafd8d840754389cd9fda8fdd5ae,
+  casingToSpawn: {fileID: 572047263200891013, guid: 2d5a514d8473c244c8f1416dc9d1824e,
+    type: 3}
+  casingSpawnTransform: {fileID: 8148753823998273119}
+  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 4c9565abf25ee0f47b513071f5685faf,
     type: 3}
   playerProjectilePrefab: {fileID: 134945111961687759, guid: 514e9bb13e0816d49a84901a9b098713,
     type: 3}

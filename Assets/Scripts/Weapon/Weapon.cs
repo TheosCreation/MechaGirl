@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public Sprite inGameSprite;
     [SerializeField] private AnimatorOverrideController gunPlayerController;
     [SerializeField] private AnimatorOverrideController gunInGameController;
-    protected Sprite currentSprite;
+    protected Sprite currentSprite; 
 
     [Header("Equip")]
     [SerializeField] private bool isEquip = false;
@@ -42,6 +42,8 @@ public class Weapon : MonoBehaviour
     [Tab("Setup")]
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
+    [SerializeField] protected Casing casingToSpawn;
+    [SerializeField] protected Transform casingSpawnTransform;
 
     [SerializeField] protected Projectile enemyProjectilePrefab;
     [SerializeField] protected Projectile playerProjectilePrefab;
@@ -338,6 +340,8 @@ public class Weapon : MonoBehaviour
 
         FireProjectile();
 
+        SpawnCasing();
+
         if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
@@ -387,6 +391,14 @@ public class Weapon : MonoBehaviour
                 projectile.ownerLayer = enemyRef.layer;
                 projectile.Initialize(shotDirection, false);
             }
+        }
+    }
+
+    protected void SpawnCasing()
+    {
+        if (casingToSpawn != null)
+        {
+            Instantiate(casingToSpawn, casingSpawnTransform.position, Quaternion.identity);
         }
     }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 901053658116274019}
   - component: {fileID: 5626004225044233273}
   m_Layer: 0
-  m_Name: HeavyAmmoProjectile
+  m_Name: LightAmmoProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 136
   damage: 1
-  casingToSpawn: {fileID: 572047263200891013, guid: d93a2c2f2cdaa1a4592a6c8f00551bdd,
+  casingToSpawn: {fileID: 572047263200891013, guid: 2d5a514d8473c244c8f1416dc9d1824e,
     type: 3}
   owner: {fileID: 0}
   ownerLayer: -1
