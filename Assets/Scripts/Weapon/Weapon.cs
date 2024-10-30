@@ -208,6 +208,7 @@ public class Weapon : MonoBehaviour
         bc.enabled = false;
         rb.isKinematic = true;
         rb.useGravity = true;
+        transform.localRotation = Quaternion.identity;
         if (playerController != null)
         {
             spriteRenderer.enabled = false;

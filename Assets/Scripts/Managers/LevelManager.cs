@@ -10,7 +10,6 @@ class LevelManager : MonoBehaviour
     private float levelStartTime;
     private float levelCompleteTime;
     private bool isTimerRunning;
-    [SerializeField] private Transform respawnTransform;
     private PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
@@ -119,17 +118,10 @@ class LevelManager : MonoBehaviour
         UiManager.Instance.OpenPlayerHud();
 
         //reset player health reset scene
-        if (respawnTransform != null)
-        {
-            playerSpawn.SpawnPlayer(respawnTransform.position, respawnTransform.rotation);
-        }
-        else
-        {
-            playerSpawn.SpawnPlayer(Vector3.zero, Quaternion.identity);
-        }
+
+        playerSpawn.SpawnPlayer();
 
         //reset doors, remove enemies, reset trigger zones
-        //
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
         if (tempCamera != null)
@@ -144,8 +136,8 @@ class LevelManager : MonoBehaviour
 
     public void SetCheckPoint(Transform checkPointTransform)
     {
-        respawnTransform.position = checkPointTransform.position;
-        respawnTransform.rotation = checkPointTransform.rotation;
+        playerSpawn.transform.position = checkPointTransform.position;
+        playerSpawn.transform.rotation = checkPointTransform.rotation;
     }
 
     public void DestroyAllEnemies()

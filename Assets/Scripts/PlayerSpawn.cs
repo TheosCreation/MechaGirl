@@ -14,18 +14,12 @@ public class PlayerSpawn : MonoBehaviour
         }
 
         // Spawn the new player
-        SpawnPlayer(transform.position, transform.rotation);
+        SpawnPlayer();
     }
 
-    public void SpawnPlayer(Vector3 position, Quaternion facingRotation)
+    public void SpawnPlayer()
     {
         DestroyExistingPlayers();
-
-        if (position == Vector3.zero)
-        {
-            position = transform.position;
-            facingRotation = transform.rotation;
-        }
 
         CapsuleCollider playerCollider = player.GetComponent<CapsuleCollider>();
         if (playerCollider == null)
@@ -35,7 +29,7 @@ public class PlayerSpawn : MonoBehaviour
         }
 
         Vector3 spawnOffset = new Vector3(0, playerCollider.height / 2, 0);
-        playerSpawned = Instantiate(player, position + spawnOffset, facingRotation).GetComponent<PlayerController>();
+        playerSpawned = Instantiate(player, transform.position + spawnOffset, transform.rotation).GetComponent<PlayerController>();
     }
 
     private void DestroyExistingPlayers()
