@@ -7,6 +7,7 @@ public class PhysicalProjectile : Projectile
 {
     // Start is called before the first frame update
     [SerializeField] protected float speed = 20.0f; // Speed of the projectile
+    [SerializeField] protected float headShotMultiplier = 1.5f; // Speed of the projectile
     [SerializeField] protected bool destroyOnHit = true; // Does obj destroy on hit
     public UnityEvent onCollision;
 
@@ -34,8 +35,16 @@ public class PhysicalProjectile : Projectile
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
-            damageable.Damage(damage);
+            if (other.gameObject.CompareTag("Head"))
+            {
+                damageable.Damage(damage * headShotMultiplier);
+            }
+            else
+            {
+                damageable.Damage(damage);
+            }
         }
+        
         onCollision?.Invoke();
         // Destroy the projectile on collision
         if (destroyOnHit)

@@ -137,16 +137,12 @@ public class AttackingState : IEnemyState
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomSpot, out hit, distanceFromEnemy, NavMesh.AllAreas))
             {
-                if (!enemy.isLaunching && !enemy.agent.enabled)
+                if (enemy.agent.isActiveAndEnabled)
                 {
                     enemy.agent.isStopped = false;
                     enemy.agent.SetDestination(hit.position);
                 }
                 enemy.EndAttack();
-            }
-            else
-            {
-                Debug.LogError("No valid pos found");
             }
             bulletsFired = 0;
         }

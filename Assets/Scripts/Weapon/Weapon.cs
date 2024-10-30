@@ -398,7 +398,7 @@ public class Weapon : MonoBehaviour
     {
         if (casingToSpawn != null)
         {
-            Instantiate(casingToSpawn, casingSpawnTransform.position, Quaternion.identity);
+            Instantiate(casingToSpawn, casingSpawnTransform.position, casingSpawnTransform.rotation);
         }
     }
 

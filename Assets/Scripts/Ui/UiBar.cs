@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,9 +6,12 @@ using UnityEngine.UI;
 public class UiBar : MonoBehaviour
 {
     private Slider barSlider;
+    public TMP_Text text;
+
     private void Awake()
     {
         barSlider = GetComponent<Slider>();
+        text = GetComponentInChildren<TMP_Text>();
     }
     public void UpdateBar(float percentage)
     {
