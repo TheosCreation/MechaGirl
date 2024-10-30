@@ -31,6 +31,8 @@ public class EnemyStateMachine
             return EnemyState.Chasing;
         else if (currentState is AttackingState)
             return EnemyState.Attacking;
+        else if (currentState is BossAttackingState)
+            return EnemyState.BossAttacking;
         else
             return EnemyState.NOTIMPLEMENTED; // Default
     }

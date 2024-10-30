@@ -299,14 +299,15 @@ MonoBehaviour:
   canThrow: 1
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1
+  shootsPerSecond: 1.5
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
   canPickup: 1
   startingAmmo: 5
   casingToSpawn: {fileID: 0}
   casingSpawnTransform: {fileID: 0}
-  enemyProjectilePrefab: {fileID: 0}
+  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: c499b8bcabc20d54cbfa8c85f50c037a,
+    type: 3}
   playerProjectilePrefab: {fileID: 5626004225044233273, guid: c499b8bcabc20d54cbfa8c85f50c037a,
     type: 3}
   shootingSource: {fileID: 5186449891707298011}

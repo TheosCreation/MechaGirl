@@ -3,18 +3,18 @@ using UnityEngine.Events;
 
 public class BossSpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy bossPrefab;
+    [SerializeField] private BossEnemy bossPrefab;
     [SerializeField] private Transform spawnLocation;
 
     public UnityEvent OnBossDead;
-    private Enemy bossSpawned;
+    private BossEnemy bossSpawned;
 
     public void SpawnBoss()
     {
         // Spawn the boss at the specified location
         bossSpawned = Instantiate(bossPrefab, spawnLocation.position, spawnLocation.rotation);
         bossSpawned.OnDeath += HandleBossDeath;
-
+        bossSpawned.spawner = this;
         // Set the target to a player by finding a GameObject with the "Player" tag
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -28,6 +28,11 @@ public class BossSpawner : MonoBehaviour
         // Subscribe to health changes to update the UI accordingly
         bossSpawned.OnHealthChanged += UpdateBossHealthBar;
         UiManager.Instance.SetBossBarHealth(1.0f);
+    }
+
+    public void SpawnEnemies()
+    {
+        Debug.Log("Spawning");
     }
 
     private void UpdateBossHealthBar()

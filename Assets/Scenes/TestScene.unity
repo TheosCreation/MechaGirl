@@ -5078,7 +5078,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 6e8f3ea0762b4994593e9c3c5382c5c2, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 19ff718edd262f0448668e2ea3a87824, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1543548496
 MonoBehaviour:
@@ -5724,7 +5724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3f0ae7f40a2fb447acb961e29b994d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossPrefab: {fileID: 2386014588650475981, guid: 9108e7feb1994904d9a1aa8dcee38319,
+  bossPrefab: {fileID: 6495706612038053399, guid: 9108e7feb1994904d9a1aa8dcee38319,
     type: 3}
   spawnLocation: {fileID: 1503138414}
   OnBossDead:
@@ -7159,6 +7159,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1590363821}
     m_Modifications:
+    - target: {fileID: 7633602456056145028, guid: 07399183842597c4da1f5c10c1054e6a,
+        type: 3}
+      propertyPath: m_Mass
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633602456056145028, guid: 07399183842597c4da1f5c10c1054e6a,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633602456056145028, guid: 07399183842597c4da1f5c10c1054e6a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633602456056145028, guid: 07399183842597c4da1f5c10c1054e6a,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7835761544846293788, guid: 07399183842597c4da1f5c10c1054e6a,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,6 +7,7 @@ public enum EnemyState
     Looking,
     Chasing,
     Attacking,
+    BossAttacking,
     NOTIMPLEMENTED
 }
 public interface IEnemyState
@@ -142,9 +143,9 @@ public class AttackingState : IEnemyState
                     enemy.agent.isStopped = false;
                     enemy.agent.SetDestination(hit.position);
                 }
-                enemy.EndAttack();
             }
             bulletsFired = 0;
+            enemy.EndAttack();
         }
     }
 
@@ -184,5 +185,43 @@ public class AttackingState : IEnemyState
         enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
 
         if (!enemy.isLaunching) enemy.agent.isStopped = false;
+    }
+}
+
+public class BossAttackingState : IEnemyState
+{
+    private float attackStartTime;
+    private float rotationResumeTime;
+    private int bulletsFired = 0;
+
+    public void Enter(Enemy enemy)
+    {
+        enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
+
+        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
+        attackStartTime = Time.time;
+    }
+
+    private void AttackExecuted(Enemy enemy)
+    {
+        bulletsFired++;
+        if (bulletsFired >= enemy.bulletsPerBurst)
+        {
+            bulletsFired = 0;
+            enemy.EndAttack();
+
+            enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
+        }
+    }
+
+    public void Execute(Enemy enemy)
+    {
+    }
+
+    public void Exit(Enemy enemy)
+    {
+        enemy.EndAttack();
+        enemy.delayTimer.StopTimer();
+        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
     }
 }

@@ -270,7 +270,7 @@ MonoBehaviour:
   canThrow: 1
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1.5
+  shootsPerSecond: 2
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0

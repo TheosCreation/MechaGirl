@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     [Header("Health")]
     public float maxHealth = 100;
-    private float health;
+    protected float health;
     public float Health
     {
         get => health;
@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] private EnemyState defaultState = EnemyState.Looking;
     [SerializeField] private EnemyState currentState;
 
-    protected void Start()
+    virtual protected void Start()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -119,6 +119,9 @@ public class Enemy : MonoBehaviour, IDamageable
                 break;
             case EnemyState.Attacking:
                 StateMachine.ChangeState(new AttackingState(), this);
+                break;
+            case EnemyState.BossAttacking:
+                StateMachine.ChangeState(new BossAttackingState(), this);
                 break;
         }
     }
@@ -233,7 +236,7 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    public void EndAttack()
+    public virtual void EndAttack()
     {
         if (weapon != null)
         {
