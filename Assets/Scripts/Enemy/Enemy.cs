@@ -47,13 +47,14 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [Header("Health")]
-    public int maxHealth = 100;
+    public float maxHealth = 100;
     private float health;
     public float Health
     {
         get => health;
         set
         {
+            OnHealthChanged?.Invoke();
             health = value;
 
             if (health <= 0)
@@ -62,6 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
             }
         }
     }
+    public event Action OnHealthChanged;
 
     public event Action OnDeath;
 
@@ -74,7 +76,7 @@ public class Enemy : MonoBehaviour, IDamageable
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        Health = maxHealth;
+        health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()
             .AddState(new LookingState())
@@ -126,11 +128,11 @@ public class Enemy : MonoBehaviour, IDamageable
         Health -= damageAmount;
         StartCoroutine(FlashRed());
 
-        if (health > 0)
-        {
-            isLaunching = true;
-            StartCoroutine(LaunchUpwards(damageAmount));
-        }
+        //if (health > 0)
+        //{
+        //    isLaunching = true;
+        //    StartCoroutine(LaunchUpwards(damageAmount));
+        //}
     }
 
     protected IEnumerator LaunchUpwards(float damageAmount)
@@ -145,7 +147,7 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
 
         yield return new WaitForFixedUpdate();
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitUntil(() => rb.velocity.y <= 0.01f);
 
         EndLaunch();
     }

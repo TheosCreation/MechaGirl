@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 2386014588650475981}
   - component: {fileID: 6363213099993626009}
   m_Layer: 7
-  m_Name: BeefyBoss
+  m_Name: Beefy Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ MonoBehaviour:
   isDashing: 0
   isLaunching: 0
   launchbackThreshold: 30
-  maxHealth: 10
+  maxHealth: 200
   defaultState: 1
   currentState: 1
 --- !u!54 &6363213099993626009
@@ -284,8 +284,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7633859, y: 1.3847015, z: 0.2}
-  m_Center: {x: -0.029663444, y: 0.69235075, z: 0}
+  m_Size: {x: 2.3167305, y: 4.580494, z: 0.2}
+  m_Center: {x: -0.18351746, y: 2.290247, z: 0}
 --- !u!1001 &344521234252244536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,6 +514,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3696852240758144776}
     m_Modifications:
+    - target: {fileID: 1518447533003931881, guid: 0436506897a7d69419e5217cb8e7513a,
+        type: 3}
+      propertyPath: isEquip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2163744701076583021, guid: 0436506897a7d69419e5217cb8e7513a,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2908676843253120012, guid: 0436506897a7d69419e5217cb8e7513a,
         type: 3}
       propertyPath: m_LocalPosition.x

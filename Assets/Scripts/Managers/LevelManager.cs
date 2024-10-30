@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,7 @@ class LevelManager : MonoBehaviour
     private List<TriggerZone> triggerZones = new List<TriggerZone>();
     private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
     private List<Spawner> spawners = new List<Spawner>();
+    private List<BossSpawner> bossSpawners = new List<BossSpawner>();
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ class LevelManager : MonoBehaviour
         triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
         checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None));
         spawners.AddRange(FindObjectsByType<Spawner>(FindObjectsSortMode.None)); 
+        bossSpawners.AddRange(FindObjectsByType<BossSpawner>(FindObjectsSortMode.None)); 
         
         playerSpawn = FindFirstObjectByType<PlayerSpawn>();
         if (playerSpawn == null)
@@ -194,6 +197,11 @@ class LevelManager : MonoBehaviour
     public void ResetSpawners()
     {
         foreach(Spawner spawner in spawners)
+        {
+            spawner.Reset();
+        }
+        
+        foreach(BossSpawner spawner in bossSpawners)
         {
             spawner.Reset();
         }
