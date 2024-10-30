@@ -2329,6 +2329,12 @@ PrefabInstance:
       propertyPath: startingAmmo
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1518447533003931881, guid: 0436506897a7d69419e5217cb8e7513a,
+        type: 3}
+      propertyPath: enemyProjectilePrefab
+      value: 
+      objectReference: {fileID: 5626004225044233273, guid: c499b8bcabc20d54cbfa8c85f50c037a,
+        type: 3}
     - target: {fileID: 2163744701076583021, guid: 0436506897a7d69419e5217cb8e7513a,
         type: 3}
       propertyPath: m_Enabled
