@@ -1,25 +1,38 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class FlyingEnemy : Enemy
 {
+    [Header("Flying enemy")]
     public float raycastDistance = 2.0f;
     public float moveSpeed = 5f;
     public int numberOfRays = 32;
     public float randomMovementInterval = 2.0f; // Time interval to change random direction
+    [Range(0.1f, 5)]
     public float flatteningFactor = 2.0f; // Cntrol flattening
     private Vector3 randomDirection;
     private float timeSinceLastRandomDirectionChange;
-
+    private Transform playerTransform;
+    [Range(0, 2)]
+    public float biasTowardsPlayer = 0.7f; 
     protected new void Start()
     {
         base.Start();
         agent.enabled = false; // Disable NavMeshAgent
         rb.useGravity = false; // Disable gravity for flying
         rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerTransform = player.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Player not found! Make sure the player has the tag 'Player'.");
+        }
+
         ChangeRandomDirection();
     }
-
     protected new void Update()
     {
         PerformRaycastMovement();
@@ -31,19 +44,29 @@ public class FlyingEnemy : Enemy
         Vector3 moveDirection = Vector3.zero;
         bool playerDetected = false;
 
-        // Cast sphere ray
+        float goldenAngle = Mathf.PI * (3 - Mathf.Sqrt(5)); // Approximate 2.39996323
+
         for (int i = 0; i < numberOfRays; i++)
         {
-            float theta = Mathf.Acos(2 * (i / (float)numberOfRays) - 1);
-            float phi = Mathf.PI * (1 + Mathf.Sqrt(5)) * i;
+            // Calculate uniformly distributed points on a sphere using the Fibonacci sphere algorithm
+            float t = (float)i / numberOfRays;
+            float inclination = Mathf.Acos(1 - 2 * t); // Inclination angle (theta) from 0 to π
+            float azimuth = goldenAngle * i; // Azimuthal angle (phi)
 
-            // Adjust the direction to flatten the sphere
-            Vector3 direction = new Vector3(
-                Mathf.Sin(theta) * Mathf.Cos(phi),
-                Mathf.Sin(theta) * Mathf.Sin(phi) / flatteningFactor, // Flatten vertically so to further range
-                Mathf.Cos(theta)
-            );
+            // Convert spherical coordinates to Cartesian coordinates
+            float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = Mathf.Cos(inclination);
 
+            Vector3 direction = new Vector3(x, y, z);
+
+            // Apply flattening to the vertical component
+            direction.y /= flatteningFactor;
+
+            // Normalize the direction vector after flattening
+            direction.Normalize();
+
+            // Perform the raycast in the calculated direction
             if (Physics.Raycast(transform.position, direction, out RaycastHit hit, raycastDistance))
             {
                 // Draw the ray in red if it hits something
@@ -83,6 +106,7 @@ public class FlyingEnemy : Enemy
         }
     }
 
+
     private void UpdateRandomMovement()
     {
         timeSinceLastRandomDirectionChange += Time.deltaTime;
@@ -95,11 +119,29 @@ public class FlyingEnemy : Enemy
 
     private void ChangeRandomDirection()
     {
-        // Generate a new random direction
-        randomDirection = new Vector3(
+        // Generate a random variation
+        Vector3 randomVariation = new Vector3(
             Random.Range(-1f, 1f),
             Random.Range(-1f, 1f) / flatteningFactor, // Flatten vertically
             Random.Range(-1f, 1f)
         ).normalized;
+
+        if (playerTransform != null)
+        {
+            // Direction towards the player
+            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+
+            // Define how strongly the enemy is biased towards the player
+            float biasTowardsPlayer = 0.7f; // Value between 0 (no bias) and 1 (full bias)
+
+            // Blend the random variation with the direction to the player
+            randomDirection = Vector3.Lerp(randomVariation, directionToPlayer, biasTowardsPlayer).normalized;
+        }
+        else
+        {
+            // If player is not found, use random variation
+            randomDirection = randomVariation;
+        }
     }
+
 }

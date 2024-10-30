@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3859378249239764536}
   - component: {fileID: 1518447533003931881}
   m_Layer: 10
-  m_Name: RocketLauncher
+  m_Name: Granade
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,11 +303,12 @@ MonoBehaviour:
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
   canPickup: 1
-  startingAmmo: 5
+  startingAmmo: 1
   casingToSpawn: {fileID: 0}
   casingSpawnTransform: {fileID: 0}
-  enemyProjectilePrefab: {fileID: 0}
-  playerProjectilePrefab: {fileID: 5626004225044233273, guid: c499b8bcabc20d54cbfa8c85f50c037a,
+  enemyProjectilePrefab: {fileID: 5626980587879904056, guid: ee5a99208c853624ba95c6a4ec2071c8,
+    type: 3}
+  playerProjectilePrefab: {fileID: 5626980587879904056, guid: ee5a99208c853624ba95c6a4ec2071c8,
     type: 3}
   shootingSource: {fileID: 5186449891707298011}
   shootingSounds:
