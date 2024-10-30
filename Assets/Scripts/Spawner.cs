@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -17,7 +18,7 @@ struct Wave
     public EnemySpawn[] enemiesToSpawn; // List of enemy types and counts in the wave
 }
 
-public class Spawner : MonoBehaviour
+public class Spawner : IResetable
 {
     public Vector3 localStartPosition;
     public Vector3 localEndPosition;
@@ -30,6 +31,9 @@ public class Spawner : MonoBehaviour
 
     public UnityEvent OnAllEnemiesDead;
     private bool spawnerComplete = false;
+
+    public TriggerDoor[] doors; 
+    private List<Enemy> activeEnemies = new List<Enemy>();
 
     private void OnDrawGizmos()
     {
@@ -50,7 +54,7 @@ public class Spawner : MonoBehaviour
     {
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.LogWarning("All waves have been completed.");
+            Debug.LogWarning("All waves have been completed. Wave count " + currentWaveIndex.ToString());
             return;
         }
 
@@ -93,6 +97,7 @@ public class Spawner : MonoBehaviour
             {
                 // Subscribe to the OnDeath event
                 enemy.OnDeath += HandleEnemyDeath;
+                activeEnemies.Add(enemy);
 
                 PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
                 if (player != null)
@@ -146,7 +151,10 @@ public class Spawner : MonoBehaviour
         {
             // Trigger the OnAllEnemiesDead event when all enemies are dead
             OnAllEnemiesDead?.Invoke();
-            spawnerComplete = true;
+            foreach (TriggerDoor door in doors)
+            {
+                door.Unlock();
+            }
             return; // Exit if no more waves are available
         }
 
@@ -167,6 +175,7 @@ public class Spawner : MonoBehaviour
             {
                 // Trigger the OnAllEnemiesDead event if all waves are completed
                 OnAllEnemiesDead?.Invoke();
+                spawnerComplete = true;
             }
         }
     }
@@ -195,10 +204,20 @@ public class Spawner : MonoBehaviour
         return totalEnemies;
     }
 
-    public void Reset()
+    public override void Reset()
     {
         if(!spawnerComplete)
         {
+            foreach (Enemy enemy in activeEnemies)
+            {
+                if (enemy != null)
+                {
+                    enemy.OnDeath -= HandleEnemyDeath;
+                    Destroy(enemy.gameObject);
+                }
+            }
+            activeEnemies.Clear();
+
             currentWaveIndex = 0;
             deadEnemyCount = 0;
         }

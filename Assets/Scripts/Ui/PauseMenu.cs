@@ -34,7 +34,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ResetLevel()
     {
-        LevelManager.Instance.resetLevel = true;
         LevelManager.Instance.KillCurrentPlayer();
         PauseManager.Instance.SetPaused(true);
         LevelManager.Instance.RespawnPlayer();

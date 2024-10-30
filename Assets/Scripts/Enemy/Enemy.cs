@@ -304,4 +304,10 @@ public class Enemy : MonoBehaviour, IDamageable
             sr.color = Color.white;
         }
     }
+
+    private void OnDestroy()
+    {
+        OnHealthChanged = null;
+        OnDeath = null;
+    }
 }

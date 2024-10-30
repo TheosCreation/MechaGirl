@@ -12,21 +12,18 @@ using UnityEngine;
 
 public class SpriteBillboard : MonoBehaviour
 {
-    Transform target;
     [SerializeField] private bool rotateY = false;
 
-    private void Start()
-    {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-    }
     private void Update()
     {
-        Vector3 directionToTarget = target.position - transform.position;
-        if(!rotateY) directionToTarget.y = 0; // Keep only the horizontal direction
+        //Transform target = LevelManager.Instance.playerSpawn.playerSpawned.transform;
+        //Vector3 directionToTarget = target.position - transform.position;
+        //if(!rotateY) directionToTarget.y = 0; // Keep only the horizontal direction
 
         // Determine the rotation needed to look at the target
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        Vector3 targetRotation = Camera.main.transform.rotation.eulerAngles;
+        if (!rotateY) targetRotation.y = 0;
 
-        transform.rotation = targetRotation;
+        transform.rotation = Quaternion.Euler(targetRotation);
     }
 }

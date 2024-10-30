@@ -2,7 +2,7 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerDoor : MonoBehaviour
+public class TriggerDoor : IResetable
 {
     private Animator _animator;
     [SerializeField] private bool locked = false;
@@ -100,7 +100,7 @@ public class TriggerDoor : MonoBehaviour
         _animator.speed = minAnimSpeed + horizontalSpeed * speedMultiplier;
     }
 
-    public void Reset()
+    public override void Reset()
     {
         Unlock();
     }

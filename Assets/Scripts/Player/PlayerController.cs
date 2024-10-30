@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
     private void RemoveCamera()
     {
-        LevelManager.Instance.tempCamera = GetComponentInChildren<Camera>().gameObject;
-        LevelManager.Instance.tempCamera.transform.SetParent(null);
+        LevelManager.Instance.SetTempCamera(GetComponentInChildren<Camera>().gameObject);
     }
 }

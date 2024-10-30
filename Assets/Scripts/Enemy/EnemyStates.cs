@@ -114,8 +114,6 @@ public class FlyingWonderState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
-
-
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
@@ -157,10 +155,7 @@ public class FlyingAttackingState : IEnemyState
 
     private void AttackExecuted(Enemy enemy)
     {
-
-
         enemy.Die();
-        
     }
 
 
@@ -208,8 +203,6 @@ public class AttackingState : IEnemyState
 
     private void AttackExecuted(Enemy enemy)
     {
-
-
         bulletsFired++;
         if (bulletsFired >= enemy.bulletsPerBurst)
         {
@@ -228,15 +221,13 @@ public class AttackingState : IEnemyState
                 {
                     enemy.agent.isStopped = false;
                     enemy.agent.SetDestination(hit.position);
+                    enemy.animator.SetBool("IsMoving", true);
                 }
             }
             bulletsFired = 0;
             enemy.EndAttack();
- 
         }
     }
-
-
 
     public void Execute(Enemy enemy)
     {
@@ -260,6 +251,7 @@ public class AttackingState : IEnemyState
                 // Allow shooting again if the enemy has reached the destination
                 enemy.StartAttack();
                 enemy.agent.isStopped = true;
+                enemy.animator.SetBool("IsMoving", false);
             }
         }
     }

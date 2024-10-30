@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.Events;
 
-public class BossSpawner : MonoBehaviour
+public class BossSpawner : IResetable
 {
     [SerializeField] private BossEnemy bossPrefab;
     [SerializeField] private Transform bossSpawnLocation;
@@ -63,7 +63,7 @@ public class BossSpawner : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public override void Reset()
     {
         if (bossSpawned != null)
         {

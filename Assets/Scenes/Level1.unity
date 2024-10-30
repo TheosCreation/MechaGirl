@@ -391,6 +391,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  doors: []
 --- !u!1 &158194071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,11 +1776,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5bc841465305df42b9cebe8b6fda265, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerSpawn: {fileID: 0}
   tempCamera: {fileID: 0}
   OnPlayerRespawn:
     m_PersistentCalls:
       m_Calls: []
-  resetLevel: 1
 --- !u!4 &681673258
 Transform:
   m_ObjectHideFlags: 0
