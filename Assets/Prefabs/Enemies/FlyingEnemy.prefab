@@ -106,7 +106,7 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 1
-  attackDistance: 100
+  attackDistance: 3
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1

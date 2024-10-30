@@ -6,6 +6,7 @@ public class Explosion : MonoBehaviour
     public float despawnTimer = 2.0f;
     public float deactivateTime = 0.1f;
     public float damage = 1.0f;
+    public bool enemy = true;
     private AudioSource audioSource;
     private Collider triggerCollider;
     private Timer deactivateTimer;
@@ -39,7 +40,10 @@ public class Explosion : MonoBehaviour
         }
         if (damageable != null )
         {
-            damageable.Damage( damage );
+            if (other.CompareTag("Player") == enemy)
+            {
+                damageable.Damage(damage);
+            }
         }
     }
 }

@@ -175,7 +175,7 @@ public class Enemy : MonoBehaviour, IDamageable
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
     }
 
-    private void Die()
+    public void Die()
     {
         OnDeath?.Invoke();
         if (weapon == null)

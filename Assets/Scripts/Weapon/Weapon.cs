@@ -320,18 +320,17 @@ public class Weapon : MonoBehaviour
 
         animator.SetTrigger("Shoot");
 
+        // Trigger screen shake if applicable
+
         if (playerController)
         {
             shotDirection = playerController.playerCamera.transform.forward;
         }
         else
         {
-            OnAttack?.Invoke();
 
             shotDirection = transform.forward;
         }
-
-        // Trigger screen shake if applicable
         if (playerController != null)
         {
             playerController.playerLook.TriggerScreenShake(screenShakeDuration, screenShakeAmount);
@@ -347,6 +346,7 @@ public class Weapon : MonoBehaviour
         {
             Ammo--;
         }
+        OnAttack?.Invoke();
     }
 
     protected void FireProjectile()
@@ -383,6 +383,7 @@ public class Weapon : MonoBehaviour
 
                 projectile.Initialize(playerController.playerCamera.transform.position, shotDirection, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
+                
 
             }
             else

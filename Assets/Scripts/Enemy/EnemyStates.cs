@@ -160,20 +160,8 @@ public class FlyingAttackingState : IEnemyState
     {
 
 
-        bulletsFired++;
-        if (bulletsFired >= enemy.bulletsPerBurst)
-        {
-            Vector3 randomDirection = Random.onUnitSphere;
-
-            float distanceFromEnemy = Random.Range(enemy.minRadius, enemy.maxRadius);
-
-            distanceFromEnemy = Mathf.Min(distanceFromEnemy, enemy.maxRadius);
-
-            Vector3 randomSpot = enemy.transform.position + randomDirection * distanceFromEnemy;
-
-            bulletsFired = 0;
-            enemy.EndAttack();
-        }
+        enemy.Die();
+        
     }
 
 
@@ -245,6 +233,7 @@ public class AttackingState : IEnemyState
             }
             bulletsFired = 0;
             enemy.EndAttack();
+ 
         }
     }
 
