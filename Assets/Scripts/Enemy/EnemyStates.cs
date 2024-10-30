@@ -8,6 +8,8 @@ public enum EnemyState
     Chasing,
     Attacking,
     BossAttacking,
+    FlyingWonder,
+    FlyingAttacking,
     NOTIMPLEMENTED
 }
 public interface IEnemyState
@@ -100,6 +102,103 @@ public class ChaseState : IEnemyState
     public void Exit(Enemy enemy)
     {
         enemy.animator.SetBool("IsMoving", false);
+    }
+}
+public class FlyingWonderState : IEnemyState
+{
+    float timer = 0.0f;
+    public void Enter(Enemy enemy)
+    {
+        enemy.animator.SetBool("IsMoving", true);
+    }
+
+    public void Execute(Enemy enemy)
+    {
+
+
+        float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
+        if (dist < enemy.attackDistance)
+        {
+            enemy.StateMachine.ChangeState(new FlyingAttackingState(), enemy);
+        }
+        else if (dist > enemy.lookDistance)
+        {
+            enemy.StateMachine.ChangeState(new LookingState(), enemy);
+        }
+
+        timer -= Time.deltaTime;
+        if (timer < 0.0f)
+        {
+            timer = enemy.updatePathTime;
+
+
+        }
+    }
+
+    public void Exit(Enemy enemy)
+    {
+        enemy.animator.SetBool("IsMoving", false);
+    }
+}
+public class FlyingAttackingState : IEnemyState
+{
+
+    private float attackStartTime;
+    private float rotationResumeTime;
+    private int bulletsFired = 0;
+
+    public void Enter(Enemy enemy)
+    {
+        // Start attack delay and animation
+        enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
+
+        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
+        attackStartTime = Time.time;
+    }
+
+    private void AttackExecuted(Enemy enemy)
+    {
+
+
+        bulletsFired++;
+        if (bulletsFired >= enemy.bulletsPerBurst)
+        {
+            Vector3 randomDirection = Random.onUnitSphere;
+
+            float distanceFromEnemy = Random.Range(enemy.minRadius, enemy.maxRadius);
+
+            distanceFromEnemy = Mathf.Min(distanceFromEnemy, enemy.maxRadius);
+
+            Vector3 randomSpot = enemy.transform.position + randomDirection * distanceFromEnemy;
+
+            bulletsFired = 0;
+            enemy.EndAttack();
+        }
+    }
+
+
+
+    public void Execute(Enemy enemy)
+    {
+
+        Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
+        enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
+
+        // Check distance to target
+        float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
+
+        if (Time.time >= attackStartTime + enemy.attackDuration)
+        {
+            enemy.StartAttack();
+        }
+    }
+
+
+    public void Exit(Enemy enemy)
+    {
+        enemy.delayTimer.StopTimer();
+        enemy.EndAttack();
+        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
     }
 }
 

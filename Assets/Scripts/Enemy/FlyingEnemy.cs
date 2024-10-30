@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class FlyingEnemy : Enemy
 {
@@ -15,10 +16,22 @@ public class FlyingEnemy : Enemy
     private Transform playerTransform;
     [Range(0, 2)]
     public float biasTowardsPlayer = 0.7f; 
-    protected new void Start()
+    protected override void Start()
     {
-        base.Start();
-        agent.enabled = false; // Disable NavMeshAgent
+        rb = GetComponent<Rigidbody>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        health = maxHealth;
+
+        StateMachine = new EnemyStateMachineBuilder()
+            .AddState(new LookingState())
+            .AddState(new FlyingWonderState())
+            .AddState(new FlyingAttackingState())
+            .Build();
+
+        SetDefaultState();
+        delayTimer = gameObject.AddComponent<Timer>();
+        launchTimer = gameObject.AddComponent<Timer>();
+        weapon = GetComponentInChildren<Weapon>();
         rb.useGravity = false; // Disable gravity for flying
         rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
         GameObject player = GameObject.FindGameObjectWithTag("Player");

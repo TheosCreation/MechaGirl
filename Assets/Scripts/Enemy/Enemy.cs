@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool isDashing = false;
 
     [Header("Launch Settings")]
-    private Timer launchTimer;
+    protected Timer launchTimer;
     public bool isLaunching = false;
     [SerializeField] protected float launchbackThreshold = 30.0f;
 
@@ -123,6 +123,12 @@ public class Enemy : MonoBehaviour, IDamageable
             case EnemyState.BossAttacking:
                 StateMachine.ChangeState(new BossAttackingState(), this);
                 break;
+            case EnemyState.FlyingWonder:
+                StateMachine.ChangeState(new FlyingWonderState(), this);
+                break;
+            case EnemyState.FlyingAttacking:
+                StateMachine.ChangeState(new FlyingAttackingState(), this);
+                break;
         }
     }
 
@@ -143,7 +149,7 @@ public class Enemy : MonoBehaviour, IDamageable
         yield return null;
 
         float upwardForce = Mathf.Clamp(damageAmount, 0, launchbackThreshold);
-
+        
         agent.enabled = false;
         rb.useGravity = true;
         rb.isKinematic = false;
