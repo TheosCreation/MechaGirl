@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,7 +9,7 @@ class LevelManager : MonoBehaviour
     private float levelStartTime;
     private float levelCompleteTime;
     private bool isTimerRunning;
-    private PlayerSpawn playerSpawn;
+    [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
     [HideInInspector] public bool resetLevel = true;

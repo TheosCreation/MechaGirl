@@ -94,8 +94,7 @@ public class Spawner : MonoBehaviour
                 // Subscribe to the OnDeath event
                 enemy.OnDeath += HandleEnemyDeath;
 
-                // Set the target to a player by finding a GameObject with the "Player" tag
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
                 if (player != null)
                 {
                     enemy.SetTarget(player.transform);

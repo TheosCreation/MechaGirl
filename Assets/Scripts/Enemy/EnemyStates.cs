@@ -142,7 +142,6 @@ public class FlyingWonderState : IEnemyState
 }
 public class FlyingAttackingState : IEnemyState
 {
-
     private float attackStartTime;
     private float rotationResumeTime;
     private int bulletsFired = 0;

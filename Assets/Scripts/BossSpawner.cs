@@ -1,22 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 using UnityEngine.Events;
 
 public class BossSpawner : MonoBehaviour
 {
     [SerializeField] private BossEnemy bossPrefab;
-    [SerializeField] private Transform spawnLocation;
-
+    [SerializeField] private Transform bossSpawnLocation;
+    public List<Transform> enemySpawnLocations; // List of spawn locations
+    public List<Enemy> enemyPrefabs;       // List of enemy prefabs
     public UnityEvent OnBossDead;
     private BossEnemy bossSpawned;
 
     public void SpawnBoss()
     {
         // Spawn the boss at the specified location
-        bossSpawned = Instantiate(bossPrefab, spawnLocation.position, spawnLocation.rotation);
+        bossSpawned = Instantiate(bossPrefab, bossSpawnLocation.position, bossSpawnLocation.rotation);
         bossSpawned.OnDeath += HandleBossDeath;
         bossSpawned.spawner = this;
-        // Set the target to a player by finding a GameObject with the "Player" tag
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
         if (player != null)
         {
             bossSpawned.SetTarget(player.transform);
@@ -32,7 +35,24 @@ public class BossSpawner : MonoBehaviour
 
     public void SpawnEnemies()
     {
-        Debug.Log("Spawning");
+        foreach (Transform spawnLocation in enemySpawnLocations)
+        {
+            // Select a random enemy prefab
+            Enemy randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+            // Spawn the enemy at the spawn location
+            Enemy spawnedEnemy = Instantiate(randomEnemy, spawnLocation.position, spawnLocation.rotation);
+            PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
+            if (player != null)
+            {
+                spawnedEnemy.SetTarget(player.transform);
+            }
+            else
+            {
+                Debug.LogError("No player found");
+            }
+
+        }
     }
 
     private void UpdateBossHealthBar()
