@@ -112,11 +112,11 @@ public class AttackingState : IEnemyState
     public void Enter(Enemy enemy)
     {
         // Start attack delay and animation
-        if (!enemy.isLaunching) enemy.agent.isStopped = true;
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
         enemy.weapon.OnAttack += () => AttackExecuted(enemy);
         attackStartTime = Time.time;
+        if (!enemy.isLaunching && !enemy.agent.enabled) enemy.agent.isStopped = true;
     }
 
     private void AttackExecuted(Enemy enemy)
@@ -137,7 +137,7 @@ public class AttackingState : IEnemyState
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomSpot, out hit, distanceFromEnemy, NavMesh.AllAreas))
             {
-                if (!enemy.isLaunching)
+                if (!enemy.isLaunching && !enemy.agent.enabled)
                 {
                     enemy.agent.isStopped = false;
                     enemy.agent.SetDestination(hit.position);
@@ -156,7 +156,6 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
-        if (!enemy.agent.enabled) return;
 
         Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
         enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
@@ -164,6 +163,7 @@ public class AttackingState : IEnemyState
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
 
+        if (!enemy.agent.enabled) return;
         if (Time.time >= attackStartTime + enemy.attackDuration)
         {
             if (!enemy.agent.pathPending && distanceToTarget >= enemy.attackDistance)

@@ -66,8 +66,8 @@ public class Enemy : MonoBehaviour, IDamageable
     public event Action OnDeath;
 
     [Header("State")]
-    [SerializeField] private EnemyState defaultState = EnemyState.Looking;
-    [SerializeField] private EnemyState currentState;
+    [SerializeField] protected EnemyState defaultState = EnemyState.Looking;
+    [SerializeField] protected EnemyState currentState;
 
     protected void Start()
     {

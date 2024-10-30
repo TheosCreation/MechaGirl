@@ -35,6 +35,8 @@ public class FlyingEnemy : Enemy
     }
     protected new void Update()
     {
+        StateMachine.Update(this);
+        currentState = StateMachine.GetCurrentState();
         PerformRaycastMovement();
         UpdateRandomMovement();
     }

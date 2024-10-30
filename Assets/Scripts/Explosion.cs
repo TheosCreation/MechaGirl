@@ -32,7 +32,7 @@ public class Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        IDamageable damageable = other.GetComponentInParent<IDamageable>();
+        IDamageable damageable = other.GetComponentInParent<IDamageable>()  ;
         if (damageable == null)
         {
             damageable = other.GetComponent<IDamageable>();
