@@ -62,14 +62,13 @@ public class HitscanProjectile : Projectile
                 UiManager.Instance.FlashHitMarker();
             }
 
-            if (hit.collider.gameObject.CompareTag("Body") || hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Head"))
             {
-                damageable.Damage(damage);
-          
+                damageable.Damage(damage * headShotMultiplier);
             }
             else
             {
-                damageable.Damage(damage * headShotMultiplier);
+                damageable.Damage(damage);
             }
 
             if (hitEnemyPrefab != null)
