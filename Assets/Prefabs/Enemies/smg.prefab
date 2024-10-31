@@ -78,9 +78,9 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 1
-  attackDistance: 4.1
+  attackDistance: 15
   attackStartDelay: 0.1
-  loseDistance: 7
+  loseDistance: 25
   attackDuration: 1
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
@@ -284,8 +284,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7633859, y: 1.3847015, z: 0.2}
-  m_Center: {x: -0.029663444, y: 0.69235075, z: 0}
+  m_Size: {x: 0.7633859, y: 1.9355352, z: 0.2}
+  m_Center: {x: -0.029663444, y: 0.9677676, z: 0}
 --- !u!1001 &1571606955689388342
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -458,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 4877262536630434289, guid: 72859a62f75af27418db6fb9b72189d3,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7856420458759094927, guid: 72859a62f75af27418db6fb9b72189d3,
         type: 3}

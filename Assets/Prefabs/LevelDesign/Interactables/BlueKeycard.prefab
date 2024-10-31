@@ -28,8 +28,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3.32, y: 3.32, z: 3.32}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7835761544846293788}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -112,8 +112,9 @@ GameObject:
   - component: {fileID: 6304409243222002475}
   - component: {fileID: 7633602456056145028}
   - component: {fileID: 293968018904995681}
+  - component: {fileID: 4132649450937089060}
   m_Layer: 8
-  m_Name: Keycard
+  m_Name: BlueKeycard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,10 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHeld: 0
-  isPlaced: 0
-  rb: {fileID: 7633602456056145028}
-  physicsCollider: {fileID: 0}
-  sRenderer: {fileID: 0}
+  colorTag: Blue
+  physicsCollider: {fileID: 293968018904995681}
+  triggerCollider: {fileID: 4132649450937089060}
 --- !u!54 &7633602456056145028
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -199,4 +199,25 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &4132649450937089060
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8851148449796647483}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}

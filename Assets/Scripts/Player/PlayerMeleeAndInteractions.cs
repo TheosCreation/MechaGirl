@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerMeleeAndInteractions : MonoBehaviour
@@ -13,7 +16,7 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
     private Timer meleeTimer;
     private bool HasHitDamagable = false;
     private bool HasHitInteractble = false;
-    public Keycard currentHeldKeycard;
+    public List<Keycard> currentHeldKeycards;
 
     private void Awake()
     {
@@ -35,11 +38,6 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
         }
         if(!HasHitInteractble)
         {
-            if(currentHeldKeycard != null)
-            {
-                currentHeldKeycard.Throw(throwForce, playerController.playerCamera.transform.forward);
-                currentHeldKeycard = null;
-            }
         }
 
         HasHitDamagable = false;
@@ -50,15 +48,12 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
 
     private void HandleHit(Collider other)
     {
-        if (currentHeldKeycard == null)
+        // Attempt to get the IDamageable component from the hit object or its parent
+        IDamageable damageable = other.GetComponentInParent<IDamageable>() ?? other.GetComponent<IDamageable>();
+        if (damageable != null)
         {
-            // Attempt to get the IDamageable component from the hit object or its parent
-            IDamageable damageable = other.GetComponentInParent<IDamageable>() ?? other.GetComponent<IDamageable>();
-            if (damageable != null)
-            {
-                damageable.Damage(meleeDamage);
-                HasHitDamagable = true;
-            }
+            damageable.Damage(meleeDamage);
+            HasHitDamagable = true;
         }
 
         if (HasHitDamagable) return; //If we melee a enemy we cannot pick up interactable
@@ -69,5 +64,28 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
             interactable.Interact(this);
             HasHitInteractble = true;
         }
+    }
+
+    public bool Holds(string[] keysToUnlock)
+    {
+        // Check if each key's color tag in keysToUnlock is present in currentHeldKeycards
+        foreach (string keyColorTag in keysToUnlock)
+        {
+            bool hasMatchingKey = currentHeldKeycards.Any(card => card.colorTag == keyColorTag);
+            if (!hasMatchingKey)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void AddKey(Keycard keycard)
+    {
+        keycard.transform.parent = interactableTransform;
+        keycard.transform.localPosition = Vector3.zero;
+
+        currentHeldKeycards.Add(keycard);
     }
 }

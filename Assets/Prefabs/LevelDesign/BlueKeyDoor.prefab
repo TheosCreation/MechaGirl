@@ -346,7 +346,7 @@ PrefabInstance:
     - target: {fileID: 8970643556457401740, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
       propertyPath: m_Name
-      value: KeyLockedDoor
+      value: BlueKeyDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8970643556457401740, guid: c10ffd04921d1f948a538de2b70461ef,
         type: 3}
@@ -385,13 +385,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f343dca6e8ceab4d98ddfbd64ec8918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locked: 0
   minAnimSpeed: 1
   speedMultiplier: 0.1
-  overlay: {fileID: 6976746069477197867}
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls: []
+  locked: 0
+  keysColorTagsToUnlock:
+  - Blue
 --- !u!4 &3346976398374777891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5443606404637431075, guid: c10ffd04921d1f948a538de2b70461ef,

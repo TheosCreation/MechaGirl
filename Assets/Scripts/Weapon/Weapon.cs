@@ -321,16 +321,6 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Shoot");
 
         // Trigger screen shake if applicable
-
-        if (playerController)
-        {
-            shotDirection = playerController.playerCamera.transform.forward;
-        }
-        else
-        {
-
-            shotDirection = transform.forward;
-        }
         if (playerController != null)
         {
             playerController.playerLook.TriggerScreenShake(screenShakeDuration, screenShakeAmount);
@@ -356,32 +346,24 @@ public class Weapon : MonoBehaviour
             Debug.LogError("Projectile has not been set");
             return;
         }
-        Quaternion rotation = Quaternion.identity;
-        if (playerController)
-        {
-            rotation = playerController.playerCamera.transform.rotation;
-        }
-        else
-        {
-            rotation = transform.rotation;
-        }
 
         Projectile projectile = null;
         if (playerController != null)
         {
-            projectile = Instantiate(playerProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(playerProjectilePrefab, transform.position, playerController.playerCamera.transform.rotation);
         }
         else
         {
-            projectile = Instantiate(enemyProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
         }
+
         if (projectile != null)
         {
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
 
-                projectile.Initialize(playerController.playerCamera.transform.position, shotDirection, true);
+                projectile.Initialize(playerController.playerCamera.transform.position, playerController.playerCamera.transform.forward, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
                 
 
@@ -391,7 +373,7 @@ public class Weapon : MonoBehaviour
                 GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize(transform.position, shotDirection, false);
+                projectile.Initialize(transform.position, transform.forward, false);
             }
         }
     }

@@ -78,9 +78,9 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 1
-  attackDistance: 8
+  attackDistance: 20
   attackStartDelay: 1
-  loseDistance: 7
+  loseDistance: 30
   attackDuration: 1
   delayTimer: {fileID: 0}
   weapon: {fileID: 0}
@@ -175,8 +175,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.7633859, y: 1.3847015, z: 0.2}
-  m_Center: {x: -0.029663444, y: 0.69235075, z: 0}
+  m_Size: {x: 0.77524817, y: 2.0005991, z: 0.2}
+  m_Center: {x: -0.02373229, y: 1.0002996, z: 0}
 --- !u!1 &8769326819679691559
 GameObject:
   m_ObjectHideFlags: 0

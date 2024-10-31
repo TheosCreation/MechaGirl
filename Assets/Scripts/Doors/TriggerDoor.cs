@@ -3,38 +3,22 @@ using UnityEngine.Events;
 
 public class TriggerDoor : Door
 {
-    // Idk what these were gonna be used for
-    //public UnityEvent onTriggerEnter;
-    //private bool triggerEventActive = true;
-
-    [SerializeField] private GameObject killOverlay;
+    private bool triggerEventActive = true;
 
     protected override void Start()
     {
         base.Start();
-
-        UpdateKillLockOverlay();
     }
+    
 
-    public override void Lock()
+    protected override void Open(Collider other)
     {
-        base.Lock();
+        base.Open(other);
 
-        UpdateKillLockOverlay();
-    }
-
-    public override void Unlock()
-    {
-        base.Unlock();
-
-        UpdateKillLockOverlay();
-    }
-
-    private void UpdateKillLockOverlay()
-    {
-        if (killOverlay != null)
+        if (triggerEventActive)
         {
-            killOverlay.SetActive(locked);
+            LevelManager.Instance.StartLevelTimer();
+            triggerEventActive = false;
         }
     }
 }

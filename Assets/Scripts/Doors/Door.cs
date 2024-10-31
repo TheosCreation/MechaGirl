@@ -1,4 +1,5 @@
 using Unity.AI.Navigation;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,8 @@ public class Door : IResetable
     [SerializeField] protected float minAnimSpeed = 1.0f;
     [SerializeField] protected float speedMultiplier = 0.1f;
     [SerializeField] protected bool locked = false;
+
+    [SerializeField] private GameObject killOverlay;
 
     private Timer lockTimer;
 
@@ -24,45 +27,61 @@ public class Door : IResetable
 
         lockTimer = gameObject.AddComponent<Timer>();
 
+
+        UpdateKillLockOverlay();
     }
 
-    protected virtual void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if ((other.CompareTag("Player") || other.CompareTag("Body")) && !locked)
         {
-            Rigidbody rb = other.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                AdjustDoorAnimationBySpeed(rb.velocity);
-            }
-            else
-            {
-                NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
-                if (agent != null)
-                {
-                    AdjustDoorAnimationBySpeed(agent.velocity);
-                }
-            }
+            Open(other);
         }
     }
 
-    protected virtual void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player") || other.CompareTag("Body"))
         {
-            _animator.SetBool("Open", false);
+            Close(other);
         }
     }
+
+
+    protected virtual void Open(Collider other)
+    {
+        _animator.SetBool("Open", true);
+        Rigidbody rb = other.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            AdjustDoorAnimationBySpeed(rb.velocity);
+        }
+        else
+        {
+            NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
+            if (agent != null)
+            {
+                AdjustDoorAnimationBySpeed(agent.velocity);
+            }
+        }
+    }
+    protected virtual void Close(Collider other)
+    {
+        _animator.SetBool("Open", false);
+    }
+
     public virtual void Lock()
     {
         locked = true;
         _animator.SetBool("Open", false);
         lockTimer.SetTimer(0.5f, UpdateNavMesh);
+        UpdateKillLockOverlay();
     }
 
     public virtual void Unlock()
     {
         locked = false;
+        UpdateKillLockOverlay();
     }
 
     public void UpdateNavMesh()
@@ -87,5 +106,13 @@ public class Door : IResetable
     public override void Reset()
     {
         Unlock();
+    }
+
+    private void UpdateKillLockOverlay()
+    {
+        if (killOverlay != null)
+        {
+            killOverlay.SetActive(locked);
+        }
     }
 }
