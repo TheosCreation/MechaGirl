@@ -10,13 +10,11 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
     [SerializeField] private float meleeDistance = 2.0f;
     [SerializeField] private float meleeDamage = 10.0f;
     [SerializeField] private float meleeCooldown = 1.5f;
-    [SerializeField] private float throwForce = 2.0f;
     [SerializeField] private LayerMask hitMask;
     private PlayerController playerController;
     private Timer meleeTimer;
     private bool HasHitDamagable = false;
     private bool HasHitInteractble = false;
-    public List<Keycard> currentHeldKeycards;
 
     private void Awake()
     {
@@ -71,7 +69,7 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
         // Check if each key's color tag in keysToUnlock is present in currentHeldKeycards
         foreach (string keyColorTag in keysToUnlock)
         {
-            bool hasMatchingKey = currentHeldKeycards.Any(card => card.colorTag == keyColorTag);
+            bool hasMatchingKey = LevelManager.Instance.currentHeldKeycards.Any(card => card.colorTag == keyColorTag);
             if (!hasMatchingKey)
             {
                 return false;
@@ -86,6 +84,8 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
         keycard.transform.parent = interactableTransform;
         keycard.transform.localPosition = Vector3.zero;
 
-        currentHeldKeycards.Add(keycard);
+
+        LevelManager.Instance.currentHeldKeycards.Add(keycard);
+        UiManager.Instance.AddKeyCardIcon(keycard.prefabIcon);
     }
 }

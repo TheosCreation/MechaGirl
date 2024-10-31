@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Keycard : MonoBehaviour
@@ -10,6 +9,7 @@ public class Keycard : MonoBehaviour
     [SerializeField] private Collider physicsCollider;
     [SerializeField] private Collider triggerCollider;
     private SpriteRenderer sRenderer;
+    public GameObject prefabIcon;
 
     private void Awake()
     {

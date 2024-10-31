@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour, IDamageable
         LevelManager.Instance.DestroyAllWeapons();
 
         RemoveCamera();
-
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
     private void RemoveCamera()

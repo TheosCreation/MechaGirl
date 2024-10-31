@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +19,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Image weaponIconImage;
     [SerializeField] private UiBar bossBar;
+    [SerializeField] private Transform keycardHolder;
 
     [SerializeField] private GameObject tutorialHud;
     [SerializeField] private TMP_Text tutorialText;
@@ -159,5 +159,10 @@ public class UiManager : MonoBehaviour
     public void SetBossBarHealth(float percentage)
     {
         bossBar.UpdateBar(percentage * 100.0f);
+    }
+
+    public void AddKeyCardIcon(GameObject icon)
+    {
+        Instantiate(icon, keycardHolder);
     }
 }

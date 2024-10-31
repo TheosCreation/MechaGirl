@@ -152,6 +152,8 @@ MonoBehaviour:
   colorTag: Blue
   physicsCollider: {fileID: 293968018904995681}
   triggerCollider: {fileID: 4132649450937089060}
+  prefabIcon: {fileID: 1504979006086520211, guid: 5bcb243b86b293e47b3c21def0ccab1d,
+    type: 3}
 --- !u!54 &7633602456056145028
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -31,7 +31,7 @@ public class Door : IResetable
         UpdateKillLockOverlay();
     }
 
-    private void OnTriggerStay(Collider other)
+    protected virtual void OnTriggerStay(Collider other)
     {
         if ((other.CompareTag("Player") || other.CompareTag("Body")) && !locked)
         {

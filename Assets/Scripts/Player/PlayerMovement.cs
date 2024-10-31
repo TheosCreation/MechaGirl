@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.InputSystem; // Ensure you have the correct namespace for InputManager
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {

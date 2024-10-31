@@ -3,6 +3,7 @@ using UnityEngine;
 public class KeyLockedDoor : Door
 {
     [SerializeField] private string[] keysColorTagsToUnlock;
+    [SerializeField] private GameObject doorLockOverlay;
 
     protected override void Open(Collider other)
     {
@@ -11,6 +12,10 @@ public class KeyLockedDoor : Door
         {
             if(player.Holds(keysColorTagsToUnlock))
             {
+                if (doorLockOverlay != null)
+                {
+                    doorLockOverlay.SetActive(false);
+                }
                 base.Open(other);
             }
         }

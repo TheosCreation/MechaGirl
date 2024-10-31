@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 public class BossSpawner : IResetable
 {
@@ -11,6 +11,7 @@ public class BossSpawner : IResetable
     public List<Enemy> enemyPrefabs;       // List of enemy prefabs
     public UnityEvent OnBossDead;
     private BossEnemy bossSpawned;
+    private int enemiesAlive = 0;
 
     public void SpawnBoss()
     {
@@ -42,6 +43,8 @@ public class BossSpawner : IResetable
 
             // Spawn the enemy at the spawn location
             Enemy spawnedEnemy = Instantiate(randomEnemy, spawnLocation.position, spawnLocation.rotation);
+            spawnedEnemy.OnDeath += HandleEnemyDeath;
+            enemiesAlive++;
             PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
             if (player != null)
             {
@@ -52,6 +55,16 @@ public class BossSpawner : IResetable
                 Debug.LogError("No player found");
             }
 
+        }
+    }
+
+    private void HandleEnemyDeath()
+    {
+        enemiesAlive--;
+
+        if(enemiesAlive <= 0 && bossSpawned == null)
+        {
+            OnBossDead?.Invoke();
         }
     }
 
@@ -80,11 +93,13 @@ public class BossSpawner : IResetable
 
     private void HandleBossDeath()
     {
-        OnBossDead.Invoke();
-        bossSpawned.OnHealthChanged -= UpdateBossHealthBar;
         UiManager.Instance.SetBossBarStatus(false);
 
-        // Optionally, you could nullify the bossSpawned reference after death
         bossSpawned = null;
+
+        if (enemiesAlive <= 0)
+        {
+            OnBossDead?.Invoke();
+        }
     }
 }

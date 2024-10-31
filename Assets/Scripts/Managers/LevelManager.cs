@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -13,6 +12,8 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
+
+    public List<Keycard> currentHeldKeycards;
 
     private List<IResetable> resetables = new List<IResetable>();
 
