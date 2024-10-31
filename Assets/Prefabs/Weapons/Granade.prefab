@@ -295,7 +295,7 @@ MonoBehaviour:
   gunInGameController: {fileID: 22100000, guid: a9b67be26b3f0e841a0fb1ea6df40a81,
     type: 2}
   isEquip: 0
-  equipTime: 0.25
+  equipTime: 0.15
   canThrow: 1
   canShoot: 1
   isShooting: 0

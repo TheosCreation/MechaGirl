@@ -713,8 +713,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookSensitivity: 100
   tiltStatus: 1
-  tiltAmount: 1.5
-  tiltSmoothTime: 0.1
+  tiltAmount: 3
+  tiltSmoothTime: 0.05
   jumpAnimTiltAngle: 2
   playingJumpAnim: 0
   landAnimDuration: 0.1
@@ -852,12 +852,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422d6b45520543d44ab5fb83371f7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionalSway: 30
+  positionalSway: 100
   swaySmoothness: 20
+  maxSwayAmount: 250
   bobbingFrequency: 7
   verticalBobbingAmplitude: 40
-  horizontalBobbingAmplitude: 20
-  bobbingHorizontalSmoothing: 75
+  horizontalBobbingAmplitude: 100
+  bobbingHorizontalSmoothing: 100
 --- !u!1 &4393240980361793248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1349,6 +1350,11 @@ PrefabInstance:
         type: 3}
       propertyPath: isEquip
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: startingAmmo
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2974118847284677436, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
         type: 3}

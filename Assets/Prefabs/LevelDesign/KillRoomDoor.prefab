@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7584549788291872797}
   m_Layer: 0
-  m_Name: OverLays
+  m_Name: KillLockOverLays
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -325,7 +325,7 @@ GameObject:
   - component: {fileID: 598254901646666766}
   - component: {fileID: 3307221995691362999}
   m_Layer: 9
-  m_Name: Door
+  m_Name: KillRoomDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -403,10 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f8a76ef2fc60ed42b4170c749ef1cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locked: 0
   minAnimSpeed: 1
   speedMultiplier: 0.3
-  overlay: {fileID: 372439730463222059}
-  onTriggerEnter:
-    m_PersistentCalls:
-      m_Calls: []
+  locked: 0
+  killOverlay: {fileID: 372439730463222059}
