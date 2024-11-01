@@ -637,6 +637,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   velocityThreshold: 0.01
   controlGravity: 1
+  gravityScale: 1
   useFriction: 1
   friction: 0.9
   airFriction: 0.992
@@ -684,16 +685,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae4443e47b7b8a4cbc33bcb336ee141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 7
+  maxWalkSpeed: 5
   acceleration: 12
   deceleration: 3
   walkingRightTransition: 0.025
   canJump: 1
   isJumping: 0
   jumpForce: 8
-  jumpDuration: 0.3
+  jumpDuration: 0.15
   wallDistance: 1
   maxWallJumps: 3
+  maxWallRunSpeed: 5
+  wallRunDuration: 2
+  isWallRunning: 0
   isDashing: 0
   canDash: 1
   dashForce: 30
@@ -752,11 +756,9 @@ MonoBehaviour:
   meleeDistance: 2
   meleeDamage: 10
   meleeCooldown: 1.5
-  throwForce: 2
   hitMask:
     serializedVersion: 2
     m_Bits: 384
-  currentHeldKeycard: {fileID: 0}
 --- !u!1 &2838313414985441038
 GameObject:
   m_ObjectHideFlags: 0
