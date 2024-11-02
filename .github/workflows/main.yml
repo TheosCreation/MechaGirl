@@ -30,7 +30,7 @@ jobs:
       - name: List Build Directory Contents
         run: ls -R build
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v3
         with:
           name: Build-StandaloneWindows
           path: build/StandaloneWindows
@@ -47,7 +47,7 @@ jobs:
           lfs: true
 
       - name: Download Build Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: Build-StandaloneWindows
           path: build/StandaloneWindows
@@ -62,9 +62,13 @@ jobs:
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip -d /usr/local/bin
           chmod +x /usr/local/bin/butler
+          # Sanity check to confirm installation
+          /usr/local/bin/butler -V
 
       - name: Deploy to Itch.io
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
         run: |
           butler push build/StandaloneWindows theoscreation/itchdeploygithubtest1:platform-windows
+
+          # -L follows redirects
