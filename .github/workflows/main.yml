@@ -39,17 +39,23 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
 
-      # Step to push the build to the "builds" branch
-      - name: Push build to builds branch
-        if: success() # Only push if build is successful
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin
-          git checkout -B builds
-          cp -r build/${{ matrix.targetPlatform }}/* . # Adjust the path if necessary
-          git add .
-          git commit -m "Update build for ${{ matrix.targetPlatform }}"
-          git push https://x-access-token:${PAT_TOKEN}@github.com/TheosCreation/MechaGirl.git builds --force
+      
+  deployPages:
+    needs: buildForWindows
+    name: Deploy to Github Pages 🚀
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-Android
+          path: build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: builds
+          folder: build/Windows
