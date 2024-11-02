@@ -63,4 +63,4 @@ jobs:
         env:
           BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
-          /usr/local/bin/butler push build/StandaloneWindows theoscreation/itchdeploygithubtest1:platform-windows
+          /usr/local/bin/butler push build/StandaloneWindows k4x1/scifi-funny-toon-gun-game:AlphaBuild1.0.0
