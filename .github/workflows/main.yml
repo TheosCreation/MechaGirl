@@ -35,6 +35,10 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
           buildPath: build/StandaloneWindows
 
+      # Debugging step to verify build contents
+      - name: List Build Directory Contents
+        run: ls -R build
+
       - uses: actions/upload-artifact@v3
         with:
           name: Build-StandaloneWindows
