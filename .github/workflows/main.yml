@@ -33,13 +33,13 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          buildPath: build/StandaloneWindows
 
       - uses: actions/upload-artifact@v3
         with:
           name: Build-StandaloneWindows
           path: build/StandaloneWindows
 
-      
   deployPages:
     needs: buildForWindows
     name: Deploy to Github Pages 🚀
