@@ -1,0 +1,919 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\theoj\\ScifiRobots\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermovement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\movementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\movementcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\levelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|c:\\users\\theoj\\scifirobots\\assets\\scripts\\enemy\\bossspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\bossspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\weapontypes\\sword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\weapontypes\\sword.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\playermeleeandinteractions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playermeleeandinteractions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\interactables\\keycard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interactables\\keycard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\interfaces\\iresetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interfaces\\iresetable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\interfaces\\iinteractable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interfaces\\iinteractable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\interfaces\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\interfaces\\idamageable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\jsonserialization\\jsondataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\jsonserialization\\jsondataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\jsonserialization\\idataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\jsonserialization\\idataservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\settingsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\settingsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\pausemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\pausemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\inputmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\managers\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\weaponanim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\weaponanim.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\player\\playerlook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\player\\playerlook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\runtime\\tabattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\runtime\\tabattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\uibar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\uibar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\squrelayoutelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\squrelayoutelement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\pausemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\optionsmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\ui\\flashimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\ui\\flashimage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\projectiles\\swordswing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\projectiles\\swordswing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\projectiles\\physicalprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\projectiles\\physicalprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\projectiles\\lobprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\projectiles\\lobprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\weapon\\projectiles\\hitscanprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\weapon\\projectiles\\hitscanprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\bootstraplogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bootstraplogic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\casing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\casing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\crosshaircolorupdater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\crosshaircolorupdater.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\explosion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\explosionspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\explosionspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamestate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\healthscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\healthscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\playerspawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerspawn.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\restartbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\restartbutton.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\triggerfinishlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\triggerfinishlevel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\triggercheckpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\triggercheckpoint.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\levelcompletemenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\levelcompletemenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\generic\\spritebillboardv2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\generic\\spritebillboardv2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\generic\\spritebillboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\generic\\spritebillboard.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\generic\\musicplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\generic\\musicplayer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\flyingenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\flyingenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\spawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\spawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\enemystates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemystates.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemyspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|C:\\Users\\theoj\\ScifiRobots\\assets\\scripts\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{12FBA003-912F-D121-4BCB-793B642FC60A}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemy\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 15,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{e8034f19-ab72-4f06-83fd-f6832b41aa63}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "BossSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\BossSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\BossSpawner.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\BossSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\BossSpawner.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAASwFMAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:58:51.085Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IInteractable.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IInteractable.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interfaces\\IInteractable.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IInteractable.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interfaces\\IInteractable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:38.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IDamageable.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IDamageable.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interfaces\\IDamageable.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IDamageable.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interfaces\\IDamageable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:36.87Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "JsonDataService.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\JsonSerialization\\JsonDataService.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\JsonSerialization\\JsonDataService.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\JsonSerialization\\JsonDataService.cs",
+              "RelativeToolTip": "Assets\\Scripts\\JsonSerialization\\JsonDataService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:32.745Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IDataService.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\JsonSerialization\\IDataService.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\JsonSerialization\\IDataService.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\JsonSerialization\\IDataService.cs",
+              "RelativeToolTip": "Assets\\Scripts\\JsonSerialization\\IDataService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:31.876Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "UiManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\UiManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\UiManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\UiManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\UiManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:27.937Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SettingsManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\SettingsManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\SettingsManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\SettingsManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\SettingsManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:25.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "PauseManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\PauseManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\PauseManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\PauseManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\PauseManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:23.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LevelManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\LevelManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\LevelManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\LevelManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\LevelManager.cs",
+              "ViewState": "AgIAAG0AAAAAAAAAAAAlwEsAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:21.215Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "InputManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\InputManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\InputManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\InputManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\InputManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:18.109Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Managers\\GameManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Managers\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Managers\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:14.944Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "WeaponAnim.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\WeaponAnim.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\WeaponAnim.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\WeaponAnim.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\WeaponAnim.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:11.562Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlayerController.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerController.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerController.cs",
+              "ViewState": "AgIAAC0AAAAAAAAAAIA6wEcAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:01.88Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MovementController.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\MovementController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\MovementController.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\MovementController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\MovementController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAQwEMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:59.392Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PlayerMovement.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerMovement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMovement.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerMovement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMovement.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAMwFEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:06.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IResetable.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IResetable.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interfaces\\IResetable.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interfaces\\IResetable.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interfaces\\IResetable.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:38.911Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Keycard.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interactables\\Keycard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Interactables\\Keycard.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Interactables\\Keycard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Interactables\\Keycard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:41.43Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Sword.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\WeaponTypes\\Sword.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\WeaponTypes\\Sword.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\WeaponTypes\\Sword.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\WeaponTypes\\Sword.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBoAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:57:48.738Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PlayerMeleeAndInteractions.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerMeleeAndInteractions.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerMeleeAndInteractions.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerMeleeAndInteractions.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerMeleeAndInteractions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:04.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "PlayerUi.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerUi.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerUi.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerUi.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerUi.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:09.996Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PlayerLook.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerLook.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Player\\PlayerLook.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Player\\PlayerLook.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Player\\PlayerLook.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:54:03.373Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TabAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Runtime\\TabAttribute.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Runtime\\TabAttribute.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Runtime\\TabAttribute.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Runtime\\TabAttribute.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:56.865Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UiBar.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\UiBar.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\UiBar.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\UiBar.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\UiBar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:52.604Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "SqureLayoutElement.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\SqureLayoutElement.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\SqureLayoutElement.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\SqureLayoutElement.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\SqureLayoutElement.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:51.217Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "PauseMenu.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\PauseMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\PauseMenu.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\PauseMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\PauseMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:50.234Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "OptionsMenu.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\OptionsMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\OptionsMenu.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\OptionsMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\OptionsMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:47.314Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "MainMenu.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\MainMenu.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\MainMenu.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\MainMenu.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\MainMenu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:44.675Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "FlashImage.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\FlashImage.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Ui\\FlashImage.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Ui\\FlashImage.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Ui\\FlashImage.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:42.514Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "SwordSwing.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\SwordSwing.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\Projectiles\\SwordSwing.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\SwordSwing.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\Projectiles\\SwordSwing.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:37.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "Projectile.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\Projectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\Projectiles\\Projectile.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\Projectile.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\Projectiles\\Projectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:35.112Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "PhysicalProjectile.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\PhysicalProjectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\Projectiles\\PhysicalProjectile.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\PhysicalProjectile.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\Projectiles\\PhysicalProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:32.795Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "LobProjectile.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\LobProjectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\Projectiles\\LobProjectile.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\LobProjectile.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\Projectiles\\LobProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:29.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "HitscanProjectile.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\HitscanProjectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Weapon\\Projectiles\\HitscanProjectile.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Weapon\\Projectiles\\HitscanProjectile.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Weapon\\Projectiles\\HitscanProjectile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:26.136Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "BootstrapLogic.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\BootstrapLogic.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BootstrapLogic.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\BootstrapLogic.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BootstrapLogic.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:22.515Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Casing.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Casing.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Casing.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Casing.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Casing.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:19.893Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "CrosshairColorUpdater.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\CrosshairColorUpdater.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\CrosshairColorUpdater.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\CrosshairColorUpdater.cs",
+              "RelativeToolTip": "Assets\\Scripts\\CrosshairColorUpdater.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:17.407Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 36,
+              "Title": "Explosion.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Explosion.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Explosion.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Explosion.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Explosion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:14.98Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 37,
+              "Title": "ExplosionSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\ExplosionSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ExplosionSpawner.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\ExplosionSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ExplosionSpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:12.703Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 38,
+              "Title": "GameState.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\GameState.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameState.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\GameState.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameState.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:09.82Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 39,
+              "Title": "HealthScript.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\HealthScript.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\HealthScript.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\HealthScript.cs",
+              "RelativeToolTip": "Assets\\Scripts\\HealthScript.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:06.808Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 42,
+              "Title": "TriggerFinishLevel.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\TriggerFinishLevel.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TriggerFinishLevel.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\TriggerFinishLevel.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TriggerFinishLevel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:53:02.194Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 43,
+              "Title": "TriggerCheckPoint.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\TriggerCheckPoint.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TriggerCheckPoint.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\TriggerCheckPoint.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TriggerCheckPoint.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:42.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
+              "Title": "RestartButton.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\RestartButton.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\RestartButton.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\RestartButton.cs",
+              "RelativeToolTip": "Assets\\Scripts\\RestartButton.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:39.803Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 40,
+              "Title": "PlayerSpawn.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\PlayerSpawn.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerSpawn.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\PlayerSpawn.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerSpawn.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:33.575Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 44,
+              "Title": "LevelCompleteMenuManager.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\LevelCompleteMenuManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\LevelCompleteMenuManager.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\LevelCompleteMenuManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\LevelCompleteMenuManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:29.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 45,
+              "Title": "SpriteBillboardV2.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\SpriteBillboardV2.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Generic\\SpriteBillboardV2.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\SpriteBillboardV2.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Generic\\SpriteBillboardV2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:13.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 46,
+              "Title": "SpriteBillboard.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\SpriteBillboard.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Generic\\SpriteBillboard.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\SpriteBillboard.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Generic\\SpriteBillboard.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:10.75Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 47,
+              "Title": "MusicPlayer.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\MusicPlayer.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Generic\\MusicPlayer.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Generic\\MusicPlayer.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Generic\\MusicPlayer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:08.786Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 48,
+              "Title": "FlyingEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\FlyingEnemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\FlyingEnemy.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\FlyingEnemy.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\FlyingEnemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:04.254Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 49,
+              "Title": "Spawner.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\Spawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\Spawner.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\Spawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\Spawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:52:01.069Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 50,
+              "Title": "EnemyStates.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemyStates.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\EnemyStates.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemyStates.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\EnemyStates.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:51:59.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 51,
+              "Title": "EnemyStateMachine.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemyStateMachine.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\EnemyStateMachine.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemyStateMachine.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\EnemyStateMachine.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:51:57.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 52,
+              "Title": "EnemySpawner.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemySpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\EnemySpawner.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\EnemySpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\EnemySpawner.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:51:53.805Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 53,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\Enemy.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Enemy\\Enemy.cs",
+              "ToolTip": "C:\\Users\\theoj\\ScifiRobots\\Assets\\Scripts\\Enemy\\Enemy.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Enemy\\Enemy.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-31T11:51:48.099Z"
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{a80febb4-e7e0-4147-b476-21aaf2453969}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d3750d8a-574b-4fb3-b7e2-aa8af40e8231}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
