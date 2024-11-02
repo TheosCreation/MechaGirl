@@ -36,8 +36,8 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build/${{ matrix.targetPlatform }}
+          name: Build-StandaloneWindows
+          path: build/StandaloneWindows
 
       
   deployPages:
@@ -51,8 +51,8 @@ jobs:
       - name: Download Build Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: build-Android
-          path: build
+          name: Build-StandaloneWindows
+          path: build/StandaloneWindows
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
