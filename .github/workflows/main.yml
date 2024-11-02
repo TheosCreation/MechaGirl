@@ -39,7 +39,6 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
 
-      # Step to push the build to the "builds" branch
       - name: Push build to builds branch
         if: success() # Only push if build is successful
         run: |
