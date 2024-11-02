@@ -35,7 +35,7 @@ jobs:
           name: Build-StandaloneWindows
           path: build/StandaloneWindows
 
-  itchio-deploy:
+itchio-deploy:
     name: Deploy to Itch.io
     needs: buildForWindows
     runs-on: ubuntu-latest
@@ -46,29 +46,21 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Download Build Artifacts
+      - name: Download Build Artifact
         uses: actions/download-artifact@v3
         with:
           name: Build-StandaloneWindows
           path: build/StandaloneWindows
-
-      - name: Setup Node.js 16
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
 
       - name: Install Butler
         run: |
           curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
           unzip butler.zip -d /usr/local/bin
           chmod +x /usr/local/bin/butler
-          # Sanity check to confirm installation
           /usr/local/bin/butler -V
 
       - name: Deploy to Itch.io
         env:
-          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
         run: |
-          butler push build/StandaloneWindows theoscreation/itchdeploygithubtest1:platform-windows
-
-          # -L follows redirects
+          /usr/local/bin/butler push build/StandaloneWindows theoscreation/itchdeploygithubtest1:platform-windows
