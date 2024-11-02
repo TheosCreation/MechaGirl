@@ -39,8 +39,11 @@ jobs:
           name: Build-${{ matrix.targetPlatform }}
           path: build/${{ matrix.targetPlatform }}
 
+      # Step to push the build to the "builds" branch
       - name: Push build to builds branch
         if: success() # Only push if build is successful
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -49,4 +52,4 @@ jobs:
           cp -r build/${{ matrix.targetPlatform }}/* . # Adjust the path if necessary
           git add .
           git commit -m "Update build for ${{ matrix.targetPlatform }}"
-          git push origin builds --force # Push to the builds branch, overwriting old content
+          git push https://x-access-token:${PAT_TOKEN}@github.com/TheosCreation/MechaGirl.git builds --force
