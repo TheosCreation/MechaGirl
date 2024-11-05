@@ -258,99 +258,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 53204379}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &62641721
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 179.23602
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 94.75585
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 64.760345
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 55.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 15.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 88.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 87838394815382566, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 753156817549057692, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_Name
-      value: Plating (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 753156817549057692, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1257415046745784137, guid: 21884a96531330b44b6b30c0429574dd,
-        type: 3}
-      propertyPath: m_ReceiveGI
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 21884a96531330b44b6b30c0429574dd, type: 3}
 --- !u!1001 &80187822
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1454,8 +1361,8 @@ MonoBehaviour:
   OnAllEnemiesDead:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 1613062829}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -1466,8 +1373,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 1308569798}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -2853,7 +2760,7 @@ PrefabInstance:
     - target: {fileID: 5299309410497721622, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 109.82669
+      value: 120.42877
       objectReference: {fileID: 0}
     - target: {fileID: 5299309410497721622, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
@@ -3151,7 +3058,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6751050796031102234, guid: 3b24002efa1be7f4c8a1ba091a326ab1, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b24002efa1be7f4c8a1ba091a326ab1, type: 3}
@@ -3171,12 +3079,12 @@ PrefabInstance:
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.52
+      value: 28.77
       objectReference: {fileID: 0}
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 84.51
+      value: 93.487946
       objectReference: {fileID: 0}
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
@@ -4654,6 +4562,18 @@ MonoBehaviour:
   options: {fileID: 11400000, guid: 9ecda95e89149df44b5588c939c9ba77, type: 2}
   Mixer: {fileID: 24100000, guid: dca2b53473b18fe458174bfc810899af, type: 2}
   player: {fileID: 0}
+--- !u!114 &1308569798 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1369053439826292753, guid: b3881b01305d7e44cb22f3dd3889192c,
+    type: 3}
+  m_PrefabInstance: {fileID: 7169533058525195667}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 589db58256fe52d438fa9cac6b716221, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &1345644282
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5948,12 +5868,12 @@ PrefabInstance:
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.52
+      value: 28.77
       objectReference: {fileID: 0}
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 115.02206
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 2067341345502367641, guid: e2a42cb82a035ef44a1abe0a08d04d90,
         type: 3}
@@ -6760,8 +6680,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066d28d2dce7d6c4483007343900d343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localStartPosition: {x: 37.101593, y: 6.110486, z: 56.741196}
-  localEndPosition: {x: 59.826706, y: 4.844096, z: 68.28533}
+  localStartPosition: {x: 39.585262, y: 4.96103, z: 57.697937}
+  localEndPosition: {x: 59.078823, y: 4.379858, z: 68.14269}
   waves:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
@@ -6779,8 +6699,8 @@ MonoBehaviour:
   OnAllEnemiesDead:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 1284938886}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -6791,8 +6711,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 1475317764}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -7493,8 +7413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066d28d2dce7d6c4483007343900d343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localStartPosition: {x: -25.88185, y: 28.806334, z: 73.38687}
-  localEndPosition: {x: -44.646294, y: 27.579576, z: 62.1183}
+  localStartPosition: {x: -25.88185, y: 28.218405, z: 73.38687}
+  localEndPosition: {x: -44.646294, y: 27.328608, z: 62.1183}
   waves:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
@@ -7512,8 +7432,8 @@ MonoBehaviour:
   OnAllEnemiesDead:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 813762456}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -7524,8 +7444,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TriggerDoor, Assembly-CSharp
+      - m_Target: {fileID: 1658643761}
+        m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
         m_Mode: 1
         m_Arguments:
@@ -8067,7 +7987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 111.59317, y: 43.10313, z: 129.82713}
+  size: {x: 111.59317, y: 43.10313, z: 129.82716}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -10208,7 +10128,6 @@ SceneRoots:
   - {fileID: 1067304085}
   - {fileID: 1247603074}
   - {fileID: 282617523}
-  - {fileID: 62641721}
   - {fileID: 1047796660}
   - {fileID: 973956104}
   - {fileID: 1576270436}
