@@ -9814,7 +9814,10 @@ MonoBehaviour:
   despawnTimer: 2
   deactivateTime: 0.05
   damage: 1
+  fromEnemy: 1
   explosionSound: {fileID: 8300000, guid: fab5bde8a23c38e4d849e33fad9ebbf3, type: 3}
+  screenShakeDuration: 0.25
+  screenShakeAmount: 0.25
 --- !u!135 &4170146851375421510
 SphereCollider:
   m_ObjectHideFlags: 0

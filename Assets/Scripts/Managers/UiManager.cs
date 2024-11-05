@@ -46,6 +46,7 @@ public class UiManager : MonoBehaviour
         InputManager.Instance.EnableInGameInput();
         deathScreen.SetActive(false);
         levelCompleteScreen.gameObject.SetActive(false);
+        bossBar.gameObject.SetActive(false);
     }
 
     public void PauseMenu(bool isPaused)
