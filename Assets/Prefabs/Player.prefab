@@ -106,7 +106,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -248,7 +248,8 @@ MonoBehaviour:
   playerProjectilePrefab: {fileID: 0}
   shootingSource: {fileID: 2775055471723194841}
   shootingSounds:
-  - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
+  - {fileID: 8300000, guid: c9768162d2447eb4699ce136f9a0c413, type: 3}
+  pickUpSound: {fileID: 0}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 1
@@ -673,6 +674,7 @@ MonoBehaviour:
   playerMovement: {fileID: 0}
   weaponHolder: {fileID: 0}
   maxHealth: 100
+  isInvinsable: 0
 --- !u!114 &8559582919939915744
 MonoBehaviour:
   m_ObjectHideFlags: 0

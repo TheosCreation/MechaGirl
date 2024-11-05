@@ -14,6 +14,8 @@ public class MeleeWeapon : Weapon
 
     public override void Shoot()
     {
+        PlayRandomFiringSound();
+
         // Perform a slicing attack and deal damage to enemies in range
         Collider[] hitEnemies = Physics.OverlapSphere(transform.position, meleeRange, targetLayer);
 

@@ -313,6 +313,7 @@ MonoBehaviour:
   shootingSource: {fileID: 5186449891707298011}
   shootingSounds:
   - {fileID: 8300000, guid: df51f73ac607e0048a801c911f7bd37f, type: 3}
+  pickUpSound: {fileID: 8300000, guid: cc345cf4ab4f5b147ad55f79f6f25bac, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 0
