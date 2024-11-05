@@ -49,16 +49,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 217
   damage: 5
-  casingToSpawn: {fileID: 572047263200891013, guid: d93a2c2f2cdaa1a4592a6c8f00551bdd,
-    type: 3}
   owner: {fileID: 0}
   ownerLayer: -1
+  ownerTag: 
   headShotMultiplier: 2
   hitParticlesLifetime: 0.3
   particleOffset: 0.1
   hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
     type: 3}
-  hitEnemyPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
+  hitEnemyPrefab: {fileID: 7421207701288780740, guid: 18346bbe949293f44b2a8b833e9858f0,
     type: 3}
   gunTrailPrefab: {fileID: 6681826990249321746, guid: a356371c5d1c5d0428e5bb41492cc4ea,
     type: 3}

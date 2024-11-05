@@ -14,7 +14,7 @@ public class ExplosionSpawner : MonoBehaviour
         
         if (spawner.ownerTag == "Player")
         {
-            explosionObjectSpawned.enemy = false;
+            explosionObjectSpawned.fromEnemy = false;
         }
         
     }

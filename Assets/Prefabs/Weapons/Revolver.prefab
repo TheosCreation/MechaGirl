@@ -288,6 +288,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  pickUpSound: {fileID: 8300000, guid: cc345cf4ab4f5b147ad55f79f6f25bac, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 0

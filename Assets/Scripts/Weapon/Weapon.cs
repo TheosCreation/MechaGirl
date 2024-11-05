@@ -51,6 +51,7 @@ public class Weapon : MonoBehaviour
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
+    [SerializeField] protected AudioClip pickUpSound;
 
     [HideInInspector] public float predictionTime = 0.2f;
 
@@ -294,6 +295,10 @@ public class Weapon : MonoBehaviour
 
         playerController = pc;
 
+        if(pickUpSound)
+        {
+            shootingSource.PlayOneShot(pickUpSound);
+        }
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
