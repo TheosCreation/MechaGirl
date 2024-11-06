@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class TriggerZone : IResetable
 {
-    [SerializeField] private bool reuseable = false;
+    [SerializeField] protected bool reuseable = false;
 
     // UnityEvent that can be configured in the Inspector
     public UnityEvent onTriggerEnter;
@@ -12,7 +12,7 @@ public class TriggerZone : IResetable
     private bool active = true;
 
     // This method is called when another collider enters the trigger zone
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
 
@@ -23,7 +23,7 @@ public class TriggerZone : IResetable
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.tag != "Player") return;
 
