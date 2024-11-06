@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
-    [SerializeField] protected bool canPickup = true; // moved up to settings tab so easily visable
+    public bool canPickup = true; // moved up to settings tab so easily visable
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
 
     protected Transform target; // Target to aim at
 
-    protected PlayerController playerController;
+    public PlayerController playerController;
     [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
@@ -198,7 +198,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected virtual void Attach()
+    public virtual void Attach()
     {
         if (Ammo > 0)
         {
@@ -302,7 +302,7 @@ public class Weapon : MonoBehaviour
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if (weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this, false))
         {
             //if is new weapon lets equip it
             Attach();

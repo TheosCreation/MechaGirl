@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 34.500084, y: 26.584652, z: 86.53631}
+  size: {x: 34.500084, y: 26.584652, z: 86.53632}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1163,7 +1163,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: -1
   overridesSubdivLevels: 0
-  mightNeedRebaking: 0
+  mightNeedRebaking: 1
   cachedTransform:
     e00: 1
     e01: 0
@@ -1194,7 +1194,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.97234}
+  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1764,6 +1764,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   currentHeldKeycards: []
+  weaponsToSpawnWith:
+  - {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2, type: 3}
 --- !u!4 &681673258
 Transform:
   m_ObjectHideFlags: 0
@@ -4833,13 +4835,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605363103}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &1620212218
 PrefabInstance:
   m_ObjectHideFlags: 0

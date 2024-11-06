@@ -1000,6 +1000,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxAllowedToBeAlive: 8
 --- !u!4 &596536493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -1220230970128351402, guid: 52e49244ea4ba5b4c9ad3ddd47d50e76,
@@ -1036,7 +1037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 82.73101, y: 36.51125, z: 190.72629}
+  size: {x: 82.73101, y: 36.51125, z: 190.7263}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1076,7 +1077,7 @@ Transform:
   m_GameObject: {fileID: 599843922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.700001, y: 23.742022, z: 126.18733}
+  m_LocalPosition: {x: -12.700001, y: 23.742022, z: 126.18734}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1280,6 +1281,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   currentHeldKeycards: []
+  weaponsToSpawnWith:
+  - {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2, type: 3}
 --- !u!4 &681673258
 Transform:
   m_ObjectHideFlags: 0

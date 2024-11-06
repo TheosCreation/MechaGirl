@@ -274,7 +274,7 @@ MonoBehaviour:
   screenShakeDuration: 0.02
   screenShakeAmount: 0.05
   canPickup: 0
-  startingAmmo: 5
+  startingAmmo: 20
   casingToSpawn: {fileID: 572047263200891013, guid: 2d5a514d8473c244c8f1416dc9d1824e,
     type: 3}
   casingSpawnTransform: {fileID: 5818951153132858356}
@@ -290,6 +290,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   pickUpSound: {fileID: 8300000, guid: cc345cf4ab4f5b147ad55f79f6f25bac, type: 3}
   predictionTime: 0.2
+  playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 0
 --- !u!65 &4392212421055244256
