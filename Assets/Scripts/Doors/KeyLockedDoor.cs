@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class KeyLockedDoor : Door
 {
-    [SerializeField] private string[] keysColorTagsToUnlock;
+    [SerializeField] private Color[] keysColorTagsToUnlock;
     [SerializeField] private GameObject doorLockOverlay;
 
     protected override void Open(Collider other)

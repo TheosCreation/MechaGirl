@@ -3,7 +3,7 @@ using UnityEngine;
 public class Keycard : MonoBehaviour
 {
     public bool isHeld = false;
-    public string colorTag = "Blue";
+    public Color colorTag = Color.blue;
 
     private Rigidbody rb;
     [SerializeField] private Collider physicsCollider;

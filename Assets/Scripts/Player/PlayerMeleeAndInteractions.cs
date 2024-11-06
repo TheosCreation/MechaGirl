@@ -63,19 +63,31 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
         }
     }
 
-    public bool Holds(string[] keysToUnlock)
+    public bool Holds(Color[] keysToUnlock)
     {
         // Check if each key's color tag in keysToUnlock is present in currentHeldKeycards
-        foreach (string keyColorTag in keysToUnlock)
+        foreach (Color keyColorTag in keysToUnlock)
         {
-            bool hasMatchingKey = LevelManager.Instance.currentHeldKeycards.Any(card => card.colorTag == keyColorTag);
+            bool hasMatchingKey = LevelManager.Instance.currentHeldKeycards
+                .Any(card => ColorsAreEqual(card.colorTag, keyColorTag));
+
             if (!hasMatchingKey)
             {
+                Debug.Log($"Missing key for color: {keyColorTag}");
                 return false;
             }
         }
 
         return true;
+    }
+
+    // Helper method for color comparison with a tolerance
+    private bool ColorsAreEqual(Color color1, Color color2, float tolerance = 0.01f)
+    {
+        return Mathf.Abs(color1.r - color2.r) < tolerance &&
+               Mathf.Abs(color1.g - color2.g) < tolerance &&
+               Mathf.Abs(color1.b - color2.b) < tolerance &&
+               Mathf.Abs(color1.a - color2.a) < tolerance;
     }
 
     public void AddKey(Keycard keycard)
@@ -85,6 +97,6 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
 
 
         LevelManager.Instance.currentHeldKeycards.Add(keycard);
-        UiManager.Instance.AddKeyCardIcon(keycard.prefabIcon);
+        UiManager.Instance.AddKeyCardIcon(keycard);
     }
 }

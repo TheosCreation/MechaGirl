@@ -162,8 +162,9 @@ public class UiManager : MonoBehaviour
         bossBar.UpdateBar(percentage * 100.0f);
     }
 
-    public void AddKeyCardIcon(GameObject icon)
+    public void AddKeyCardIcon(Keycard keycard)
     {
-        Instantiate(icon, keycardHolder);
+        GameObject icon = Instantiate(keycard.prefabIcon, keycardHolder);
+        icon.GetComponent<Image>().color = keycard.colorTag;
     }
 }

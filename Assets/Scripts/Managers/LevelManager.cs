@@ -94,12 +94,14 @@ class LevelManager : MonoBehaviour
     {
         return levelCompleteTime;
     }
-
+    
+    // Use only if the player is going to be respawned in the next frame
     public void KillCurrentPlayer()
     {
         if (playerSpawn.playerSpawned)
         {
-            playerSpawn.playerSpawned.Die();
+            Destroy(playerSpawn.playerSpawned.gameObject);
+            SetTempCamera(true);
         }
     }
 
@@ -119,10 +121,7 @@ class LevelManager : MonoBehaviour
         //reset doors, remove enemies, reset trigger zones
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
-        if (tempCamera != null)
-        {
-            Destroy(tempCamera);
-        }
+        SetTempCamera(false);
         PauseManager.Instance.SetPaused(false);
         SettingsManager.Instance.ApplyAllSettings();
 
@@ -176,10 +175,8 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    public void SetTempCamera(GameObject gameObject)
+    public void SetTempCamera(bool active)
     {
-        if (gameObject == null) return;
-        tempCamera = gameObject;
-        tempCamera.transform.SetParent(null);
+        tempCamera.SetActive(active);
     }
 }
