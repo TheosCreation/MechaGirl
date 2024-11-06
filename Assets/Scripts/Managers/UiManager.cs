@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,11 +9,13 @@ public class UiManager : MonoBehaviour
 {
     public static UiManager Instance { get; private set; }
 
+    [Header("UI Screens")]
     [SerializeField] private GameObject playerHud;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private LevelCompleteMenuManager levelCompleteScreen;
 
+    [Header("Player UI Elements")]
     [SerializeField] private Transform weaponSwayTransform;
     [SerializeField] private Image weaponImage;
     [SerializeField] private FlashImage hitMarker;
@@ -19,9 +23,19 @@ public class UiManager : MonoBehaviour
     [SerializeField] private UiBar healthBar;
     [SerializeField] private TMP_Text ammoText;
     [SerializeField] private Image weaponIconImage;
+
+    [Header("Game Progress UI")]
     [SerializeField] private UiBar bossBar;
     [SerializeField] private Transform keycardHolder;
 
+    [Header("New Weapon Animation")]
+    [SerializeField] private Image newWeapon;
+    public float animationDuration = 0.5f;
+    private Vector3 startPosition;
+    private Color startColor;
+    private HashSet<Type> pickedUpWeaponTypes = new HashSet<Type>();
+
+    [Header("Tutorial")]
     [SerializeField] private TMP_Text tutorialText;
 
     //public Image image;
@@ -48,6 +62,14 @@ public class UiManager : MonoBehaviour
         levelCompleteScreen.gameObject.SetActive(false);
         bossBar.gameObject.SetActive(false);
         SetTutorialText("");
+
+        if (newWeapon != null)
+        {
+            startPosition = newWeapon.transform.position;
+            startColor = newWeapon.color;
+            newWeapon.color = new Color(startColor.r, startColor.g, startColor.b, 0);
+            newWeapon.transform.position -= Vector3.up * 50f; // Adjust this value as needed
+        }
     }
 
     public void PauseMenu(bool isPaused)
@@ -171,6 +193,34 @@ public class UiManager : MonoBehaviour
 
     public void PickUp(Sprite iconSprite)
     {
-      
+        newWeapon.gameObject.SetActive(true);
+        if (newWeapon != null && iconSprite != null)
+        {
+            newWeapon.sprite = iconSprite;
+            StartCoroutine(FadeAndMove());
+        }
+    }
+
+    IEnumerator FadeAndMove()
+    {
+        float elapsedTime = 0f;
+        Vector3 endPosition = startPosition;
+        Color endColor = startColor;
+
+        while (elapsedTime < animationDuration)
+        {
+            float t = Mathf.Clamp01(elapsedTime / animationDuration);
+            t = t * t * (3f - 2f * t); 
+
+            newWeapon.color = Color.Lerp(new Color(endColor.r, endColor.g, endColor.b, 0), endColor, t);
+            newWeapon.transform.position = Vector3.Lerp(startPosition - Vector3.up * 50f, endPosition, t);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        newWeapon.color = endColor;
+        newWeapon.transform.position = endPosition;
+        newWeapon.gameObject.SetActive(false);
     }
 }
