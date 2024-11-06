@@ -159,7 +159,8 @@ MonoBehaviour:
   isDashing: 0
   isLaunching: 0
   launchbackThreshold: 30
-  maxHealth: 200
+  isInvinsable: 0
+  maxHealth: 500
   defaultState: 6
   currentState: 6
   spawner: {fileID: 0}

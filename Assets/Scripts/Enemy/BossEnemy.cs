@@ -42,10 +42,12 @@ public class BossEnemy : Enemy
         if (active == true)
         {
             StateMachine.ChangeState(new BossAttackingState(), this);
+            isInvinsable = false;
         }
         else
         {
             StateMachine.ChangeState(new IdleState(), this);
+            isInvinsable = true;
         }
     }
 }
