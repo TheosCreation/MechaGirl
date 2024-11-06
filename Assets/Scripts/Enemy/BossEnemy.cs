@@ -11,7 +11,7 @@ public class BossEnemy : Enemy
         agent = GetComponent<NavMeshAgent>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         health = maxHealth;
-        weapon = GetComponentInChildren<Weapon>();
+        weapons = GetComponentsInChildren<Weapon>();
         delayTimer = gameObject.AddComponent<Timer>();
         StateMachine = new EnemyStateMachineBuilder()
             .AddState(new BossAttackingState())
@@ -26,5 +26,12 @@ public class BossEnemy : Enemy
         base.EndAttack();
 
         spawner.SpawnEnemies();
+    }
+
+    //Removed the drop weapon on death
+    public override void Die()
+    {
+        //OnDeath?.Invoke();
+        Destroy(gameObject);
     }
 }

@@ -968,7 +968,11 @@ MonoBehaviour:
   - {fileID: 522521984}
   - {fileID: 235107845}
   - {fileID: 794736280}
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9, type: 3}
+  - {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a, type: 3}
+  - {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5, type: 3}
+  - {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec, type: 3}
   OnBossDead:
     m_PersistentCalls:
       m_Calls:
@@ -1032,7 +1036,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 0
-  size: {x: 82.73101, y: 36.51125, z: 190.7263}
+  size: {x: 82.73101, y: 36.51125, z: 190.72629}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1072,7 +1076,7 @@ Transform:
   m_GameObject: {fileID: 599843922}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.700001, y: 23.742022, z: 126.18734}
+  m_LocalPosition: {x: -12.700001, y: 23.742022, z: 126.18733}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
