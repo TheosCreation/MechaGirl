@@ -1652,6 +1652,7 @@ MonoBehaviour:
   currentHeldKeycards: []
   weaponsToSpawnWith:
   - {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2, type: 3}
+  - {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc, type: 3}
 --- !u!4 &681673258
 Transform:
   m_ObjectHideFlags: 0
@@ -2699,7 +2700,7 @@ PrefabInstance:
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0079
+      value: 0.02337
       objectReference: {fileID: 0}
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
@@ -2709,17 +2710,17 @@ PrefabInstance:
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710677
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000013767875
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000001376788
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
@@ -2729,7 +2730,7 @@ PrefabInstance:
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3346976398374777891, guid: 76d184a7fd91c5c4da437044814aa5a6,
         type: 3}
