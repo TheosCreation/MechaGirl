@@ -191,7 +191,18 @@ public class UiManager : MonoBehaviour
         icon.GetComponent<Image>().color = keycard.colorTag;
     }
 
-    public void PickUp(Sprite iconSprite)
+
+    public bool HasPickedUpWeaponType(Type weaponType)
+    {
+        return pickedUpWeaponTypes.Contains(weaponType);
+    }
+
+    public void MarkWeaponTypeAsPickedUp(Type weaponType)
+    {
+        pickedUpWeaponTypes.Add(weaponType);
+    }
+
+    public void ShowPickUpAnimation(Sprite iconSprite)
     {
         newWeapon.gameObject.SetActive(true);
         if (newWeapon != null && iconSprite != null)
@@ -200,7 +211,6 @@ public class UiManager : MonoBehaviour
             StartCoroutine(FadeAndMove());
         }
     }
-
     IEnumerator FadeAndMove()
     {
         float elapsedTime = 0f;

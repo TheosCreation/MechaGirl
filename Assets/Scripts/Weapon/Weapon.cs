@@ -297,7 +297,6 @@ public class Weapon : MonoBehaviour
 
         if(pickUpSound)
         {
-            UiManager.Instance.PickUp(iconSprite);
             shootingSource.PlayOneShot(pickUpSound);
         }
         canPickup = false;
