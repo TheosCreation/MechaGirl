@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialTextZone : TriggerZone
 {
-    [TextArea]
+    [TextArea, SerializeField]
     string textToDisplay = "";
 
     private void Start()
