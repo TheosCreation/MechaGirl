@@ -16,7 +16,7 @@ public class PlayerSpawn : MonoBehaviour
         }
     }
 
-    public void SpawnPlayer(List<Weapon> weaponsToSpawn)
+    public void SpawnPlayer(List<WeaponSpawn> weaponsToSpawn)
     {
         DestroyExistingPlayers();
 
@@ -30,12 +30,13 @@ public class PlayerSpawn : MonoBehaviour
         Vector3 spawnOffset = new Vector3(0, playerCollider.height / 2, 0);
         playerSpawned = Instantiate(player, transform.position + spawnOffset, transform.rotation).GetComponent<PlayerController>();
 
-        foreach(Weapon weaponToSpawn in weaponsToSpawn)
+        foreach(WeaponSpawn weaponToSpawn in weaponsToSpawn)
         {
-            Weapon weapon = Instantiate(weaponToSpawn);
+            Weapon weapon = Instantiate(weaponToSpawn.weaponPrefab);
 
             weapon.playerController = playerSpawned;
             weapon.canPickup = false;
+            weapon.startingAmmo = weaponToSpawn.startingAmmo;
 
             //this will attach it to the weapon holder game object and add it to the weapons array
             if (playerSpawned.weaponHolder.AddWeapon(weapon, true))

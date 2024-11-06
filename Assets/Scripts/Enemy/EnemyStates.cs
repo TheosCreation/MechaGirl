@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 // Enum for possible enemy states for debugging purposes mostly
 public enum EnemyState
@@ -10,6 +11,7 @@ public enum EnemyState
     BossAttacking,
     FlyingWonder,
     FlyingAttacking,
+    Idle,
     NOTIMPLEMENTED
 }
 public interface IEnemyState
@@ -74,13 +76,15 @@ public class ChaseState : IEnemyState
     float timer = 0.0f;
     public void Enter(Enemy enemy)
     {
+        if (enemy.target == null) return;
         if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         enemy.animator.SetBool("IsMoving", true);
     }
 
     public void Execute(Enemy enemy)
     {
-        if (!enemy.target) return;
+        if (enemy.target == null) return;
+
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
@@ -114,6 +118,8 @@ public class FlyingWonderState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
+
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
@@ -165,6 +171,8 @@ public class FlyingAttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
+
         foreach (Weapon weapon in enemy.weapons)
         {
             Vector3 directionToTarget = enemy.target.position - weapon.transform.position;
@@ -241,6 +249,7 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
 
         foreach (Weapon weapon in enemy.weapons)
         {
@@ -323,5 +332,20 @@ public class BossAttackingState : IEnemyState
         {
             weapon.OnAttack -= () => AttackExecuted(enemy);
         }
+    }
+}
+
+public class IdleState : IEnemyState
+{
+    public void Enter(Enemy enemy)
+    {
+    }
+
+    public void Execute(Enemy enemy)
+    {
+    }
+
+    public void Exit(Enemy enemy)
+    {
     }
 }

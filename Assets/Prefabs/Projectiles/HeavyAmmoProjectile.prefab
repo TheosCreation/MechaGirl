@@ -121,7 +121,7 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 136
-  damage: 1
+  damage: 9
   owner: {fileID: 0}
   ownerLayer: -1
   ownerTag: 

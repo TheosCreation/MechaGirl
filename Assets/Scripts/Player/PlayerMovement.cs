@@ -90,9 +90,9 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing) return;
 
         movementInput = InputManager.Instance.MovementVector;
-        float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
-        smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
-        playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
+        //float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
+        //smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
+        //playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
         if (movementInput == Vector2.zero)
         {
             movementController.movement = false;
