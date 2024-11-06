@@ -13,6 +13,7 @@ public class BossSpawner : IResetable
     private BossEnemy bossSpawned;
     private int enemiesAlive = 0;
     public int maxAllowedToBeAlive = 8;
+    private List<Enemy> spawnedEnemies = new List<Enemy>(); // List to track spawned enemies
 
     private void Awake()
     {
@@ -65,6 +66,9 @@ public class BossSpawner : IResetable
             spawnedEnemy.OnDeath += HandleEnemyDeath;
             enemiesAlive++;
 
+            // Add to the list of spawned enemies
+            spawnedEnemies.Add(spawnedEnemy);
+
             PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
             if (player != null)
             {
@@ -81,15 +85,15 @@ public class BossSpawner : IResetable
     {
         enemiesAlive--;
 
-        if(enemiesAlive <= 0 && bossSpawned == null)
+        if (enemiesAlive <= 0 && bossSpawned == null)
         {
-            OnBossDead?.Invoke();
+            //OnBossDead?.Invoke();
         }
     }
 
     private void UpdateBossHealthBar()
     {
-        if(bossSpawned != null)
+        if (bossSpawned != null)
         {
             UiManager.Instance.SetBossBarHealth(bossSpawned.Health / bossSpawned.maxHealth);
         }
@@ -106,9 +110,23 @@ public class BossSpawner : IResetable
             Destroy(bossSpawned.gameObject);
         }
 
+        // Destroy all remaining enemies
+        foreach (Enemy enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
+        spawnedEnemies.Clear(); // Clear the list of spawned enemies
+        enemiesAlive = 0; // Reset the enemy count
+
+        SpawnBoss();
+
         // Hide the boss health bar
         UiManager.Instance.SetBossBarStatus(false);
     }
+
 
     private void HandleBossDeath()
     {
@@ -116,9 +134,18 @@ public class BossSpawner : IResetable
 
         bossSpawned = null;
 
-        if (enemiesAlive <= 0)
+        // Kill all remaining enemies when the boss dies
+        foreach (Enemy enemy in spawnedEnemies)
         {
-            OnBossDead?.Invoke();
+            if (enemy != null)
+            {
+                enemy.Damage(1000f);
+            }
         }
+
+        spawnedEnemies.Clear(); // Clear the list since all enemies are now dead
+        enemiesAlive = 0;
+
+        OnBossDead?.Invoke();
     }
 }

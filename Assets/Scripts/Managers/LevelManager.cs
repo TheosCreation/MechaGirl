@@ -107,16 +107,14 @@ class LevelManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        // Spawn the new player with the weapons again
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
+
         ResetLevel();
         OnPlayerRespawn?.Invoke();
 
         UiManager.Instance.OpenPlayerHud();
 
-        //reset player health reset scene
-
-
-        // Spawn the new player with the weapons again
-        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
 
         //reset doors, remove enemies, reset trigger zones
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
