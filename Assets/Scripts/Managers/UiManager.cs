@@ -56,6 +56,7 @@ public class UiManager : MonoBehaviour
 
     private void Start()
     {
+        pickedUpWeaponTypes = new HashSet<Type>();
         Time.timeScale = 1;
         InputManager.Instance.EnableInGameInput();
         deathScreen.SetActive(false);
