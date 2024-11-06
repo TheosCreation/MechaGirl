@@ -640,6 +640,7 @@ MonoBehaviour:
   velocityThreshold: 0.01
   controlGravity: 1
   gravityScale: 1
+  originalGravityScale: -28.215
   useFriction: 1
   friction: 0.9
   airFriction: 0.992
@@ -694,7 +695,7 @@ MonoBehaviour:
   walkingRightTransition: 0.025
   canJump: 1
   isJumping: 0
-  jumpForce: 8
+  jumpForce: 10
   jumpDuration: 0.15
   wallDistance: 1
   maxWallJumps: 3
@@ -706,6 +707,7 @@ MonoBehaviour:
   dashForce: 30
   dashDuration: 0.2
   dashCooldown: 0.55
+  reducedGravityFactor: 0.15
 --- !u!114 &1032469067366187872
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,6 +15,7 @@ public class MovementController : MonoBehaviour
     [Header("Gravity")]
     [SerializeField] private bool controlGravity = true;
     public float gravityScale = 1.0f;
+    public float originalGravityScale = -18.81f;
 
     [Header("Friction")]
     [SerializeField] private bool useFriction = true;
@@ -51,6 +52,7 @@ public class MovementController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Physics.gravity = new Vector3(0, originalGravityScale, 0);
     }
 
     private void FixedUpdate()
@@ -263,7 +265,17 @@ public class MovementController : MonoBehaviour
             }
         }
     }
+    public void ReduceGravity(float factor)
+    {
 
+        Debug.Log("asdfsdf");
+        Physics.gravity = new Vector3(0,originalGravityScale * factor,0);
+    }
+
+    public void RestoreGravity()
+    {
+        Physics.gravity = new Vector3(0,originalGravityScale,0);
+    }
     private bool CheckOnSlope()
     {
         // Define the positions of the corners relative to feetTransform
@@ -290,6 +302,10 @@ public class MovementController : MonoBehaviour
 
         // If none of the raycasts hit the ground, return false
         return false;
+    }
+    public float GetVerticalVelocity()
+    {
+        return rb.velocity.y;
     }
 
     public void SetFriction(bool useFriction)
