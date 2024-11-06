@@ -110,7 +110,7 @@ MonoBehaviour:
   loseDistance: 7
   attackDuration: 1
   delayTimer: {fileID: 0}
-  weapon: {fileID: 0}
+  weapons: []
   canRotate: 1
   bulletsPerBurst: 3
   burstDelay: 0.5
@@ -355,7 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateY: 0
+  rotateY: 1
 --- !u!4 &8595988574636285597 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 0aed2311b1b62504d9b98c7a82d035df,
@@ -502,7 +502,7 @@ MonoBehaviour:
     type: 2}
   gunInGameController: {fileID: 22100000, guid: a9b67be26b3f0e841a0fb1ea6df40a81,
     type: 2}
-  isEquip: 0
+  isEquip: 1
   equipTime: 0.5
   canThrow: 1
   canShoot: 1
@@ -521,7 +521,9 @@ MonoBehaviour:
   shootingSource: {fileID: 4079941613346214454}
   shootingSounds:
   - {fileID: 8300000, guid: df51f73ac607e0048a801c911f7bd37f, type: 3}
+  pickUpSound: {fileID: 0}
   predictionTime: 0.2
+  playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 1
 --- !u!82 &4079941613346214454 stripped
