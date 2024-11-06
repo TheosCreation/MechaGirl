@@ -21,7 +21,6 @@ public class UiManager : MonoBehaviour
     [SerializeField] private UiBar bossBar;
     [SerializeField] private Transform keycardHolder;
 
-    [SerializeField] private GameObject tutorialHud;
     [SerializeField] private TMP_Text tutorialText;
 
     //public Image image;
@@ -47,6 +46,7 @@ public class UiManager : MonoBehaviour
         deathScreen.SetActive(false);
         levelCompleteScreen.gameObject.SetActive(false);
         bossBar.gameObject.SetActive(false);
+        SetTutorialText("");
     }
 
     public void PauseMenu(bool isPaused)
@@ -79,8 +79,8 @@ public class UiManager : MonoBehaviour
     public void SetTutorialText(string text)
     {
         tutorialText.text = text;
-    
-        tutorialHud.SetActive(!(text == ""));
+
+        tutorialText.transform.parent.gameObject.SetActive(!(text == ""));
       
     }
     public void UpdateWeaponIcon(Sprite weaponIcon)

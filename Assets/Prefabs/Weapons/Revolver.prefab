@@ -271,7 +271,7 @@ MonoBehaviour:
   canShoot: 1
   isShooting: 0
   shootsPerSecond: 2
-  screenShakeDuration: 0.02
+  screenShakeDuration: 0.1
   screenShakeAmount: 0.05
   canPickup: 0
   startingAmmo: 20
