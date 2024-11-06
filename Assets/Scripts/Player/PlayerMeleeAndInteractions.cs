@@ -18,7 +18,6 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
 
     private void Awake()
     {
-        InputManager.Instance.playerInput.InGame.Melee.started += _ctx => Melee();
 
         playerController = GetComponent<PlayerController>();
         meleeTimer = gameObject.AddComponent<Timer>();

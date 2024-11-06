@@ -12,6 +12,7 @@ public class BossSpawner : IResetable
     public UnityEvent OnBossDead;
     private BossEnemy bossSpawned;
     private int enemiesAlive = 0;
+    public int maxAllowedToBeAlive = 8;
 
     public void SpawnBoss()
     {
@@ -38,6 +39,12 @@ public class BossSpawner : IResetable
     {
         foreach (Transform spawnLocation in enemySpawnLocations)
         {
+            // Check if we can spawn another enemy based on the max allowed limit
+            if (enemiesAlive >= maxAllowedToBeAlive)
+            {
+                break; // Stop spawning if we've reached the maximum limit
+            }
+
             // Select a random enemy prefab
             Enemy randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
@@ -45,6 +52,7 @@ public class BossSpawner : IResetable
             Enemy spawnedEnemy = Instantiate(randomEnemy, spawnLocation.position, spawnLocation.rotation);
             spawnedEnemy.OnDeath += HandleEnemyDeath;
             enemiesAlive++;
+
             PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
             if (player != null)
             {
@@ -54,7 +62,6 @@ public class BossSpawner : IResetable
             {
                 Debug.LogError("No player found");
             }
-
         }
     }
 

@@ -175,13 +175,17 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void Die()
     {
-        OnDeath?.Invoke();
+        InvokeOnDeath();
         foreach (Weapon weapon in weapons)
         {
             weapon.Throw(Vector3.up, 0.0f, 0.0f);
         }
 
         Destroy(gameObject);
+    }
+    protected void InvokeOnDeath()
+    {
+        OnDeath?.Invoke();
     }
 
     public void SetTarget(Transform Target)

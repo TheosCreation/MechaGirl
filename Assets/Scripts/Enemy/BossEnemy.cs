@@ -31,7 +31,7 @@ public class BossEnemy : Enemy
     //Removed the drop weapon on death
     public override void Die()
     {
-        //OnDeath?.Invoke();
+        InvokeOnDeath();
         Destroy(gameObject);
     }
 }
