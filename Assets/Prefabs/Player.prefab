@@ -251,6 +251,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c9768162d2447eb4699ce136f9a0c413, type: 3}
   pickUpSound: {fileID: 0}
   predictionTime: 0.2
+  playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 1
   meleeRange: 2.5
@@ -966,7 +967,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2728306228652372209
 Transform:
   m_ObjectHideFlags: 0
