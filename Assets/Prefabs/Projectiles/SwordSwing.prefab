@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -7144735408470037351}
   - component: {fileID: 5278198477854861123}
   - component: {fileID: 901053658116274019}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: SwordSwing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,8 +81,14 @@ MonoBehaviour:
     m_Bits: 136
   damage: 10
   owner: {fileID: 0}
+  ownerLayer: -1
+  ownerTag: 
   speed: 20
-  destroy: 0
+  headShotMultiplier: 1.5
+  destroyOnHit: 1
+  onCollision:
+    m_PersistentCalls:
+      m_Calls: []
   player: {fileID: 0}
   playerMove: {fileID: 0}
   enemy: {fileID: 0}

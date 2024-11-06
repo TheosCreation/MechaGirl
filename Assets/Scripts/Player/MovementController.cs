@@ -14,6 +14,7 @@ public class MovementController : MonoBehaviour
 
     [Header("Gravity")]
     [SerializeField] private bool controlGravity = true;
+    public float gravityScale = 1.0f;
 
     [Header("Friction")]
     [SerializeField] private bool useFriction = true;
@@ -56,22 +57,9 @@ public class MovementController : MonoBehaviour
     {
         isGrounded = CheckGrounded();
 
-        if (isGrounded)
+        if (!movement && useFriction)
         {
-            SetGravity(false);
-            AddForce(Vector3.down * 0.1f);
-            if (!movement && useFriction)
-            {
-                ApplyFriction(friction);
-            }
-        }
-        else
-        {
-            SetGravity(true);
-            if (!movement && useFriction)
-            {
-                ApplyFriction(airFriction);
-            }
+            ApplyFriction(friction);
         }
 
         if (rb.velocity.sqrMagnitude < velocityThreshold * velocityThreshold)

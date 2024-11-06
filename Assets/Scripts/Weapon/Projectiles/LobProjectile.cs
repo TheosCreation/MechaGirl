@@ -12,6 +12,7 @@ public class LobProjectile : Projectile
 
     public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
+        base.Initialize(startPosition, direction, fromPlayer);
         rb.useGravity = true;
         if (!fromPlayer)
         {

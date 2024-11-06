@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
-    [SerializeField] protected bool canPickup = true; // moved up to settings tab so easily visable
+    public bool canPickup = true; // moved up to settings tab so easily visable
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
@@ -51,6 +51,7 @@ public class Weapon : MonoBehaviour
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
+    [SerializeField] protected AudioClip pickUpSound;
 
     [HideInInspector] public float predictionTime = 0.2f;
 
@@ -58,7 +59,7 @@ public class Weapon : MonoBehaviour
 
     protected Transform target; // Target to aim at
 
-    protected PlayerController playerController;
+    public PlayerController playerController;
     [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
@@ -197,7 +198,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected virtual void Attach()
+    public virtual void Attach()
     {
         if (Ammo > 0)
         {
@@ -294,10 +295,14 @@ public class Weapon : MonoBehaviour
 
         playerController = pc;
 
+        if(pickUpSound)
+        {
+            shootingSource.PlayOneShot(pickUpSound);
+        }
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if (weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this, false))
         {
             //if is new weapon lets equip it
             Attach();
@@ -321,16 +326,6 @@ public class Weapon : MonoBehaviour
         animator.SetTrigger("Shoot");
 
         // Trigger screen shake if applicable
-
-        if (playerController)
-        {
-            shotDirection = playerController.playerCamera.transform.forward;
-        }
-        else
-        {
-
-            shotDirection = transform.forward;
-        }
         if (playerController != null)
         {
             playerController.playerLook.TriggerScreenShake(screenShakeDuration, screenShakeAmount);
@@ -356,32 +351,24 @@ public class Weapon : MonoBehaviour
             Debug.LogError("Projectile has not been set");
             return;
         }
-        Quaternion rotation = Quaternion.identity;
-        if (playerController)
-        {
-            rotation = playerController.playerCamera.transform.rotation;
-        }
-        else
-        {
-            rotation = transform.rotation;
-        }
 
         Projectile projectile = null;
         if (playerController != null)
         {
-            projectile = Instantiate(playerProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(playerProjectilePrefab, transform.position, playerController.playerCamera.transform.rotation);
         }
         else
         {
-            projectile = Instantiate(enemyProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
         }
+
         if (projectile != null)
         {
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
 
-                projectile.Initialize(playerController.playerCamera.transform.position, shotDirection, true);
+                projectile.Initialize(playerController.playerCamera.transform.position, playerController.playerCamera.transform.forward, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
                 
 
@@ -391,7 +378,7 @@ public class Weapon : MonoBehaviour
                 GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize(transform.position, shotDirection, false);
+                projectile.Initialize(transform.position, transform.forward, false);
             }
         }
     }

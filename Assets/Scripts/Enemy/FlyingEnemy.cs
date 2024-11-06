@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.AI;
+﻿using UnityEngine;
 
 public class FlyingEnemy : Enemy
 {
@@ -31,7 +29,7 @@ public class FlyingEnemy : Enemy
         SetDefaultState();
         delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
-        weapon = GetComponentInChildren<Weapon>();
+        weapons = GetComponentsInChildren<Weapon>();
         rb.useGravity = false; // Disable gravity for flying
         rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
         GameObject player = GameObject.FindGameObjectWithTag("Player");

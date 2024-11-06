@@ -327,7 +327,7 @@ MonoBehaviour:
   gunInGameController: {fileID: 22100000, guid: db8d7393990000f46b6cbc3385bbe48f,
     type: 2}
   isEquip: 0
-  equipTime: 0.1
+  equipTime: 0.15
   canThrow: 1
   canShoot: 1
   isShooting: 0
@@ -345,10 +345,8 @@ MonoBehaviour:
     type: 3}
   shootingSource: {fileID: 8222962086532144061}
   shootingSounds:
-  - {fileID: 8300000, guid: ee8637923846ad84db67c9438176e6c2, type: 3}
-  - {fileID: 8300000, guid: 98199dd557083fd41ad64f327319ef33, type: 3}
-  - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
-  - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
+  - {fileID: 8300000, guid: edd3315b505ef0b4baba4e847a00e988, type: 3}
+  pickUpSound: {fileID: 8300000, guid: cc345cf4ab4f5b147ad55f79f6f25bac, type: 3}
   predictionTime: 0.2
   WeaponHolder: {fileID: 0}
   ignoreAmmo: 0

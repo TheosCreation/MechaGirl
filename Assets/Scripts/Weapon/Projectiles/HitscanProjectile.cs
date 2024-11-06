@@ -1,5 +1,4 @@
 using Runtime;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class HitscanProjectile : Projectile 

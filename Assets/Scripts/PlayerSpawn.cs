@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
@@ -12,12 +14,9 @@ public class PlayerSpawn : MonoBehaviour
             Debug.LogError("Player prefab is not assigned in the PlayerSpawn script.");
             return;
         }
-
-        // Spawn the new player
-        SpawnPlayer();
     }
 
-    public void SpawnPlayer()
+    public void SpawnPlayer(List<Weapon> weaponsToSpawn)
     {
         DestroyExistingPlayers();
 
@@ -30,6 +29,21 @@ public class PlayerSpawn : MonoBehaviour
 
         Vector3 spawnOffset = new Vector3(0, playerCollider.height / 2, 0);
         playerSpawned = Instantiate(player, transform.position + spawnOffset, transform.rotation).GetComponent<PlayerController>();
+
+        foreach(Weapon weaponToSpawn in weaponsToSpawn)
+        {
+            Weapon weapon = Instantiate(weaponToSpawn);
+
+            weapon.playerController = playerSpawned;
+            weapon.canPickup = false;
+
+            //this will attach it to the weapon holder game object and add it to the weapons array
+            if (playerSpawned.weaponHolder.AddWeapon(weapon, true))
+            {
+                //if is new weapon lets equip it
+                weapon.Attach();
+            }
+        }
     }
 
     private void DestroyExistingPlayers()

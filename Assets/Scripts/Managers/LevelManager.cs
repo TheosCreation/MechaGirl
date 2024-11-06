@@ -12,13 +12,11 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
-    [HideInInspector] public bool resetLevel = true;
 
-    private List<TriggerDoor> triggerDoors = new List<TriggerDoor>();
-    private List<TriggerZone> triggerZones = new List<TriggerZone>();
-    private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
-    private List<Spawner> spawners = new List<Spawner>();
-    private List<BossSpawner> bossSpawners = new List<BossSpawner>();
+    public List<Keycard> currentHeldKeycards;
+    [SerializeField] List<Weapon> weaponsToSpawnWith;
+
+    private List<IResetable> resetables = new List<IResetable>();
 
     private void Awake()
     {
@@ -31,6 +29,14 @@ class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
+        if (playerSpawn == null)
+        {
+            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
+        }
+
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
     }
 
     void Start()
@@ -39,19 +45,8 @@ class LevelManager : MonoBehaviour
         {
             GameManager.Instance.Init();
         }
-
-        // Register all objects at the start
-        triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
-        triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
-        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None));
-        spawners.AddRange(FindObjectsByType<Spawner>(FindObjectsSortMode.None)); 
-        bossSpawners.AddRange(FindObjectsByType<BossSpawner>(FindObjectsSortMode.None)); 
         
-        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if (playerSpawn == null)
-        {
-            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
-        }
+        
     }
 
     public void StartLevelTimer()
@@ -102,23 +97,16 @@ class LevelManager : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        if (resetLevel)
-        {
-            ResetDoors(); 
-            ResetTriggers();
-            ResetCheckPoints();
-            ResetSpawners();
-        }
-        else
-        {
-            OnPlayerRespawn?.Invoke();
-        }
+        ResetLevel();
+        OnPlayerRespawn?.Invoke();
 
         UiManager.Instance.OpenPlayerHud();
 
         //reset player health reset scene
 
-        playerSpawn.SpawnPlayer();
+
+        // Spawn the new player with the weapons again
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
 
         //reset doors, remove enemies, reset trigger zones
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
@@ -161,40 +149,29 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    public void ResetDoors()
+    public void RegisterObject(IResetable resetable)
     {
-        foreach (TriggerDoor door in triggerDoors)
+        if (!resetables.Contains(resetable))
+            resetables.Add(resetable);
+    }
+    public void Deregister(IResetable resetable)
+    {
+        if (resetables.Contains(resetable))
+            resetables.Remove(resetable);
+    }
+
+    public void ResetLevel()
+    {
+        foreach (IResetable resetable in resetables)
         {
-            door.Unlock();
+            resetable.Reset();
         }
     }
 
-    public void ResetTriggers()
+    public void SetTempCamera(GameObject gameObject)
     {
-        foreach (TriggerZone triggerZone in triggerZones)
-        {
-            triggerZone.Reset();
-        }
-    }
-    
-    public void ResetCheckPoints()
-    {
-        foreach (TriggerCheckPoint checkPoint in checkPoints)
-        {
-            checkPoint.Reset();
-        }
-    }
-
-    public void ResetSpawners()
-    {
-        foreach(Spawner spawner in spawners)
-        {
-            spawner.Reset();
-        }
-        
-        foreach(BossSpawner spawner in bossSpawners)
-        {
-            spawner.Reset();
-        }
+        if (gameObject == null) return;
+        tempCamera = gameObject;
+        tempCamera.transform.SetParent(null);
     }
 }

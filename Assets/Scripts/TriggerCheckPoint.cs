@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerCheckPoint : MonoBehaviour
+public class TriggerCheckPoint : IResetable
 {
     public UnityEvent OnPlayerRespawn;
     private bool active = true;
@@ -24,13 +24,12 @@ public class TriggerCheckPoint : MonoBehaviour
             active = false;
             LevelManager.Instance.SetCheckPoint(transform);
             LevelManager.Instance.OnPlayerRespawn = OnPlayerRespawn;
-            LevelManager.Instance.resetLevel = false;
             spriteRenderer.enabled = false;
             boxCollider.enabled = false;
         }
     }
 
-    public void Reset()
+    public override void Reset()
     {
         active = true;
         spriteRenderer.enabled = true;

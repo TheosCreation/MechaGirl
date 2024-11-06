@@ -1,16 +1,19 @@
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class Explosion : MonoBehaviour
 {
     public float despawnTimer = 2.0f;
     public float deactivateTime = 0.1f;
     public float damage = 1.0f;
-    public bool enemy = true;
+    public bool fromEnemy = true;
     private AudioSource audioSource;
     private Collider triggerCollider;
     private Timer deactivateTimer;
     [SerializeField] private AudioClip explosionSound;
+
+    [Header("Screen Shake")]
+    [SerializeField] private float screenShakeDuration = 0.1f;
+    [SerializeField] private float screenShakeAmount = 0.1f;
 
     private void Awake()
     {
@@ -40,9 +43,14 @@ public class Explosion : MonoBehaviour
         }
         if (damageable != null )
         {
-            if (other.CompareTag("Player") == enemy)
+            // If the enemy shoots a explosion it cannot damage other enemies or itself
+            if (!fromEnemy || (fromEnemy && other.CompareTag("Player")))
             {
-                damageable.Damage(damage);
+                damageable.Damage(damage); var Player = other.GetComponent<PlayerLook>();
+                if (Player != null)
+                {
+                    Player.TriggerScreenShake(screenShakeDuration, screenShakeAmount);
+                }
             }
         }
     }

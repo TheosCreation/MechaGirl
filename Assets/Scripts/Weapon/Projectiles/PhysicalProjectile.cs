@@ -13,6 +13,7 @@ public class PhysicalProjectile : Projectile
 
     public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
+        base.Initialize(startPosition, direction, fromPlayer);
         if (!fromPlayer)
         {
             //remove the Enemy layer from the hitMask

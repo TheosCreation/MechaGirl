@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI; // Make sure to include this for NavMesh-related functionality
 
@@ -44,7 +43,7 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = Instantiate(GetRandomEnemyToSpawn(), randomPoint, Quaternion.identity);
 
             // Set the target to a player by finding a GameObject with the "Player" tag
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
             if (player != null)
             {
                 Enemy enemyComponent = enemy.GetComponent<Enemy>();

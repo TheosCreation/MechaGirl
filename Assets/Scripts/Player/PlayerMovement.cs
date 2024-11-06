@@ -1,6 +1,5 @@
-﻿using System.Collections;
+﻿using System;
 using UnityEngine;
-using UnityEngine.InputSystem; // Ensure you have the correct namespace for InputManager
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private MovementController movementController;
 
     [Header("Movement")]
-    [SerializeField] private float maxSpeed = 2.0f;
+    [SerializeField] private float maxWalkSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
     [SerializeField] private float deceleration = 2.0f;
 
@@ -31,6 +30,12 @@ public class PlayerMovement : MonoBehaviour
     private int remainingWallJumps;
     private Vector3 wallNormal;
 
+    [Header("Wall Running")]
+    [SerializeField] private float maxWallRunSpeed = 2.0f;
+    [SerializeField] private float wallRunDuration = 2.0f; // How long the wall run lasts
+    public bool isWallRunning = false;
+    private Timer wallRunTimer;
+
     [Header("Dash")]
     [SerializeField] public bool isDashing = false;
     [SerializeField] private bool canDash = true;
@@ -51,16 +56,17 @@ public class PlayerMovement : MonoBehaviour
 
         jumpTimer = gameObject.AddComponent<Timer>();
         dashTimer = gameObject.AddComponent<Timer>();
-        dashCoolDownTimer = gameObject.AddComponent<Timer>();
+        dashCoolDownTimer = gameObject.AddComponent<Timer>(); 
+        wallRunTimer = gameObject.AddComponent<Timer>();
 
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
     }
+
     private void FixedUpdate()
     {
         CheckLanding();
 
         if (isDashing) return;
-
 
         movementInput = InputManager.Instance.MovementVector;
         float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
@@ -72,10 +78,47 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if(isWallRunning)
+        {
+            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+            movementController.ResetVerticalVelocity();
+
+            movementController.AddForce(wallForward * 5.0f);
+
+            return;
+        }
+
+
+        
+
         Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
         movement = movement.normalized;
 
-        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
+        movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
+    }
+
+    private void EndWallRun()
+    {
+        if (!isWallRunning) // Only start wall run if not already wall running
+        {
+            movementController.SetGravity(true);
+            isWallRunning = true;
+
+            // Reduce gravity while wall running
+            //movementController. *= wallRunGravityScale;
+
+            // Start the wall run timer
+            wallRunTimer.StopTimer();
+            wallRunTimer.SetTimer(wallRunDuration, EndWallRun);
+        }
+    }
+
+    private void StartWallRun()
+    {
+        isWallRunning = false;
+        movementController.SetGravity(false);
+        // movementController. /= wallRunGravityScale;
     }
 
     void Jump()

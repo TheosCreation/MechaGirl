@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TriggerZone : MonoBehaviour
+public class TriggerZone : IResetable
 {
     [SerializeField] private bool reuseable = false;
 
@@ -34,7 +34,7 @@ public class TriggerZone : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public override void Reset()
     {
         active = true;
     }
