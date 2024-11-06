@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -165,5 +166,10 @@ public class UiManager : MonoBehaviour
     public void AddKeyCardIcon(GameObject icon)
     {
         Instantiate(icon, keycardHolder);
+    }
+
+    public void PickUp(Sprite iconSprite)
+    {
+      
     }
 }
