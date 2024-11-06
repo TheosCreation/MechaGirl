@@ -10,6 +10,7 @@ public class TriggerZone : IResetable
     public UnityEvent onTriggerExit;
 
     private bool active = true;
+    private bool complete = false;
 
     // This method is called when another collider enters the trigger zone
     protected virtual void OnTriggerEnter(Collider other)
@@ -34,8 +35,14 @@ public class TriggerZone : IResetable
         }
     }
 
+    public void Complete()
+    {
+        complete = true;
+    }
+
     public override void Reset()
     {
+        if(complete) return;
         active = true;
     }
 }

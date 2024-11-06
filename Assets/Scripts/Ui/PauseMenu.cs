@@ -43,6 +43,9 @@ public class PauseMenu : MonoBehaviour
         LevelManager.Instance.KillCurrentPlayer();
         //PauseManager.Instance.SetPaused(false);
 
+        LevelManager.Instance.DestroyAllEnemies();
+        LevelManager.Instance.DestroyAllWeapons();
+
         StartCoroutine(RespawnPlayerNextFrame());
     }
 
