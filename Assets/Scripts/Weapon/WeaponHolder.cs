@@ -103,7 +103,7 @@ public class WeaponHolder : MonoBehaviour
     }
 
     //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
-    public bool AddWeapon(Weapon weapon)
+    public bool AddWeapon(Weapon weapon, bool ignoreParticles)
     {
         if (lastThrowWeapon == weapon)
         {
@@ -135,7 +135,7 @@ public class WeaponHolder : MonoBehaviour
 
         // Add the new weapon to the end
         newWeaponsArray[weapons.Length] = weapon;
-        pickupParticle.Play();
+        if(!ignoreParticles) pickupParticle.Play();
 
         // Replace the old array with the new one
         weapons = newWeaponsArray;
@@ -143,10 +143,14 @@ public class WeaponHolder : MonoBehaviour
         weapon.enabled = false; //disable the weapon script as the game object stays active
         weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
         weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
-        if (currentWeapon.GetType() == weapons[0].GetType())
-        { 
-            SelectWeapon(weapons.Length - 1);
+        if (currentWeapon != null && weapons.Length > 0 && weapons[0] != null)
+        {
+            if (currentWeapon.GetType() == weapons[0].GetType())
+            {
+                SelectWeapon(weapons.Length - 1);
+            }
         }
+
         return true;
     }
 

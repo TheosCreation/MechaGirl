@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackDuration = 1.0f;
 
     [HideInInspector] public Timer delayTimer;
-    [HideInInspector] public Weapon weapon;
+    [HideInInspector] public Weapon[] weapons;
     [HideInInspector] public bool canRotate = true;
     protected SpriteRenderer[] spriteRenderers;
 
@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamageable
         SetDefaultState();
         delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
-        weapon = GetComponentInChildren<Weapon>();
+        weapons = GetComponentsInChildren<Weapon>();
     }
 
     protected void Update()
@@ -173,20 +173,19 @@ public class Enemy : MonoBehaviour, IDamageable
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
     }
 
-    public void Die()
+    public virtual void Die()
     {
-        OnDeath?.Invoke();
-        if (weapon == null)
-        {
-            weapon = GetComponentInChildren<Weapon>();
-        }
-
-        if (weapon != null)
+        InvokeOnDeath();
+        foreach (Weapon weapon in weapons)
         {
             weapon.Throw(Vector3.up, 0.0f, 0.0f);
         }
 
         Destroy(gameObject);
+    }
+    protected void InvokeOnDeath()
+    {
+        OnDeath?.Invoke();
     }
 
     public void SetTarget(Transform Target)
@@ -220,18 +219,13 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (isRanged)
         {
-            if (weapon == null)
+            foreach (Weapon weapon in weapons)
             {
-                weapon = GetComponentInChildren<Weapon>();
-            }
-            if (weapon != null)
-            {
-
                 weapon.StartShooting();
             }
-            else
+            if(weapons.Length == 0)
             {
-                Debug.LogAssertion("Enemy has no attached Weapon but is ranged");
+                Debug.LogAssertion("Enemy has no attached Weapon but is trying to shoot a weapon");
             }
         }
         else
@@ -242,7 +236,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public virtual void EndAttack()
     {
-        if (weapon != null)
+        foreach (Weapon weapon in weapons)
         {
             weapon.EndShooting();
         }

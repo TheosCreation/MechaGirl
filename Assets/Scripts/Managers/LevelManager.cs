@@ -14,6 +14,7 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public UnityEvent OnPlayerRespawn;
 
     public List<Keycard> currentHeldKeycards;
+    [SerializeField] List<Weapon> weaponsToSpawnWith;
 
     private List<IResetable> resetables = new List<IResetable>();
 
@@ -28,6 +29,14 @@ class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
+        if (playerSpawn == null)
+        {
+            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
+        }
+
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
     }
 
     void Start()
@@ -37,11 +46,7 @@ class LevelManager : MonoBehaviour
             GameManager.Instance.Init();
         }
         
-        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if (playerSpawn == null)
-        {
-            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
-        }
+        
     }
 
     public void StartLevelTimer()
@@ -99,7 +104,9 @@ class LevelManager : MonoBehaviour
 
         //reset player health reset scene
 
-        playerSpawn.SpawnPlayer();
+
+        // Spawn the new player with the weapons again
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
 
         //reset doors, remove enemies, reset trigger zones
         SettingsManager.Instance.player = playerSpawn.playerSpawned;

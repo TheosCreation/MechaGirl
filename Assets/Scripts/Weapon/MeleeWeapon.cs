@@ -7,7 +7,7 @@ public class MeleeWeapon : Weapon
     [SerializeField] protected float meleeDamage = 20.0f;
     [SerializeField] protected LayerMask targetLayer;
 
-    protected override void Attach()
+    public override void Attach()
     {
         base.Attach();
     }
