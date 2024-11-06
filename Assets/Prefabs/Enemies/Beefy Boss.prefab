@@ -160,8 +160,8 @@ MonoBehaviour:
   isLaunching: 0
   launchbackThreshold: 30
   maxHealth: 200
-  defaultState: 3
-  currentState: 3
+  defaultState: 6
+  currentState: 6
   spawner: {fileID: 0}
 --- !u!54 &-1773284205151008390
 Rigidbody:

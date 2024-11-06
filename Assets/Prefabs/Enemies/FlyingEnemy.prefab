@@ -123,7 +123,7 @@ MonoBehaviour:
   launchbackThreshold: 30
   maxHealth: 10
   defaultState: 4
-  currentState: 4
+  currentState: 6
   raycastDistance: 5
   moveSpeed: 5
   numberOfRays: 64

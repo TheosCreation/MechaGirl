@@ -14,6 +14,11 @@ public class BossSpawner : IResetable
     private int enemiesAlive = 0;
     public int maxAllowedToBeAlive = 8;
 
+    private void Awake()
+    {
+        SpawnBoss();
+    }
+
     public void SpawnBoss()
     {
         // Spawn the boss at the specified location
@@ -27,12 +32,19 @@ public class BossSpawner : IResetable
             bossSpawned.SetTarget(player.transform);
         }
 
-        // Enable the boss health bar UI and initialize its health
-        UiManager.Instance.SetBossBarStatus(true, bossPrefab.name);
-
         // Subscribe to health changes to update the UI accordingly
         bossSpawned.OnHealthChanged += UpdateBossHealthBar;
+
+        bossSpawned.SetActive(false);
+    }
+
+    public void ActivateBoss()
+    {
+        // Enable the boss health bar UI and initialize its health
+        UiManager.Instance.SetBossBarStatus(true, bossPrefab.name);
         UiManager.Instance.SetBossBarHealth(1.0f);
+
+        bossSpawned.SetActive(true);
     }
 
     public void SpawnEnemies()

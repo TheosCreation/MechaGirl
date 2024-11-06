@@ -1,11 +1,12 @@
 using UnityEngine.AI;
 using UnityEngine;
+using System;
 
 public class BossEnemy : Enemy
 {
     public BossSpawner spawner;
 
-    protected override void Start()
+    protected override void Awake()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -14,6 +15,7 @@ public class BossEnemy : Enemy
         weapons = GetComponentsInChildren<Weapon>();
         delayTimer = gameObject.AddComponent<Timer>();
         StateMachine = new EnemyStateMachineBuilder()
+            .AddState(new IdleState())
             .AddState(new BossAttackingState())
             .Build();
 
@@ -33,5 +35,17 @@ public class BossEnemy : Enemy
     {
         InvokeOnDeath();
         Destroy(gameObject);
+    }
+
+    public void SetActive(bool active)
+    {
+        if (active == true)
+        {
+            StateMachine.ChangeState(new BossAttackingState(), this);
+        }
+        else
+        {
+            StateMachine.ChangeState(new IdleState(), this);
+        }
     }
 }

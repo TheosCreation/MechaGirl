@@ -69,7 +69,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected EnemyState defaultState = EnemyState.Looking;
     [SerializeField] protected EnemyState currentState;
 
-    virtual protected void Start()
+    virtual protected void Awake()
     {
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -126,6 +126,9 @@ public class Enemy : MonoBehaviour, IDamageable
                 break;
             case EnemyState.FlyingAttacking:
                 StateMachine.ChangeState(new FlyingAttackingState(), this);
+                break;
+            case EnemyState.Idle:
+                StateMachine.ChangeState(new IdleState(), this);
                 break;
         }
     }

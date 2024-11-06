@@ -1,6 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+[Serializable]
+public struct WeaponSpawn
+{
+    public Weapon weaponPrefab;
+    public int startingAmmo;
+}
 
 class LevelManager : MonoBehaviour
 {
@@ -14,7 +22,7 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public UnityEvent OnPlayerRespawn;
 
     public List<Keycard> currentHeldKeycards;
-    [SerializeField] List<Weapon> weaponsToSpawnWith;
+    [SerializeField] List<WeaponSpawn> weaponsToSpawnWith;
 
     private List<IResetable> resetables = new List<IResetable>();
 
