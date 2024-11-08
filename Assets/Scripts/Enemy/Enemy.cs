@@ -39,10 +39,9 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool isDashing = false;
     private Vector3 dashDirection;
     private Vector3 dashStartPosition;
-    private Timer dashTimer;
     public LayerMask obstacleLayer;
 
-   [Header("Launch Settings")]
+    [Header("Launch Settings")]
     protected Timer launchTimer;
     public bool isLaunching = false;
     [SerializeField] protected float launchbackThreshold = 30.0f;
@@ -51,6 +50,11 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool isInvinsable = false;
     public float maxHealth = 100;
     protected float health;
+
+    [Header("Ground Settings")]
+    public bool isGrounded = true;
+    private float groundCheckDistance = 0.1f;
+    private LayerMask groundLayer;
 
     [SerializeField] protected GameObject deathParticles;
 
@@ -94,7 +98,7 @@ public class Enemy : MonoBehaviour, IDamageable
         delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
-        dashTimer = gameObject.AddComponent<Timer>();
+        groundLayer = LayerMask.GetMask("Ground");
     }
 
     protected void Update()
@@ -111,6 +115,10 @@ public class Enemy : MonoBehaviour, IDamageable
         if (isDashing)
         {
             HandleDashMovement();
+        }
+        else if (!agent.enabled)
+        {
+            CheckGrounded();
         }
     }
 
@@ -254,16 +262,14 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-
     public void Dash(float _dashSpeed = 0, float _dashDuration = 0, Vector3 _dashDirection = default)
     {
-        if(_dashDirection == default)
+        if (_dashDirection == default)
         {
             _dashDirection = transform.forward;
         }
         dashSpeed = _dashSpeed == 0 ? dashSpeed : _dashSpeed;
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
-        Quaternion rotation = Quaternion.AngleAxis(-30, Vector3.right);
         dashDirection = _dashDirection;
 
         if (!isDashing)
@@ -272,41 +278,92 @@ public class Enemy : MonoBehaviour, IDamageable
             agent.enabled = false;
             rb.isKinematic = false;
             rb.useGravity = false;
-            rb.velocity = dashDirection * dashSpeed;
-            dashTimer.SetTimer(dashDuration, StopDash);
+            dashStartPosition = transform.position;
+            delayTimer.startTime = Time.time;
+            // Start the dash
+            HandleDashMovement();
+
+            // Set timer to stop the dash
+            delayTimer.SetTimer(dashDuration, StopDash);
         }
     }
-
 
     private void HandleDashMovement()
     {
-        // Check for collisions
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, rb.velocity.normalized, out hit, dashSpeed * Time.fixedDeltaTime, obstacleLayer))
+        if (isDashing)
         {
-            // Collision detected, adjust movement
-            AdjustForCollision(hit.normal);
+            float currentSpeed = CalculateCurrentSpeed();
+            rb.AddForce(dashDirection * currentSpeed *0.1f, ForceMode.Impulse);
+
+            // Check for collisions
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, dashDirection, out hit, dashSpeed * Time.fixedDeltaTime, obstacleLayer))
+            {
+                AdjustForCollision(hit.normal);
+            }
+
+            // Check if dash duration has expired
+            if (Time.time >= delayTimer.startTime + dashDuration)
+            {
+                StopDash();
+            }
         }
+        CheckGrounded();
     }
+
+    private float CalculateCurrentSpeed()
+    {
+        float elapsedTime = Time.timeSinceLevelLoad - delayTimer.startTime;
+        float t = elapsedTime / dashDuration;
+        return Mathf.Lerp(dashSpeed, 0f, t * t); // Quadratic slowdown
+    }
+
     private void AdjustForCollision(Vector3 normal)
     {
         // Calculate sliding direction
-        Vector3 slideDir = Vector3.ProjectOnPlane(rb.velocity, normal).normalized;
+        Vector3 slideDir = Vector3.ProjectOnPlane(dashDirection, normal).normalized;
 
-        // Apply new velocity
-        rb.velocity = slideDir * dashSpeed;
+        // Update dash direction
+        dashDirection = slideDir;
     }
 
     private void StopDash()
     {
+        Debug.Log("stop dash");
         isDashing = false;
-        agent.enabled = true;
-        rb.isKinematic = true;
         rb.useGravity = true;
-        rb.velocity = Vector3.zero;
-        agent.Warp(transform.position);
+        rb.isKinematic = false;
+
+        // Only enable agent if grounded
+        if (isGrounded)
+        {
+            EnableAgent();
+        }
     }
 
+    private void EnableAgent()
+    {
+        agent.enabled = true;
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+    }
+    private void CheckGrounded()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayer))
+        {
+            if (!isGrounded)
+            {
+                isGrounded = true;
+                EnableAgent();
+            }
+        }
+        else
+        {
+            isGrounded = false;
+        }
+    }
     private void LookTowardsTarget()
     {
         if (target != null)
