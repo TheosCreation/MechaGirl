@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,7 +33,7 @@ public class Spawner : IResetable
     public UnityEvent OnAllEnemiesDead;
     private bool spawnerComplete = false;
 
-    public TriggerDoor[] doors; 
+    public TriggerDoor[] doors;
     private List<Enemy> activeEnemies = new List<Enemy>();
 
     private void OnDrawGizmos()
@@ -54,15 +55,15 @@ public class Spawner : IResetable
     {
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.LogWarning("All waves have been completed. Wave count " + currentWaveIndex.ToString());
+            Debug.LogWarning("All waves have been completed. Wave count " + currentWaveIndex);
             return;
         }
 
-        // Spawn the enemies for the current wave
-        SpawnEnemiesForWave(waves[currentWaveIndex]);
+        // Start coroutine to spawn enemies for the current wave
+        StartCoroutine(SpawnEnemiesForWave(waves[currentWaveIndex]));
     }
 
-    private void SpawnEnemiesForWave(Wave wave)
+    private IEnumerator SpawnEnemiesForWave(Wave wave)
     {
         int spawnedEnemies = 0;
 
@@ -70,10 +71,13 @@ public class Spawner : IResetable
         {
             for (int i = 0; i < enemySpawn.count; i++)
             {
+                // Spawn each enemy with a delay to avoid performance spikes
                 if (SpawnEnemy(enemySpawn.enemyPrefab))
                 {
                     spawnedEnemies++;
                 }
+
+                yield return new WaitForSeconds(0.02f);
             }
         }
 
@@ -155,7 +159,7 @@ public class Spawner : IResetable
             {
                 door.Unlock();
             }
-            return; // Exit if no more waves are available
+            return;
         }
 
         // Check if all enemies in the current wave are dead
@@ -180,9 +184,8 @@ public class Spawner : IResetable
         }
     }
 
-
     private int GetEnemyCountInWave(Wave? wave)
-    { 
+    {
         if (!wave.HasValue)
         {
             Debug.LogError("Wave is null!");
@@ -206,8 +209,10 @@ public class Spawner : IResetable
 
     public override void Reset()
     {
-        if(!spawnerComplete)
+        if (!spawnerComplete)
         {
+            StopAllCoroutines();
+
             foreach (Enemy enemy in activeEnemies)
             {
                 if (enemy != null)
@@ -222,5 +227,4 @@ public class Spawner : IResetable
             deadEnemyCount = 0;
         }
     }
-
 }

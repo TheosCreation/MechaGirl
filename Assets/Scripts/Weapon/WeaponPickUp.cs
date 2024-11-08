@@ -32,10 +32,10 @@ public class WeaponPickUp : MonoBehaviour
 
                 if (!UiManager.Instance.HasPickedUpWeaponType(weaponType))
                 {
-                    weapon.PickUp(player.weaponHolder, player, false);
                     UiManager.Instance.MarkWeaponTypeAsPickedUp(weaponType);
                     UiManager.Instance.ShowPickUpAnimation(weapon.iconSprite);
                 }
+                weapon.PickUp(player.weaponHolder, player, false);
             }
             else
             {

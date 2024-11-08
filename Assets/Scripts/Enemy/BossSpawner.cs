@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,7 +9,7 @@ public class BossSpawner : IResetable
     [SerializeField] private BossEnemy bossPrefab;
     [SerializeField] private Transform bossSpawnLocation;
     public List<Transform> enemySpawnLocations; // List of spawn locations
-    public List<Enemy> enemyPrefabs;       // List of enemy prefabs
+    public List<Enemy> enemyPrefabs; // List of enemy prefabs
     public UnityEvent OnBossDead;
     private BossEnemy bossSpawned;
     private int enemiesAlive = 0;
@@ -48,14 +49,19 @@ public class BossSpawner : IResetable
         bossSpawned.SetActive(true);
     }
 
-    public void SpawnEnemies()
+    public void StartSpawningEnemies()
+    {
+        StartCoroutine(SpawnEnemiesCoroutine());
+    }
+
+    private IEnumerator SpawnEnemiesCoroutine()
     {
         foreach (Transform spawnLocation in enemySpawnLocations)
         {
             // Check if we can spawn another enemy based on the max allowed limit
             if (enemiesAlive >= maxAllowedToBeAlive)
             {
-                break; // Stop spawning if we've reached the maximum limit
+                yield break; // Stop spawning if we've reached the maximum limit
             }
 
             // Select a random enemy prefab
@@ -78,6 +84,9 @@ public class BossSpawner : IResetable
             {
                 Debug.LogError("No player found");
             }
+
+            // Yield return null to spread the instantiation over multiple frames
+            yield return new WaitForSeconds(bossPrefab.spawnDelay); // Adjust this delay as needed
         }
     }
 
@@ -126,7 +135,6 @@ public class BossSpawner : IResetable
         // Hide the boss health bar
         UiManager.Instance.SetBossBarStatus(false);
     }
-
 
     private void HandleBossDeath()
     {

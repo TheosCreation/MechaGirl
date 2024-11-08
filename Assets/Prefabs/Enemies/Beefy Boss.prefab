@@ -161,6 +161,8 @@ MonoBehaviour:
   launchbackThreshold: 30
   isInvinsable: 0
   maxHealth: 500
+  deathParticles: {fileID: 1105883997488057600, guid: bc2587c02f71e8f4f844704ede7ee801,
+    type: 3}
   defaultState: 6
   currentState: 6
   spawner: {fileID: 0}

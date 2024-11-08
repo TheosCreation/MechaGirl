@@ -706,7 +706,7 @@ MonoBehaviour:
   canDash: 1
   dashForce: 30
   dashDuration: 0.2
-  dashCooldown: 0.55
+  dashCooldown: 0.3
   reducedGravityFactor: 0.15
 --- !u!114 &1032469067366187872
 MonoBehaviour:
@@ -858,13 +858,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422d6b45520543d44ab5fb83371f7946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionalSway: 100
-  swaySmoothness: 20
-  maxSwayAmount: 250
+  positionalSway: 25
+  swaySmoothness: 5
+  maxSwayAmount: 80
   bobbingFrequency: 7
-  verticalBobbingAmplitude: 40
-  horizontalBobbingAmplitude: 100
-  bobbingHorizontalSmoothing: 100
+  verticalBobbingAmplitude: 25
+  horizontalBobbingAmplitude: 75
+  bobbingHorizontalSmoothing: 75
 --- !u!1 &4393240980361793248
 GameObject:
   m_ObjectHideFlags: 0

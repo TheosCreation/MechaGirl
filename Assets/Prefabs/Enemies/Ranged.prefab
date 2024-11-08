@@ -94,7 +94,10 @@ MonoBehaviour:
   isDashing: 0
   isLaunching: 0
   launchbackThreshold: 30
+  isInvinsable: 0
   maxHealth: 10
+  deathParticles: {fileID: 1105883997488057600, guid: bc2587c02f71e8f4f844704ede7ee801,
+    type: 3}
   defaultState: 1
   currentState: 1
 --- !u!54 &2149757717314550231

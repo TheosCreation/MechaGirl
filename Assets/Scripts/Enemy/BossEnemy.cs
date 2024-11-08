@@ -5,6 +5,7 @@ using System;
 public class BossEnemy : Enemy
 {
     public BossSpawner spawner;
+    public float spawnDelay = 0.5f; // for the spawner to slow down spawning
 
     protected override void Awake()
     {
@@ -27,13 +28,14 @@ public class BossEnemy : Enemy
     {
         base.EndAttack();
 
-        spawner.SpawnEnemies();
+        spawner.StartSpawningEnemies();
     }
 
     //Removed the drop weapon on death
     public override void Die()
     {
         InvokeOnDeath();
+        Instantiate(deathParticles, transform.position + new Vector3(0.0f, 4.0f, 0.0f), Quaternion.identity);
         Destroy(gameObject);
     }
 

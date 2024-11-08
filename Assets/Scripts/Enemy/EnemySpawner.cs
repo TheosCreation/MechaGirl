@@ -8,15 +8,11 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform areaCenter; // Center of the spawning area
     [SerializeField] private Vector3 areaSize; // Size of the spawning area
     [SerializeField] private LayerMask navMeshLayer; // Layer mask for NavMesh checking
-    [SerializeField] private float initialSpawnInterval = 5.0f; // Initial time between spawns
-    [SerializeField] private float spawnIntervalDecreaseRate = 0.1f; // Rate at which the spawn interval decreases
-    [SerializeField] private float minimumSpawnInterval = 1.0f; // Minimum time between spawns
+    [SerializeField] private float timeBetweenSpawns = 0.001f;
 
-    private float currentSpawnInterval;
 
     private void Start()
     {
-        currentSpawnInterval = initialSpawnInterval;
         StartCoroutine(SpawnEnemies());
     }
 
@@ -25,10 +21,7 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(currentSpawnInterval);
-
-            // Decrease the spawn interval but ensure it doesn't go below the minimum
-            currentSpawnInterval = Mathf.Max(minimumSpawnInterval, currentSpawnInterval - spawnIntervalDecreaseRate);
+            yield return new WaitForSeconds(timeBetweenSpawns);
         }
     }
 

@@ -48,6 +48,9 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool isInvinsable = false;
     public float maxHealth = 100;
     protected float health;
+
+    [SerializeField] protected GameObject deathParticles;
+
     public float Health
     {
         get => health;
@@ -185,7 +188,7 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             weapon.Throw(Vector3.up, 0.0f, 0.0f);
         }
-
+        Instantiate(deathParticles, transform.position + new Vector3(0.0f, 1.5f, 0.0f), Quaternion.identity);
         Destroy(gameObject);
     }
     protected void InvokeOnDeath()
