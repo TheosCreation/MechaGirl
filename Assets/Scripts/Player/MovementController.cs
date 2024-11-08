@@ -267,8 +267,6 @@ public class MovementController : MonoBehaviour
     }
     public void ReduceGravity(float factor)
     {
-
-        Debug.Log("asdfsdf");
         Physics.gravity = new Vector3(0,originalGravityScale * factor,0);
     }
 
