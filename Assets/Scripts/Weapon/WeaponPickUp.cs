@@ -28,14 +28,16 @@ public class WeaponPickUp : MonoBehaviour
             if (isPlayer)
             {
                 Weapon weapon = other.gameObject.GetComponent<Weapon>();
-                System.Type weaponType = weapon.GetType();
-
-                if (!UiManager.Instance.HasPickedUpWeaponType(weaponType))
+                //If the player has picked up the weapon then we do ui and audio
+                if(weapon.PickUp(player.weaponHolder, player, false))
                 {
-                    UiManager.Instance.MarkWeaponTypeAsPickedUp(weaponType);
-                    UiManager.Instance.ShowPickUpAnimation(weapon.iconSprite);
+                    System.Type weaponType = weapon.GetType(); 
+                    if (!UiManager.Instance.HasPickedUpWeaponType(weaponType))
+                    {
+                        UiManager.Instance.MarkWeaponTypeAsPickedUp(weaponType);
+                        UiManager.Instance.ShowPickUpAnimation(weapon.iconSprite);
+                    }
                 }
-                weapon.PickUp(player.weaponHolder, player, false);
             }
             else
             {

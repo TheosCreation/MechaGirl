@@ -1450,7 +1450,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972347}
+  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2278,6 +2278,96 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSize.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSize.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSizeY.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSizeY.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSizeZ.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSizeZ.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startSpeed.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startLifetime.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotation.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotation.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotationX.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotationX.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotationY.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.startRotationY.minCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.maxCurve.m_RotationOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001256478528502096, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: InitialModule.gravityModifier.minCurve.m_RotationOrder
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8429187216461139093, guid: e5c81fafe737e864d9295617f81ed87a,
         type: 3}

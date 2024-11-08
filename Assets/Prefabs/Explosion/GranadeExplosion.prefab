@@ -9814,7 +9814,10 @@ MonoBehaviour:
   despawnTimer: 2
   deactivateTime: 0.05
   damage: 1
+  fromEnemy: 1
   explosionSound: {fileID: 8300000, guid: fab5bde8a23c38e4d849e33fad9ebbf3, type: 3}
+  screenShakeDuration: 0.1
+  screenShakeAmount: 0.1
 --- !u!135 &4170146851375421510
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9858,10 +9861,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 1.5
+  MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -9870,22 +9873,31 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      value: 1.0128784
+      inSlope: -4.0016
+      outSlope: -4.0016
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.40890503
+      value: 0.3866577
+      inSlope: -1.0004
+      outSlope: -1.0004
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.2501
+      outSlope: -0.2501
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
