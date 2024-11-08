@@ -614,6 +614,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4703963763928423253}
   m_PrefabAsset: {fileID: 0}
+--- !u!82 &1731450563409897576 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6431297514211717949, guid: c10ffd04921d1f948a538de2b70461ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 4703963763928423253}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4411828716956096217 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8970643556457401740, guid: c10ffd04921d1f948a538de2b70461ef,
@@ -636,6 +642,10 @@ MonoBehaviour:
   speedMultiplier: 0.1
   locked: 0
   killOverlay: {fileID: 4930594868356706942}
+  doorSoundSource: {fileID: 1731450563409897576}
+  doorOpenClip: {fileID: 8300000, guid: 12040a6065b8596409d0a5a78b5961af, type: 3}
+  doorCloseClip: {fileID: 8300000, guid: 910a712843552c447a776f3105632894, type: 3}
+  isOpen: 0
 --- !u!1 &4930594868356706942 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 372439730463222059, guid: c10ffd04921d1f948a538de2b70461ef,

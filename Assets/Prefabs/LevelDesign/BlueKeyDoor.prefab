@@ -387,15 +387,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minAnimSpeed: 1
-  speedMultiplier: 0.3
+  speedMultiplier: 0.1
   locked: 0
   killOverlay: {fileID: 6976746069477197867}
+  doorSoundSource: {fileID: 4375745529590256189}
+  doorOpenClip: {fileID: 8300000, guid: 1616b941bea6ef947be82ac996af5dce, type: 3}
+  doorCloseClip: {fileID: 8300000, guid: 910a712843552c447a776f3105632894, type: 3}
   keysColorTagsToUnlock:
-  - Blue
+  - {r: -1.569767, g: 9.88e-43, b: -1.5696869, a: 9.88e-43}
   doorLockOverlay: {fileID: 4456148616988608467}
 --- !u!4 &3346976398374777891 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5443606404637431075, guid: c10ffd04921d1f948a538de2b70461ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 7347986059814904064}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &4375745529590256189 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6431297514211717949, guid: c10ffd04921d1f948a538de2b70461ef,
     type: 3}
   m_PrefabInstance: {fileID: 7347986059814904064}
   m_PrefabAsset: {fileID: 0}

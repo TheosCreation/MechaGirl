@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -16,6 +17,8 @@ public class WeaponHolder : MonoBehaviour
     private bool isSwitching = false;
     private float scrollSwitchDelay = 0.2f;
     public ParticleSystem pickupParticle;
+    [SerializeField] protected AudioClip pickUpSound;
+    private AudioSource pickupAudioSource;
 
     private void Awake()
     {
@@ -25,7 +28,7 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
         InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashToWeapon();
         playerController = GetComponentInParent<PlayerController>();
-
+        pickupAudioSource = GetComponent<AudioSource>();
         weapons = GetComponentsInChildren<Weapon>();
     }
     void Start()
@@ -135,7 +138,11 @@ public class WeaponHolder : MonoBehaviour
 
         // Add the new weapon to the end
         newWeaponsArray[weapons.Length] = weapon;
-        if(!ignoreParticles) pickupParticle.Play();
+        if (!ignoreParticles)
+        {
+            pickupParticle.Play();
+            pickupAudioSource.PlayOneShot(pickUpSound);
+        }
 
         // Replace the old array with the new one
         weapons = newWeaponsArray;

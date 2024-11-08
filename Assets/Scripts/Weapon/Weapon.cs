@@ -51,7 +51,6 @@ public class Weapon : MonoBehaviour
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
-    [SerializeField] protected AudioClip pickUpSound;
 
     [HideInInspector] public float predictionTime = 0.2f;
 
@@ -208,7 +207,6 @@ public class Weapon : MonoBehaviour
         spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
-        rb.useGravity = true;
         transform.localRotation = Quaternion.identity;
         if (playerController != null)
         {
@@ -224,7 +222,7 @@ public class Weapon : MonoBehaviour
 
     protected void Equip()
     {
-        Attach();
+        //Attach();
         animator.enabled = true;
         if (playerController != null)
         {
@@ -289,16 +287,12 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
+    public bool PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
     {
-        if (!canPickup && !ignorePickup) return;
+        if (!canPickup && !ignorePickup) return false;
 
         playerController = pc;
 
-        if(pickUpSound)
-        {
-            shootingSource.PlayOneShot(pickUpSound);
-        }
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
@@ -307,6 +301,8 @@ public class Weapon : MonoBehaviour
             //if is new weapon lets equip it
             Attach();
         }
+
+        return true;
     }
 
     protected float CalculateFireRate()
