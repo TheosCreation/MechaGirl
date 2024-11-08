@@ -264,18 +264,18 @@ public class Enemy : MonoBehaviour, IDamageable
             _dashDirection = transform.forward;
         }
 
-        agent.enabled = false;
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(_dashDirection * dashForce, ForceMode.VelocityChange);
-
-        isDashing = true;
-        delayTimer.StopTimer();
-        delayTimer.SetTimer(dashDuration, StopDash);
 
         if (!isDashing)
         {
+            agent.enabled = false;
+            rb.isKinematic = false;
+            rb.useGravity = true;
+            rb.velocity = Vector3.zero;
+            rb.AddForce(_dashDirection * dashForce, ForceMode.VelocityChange);
+
+            isDashing = true;
+            delayTimer.StopTimer();
+            delayTimer.SetTimer(dashDuration, StopDash);
         }
     }
 
@@ -283,6 +283,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Debug.Log("stop dash");
         isDashing = false;
+        rb.velocity = Vector3.zero;
     }
 
     private void EnableAgent()
