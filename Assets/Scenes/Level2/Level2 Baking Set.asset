@@ -51,55 +51,55 @@ MonoBehaviour:
         hasOnlyBiggerBricks: 0
     - position: {x: -1, y: 0, z: 0}
       index: 2
-      probeCount: 33088
+      probeCount: 34432
       minSubdiv: 0
       indexChunkCount: 91
       shChunkCount: 5
-      bricksCount: 517
+      bricksCount: 538
       indirectionEntryInfo:
       - positionInBricks: {x: -27, y: 0, z: 0}
         minSubdiv: 0
         hasOnlyBiggerBricks: 0
     - position: {x: -1, y: 0, z: 1}
       index: 6
-      probeCount: 100800
+      probeCount: 103360
       minSubdiv: 0
       indexChunkCount: 91
       shChunkCount: 13
-      bricksCount: 1575
+      bricksCount: 1615
       indirectionEntryInfo:
       - positionInBricks: {x: -27, y: 0, z: 27}
         minSubdiv: 0
         hasOnlyBiggerBricks: 0
     - position: {x: 0, y: -1, z: 1}
       index: 5
-      probeCount: 896
+      probeCount: 640
       minSubdiv: 0
       indexChunkCount: 91
       shChunkCount: 1
-      bricksCount: 14
+      bricksCount: 10
       indirectionEntryInfo:
       - positionInBricks: {x: 0, y: -27, z: 27}
         minSubdiv: 0
         hasOnlyBiggerBricks: 0
     - position: {x: 0, y: 0, z: 0}
       index: 3
-      probeCount: 65536
+      probeCount: 68928
       minSubdiv: 0
       indexChunkCount: 91
-      shChunkCount: 8
-      bricksCount: 1024
+      shChunkCount: 9
+      bricksCount: 1077
       indirectionEntryInfo:
       - positionInBricks: {x: 0, y: 0, z: 0}
         minSubdiv: 0
         hasOnlyBiggerBricks: 0
     - position: {x: 0, y: 0, z: 1}
       index: 7
-      probeCount: 226432
+      probeCount: 225664
       minSubdiv: 0
       indexChunkCount: 91
       shChunkCount: 28
-      bricksCount: 3538
+      bricksCount: 3526
       indirectionEntryInfo:
       - positionInBricks: {x: 0, y: 0, z: 27}
         minSubdiv: 0
@@ -127,14 +127,14 @@ MonoBehaviour:
       - offset: 155648
         elementCount: 1
       - offset: 163840
-        elementCount: 8
-      - offset: 229376
+        elementCount: 9
+      - offset: 237568
         elementCount: 28
   scenarios:
     m_Keys:
     - Default
     m_Values:
-    - sceneHash: -1687911126
+    - sceneHash: 756937893
       cellDataAsset:
         m_AssetGUID: a9ceaae24876ef94893fa2a1fb377d78
         m_StreamableAssetPath: APVStreamingAssets\916209df100fae64ca2f79e34d772bde\a9ceaae24876ef94893fa2a1fb377d78.bytes
@@ -151,8 +151,8 @@ MonoBehaviour:
           - offset: 2490368
             elementCount: 1
           - offset: 2621440
-            elementCount: 8
-          - offset: 3670016
+            elementCount: 9
+          - offset: 3801088
             elementCount: 28
       cellOptionalDataAsset:
         m_AssetGUID: 4c7e0750bb5f0e74c928f9a8dc027a3c
@@ -170,8 +170,8 @@ MonoBehaviour:
           - offset: 2490368
             elementCount: 1
           - offset: 2621440
-            elementCount: 8
-          - offset: 3670016
+            elementCount: 9
+          - offset: 3801088
             elementCount: 28
   cellBricksDataAsset:
     m_AssetGUID: 54106c785c2ae594ca102662c7f17d12
@@ -183,15 +183,15 @@ MonoBehaviour:
       - offset: 0
         elementCount: 12
       - offset: 192
-        elementCount: 517
-      - offset: 8464
-        elementCount: 1575
-      - offset: 33664
-        elementCount: 14
-      - offset: 33888
-        elementCount: 1024
-      - offset: 50272
-        elementCount: 3538
+        elementCount: 538
+      - offset: 8800
+        elementCount: 1615
+      - offset: 34640
+        elementCount: 10
+      - offset: 34800
+        elementCount: 1077
+      - offset: 52032
+        elementCount: 3526
   cellSupportDataAsset:
     m_AssetGUID: d32f30f6739b99b4c8e56e3c7c2fa640
     m_StreamableAssetPath: APVStreamingAssets\916209df100fae64ca2f79e34d772bde\d32f30f6739b99b4c8e56e3c7c2fa640.bytes
@@ -208,8 +208,8 @@ MonoBehaviour:
       - offset: 4980736
         elementCount: 1
       - offset: 5242880
-        elementCount: 8
-      - offset: 7340032
+        elementCount: 9
+      - offset: 7602176
         elementCount: 28
   chunkSizeInBricks: 128
   maxCellPosition: {x: 0, y: 0, z: 1}
