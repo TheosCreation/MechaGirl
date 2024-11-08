@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Timer : MonoBehaviour
 {
+    public float startTime;
     public void StopTimer()
     {
         StopAllCoroutines();
@@ -12,6 +13,7 @@ public class Timer : MonoBehaviour
     // Set timer with a basic callback
     public void SetTimer(float delay, System.Action callback)
     {
+        startTime = Time.timeSinceLevelLoad;
         StartCoroutine(TimerCoroutine(delay, callback));
     }
 

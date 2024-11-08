@@ -12,7 +12,6 @@ public class Enemy : MonoBehaviour, IDamageable
     public Animator animator;
     [HideInInspector] public Transform target;
     public EnemyStateMachine StateMachine;
-    private Vector3 dashDirection;
     [Header("Settings")]
     public float updatePathTime = 1.0f;
     public float lookDistance = 30f;
@@ -38,8 +37,12 @@ public class Enemy : MonoBehaviour, IDamageable
     public float dashSpeed = 10f;
     public float dashDuration = 0.1f;
     public bool isDashing = false;
+    private Vector3 dashDirection;
+    private Vector3 dashStartPosition;
+    private Timer dashTimer;
+    public LayerMask obstacleLayer;
 
-    [Header("Launch Settings")]
+   [Header("Launch Settings")]
     protected Timer launchTimer;
     public bool isLaunching = false;
     [SerializeField] protected float launchbackThreshold = 30.0f;
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour, IDamageable
         delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
+        dashTimer = gameObject.AddComponent<Timer>();
     }
 
     protected void Update()
@@ -101,12 +105,12 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             LookTowardsTarget();
         }
+    }
+    private void FixedUpdate()
+    {
         if (isDashing)
         {
-            if(agent.enabled)
-            {
-                agent.Move(dashDirection * dashSpeed * Time.deltaTime);
-            }
+            HandleDashMovement();
         }
     }
 
@@ -250,26 +254,53 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+
     public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
     {
-        
-        dashSpeed = _dashSpeed == 0 ? dashSpeed: _dashSpeed;
+        dashSpeed = _dashSpeed == 0 ? dashSpeed : _dashSpeed;
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
-        Quaternion rotation = Quaternion.AngleAxis(-30 , Vector3.right);
-        dashDirection = transform.up;
+        Quaternion rotation = Quaternion.AngleAxis(-30, Vector3.right);
+        dashDirection = transform.forward;
+
         if (!isDashing)
         {
             isDashing = true;
-            Timer timer = gameObject.AddComponent<Timer>();
-            timer.SetTimer(dashDuration, StopDash);
-            Destroy(timer, dashDuration+(dashDuration/10));
+            agent.enabled = false;
+            rb.isKinematic = false;
+            rb.useGravity = false;
+            rb.velocity = dashDirection * dashSpeed;
+            dashTimer.SetTimer(dashDuration, StopDash);
         }
+    }
+
+
+    private void HandleDashMovement()
+    {
+        // Check for collisions
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, rb.velocity.normalized, out hit, dashSpeed * Time.fixedDeltaTime, obstacleLayer))
+        {
+            // Collision detected, adjust movement
+            AdjustForCollision(hit.normal);
+        }
+    }
+    private void AdjustForCollision(Vector3 normal)
+    {
+        // Calculate sliding direction
+        Vector3 slideDir = Vector3.ProjectOnPlane(rb.velocity, normal).normalized;
+
+        // Apply new velocity
+        rb.velocity = slideDir * dashSpeed;
     }
 
     private void StopDash()
     {
         isDashing = false;
-
+        agent.enabled = true;
+        rb.isKinematic = true;
+        rb.useGravity = true;
+        rb.velocity = Vector3.zero;
+        agent.Warp(transform.position);
     }
 
     private void LookTowardsTarget()

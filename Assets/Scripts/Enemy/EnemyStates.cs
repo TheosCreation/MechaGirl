@@ -76,7 +76,7 @@ public class ChaseState : IEnemyState
     float timer = 0.0f;
     public void Enter(Enemy enemy)
     {
-        if (enemy.target == null) return;
+        if (enemy.target == null || enemy.agent.enabled) return;
         if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         enemy.animator.SetBool("IsMoving", true);
     }
@@ -99,7 +99,7 @@ public class ChaseState : IEnemyState
         if (timer < 0.0f)
         {
             timer = enemy.updatePathTime;
-            if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
+            if (!enemy.isLaunching && enemy.agent.enabled) enemy.agent.SetDestination(enemy.target.position);
         }
     }
 

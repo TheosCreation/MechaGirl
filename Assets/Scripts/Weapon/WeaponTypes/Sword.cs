@@ -20,6 +20,7 @@ public class Sword : Weapon
         }
         else
         {
+         
             Enemy enemyRef = GetComponentInParent<Enemy>();
             enemyRef.Dash(dashSpeed, dashDuration);
         }
