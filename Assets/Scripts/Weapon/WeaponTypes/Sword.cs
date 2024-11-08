@@ -22,7 +22,7 @@ public class Sword : Weapon
         {
          
             Enemy enemyRef = GetComponentInParent<Enemy>();
-            enemyRef.Dash(dashSpeed, dashDuration);
+            enemyRef.Dash(dashSpeed, dashDuration,transform.forward);
         }
 
         base.Shoot();

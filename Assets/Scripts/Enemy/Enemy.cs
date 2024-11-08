@@ -255,12 +255,16 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
 
-    public void Dash(float _dashSpeed = 0, float _dashDuration = 0)
+    public void Dash(float _dashSpeed = 0, float _dashDuration = 0, Vector3 _dashDirection = default)
     {
+        if(_dashDirection == default)
+        {
+            _dashDirection = transform.forward;
+        }
         dashSpeed = _dashSpeed == 0 ? dashSpeed : _dashSpeed;
         dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
         Quaternion rotation = Quaternion.AngleAxis(-30, Vector3.right);
-        dashDirection = transform.forward;
+        dashDirection = _dashDirection;
 
         if (!isDashing)
         {

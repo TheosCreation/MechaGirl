@@ -78,7 +78,7 @@ MonoBehaviour:
   lookDistance: 100
   fieldOfViewAngle: 360
   isRanged: 1
-  attackDistance: 4.1
+  attackDistance: 8
   attackStartDelay: 0.1
   loseDistance: 7
   attackDuration: 1
@@ -194,7 +194,7 @@ PrefabInstance:
     - target: {fileID: 3116808584445981362, guid: a1fdd21b19ff104458f41a90416efd00,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3500533146607403703, guid: a1fdd21b19ff104458f41a90416efd00,
         type: 3}
