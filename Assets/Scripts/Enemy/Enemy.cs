@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.EventSystems.EventTrigger;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float dashDuration = 0.1f;
     public bool isDashing = false;
     public LayerMask obstacleLayer;
+    private Timer dashTimer;
 
     [Header("Launch Settings")]
     protected Timer launchTimer;
@@ -52,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [Header("Ground Settings")]
     public bool isGrounded = true;
     private float groundCheckDistance = 0.1f;
-    private LayerMask groundLayer;
+    [SerializeField] private LayerMask groundLayer;
 
     [SerializeField] protected GameObject deathParticles;
 
@@ -95,8 +97,8 @@ public class Enemy : MonoBehaviour, IDamageable
         SetDefaultState();
         launchTimer = gameObject.AddComponent<Timer>();
         delayTimer = gameObject.AddComponent<Timer>();
+        dashTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
-        groundLayer = LayerMask.GetMask("Ground");
     }
 
     protected void Update()
@@ -106,13 +108,6 @@ public class Enemy : MonoBehaviour, IDamageable
         if (canRotate)
         {
             LookTowardsTarget();
-        }
-    }
-    private void FixedUpdate()
-    {
-        if (!agent.enabled)
-        {
-            //CheckGrounded();
         }
     }
 
@@ -274,8 +269,11 @@ public class Enemy : MonoBehaviour, IDamageable
             rb.AddForce(_dashDirection * dashForce, ForceMode.VelocityChange);
 
             isDashing = true;
-            delayTimer.StopTimer();
-            delayTimer.SetTimer(dashDuration, StopDash);
+            dashTimer.StopTimer();
+            dashTimer.SetTimer(dashDuration, StopDash);
+
+            //Stop trying to attack again
+            EndAttack();
         }
     }
 
@@ -284,32 +282,37 @@ public class Enemy : MonoBehaviour, IDamageable
         Debug.Log("stop dash");
         isDashing = false;
         rb.velocity = Vector3.zero;
+        StartCoroutine(WaitUntilGrounded());
+    }
+
+    private IEnumerator WaitUntilGrounded()
+    {
+        // Wait until the character is grounded
+        while (!isGrounded)
+        {
+            // Continuously check if grounded
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayer))
+            {
+                isGrounded = true;
+            }
+            yield return null; // Wait for the next frame
+        }
+
+        EnableAgent();
+        Debug.Log("Dash fully stopped on ground");
     }
 
     private void EnableAgent()
     {
-        agent.enabled = true;
         rb.isKinematic = true;
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
+
+        agent.enabled = true;
     }
 
-    private void CheckGrounded()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, groundCheckDistance, groundLayer))
-        {
-            if (!isGrounded)
-            {
-                isGrounded = true;
-                EnableAgent();
-            }
-        }
-        else
-        {
-            isGrounded = false;
-        }
-    }
+
     private void LookTowardsTarget()
     {
         if (target != null)
