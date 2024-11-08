@@ -47,7 +47,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 1000
@@ -89,13 +89,20 @@ MonoBehaviour:
   burstDelay: 0.5
   minRadius: 5
   maxRadius: 20
-  dashSpeed: 10
+  dashForce: 10
   dashDuration: 0.1
   isDashing: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
   isLaunching: 0
   launchbackThreshold: 30
   isInvinsable: 0
   maxHealth: 10
+  isGrounded: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   deathParticles: {fileID: 1105883997488057600, guid: bc2587c02f71e8f4f844704ede7ee801,
     type: 3}
   defaultState: 1
