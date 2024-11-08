@@ -34,11 +34,9 @@ public class Enemy : MonoBehaviour, IDamageable
     public float maxRadius = 5f;
 
     [Header("Dash Settings")]
-    public float dashSpeed = 10f;
+    public float dashForce = 10f;
     public float dashDuration = 0.1f;
     public bool isDashing = false;
-    private Vector3 dashDirection;
-    private Vector3 dashStartPosition;
     public LayerMask obstacleLayer;
 
     [Header("Launch Settings")]
@@ -95,8 +93,8 @@ public class Enemy : MonoBehaviour, IDamageable
             .Build();
 
         SetDefaultState();
-        delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
+        delayTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
         groundLayer = LayerMask.GetMask("Ground");
     }
@@ -112,13 +110,9 @@ public class Enemy : MonoBehaviour, IDamageable
     }
     private void FixedUpdate()
     {
-        if (isDashing)
+        if (!agent.enabled)
         {
-            HandleDashMovement();
-        }
-        else if (!agent.enabled)
-        {
-            CheckGrounded();
+            //CheckGrounded();
         }
     }
 
@@ -171,6 +165,7 @@ public class Enemy : MonoBehaviour, IDamageable
         agent.enabled = false;
         rb.useGravity = true;
         rb.isKinematic = false;
+        rb.velocity = Vector3.zero;
         rb.AddForce(Vector3.up * upwardForce, ForceMode.VelocityChange);
 
         yield return new WaitForFixedUpdate();
@@ -268,77 +263,26 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             _dashDirection = transform.forward;
         }
-        dashSpeed = _dashSpeed == 0 ? dashSpeed : _dashSpeed;
-        dashDuration = _dashDuration == 0 ? dashDuration : _dashDuration;
-        dashDirection = _dashDirection;
+
+        agent.enabled = false;
+        rb.isKinematic = false;
+        rb.useGravity = true;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(_dashDirection * dashForce, ForceMode.VelocityChange);
+
+        isDashing = true;
+        delayTimer.StopTimer();
+        delayTimer.SetTimer(dashDuration, StopDash);
 
         if (!isDashing)
         {
-            isDashing = true;
-            agent.enabled = false;
-            rb.isKinematic = false;
-            rb.useGravity = false;
-            dashStartPosition = transform.position;
-            delayTimer.startTime = Time.time;
-            // Start the dash
-            HandleDashMovement();
-
-            // Set timer to stop the dash
-            delayTimer.SetTimer(dashDuration, StopDash);
         }
-    }
-
-    private void HandleDashMovement()
-    {
-        if (isDashing)
-        {
-            float currentSpeed = CalculateCurrentSpeed();
-            rb.AddForce(dashDirection * currentSpeed *0.1f, ForceMode.Impulse);
-
-            // Check for collisions
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, dashDirection, out hit, dashSpeed * Time.fixedDeltaTime, obstacleLayer))
-            {
-                AdjustForCollision(hit.normal);
-            }
-
-            // Check if dash duration has expired
-            if (Time.time >= delayTimer.startTime + dashDuration)
-            {
-                StopDash();
-            }
-        }
-        CheckGrounded();
-    }
-
-    private float CalculateCurrentSpeed()
-    {
-        float elapsedTime = Time.timeSinceLevelLoad - delayTimer.startTime;
-        float t = elapsedTime / dashDuration;
-        return Mathf.Lerp(dashSpeed, 0f, t * t); // Quadratic slowdown
-    }
-
-    private void AdjustForCollision(Vector3 normal)
-    {
-        // Calculate sliding direction
-        Vector3 slideDir = Vector3.ProjectOnPlane(dashDirection, normal).normalized;
-
-        // Update dash direction
-        dashDirection = slideDir;
     }
 
     private void StopDash()
     {
         Debug.Log("stop dash");
         isDashing = false;
-        rb.useGravity = true;
-        rb.isKinematic = false;
-
-        // Only enable agent if grounded
-        if (isGrounded)
-        {
-            EnableAgent();
-        }
     }
 
     private void EnableAgent()
@@ -348,6 +292,7 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.useGravity = false;
         rb.velocity = Vector3.zero;
     }
+
     private void CheckGrounded()
     {
         RaycastHit hit;

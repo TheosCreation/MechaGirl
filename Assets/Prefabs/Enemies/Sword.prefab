@@ -89,8 +89,8 @@ MonoBehaviour:
   burstDelay: 0.5
   minRadius: 1
   maxRadius: 1
-  dashSpeed: 10
-  dashDuration: 0.1
+  dashForce: 10
+  dashDuration: 2
   isDashing: 0
   obstacleLayer:
     serializedVersion: 2
