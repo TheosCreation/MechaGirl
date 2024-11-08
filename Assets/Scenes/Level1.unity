@@ -686,7 +686,7 @@ PrefabInstance:
     - target: {fileID: 6972712624715270048, guid: 634d0d27329366c4cbd78b62e1e3919a,
         type: 3}
       propertyPath: weaponsToSpawnWith.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8062772954346468942, guid: 634d0d27329366c4cbd78b62e1e3919a,
         type: 3}
@@ -698,6 +698,89 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 634d0d27329366c4cbd78b62e1e3919a, type: 3}
+--- !u!1001 &345918962
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -13.125924
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 19.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 29.528137
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 769796230757902721, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1967776057504622494, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: canPickup
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4392212421055244256, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4967222603671074334, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5405316629874128243, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2,
+        type: 3}
+      propertyPath: m_Name
+      value: Revolver
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fcba9d5d6df6c4a43ada14ee79e7b3c2, type: 3}
 --- !u!1 &447042500
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,7 +1425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 34.500084, y: 26.584652, z: 86.536316}
+  size: {x: 34.500084, y: 26.584652, z: 86.53632}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1382,7 +1465,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972343}
+  m_LocalPosition: {x: -13.73, y: 30.12137, z: 47.972347}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7387,3 +7470,4 @@ SceneRoots:
   - {fileID: 780940863}
   - {fileID: 1408542176}
   - {fileID: 214584432}
+  - {fileID: 345918962}
