@@ -3,7 +3,32 @@ guid: c09e131755fdda74ab6bc1fb2c4609aa
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Shelf
+    second: {fileID: 2100000, guid: a31e31c3ce47d1446a37af164e313db3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShelfBarrel
+    second: {fileID: 2100000, guid: c010315b8aa1eeb4b969f3ed69bc71aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ShelfIten1
+    second: {fileID: 2100000, guid: 9b77471020a5b214ead708d808842a1e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shelfCrate
+    second: {fileID: 2100000, guid: a8e0f27802371784581dd423ff25bf87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shelfitem3
+    second: {fileID: 2100000, guid: 1e5179041b171c046aa7bee40e2f8da8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
