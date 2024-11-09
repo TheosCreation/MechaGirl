@@ -1,5 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isJumping = false;
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float jumpDuration = 0.1f;
+    [SerializeField] private AudioClip jumpingClip;
     private Timer jumpTimer;
     private bool wasGrounded = true; // Track if the player was grounded in the previous frame
 
@@ -49,7 +51,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float reducedGravityFactor = 0.1f;
     private bool isReducingGravity = false;
 
-
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource2;
     Vector2 movementInput = Vector2.zero;
 
     private void Awake()
@@ -70,7 +73,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
         if (InputManager.Instance.playerInput.InGame.Jump.ReadValue<float>() > 0f && !movementController.isGrounded)
         {
             if (movementController.GetVerticalVelocity() < 0f)
@@ -87,7 +89,15 @@ public class PlayerMovement : MonoBehaviour
 
         CheckLanding();
 
-        if (isDashing) return;
+        if (isDashing)
+        {
+            audioSource.Stop();
+            return;
+        }
+        if(!movementController.isGrounded)
+        {
+            audioSource.Stop();
+        }
 
         movementInput = InputManager.Instance.MovementVector;
         //float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
@@ -95,11 +105,17 @@ public class PlayerMovement : MonoBehaviour
         //playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
         if (movementInput == Vector2.zero)
         {
-            movementController.movement = false;
+            movementController.movement = false; 
+            audioSource.Stop();
             return;
         }
 
-        if(isWallRunning)
+        if(!audioSource.isPlaying && movementController.isGrounded)
+        {
+            audioSource.Play();
+        }
+
+        if (isWallRunning)
         {
             Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
 
@@ -160,6 +176,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Play a CameraJumpAnimation
         playerController.playerLook.PlayJumpAnimation(jumpDuration);
+
+        audioSource2.PlayOneShot(jumpingClip);
 
         isJumping = true;
         jumpTimer.StopTimer();
