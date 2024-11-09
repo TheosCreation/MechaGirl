@@ -62,8 +62,8 @@ public class Weapon : MonoBehaviour
     [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
-    protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
-    protected Rigidbody rb;
+    public BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    public Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     protected SpriteBillboard spriteBillboard;

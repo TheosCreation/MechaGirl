@@ -20,6 +20,7 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
+    private TriggerCheckPoint currentCheckPoint;
 
     public List<Keycard> currentHeldKeycards;
     [SerializeField] List<WeaponSpawn> weaponsToSpawnWith;
@@ -126,10 +127,16 @@ class LevelManager : MonoBehaviour
         //playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
     }
 
-    public void SetCheckPoint(Transform checkPointTransform)
+    public void SetCheckPoint(TriggerCheckPoint checkPoint)
     {
-        playerSpawn.transform.position = checkPointTransform.position;
-        playerSpawn.transform.rotation = checkPointTransform.rotation;
+        playerSpawn.transform.position = checkPoint.transform.position;
+        playerSpawn.transform.rotation = checkPoint.transform.rotation;
+
+        currentCheckPoint = checkPoint;
+        foreach (var weaponSpawner in currentCheckPoint.weaponSpawners)
+        {
+            weaponsToSpawnWith.Add(weaponSpawner.weaponToSpawn);
+        }
     }
 
     public void DestroyAllEnemies()
