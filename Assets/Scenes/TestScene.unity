@@ -1825,12 +1825,12 @@ MonoBehaviour:
     e20: 0
     e21: 0
     e22: 1
-    e23: -47.0352
+    e23: -47.035202
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: 1515086565
+  cachedHashCode: 1663122454
   fillEmptySpaces: 0
   version: 1
   globalVolume: 0
@@ -6736,7 +6736,7 @@ Light:
   serializedVersion: 11
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.25
+  m_Intensity: 0.15
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -6779,8 +6779,8 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_ColorTemperature: 8000
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -8087,12 +8087,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: c09e131755fdda74ab6bc1fb2c4609aa,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.462555
+      value: -14.824
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c09e131755fdda74ab6bc1fb2c4609aa,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.787
+      value: 18.803
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c09e131755fdda74ab6bc1fb2c4609aa,
         type: 3}
@@ -8360,6 +8360,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1272028705477504601, guid: acbf4588de89e28438b338fa318fd8ba,
         type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1272028705477504601, guid: acbf4588de89e28438b338fa318fd8ba,
+        type: 3}
       propertyPath: m_Intensity
       value: 0.3
       objectReference: {fileID: 0}
@@ -8392,6 +8397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3490203386571244874, guid: acbf4588de89e28438b338fa318fd8ba,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3490203386571244874, guid: acbf4588de89e28438b338fa318fd8ba,
         type: 3}
