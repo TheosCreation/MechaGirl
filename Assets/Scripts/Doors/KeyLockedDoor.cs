@@ -4,6 +4,8 @@ public class KeyLockedDoor : Door
 {
     [SerializeField] private Color[] keysColorTagsToUnlock;
     [SerializeField] private GameObject doorLockOverlay;
+    [SerializeField] private AudioSource doorUnlockSource;
+    [SerializeField] private AudioClip doorUnlockClip;
 
     protected override void Open(Collider other)
     {
@@ -14,6 +16,7 @@ public class KeyLockedDoor : Door
             {
                 if (doorLockOverlay != null)
                 {
+                    doorUnlockSource.PlayOneShot(doorUnlockClip);
                     doorLockOverlay.SetActive(false);
                 }
                 base.Open(other);

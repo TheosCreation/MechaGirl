@@ -2766,8 +2766,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 066d28d2dce7d6c4483007343900d343, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localStartPosition: {x: 0.34091675, y: -0.56107575, z: -0.00063289644}
-  localEndPosition: {x: 0.14238842, y: -0.4494742, z: 0.0025032423}
+  localStartPosition: {x: 0.34091675, y: -0.56104493, z: 0.0030379486}
+  localEndPosition: {x: 0.14238842, y: -0.44944736, z: 0.15924701}
   waves:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9,

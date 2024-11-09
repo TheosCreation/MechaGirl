@@ -252,6 +252,8 @@ MonoBehaviour:
   predictionTime: 0.2
   playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
   ignoreAmmo: 1
   meleeRange: 2.5
   meleeDamage: 4
@@ -763,6 +765,10 @@ MonoBehaviour:
   hitMask:
     serializedVersion: 2
     m_Bits: 384
+  keyPickUpSounds:
+  - {fileID: 8300000, guid: ddfeede91ddd6b34b8149e7e6027a0c4, type: 3}
+  - {fileID: 8300000, guid: c287e2ded93595149b4d71fdaca3f546, type: 3}
+  - {fileID: 8300000, guid: e6e7faeef68fe2b44935fbd93eac476c, type: 3}
 --- !u!1 &2838313414985441038
 GameObject:
   m_ObjectHideFlags: 0

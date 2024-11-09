@@ -1,6 +1,4 @@
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.AI;
 

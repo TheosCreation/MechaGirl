@@ -1,4 +1,5 @@
 using UnityEngine;
+using static Unity.VisualScripting.Member;
 
 public class Keycard : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Keycard : MonoBehaviour
     private Rigidbody rb;
     [SerializeField] private Collider physicsCollider;
     [SerializeField] private Collider triggerCollider;
+    [SerializeField] private AudioClip[] keyPickUpSounds;
+    private AudioSource source;
     private SpriteRenderer sRenderer;
     public GameObject prefabIcon;
 
@@ -16,6 +19,7 @@ public class Keycard : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         physicsCollider = GetComponent<Collider>();
         sRenderer = GetComponentInChildren<SpriteRenderer>();
+        source = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -32,6 +36,19 @@ public class Keycard : MonoBehaviour
             isHeld = true;
 
             player.AddKey(this);
+            PlayRandomPickUpSound();
         }
+    }
+
+    private void PlayRandomPickUpSound()
+    {
+        if (keyPickUpSounds.Length == 0) return; // Exit if there are no sounds available
+
+        // Pick a random sound from the array
+        int randomIndex = Random.Range(0, keyPickUpSounds.Length);
+        AudioClip randomClip = keyPickUpSounds[randomIndex];
+
+        // Play the selected sound
+        source.PlayOneShot(randomClip);
     }
 }

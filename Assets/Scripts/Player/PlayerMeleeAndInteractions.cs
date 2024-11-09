@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -15,7 +13,6 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
     private Timer meleeTimer;
     private bool HasHitDamagable = false;
     private bool HasHitInteractble = false;
-
     private void Awake()
     {
 
@@ -95,8 +92,9 @@ public class PlayerMeleeAndInteractions : MonoBehaviour
         keycard.transform.parent = interactableTransform;
         keycard.transform.localPosition = Vector3.zero;
 
-
         LevelManager.Instance.currentHeldKeycards.Add(keycard);
         UiManager.Instance.AddKeyCardIcon(keycard);
     }
+
+    
 }
