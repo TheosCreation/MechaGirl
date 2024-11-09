@@ -889,7 +889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 35.150772, y: 35.737762, z: 138.00632}
+  size: {x: 35.150764, y: 35.737762, z: 138.00632}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -3445,15 +3445,9 @@ MonoBehaviour:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
       count: 4
-    - enemyPrefab: {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec,
-        type: 3}
-      count: 0
-    - enemyPrefab: {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9,
-        type: 3}
-      count: 1
   navMeshLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 65
   OnAllEnemiesDead:
     m_PersistentCalls:
       m_Calls:
@@ -3472,18 +3466,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2060181672}
         m_TargetAssemblyTypeName: Door, Assembly-CSharp
         m_MethodName: Unlock
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1265249972}
-        m_TargetAssemblyTypeName: TriggerZone, Assembly-CSharp
-        m_MethodName: Complete
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4344,17 +4326,17 @@ PrefabInstance:
     - target: {fileID: 9162349085321625351, guid: 84b2285290388f244af0cdaf42dbbbad,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0027777771
+      value: -4.656613e-10
       objectReference: {fileID: 0}
     - target: {fileID: 9162349085321625351, guid: 84b2285290388f244af0cdaf42dbbbad,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.007951184
+      value: 0.0051734066
       objectReference: {fileID: 0}
     - target: {fileID: 9162349085321625351, guid: 84b2285290388f244af0cdaf42dbbbad,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.0014038323
+      value: -0.001403833
       objectReference: {fileID: 0}
     - target: {fileID: 9162349085321625351, guid: 84b2285290388f244af0cdaf42dbbbad,
         type: 3}

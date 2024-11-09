@@ -29,16 +29,16 @@ public class WeaponSpawner : IResetable
 
     public override void Reset()
     {
+        if (weaponSpawned != null)
+        {
+            Destroy(weaponSpawned);
+        }
+
         SpawnWeapon();
     }
 
     public void DeActivate()
     {
         isActive = false;
-
-        if (weaponSpawned != null)
-        {
-            Destroy(weaponSpawned);
-        }
     }
 }

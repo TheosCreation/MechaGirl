@@ -7,6 +7,7 @@ public class TriggerCheckPoint : IResetable
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
     public WeaponSpawner[] weaponSpawners;
+    public UnityEvent OnCheckPoint;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class TriggerCheckPoint : IResetable
             LevelManager.Instance.SetCheckPoint(this);
             spriteRenderer.enabled = false;
             boxCollider.enabled = false;
+            OnCheckPoint?.Invoke();
             foreach (WeaponSpawner weaponSpawner in weaponSpawners)
             {
                 weaponSpawner.DeActivate();

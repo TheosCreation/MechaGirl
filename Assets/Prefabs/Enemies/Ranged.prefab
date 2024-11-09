@@ -89,13 +89,20 @@ MonoBehaviour:
   burstDelay: 5
   minRadius: 10
   maxRadius: 10
-  dashSpeed: 10
+  dashForce: 10
   dashDuration: 0.1
   isDashing: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
   isLaunching: 0
   launchbackThreshold: 30
   isInvinsable: 0
   maxHealth: 10
+  isGrounded: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
   deathParticles: {fileID: 1105883997488057600, guid: bc2587c02f71e8f4f844704ede7ee801,
     type: 3}
   defaultState: 1
@@ -122,7 +129,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0

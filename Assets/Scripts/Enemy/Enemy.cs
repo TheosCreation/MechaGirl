@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour, IDamageable
     public float attackStartDelay = 0.1f;
     public float loseDistance = 5f;
     public float attackDuration = 1.0f;
+    public bool ignoreNavMeshOnSpawn = false;
 
     [HideInInspector] public Timer delayTimer;
     [HideInInspector] public Weapon[] weapons;
@@ -350,5 +351,10 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         OnHealthChanged = null;
         OnDeath = null;
+    }
+
+    public bool isAgentReady()
+    {
+        return agent.enabled && agent.isOnNavMesh;
     }
 }
