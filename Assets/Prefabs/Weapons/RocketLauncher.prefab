@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006ba027599b78479bea7cc13d1cbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: a0e8b1400650a9e44b144c3d83df2d89, type: 3}
+  Sprite: {fileID: 21300000, guid: 548ec1eef9953974b9703f7194b4cd34, type: 3}
   AnimationPosition: {x: 0, y: 0, z: 0}
   AnimationRotation: {x: 0, y: 0, z: 0}
   iconSprite: {fileID: 21300000, guid: d5633312c26bf8441acc5e9033a263a4, type: 3}
