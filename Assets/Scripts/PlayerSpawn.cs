@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerSpawn : MonoBehaviour
@@ -12,20 +14,11 @@ public class PlayerSpawn : MonoBehaviour
             Debug.LogError("Player prefab is not assigned in the PlayerSpawn script.");
             return;
         }
-
-        // Spawn the new player
-        SpawnPlayer(transform.position, transform.rotation);
     }
 
-    public void SpawnPlayer(Vector3 position, Quaternion facingRotation)
+    public void SpawnPlayer(List<WeaponSpawn> weaponsToSpawn)
     {
         DestroyExistingPlayers();
-
-        if (position == Vector3.zero)
-        {
-            position = transform.position;
-            facingRotation = transform.rotation;
-        }
 
         CapsuleCollider playerCollider = player.GetComponent<CapsuleCollider>();
         if (playerCollider == null)
@@ -35,7 +28,23 @@ public class PlayerSpawn : MonoBehaviour
         }
 
         Vector3 spawnOffset = new Vector3(0, playerCollider.height / 2, 0);
-        playerSpawned = Instantiate(player, position + spawnOffset, facingRotation).GetComponent<PlayerController>();
+        playerSpawned = Instantiate(player, transform.position + spawnOffset, transform.rotation).GetComponent<PlayerController>();
+
+        foreach(WeaponSpawn weaponToSpawn in weaponsToSpawn)
+        {
+            Weapon weapon = Instantiate(weaponToSpawn.weaponPrefab);
+
+            weapon.playerController = playerSpawned;
+            weapon.canPickup = false;
+            weapon.startingAmmo = weaponToSpawn.startingAmmo;
+
+            //this will attach it to the weapon holder game object and add it to the weapons array
+            if (playerSpawned.weaponHolder.AddWeapon(weapon, true))
+            {
+                //if is new weapon lets equip it
+                weapon.Attach();
+            }
+        }
     }
 
     private void DestroyExistingPlayers()

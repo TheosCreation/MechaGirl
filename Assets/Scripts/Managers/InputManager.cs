@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UIElements.InputSystem;
 
 public class InputManager : MonoBehaviour
 {

@@ -1,6 +1,14 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+[Serializable]
+public struct WeaponSpawn
+{
+    public Weapon weaponPrefab;
+    public int startingAmmo;
+}
 
 class LevelManager : MonoBehaviour
 {
@@ -9,16 +17,15 @@ class LevelManager : MonoBehaviour
     private float levelStartTime;
     private float levelCompleteTime;
     private bool isTimerRunning;
-    [SerializeField] private Transform respawnTransform;
-    private PlayerSpawn playerSpawn;
+    [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
-    [HideInInspector] public bool resetLevel = true;
+    private TriggerCheckPoint currentCheckPoint;
 
-    private List<TriggerDoor> triggerDoors = new List<TriggerDoor>();
-    private List<TriggerZone> triggerZones = new List<TriggerZone>();
-    private List<TriggerCheckPoint> checkPoints = new List<TriggerCheckPoint>();
-    private List<Spawner> spawners = new List<Spawner>();
+    public List<Keycard> currentHeldKeycards;
+    [SerializeField] List<WeaponSpawn> weaponsToSpawnWith;
+
+    private List<IResetable> resetables = new List<IResetable>();
 
     private void Awake()
     {
@@ -31,6 +38,14 @@ class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
+        if (playerSpawn == null)
+        {
+            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
+        }
+
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
     }
 
     void Start()
@@ -39,18 +54,8 @@ class LevelManager : MonoBehaviour
         {
             GameManager.Instance.Init();
         }
-
-        // Register all objects at the start
-        triggerDoors.AddRange(FindObjectsByType<TriggerDoor>(FindObjectsSortMode.None));
-        triggerZones.AddRange(FindObjectsByType<TriggerZone>(FindObjectsSortMode.None));
-        checkPoints.AddRange(FindObjectsByType<TriggerCheckPoint>(FindObjectsSortMode.None));
-        spawners.AddRange(FindObjectsByType<Spawner>(FindObjectsSortMode.None)); 
         
-        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if (playerSpawn == null)
-        {
-            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
-        }
+        
     }
 
     public void StartLevelTimer()
@@ -90,59 +95,48 @@ class LevelManager : MonoBehaviour
     {
         return levelCompleteTime;
     }
-
+    
+    // Use only if the player is going to be respawned in the next frame
     public void KillCurrentPlayer()
     {
         if (playerSpawn.playerSpawned)
         {
-            playerSpawn.playerSpawned.Die();
+            Destroy(playerSpawn.playerSpawned.gameObject);
+            SetTempCamera(true);
         }
     }
 
     public void RespawnPlayer()
     {
-        if (resetLevel)
-        {
-            ResetDoors(); 
-            ResetTriggers();
-            ResetCheckPoints();
-            ResetSpawners();
-        }
-        else
-        {
-            OnPlayerRespawn?.Invoke();
-        }
+        // Spawn the new player with the weapons again
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
+
+        ResetLevel();
+        OnPlayerRespawn?.Invoke();
 
         UiManager.Instance.OpenPlayerHud();
 
-        //reset player health reset scene
-        if (respawnTransform != null)
-        {
-            playerSpawn.SpawnPlayer(respawnTransform.position, respawnTransform.rotation);
-        }
-        else
-        {
-            playerSpawn.SpawnPlayer(Vector3.zero, Quaternion.identity);
-        }
 
         //reset doors, remove enemies, reset trigger zones
-        //
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
-        if (tempCamera != null)
-        {
-            Destroy(tempCamera);
-        }
+        SetTempCamera(false);
         PauseManager.Instance.SetPaused(false);
         SettingsManager.Instance.ApplyAllSettings();
 
         //playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
     }
 
-    public void SetCheckPoint(Transform checkPointTransform)
+    public void SetCheckPoint(TriggerCheckPoint checkPoint)
     {
-        respawnTransform.position = checkPointTransform.position;
-        respawnTransform.rotation = checkPointTransform.rotation;
+        playerSpawn.transform.position = checkPoint.transform.position;
+        playerSpawn.transform.rotation = checkPoint.transform.rotation;
+
+        currentCheckPoint = checkPoint;
+        foreach (var weaponSpawner in currentCheckPoint.weaponSpawners)
+        {
+            weaponsToSpawnWith.Add(weaponSpawner.weaponToSpawn);
+        }
     }
 
     public void DestroyAllEnemies()
@@ -167,35 +161,27 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    public void ResetDoors()
+    public void RegisterObject(IResetable resetable)
     {
-        foreach (TriggerDoor door in triggerDoors)
+        if (!resetables.Contains(resetable))
+            resetables.Add(resetable);
+    }
+    public void Deregister(IResetable resetable)
+    {
+        if (resetables.Contains(resetable))
+            resetables.Remove(resetable);
+    }
+
+    public void ResetLevel()
+    {
+        foreach (IResetable resetable in resetables)
         {
-            door.Unlock();
+            resetable.Reset();
         }
     }
 
-    public void ResetTriggers()
+    public void SetTempCamera(bool active)
     {
-        foreach (TriggerZone triggerZone in triggerZones)
-        {
-            triggerZone.Reset();
-        }
-    }
-    
-    public void ResetCheckPoints()
-    {
-        foreach (TriggerCheckPoint checkPoint in checkPoints)
-        {
-            checkPoint.Reset();
-        }
-    }
-
-    public void ResetSpawners()
-    {
-        foreach(Spawner spawner in spawners)
-        {
-            spawner.Reset();
-        }
+        tempCamera.SetActive(active);
     }
 }

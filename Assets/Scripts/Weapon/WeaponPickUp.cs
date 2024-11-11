@@ -11,7 +11,7 @@ public class WeaponPickUp : MonoBehaviour
     {
         player = GetComponentInParent<PlayerController>();
 
-        if(player == null)
+        if (player == null)
         {
             enemy = GetComponentInParent<Enemy>();
             if (enemy != null)
@@ -28,12 +28,21 @@ public class WeaponPickUp : MonoBehaviour
             if (isPlayer)
             {
                 Weapon weapon = other.gameObject.GetComponent<Weapon>();
-                weapon.PickUp(player.weaponHolder, player, false);
+                //If the player has picked up the weapon then we do ui and audio
+                if(weapon.PickUp(player.weaponHolder, player, false))
+                {
+                    System.Type weaponType = weapon.GetType(); 
+                    if (!UiManager.Instance.HasPickedUpWeaponType(weaponType))
+                    {
+                        UiManager.Instance.MarkWeaponTypeAsPickedUp(weaponType);
+                        UiManager.Instance.ShowPickUpAnimation(weapon.iconSprite);
+                    }
+                }
             }
             else
             {
-                //is enemy and pick up similar to player honestly doesnt need the isPlayer bool if done right
-            }    
+                // Handle enemy pickup logic here
+            }
         }
     }
 }

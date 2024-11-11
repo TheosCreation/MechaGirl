@@ -89,6 +89,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0196893-f496-472b-8874-a9991b600a81"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -223,6 +232,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""WeaponPickUp"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a7ad0a3-9481-4cc1-80f0-397d64d6ac5c"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -306,6 +326,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_WeaponSwitch = m_InGame.FindAction("WeaponSwitch", throwIfNotFound: true);
         m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
         m_InGame_WeaponPickUp = m_InGame.FindAction("WeaponPickUp", throwIfNotFound: true);
+        m_InGame_Melee = m_InGame.FindAction("Melee", throwIfNotFound: true);
         // Ui
         m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
         m_Ui_Exit = m_Ui.FindAction("Exit", throwIfNotFound: true);
@@ -379,6 +400,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_WeaponSwitch;
     private readonly InputAction m_InGame_WeaponThrow;
     private readonly InputAction m_InGame_WeaponPickUp;
+    private readonly InputAction m_InGame_Melee;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -390,6 +412,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @WeaponSwitch => m_Wrapper.m_InGame_WeaponSwitch;
         public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
         public InputAction @WeaponPickUp => m_Wrapper.m_InGame_WeaponPickUp;
+        public InputAction @Melee => m_Wrapper.m_InGame_Melee;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -420,6 +443,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponPickUp.started += instance.OnWeaponPickUp;
             @WeaponPickUp.performed += instance.OnWeaponPickUp;
             @WeaponPickUp.canceled += instance.OnWeaponPickUp;
+            @Melee.started += instance.OnMelee;
+            @Melee.performed += instance.OnMelee;
+            @Melee.canceled += instance.OnMelee;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -445,6 +471,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @WeaponPickUp.started -= instance.OnWeaponPickUp;
             @WeaponPickUp.performed -= instance.OnWeaponPickUp;
             @WeaponPickUp.canceled -= instance.OnWeaponPickUp;
+            @Melee.started -= instance.OnMelee;
+            @Melee.performed -= instance.OnMelee;
+            @Melee.canceled -= instance.OnMelee;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -533,6 +562,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnWeaponSwitch(InputAction.CallbackContext context);
         void OnWeaponThrow(InputAction.CallbackContext context);
         void OnWeaponPickUp(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

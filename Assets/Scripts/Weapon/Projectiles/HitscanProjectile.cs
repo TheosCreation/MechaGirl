@@ -1,5 +1,4 @@
 using Runtime;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class HitscanProjectile : Projectile 
@@ -11,14 +10,15 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected GameObject hitWallPrefab;
     [SerializeField] protected GameObject hitEnemyPrefab;
     [SerializeField] protected GameObject gunTrailPrefab;
-    public override void Initialize(Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
     {
+        base.Initialize(startPosition, direction, fromPlayer);
         if (!fromPlayer)
         {
             //remove the Enemy layer from the hitMask
             RemoveEnemyFromHitMask();
         }
-        Ray ray = new Ray(transform.position, direction);
+        Ray ray = new Ray(startPosition, direction);
         RaycastHit hit;
 
         Vector3 targetPoint;
@@ -30,14 +30,15 @@ public class HitscanProjectile : Projectile
         }
         else
         {
-            targetPoint = transform.position + direction * 1000f;
+            targetPoint = startPosition + direction * 1000f;
         }
 
         // Draw a debug ray to visualize the hitscan raycast
-        Debug.DrawRay(transform.position, ray.direction, Color.red, 1.0f);
+        Debug.DrawRay(startPosition, ray.direction, Color.red, 1.0f);
 
         if (gunTrailPrefab != null)
-        {
+        { 
+            //using the current position because that is the muzzle position
             GameObject gunTrailObject = Instantiate(gunTrailPrefab, transform.position, Quaternion.LookRotation(targetPoint - transform.position));
             TrailMovement trail = gunTrailObject.GetComponent<TrailMovement>();
             trail.hitpoint = targetPoint;
@@ -60,14 +61,13 @@ public class HitscanProjectile : Projectile
                 UiManager.Instance.FlashHitMarker();
             }
 
-            if (hit.collider.gameObject.CompareTag("Body") || hit.collider.gameObject.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("Head"))
             {
-                damageable.Damage(damage);
-          
+                damageable.Damage(damage * headShotMultiplier);
             }
             else
             {
-                damageable.Damage(damage * headShotMultiplier);
+                damageable.Damage(damage);
             }
 
             if (hitEnemyPrefab != null)

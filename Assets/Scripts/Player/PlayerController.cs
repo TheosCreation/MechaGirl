@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public int maxHealth = 100;
     private float health;
+    public bool isInvinsable = false;
     public float Health
     {
         get => health;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             if (health <= 0)
             {
+                if (isInvinsable) return;
                 Die();
             }
         }
@@ -69,12 +71,11 @@ public class PlayerController : MonoBehaviour, IDamageable
         LevelManager.Instance.DestroyAllWeapons();
 
         RemoveCamera();
-
+        OnDeath?.Invoke();
         Destroy(gameObject);
     }
     private void RemoveCamera()
     {
-        LevelManager.Instance.tempCamera = GetComponentInChildren<Camera>().gameObject;
-        LevelManager.Instance.tempCamera.transform.SetParent(null);
+        LevelManager.Instance.SetTempCamera(true);
     }
 }

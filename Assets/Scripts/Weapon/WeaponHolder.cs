@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,7 +7,7 @@ using UnityEngine;
 public class WeaponHolder : MonoBehaviour
 {
     private PlayerController playerController;
-    private Weapon[] weapons;
+    private List<Weapon> weapons = new List<Weapon>();
     public Weapon currentWeapon;
     private Weapon lastThrowWeapon;
     private int currentWeaponIndex = 0;
@@ -16,6 +17,8 @@ public class WeaponHolder : MonoBehaviour
     private bool isSwitching = false;
     private float scrollSwitchDelay = 0.2f;
     public ParticleSystem pickupParticle;
+    [SerializeField] protected AudioClip pickUpSound;
+    private AudioSource pickupAudioSource;
 
     private void Awake()
     {
@@ -25,19 +28,26 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
         InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashToWeapon();
         playerController = GetComponentInParent<PlayerController>();
+        pickupAudioSource = GetComponent<AudioSource>();
 
-        weapons = GetComponentsInChildren<Weapon>();
+        // Initialize weapons from children
+        weapons.AddRange(GetComponentsInChildren<Weapon>());
     }
+
     void Start()
     {
         // Initialize the first weapon if needed
-        SelectWeapon(currentWeaponIndex);
+        if (weapons.Count > 0)
+        {
+            SelectWeapon(currentWeaponIndex);
+        }
     }
 
     private void EndShooting()
     {
         isShooting = false;
     }
+
     private void StartShooting()
     {
         isShooting = true;
@@ -45,8 +55,12 @@ public class WeaponHolder : MonoBehaviour
 
     public void FixedUpdate()
     {
-        currentWeapon.isShooting = isShooting;
+        if (currentWeapon != null)
+        {
+            currentWeapon.isShooting = isShooting;
+        }
     }
+
     private void WeaponSwitch(Vector2 direction)
     {
         if (!isSwitching)
@@ -61,20 +75,19 @@ public class WeaponHolder : MonoBehaviour
         if (direction.y > 0)
         {
             // Scroll up, switch to the next weapon
-            currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Length;
+            currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
         }
         else if (direction.y < 0)
         {
             // Scroll down, switch to the previous weapon
-            currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Length) % weapons.Length;
+            currentWeaponIndex = (currentWeaponIndex - 1 + weapons.Count) % weapons.Count;
         }
 
         SelectWeapon(currentWeaponIndex);
-
         yield return new WaitForSeconds(scrollSwitchDelay);
-
         isSwitching = false;
     }
+
     private void DashToWeapon()
     {
         if (lastThrowWeapon != null)
@@ -83,6 +96,7 @@ public class WeaponHolder : MonoBehaviour
             lastThrowWeapon.PickUp(this, playerController, true);
         }
     }
+
     public void TryThrowWeapon()
     {
         if (currentWeaponIndex != 0)
@@ -102,14 +116,15 @@ public class WeaponHolder : MonoBehaviour
         }
     }
 
-    //weapon pickup is happening in player controller, because a box collider set to trigger is attach to root object of the player
-    public bool AddWeapon(Weapon weapon)
+    // Weapon pickup method
+    public bool AddWeapon(Weapon weapon, bool ignoreParticles)
     {
         if (lastThrowWeapon == weapon)
         {
             lastThrowWeapon = null;
         }
-    
+
+        // Check if the weapon already exists
         foreach (Weapon existingWeapon in weapons)
         {
             if (existingWeapon.GetType() == weapon.GetType())
@@ -120,49 +135,43 @@ public class WeaponHolder : MonoBehaviour
                 // Destroy the new weapon to avoid duplicates
                 Destroy(weapon.gameObject);
 
-                return false;
+                return false; // Don't auto-equip if just adding ammo
             }
         }
 
-        // Create a new array with an additional slot
-        Weapon[] newWeaponsArray = new Weapon[weapons.Length + 1];
+        // Add the new weapon to the list
+        weapons.Add(weapon);
 
-        // Copy the existing weapons to the new array
-        for (int i = 0; i < weapons.Length; i++)
+        if (!ignoreParticles)
         {
-            newWeaponsArray[i] = weapons[i];
+            pickupParticle.Play();
+            pickupAudioSource.PlayOneShot(pickUpSound);
         }
 
-        // Add the new weapon to the end
-        newWeaponsArray[weapons.Length] = weapon;
-        pickupParticle.Play();
+        weapon.enabled = false; // Disable the weapon script as the game object stays active
+        weapon.transform.parent = transform; // Attach the weapon to the weapon holder again
+        weapon.transform.localPosition = Vector3.zero; // Reset position
 
-        // Replace the old array with the new one
-        weapons = newWeaponsArray;
+        // Auto-equip the newly added weapon
+        SelectWeapon(weapons.Count - 1);
 
-        weapon.enabled = false; //disable the weapon script as the game object stays active
-        weapon.gameObject.transform.parent = transform; //attach the weapon to the weapon holder again
-        weapon.gameObject.transform.localPosition = Vector3.zero; //then reset the position
-        if (currentWeapon.GetType() == weapons[0].GetType())
-        { 
-            SelectWeapon(weapons.Length - 1);
-        }
         return true;
     }
 
     private void SelectWeapon(int index)
     {
         // Logic to activate the selected weapon and deactivate others
-        for (int i = 0; i < weapons.Length; i++)
+        for (int i = 0; i < weapons.Count; i++)
         {
             weapons[i].enabled = i == index;
             weapons[i].isShooting = false;
+
             if (i == index)
             {
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
                 currentWeapon.WeaponHolder = this;
-      
+
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
                 UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);
             }
@@ -171,40 +180,19 @@ public class WeaponHolder : MonoBehaviour
 
     public void Remove(Weapon weapon)
     {
-        int indexToRemove = -1;
-
-        // Find the index of the weapon to remove
-        for (int i = 0; i < weapons.Length; i++)
+        if (weapons.Contains(weapon))
         {
-            if (weapon == weapons[i])
-            {
-                indexToRemove = i;
-                break;
-            }
-        }
-
-        if (indexToRemove != -1)
-        {
-            // Create a new array with one less element
-            Weapon[] newWeapons = new Weapon[weapons.Length - 1];
-            for (int i = 0, j = 0; i < weapons.Length; i++)
-            {
-                if (i != indexToRemove)
-                {
-                    newWeapons[j++] = weapons[i];
-                }
-            }
-            weapons = newWeapons;
+            weapons.Remove(weapon);
         }
         else
         {
-            Debug.LogWarning("Weapon not found in the array.");
+            Debug.LogWarning("Weapon not found in the list.");
         }
     }
 
     public void SwitchToWeaponWithAmmo()
     {
-        for (int i = 1; i < weapons.Length; i++)
+        for (int i = 1; i < weapons.Count; i++)
         {
             // Check if the weapon has ammo
             if (weapons[i].Ammo > 0)

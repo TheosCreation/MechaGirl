@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &406077310360301688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5818951153132858356}
+  m_Layer: 10
+  m_Name: EjectPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5818951153132858356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406077310360301688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.09, y: 0.007, z: -0.152}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 769796230757902721}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5405316629874128243
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,13 +62,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5405316629874128243}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.81794894, w: 0.57529086}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.15, y: -0.89, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5818951153132858356}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 109.76}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2974118847284677436
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -106,7 +138,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.06
+  m_Volume: 0.12
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -114,10 +146,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 1.5
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -125,23 +157,50 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.06
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -16.673332
+      outSlope: -16.673332
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.12
+      value: 0.5
+      inSlope: -4.168333
+      outSlope: -4.168333
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.24
+      value: 0.25
+      inSlope: -1.0420833
+      outSlope: -1.0420833
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.48
+      value: 0.125
+      inSlope: -0.26052082
+      outSlope: -0.26052082
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.065130204
+      outSlope: -0.065130204
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -150,7 +209,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -200,7 +259,7 @@ Animator:
   m_GameObject: {fileID: 5405316629874128243}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 20ad6a4526589934b91b1466ee9f2610, type: 2}
+  m_Controller: {fileID: 22100000, guid: e3cdf8015a15f68409916e4e93415837, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -234,16 +293,19 @@ MonoBehaviour:
   gunInGameController: {fileID: 22100000, guid: e3cdf8015a15f68409916e4e93415837,
     type: 2}
   isEquip: 0
-  equipTime: 0.1
+  equipTime: 0.15
   canThrow: 1
   canShoot: 1
   isShooting: 0
-  shootsPerSecond: 1.5
-  screenShakeDuration: 0.02
+  shootsPerSecond: 2
+  screenShakeDuration: 0.1
   screenShakeAmount: 0.05
   canPickup: 0
-  startingAmmo: 5
-  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 7ee5cafd8d840754389cd9fda8fdd5ae,
+  startingAmmo: 20
+  casingToSpawn: {fileID: 572047263200891013, guid: 2d5a514d8473c244c8f1416dc9d1824e,
+    type: 3}
+  casingSpawnTransform: {fileID: 5818951153132858356}
+  enemyProjectilePrefab: {fileID: 5626004225044233273, guid: 4c9565abf25ee0f47b513071f5685faf,
     type: 3}
   playerProjectilePrefab: {fileID: 134945111961687759, guid: 9ac9d64d81c6d5443a3de3a1423827b9,
     type: 3}
@@ -254,7 +316,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fcb3fde9ac9110c4f950007b223a2e3c, type: 3}
   - {fileID: 8300000, guid: 1827f00bd4ea4bb469bddb56317d082f, type: 3}
   predictionTime: 0.2
+  playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
   ignoreAmmo: 0
 --- !u!65 &4392212421055244256
 BoxCollider:
@@ -269,7 +334,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1160
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -316,4 +381,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8416aff4fb1c009449631ca9a045cbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateY: 0
+  rotateY: 1

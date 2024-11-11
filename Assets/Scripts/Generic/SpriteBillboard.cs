@@ -1,32 +1,27 @@
-//using UnityEngine;
-//
-//public class SpriteBillboard : MonoBehaviour
-//{
-//    private void Update()
-//    {
-//        transform.rotation = Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f);
-//    }
-//}
-
 using UnityEngine;
 
 public class SpriteBillboard : MonoBehaviour
 {
-    Transform target;
     [SerializeField] private bool rotateY = false;
 
-    private void Start()
-    {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
-    }
     private void Update()
     {
-        Vector3 directionToTarget = target.position - transform.position;
-        if(!rotateY) directionToTarget.y = 0; // Keep only the horizontal direction
+        // Ensure player is available
+        if (LevelManager.Instance.playerSpawn.playerSpawned == null) return;
 
-        // Determine the rotation needed to look at the target
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        // Get the player position
+        Transform playerTransform = LevelManager.Instance.playerSpawn.playerSpawned.transform;
 
+        // Calculate the direction to the player
+        Vector3 directionToPlayer = playerTransform.position - transform.position;
+
+        // If rotating only on the XZ plane, remove the y component
+        if (!rotateY) directionToPlayer.y = 0;
+
+        // Calculate the target rotation to face the player
+        Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer, Vector3.up);
+
+        // Apply the rotation
         transform.rotation = targetRotation;
     }
 }

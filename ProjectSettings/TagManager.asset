@@ -8,6 +8,7 @@ TagManager:
   - Body
   - Weapon
   - New tag
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Interactables
   - Trigger
   - Weapons
-  - 
-  - 
+  - FX
+  - Projectile
   - 
   - 
   - 

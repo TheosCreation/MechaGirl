@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
@@ -34,16 +35,23 @@ public class PauseMenu : MonoBehaviour
 
     public void ResetLevel()
     {
-        LevelManager.Instance.resetLevel = true;
-        LevelManager.Instance.KillCurrentPlayer();
-        PauseManager.Instance.SetPaused(true);
-        LevelManager.Instance.RespawnPlayer();
+        GameManager.Instance.ReopenLevel();
     }
 
     public void ResetToCheckPoint()
     {
         LevelManager.Instance.KillCurrentPlayer();
-        PauseManager.Instance.SetPaused(true);
+        //PauseManager.Instance.SetPaused(false);
+
+        LevelManager.Instance.DestroyAllEnemies();
+        LevelManager.Instance.DestroyAllWeapons();
+
+        StartCoroutine(RespawnPlayerNextFrame());
+    }
+
+    private IEnumerator RespawnPlayerNextFrame()
+    {
+        yield return new WaitForEndOfFrame(); // Waits until the end of the current frame
         LevelManager.Instance.RespawnPlayer();
     }
 }

@@ -11,6 +11,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] protected float damage = 10.0f;
     public GameObject owner;
     public int ownerLayer = -1;
+    public string ownerTag;
     protected Rigidbody rb;
 
     private void Awake()
@@ -21,7 +22,10 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public virtual void Initialize(Vector3 direction, bool fromPlayer) { }
+    public virtual void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
+    {
+        ownerTag = owner.tag;
+    }
 
     protected void RemoveEnemyFromHitMask()
     {

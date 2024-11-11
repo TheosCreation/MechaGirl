@@ -31,6 +31,14 @@ public class EnemyStateMachine
             return EnemyState.Chasing;
         else if (currentState is AttackingState)
             return EnemyState.Attacking;
+        else if (currentState is BossAttackingState)
+            return EnemyState.BossAttacking;
+        else if (currentState is FlyingWonderState)
+            return EnemyState.FlyingWonder;
+        else if (currentState is FlyingAttackingState)
+            return EnemyState.FlyingAttacking;
+        else if (currentState is IdleState)
+            return EnemyState.Idle;
         else
             return EnemyState.NOTIMPLEMENTED; // Default
     }

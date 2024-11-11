@@ -3,9 +3,11 @@ using UnityEngine;
 public class WeaponAnim : MonoBehaviour
 {
     private PlayerController player;
+
     [Header("Weapon Sway")]
     [SerializeField] private float positionalSway = 1f;
     [SerializeField] private float swaySmoothness = 1f;
+    [SerializeField] private float maxSwayAmount = 0.2f; // Maximum sway limit
 
     [Header("Walking Bobbing")]
     [SerializeField] private float bobbingFrequency = 1.5f;
@@ -19,7 +21,6 @@ public class WeaponAnim : MonoBehaviour
     private float targetBobbingDirection = 1f;
     private float currentBobbingDirection = 1f;
     private Vector3 curentPosition = Vector3.zero;
-
 
     private void Awake()
     {
@@ -52,6 +53,10 @@ public class WeaponAnim : MonoBehaviour
         float mouseY = InputManager.Instance.currentMouseDelta.y * 0.1f;
 
         swayPositionOffset = new Vector3(mouseX, mouseY, 0) * positionalSway;
+
+        // Clamp sway position to prevent excessive movement
+        swayPositionOffset.x = Mathf.Clamp(swayPositionOffset.x, -maxSwayAmount, maxSwayAmount);
+        swayPositionOffset.y = Mathf.Clamp(swayPositionOffset.y, -maxSwayAmount, maxSwayAmount);
     }
 
     private Vector3 CalculateBobbing()
@@ -79,7 +84,7 @@ public class WeaponAnim : MonoBehaviour
             bobbingTimer += Time.deltaTime * bobbingFrequency;
 
             // Calculate vertical bobbing (up/down)
-            float verticalOffset = -Mathf.Abs(verticalBobbingAmplitude * Mathf.Sin(bobbingTimer)) ;
+            float verticalOffset = -Mathf.Abs(verticalBobbingAmplitude * Mathf.Sin(bobbingTimer));
 
             // Calculate horizontal bobbing (left/right) with lerped direction
             float horizontalOffset = horizontalBobbingAmplitude * Mathf.Cos(bobbingTimer) * currentBobbingDirection;

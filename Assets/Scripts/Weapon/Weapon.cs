@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     public Sprite inGameSprite;
     [SerializeField] private AnimatorOverrideController gunPlayerController;
     [SerializeField] private AnimatorOverrideController gunInGameController;
-    protected Sprite currentSprite;
+    protected Sprite currentSprite; 
 
     [Header("Equip")]
     [SerializeField] private bool isEquip = false;
@@ -37,11 +37,13 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
-    [SerializeField] protected bool canPickup = true; // moved up to settings tab so easily visable
+    public bool canPickup = true; // moved up to settings tab so easily visable
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
     public int startingAmmo = 10;
+    [SerializeField] protected Casing casingToSpawn;
+    [SerializeField] protected Transform casingSpawnTransform;
 
     [SerializeField] protected Projectile enemyProjectilePrefab;
     [SerializeField] protected Projectile playerProjectilePrefab;
@@ -56,12 +58,12 @@ public class Weapon : MonoBehaviour
 
     protected Transform target; // Target to aim at
 
-    protected PlayerController playerController;
+    public PlayerController playerController;
     [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
-    protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
-    protected Rigidbody rb;
+    public BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    public Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     protected SpriteBillboard spriteBillboard;
@@ -195,7 +197,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected virtual void Attach()
+    public virtual void Attach()
     {
         if (Ammo > 0)
         {
@@ -205,7 +207,7 @@ public class Weapon : MonoBehaviour
         spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
-        rb.useGravity = true;
+        transform.localRotation = Quaternion.identity;
         if (playerController != null)
         {
             spriteRenderer.enabled = false;
@@ -220,7 +222,7 @@ public class Weapon : MonoBehaviour
 
     protected void Equip()
     {
-        Attach();
+        //Attach();
         animator.enabled = true;
         if (playerController != null)
         {
@@ -285,20 +287,22 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
+    public bool PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
     {
-        if (!canPickup && !ignorePickup) return;
+        if (!canPickup && !ignorePickup) return false;
 
         playerController = pc;
 
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if (weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this, false))
         {
             //if is new weapon lets equip it
             Attach();
         }
+
+        return true;
     }
 
     protected float CalculateFireRate()
@@ -317,17 +321,6 @@ public class Weapon : MonoBehaviour
 
         animator.SetTrigger("Shoot");
 
-        if (playerController)
-        {
-            shotDirection = playerController.playerCamera.transform.forward;
-        }
-        else
-        {
-            OnAttack?.Invoke();
-
-            shotDirection = transform.forward;
-        }
-
         // Trigger screen shake if applicable
         if (playerController != null)
         {
@@ -338,10 +331,13 @@ public class Weapon : MonoBehaviour
 
         FireProjectile();
 
+        SpawnCasing();
+
         if (playerController != null && !ignoreAmmo)
         {
             Ammo--;
         }
+        OnAttack?.Invoke();
     }
 
     protected void FireProjectile()
@@ -351,33 +347,26 @@ public class Weapon : MonoBehaviour
             Debug.LogError("Projectile has not been set");
             return;
         }
-        Quaternion rotation = Quaternion.identity;
-        if (playerController)
-        {
-            rotation = playerController.playerCamera.transform.rotation;
-        }
-        else
-        {
-            rotation = transform.rotation;
-        }
 
         Projectile projectile = null;
         if (playerController != null)
         {
-            projectile = Instantiate(playerProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(playerProjectilePrefab, transform.position, playerController.playerCamera.transform.rotation);
         }
         else
         {
-            projectile = Instantiate(enemyProjectilePrefab, transform.position, rotation);
+            projectile = Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
         }
+
         if (projectile != null)
         {
             if (playerController)
             {
                 projectile.owner = playerController.gameObject;
 
-                projectile.Initialize(shotDirection, true);
+                projectile.Initialize(playerController.playerCamera.transform.position, playerController.playerCamera.transform.forward, true);
                 projectile.ownerLayer = playerController.gameObject.layer;
+                
 
             }
             else
@@ -385,8 +374,16 @@ public class Weapon : MonoBehaviour
                 GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
                 projectile.owner = enemyRef;
                 projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize(shotDirection, false);
+                projectile.Initialize(transform.position, transform.forward, false);
             }
+        }
+    }
+
+    protected void SpawnCasing()
+    {
+        if (casingToSpawn != null)
+        {
+            Instantiate(casingToSpawn, casingSpawnTransform.position, casingSpawnTransform.rotation);
         }
     }
 

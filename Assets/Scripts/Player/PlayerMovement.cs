@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
-using UnityEngine.InputSystem; // Ensure you have the correct namespace for InputManager
+﻿using UnityEngine;
+using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private MovementController movementController;
 
     [Header("Movement")]
-    [SerializeField] private float maxSpeed = 2.0f;
+    [SerializeField] private float maxWalkSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
     [SerializeField] private float deceleration = 2.0f;
 
@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isJumping = false;
     [SerializeField] private float jumpForce = 10.0f;
     [SerializeField] private float jumpDuration = 0.1f;
+    [SerializeField] private AudioClip jumpingClip;
     private Timer jumpTimer;
     private bool wasGrounded = true; // Track if the player was grounded in the previous frame
 
@@ -30,6 +31,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int maxWallJumps = 3;
     private int remainingWallJumps;
     private Vector3 wallNormal;
+
+    [Header("Wall Running")]
+    [SerializeField] private float maxWallRunSpeed = 2.0f;
+    [SerializeField] private float wallRunDuration = 2.0f; // How long the wall run lasts
+    public bool isWallRunning = false;
+    private Timer wallRunTimer;
 
     [Header("Dash")]
     [SerializeField] public bool isDashing = false;
@@ -40,6 +47,12 @@ public class PlayerMovement : MonoBehaviour
     Timer dashTimer;
     Timer dashCoolDownTimer;
 
+    [Header("Gravity Reduction")]
+    [SerializeField] private float reducedGravityFactor = 0.1f;
+    private bool isReducingGravity = false;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource audioSource2;
     Vector2 movementInput = Vector2.zero;
 
     private void Awake()
@@ -48,34 +61,99 @@ public class PlayerMovement : MonoBehaviour
         movementController = GetComponent<MovementController>();
 
         InputManager.Instance.playerInput.InGame.Jump.started += _ctx => Jump();
+        InputManager.Instance.playerInput.InGame.Jump.canceled += ctx => StopReducingGravity();
 
         jumpTimer = gameObject.AddComponent<Timer>();
         dashTimer = gameObject.AddComponent<Timer>();
-        dashCoolDownTimer = gameObject.AddComponent<Timer>();
+        dashCoolDownTimer = gameObject.AddComponent<Timer>(); 
+        wallRunTimer = gameObject.AddComponent<Timer>();
 
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
     }
+
     private void FixedUpdate()
     {
+        if (InputManager.Instance.playerInput.InGame.Jump.ReadValue<float>() > 0f && !movementController.isGrounded)
+        {
+            if (movementController.GetVerticalVelocity() < 0f)
+            {
+                StartReducingGravity();
+            }
+        }
+        else if (isReducingGravity)
+        {
+            StopReducingGravity();
+        }
+
+
+
         CheckLanding();
 
-        if (isDashing) return;
-
-
-        movementInput = InputManager.Instance.MovementVector;
-        float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
-        smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
-        playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
-        if (movementInput == Vector2.zero)
+        if (isDashing)
         {
-            movementController.movement = false;
+            audioSource.Stop();
             return;
         }
+        if(!movementController.isGrounded)
+        {
+            audioSource.Stop();
+        }
+
+        movementInput = InputManager.Instance.MovementVector;
+        //float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
+        //smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
+        //playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
+        if (movementInput == Vector2.zero)
+        {
+            movementController.movement = false; 
+            audioSource.Stop();
+            return;
+        }
+
+        if(!audioSource.isPlaying && movementController.isGrounded)
+        {
+            audioSource.Play();
+        }
+
+        if (isWallRunning)
+        {
+            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
+
+            movementController.ResetVerticalVelocity();
+
+            movementController.AddForce(wallForward * 5.0f);
+
+            return;
+        }
+
 
         Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
         movement = movement.normalized;
 
-        movementController.MoveLocal(movement, maxSpeed, acceleration, deceleration);
+        movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
+    }
+
+    private void EndWallRun()
+    {
+        if (!isWallRunning) // Only start wall run if not already wall running
+        {
+            movementController.SetGravity(true);
+            isWallRunning = true;
+
+            // Reduce gravity while wall running
+            //movementController. *= wallRunGravityScale;
+
+            // Start the wall run timer
+            wallRunTimer.StopTimer();
+            wallRunTimer.SetTimer(wallRunDuration, EndWallRun);
+        }
+    }
+
+    private void StartWallRun()
+    {
+        isWallRunning = false;
+        movementController.SetGravity(false);
+        // movementController. /= wallRunGravityScale;
     }
 
     void Jump()
@@ -84,10 +162,11 @@ public class PlayerMovement : MonoBehaviour
         {
             PerformJump();
         }
-        else if (canJump && isNearWall() && remainingWallJumps > 0)
+      
+      /*  else if (canJump && isNearWall() && remainingWallJumps > 0)
         {
             PerformWallJump();
-        }
+        }*/
     }
 
     void PerformJump()
@@ -97,6 +176,8 @@ public class PlayerMovement : MonoBehaviour
 
         // Play a CameraJumpAnimation
         playerController.playerLook.PlayJumpAnimation(jumpDuration);
+
+        audioSource2.PlayOneShot(jumpingClip);
 
         isJumping = true;
         jumpTimer.StopTimer();
@@ -126,6 +207,23 @@ public class PlayerMovement : MonoBehaviour
     {
         isJumping = false;
         canJump = true;
+    }
+    private void StartReducingGravity()
+    {
+        if (!isReducingGravity )
+        {
+            isReducingGravity = true;
+            movementController.ReduceGravity(reducedGravityFactor);
+        }
+    }
+
+    private void StopReducingGravity()
+    {
+        if (isReducingGravity)
+        {
+            isReducingGravity = false;
+            movementController.RestoreGravity();
+        }
     }
 
     private bool isNearWall()
@@ -206,6 +304,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerController.playerLook.PlayLandAnimation();
             remainingWallJumps = maxWallJumps;
+            StopReducingGravity();
         }
 
         // Update the grounded state for the next frame

@@ -1,57 +1,155 @@
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+
 public class FlyingEnemy : Enemy
 {
-    [Header("Flying Settings")]
-    public float verticalMovementRange = 2.0f;
-    public float verticalMovementSpeed = 1.0f;
-    public float minimumHeightAboveGround = 1.0f;
-    public GameObject[] children;
-    private float originalY;
-    public float movementInterval = 2.0f; // New variable for movement interval
+    [Header("Flying enemy")]
+    public float raycastDistance = 2.0f;
+    public float moveSpeed = 5f;
+    public int numberOfRays = 32;
+    public float randomMovementInterval = 2.0f; // Time interval to change random direction
+    [Range(0.1f, 5)]
+    public float flatteningFactor = 2.0f; // Cntrol flattening
+    private Vector3 randomDirection;
+    private float timeSinceLastRandomDirectionChange;
 
-    protected new void Start()
+    [Range(0, 2)]
+    public float biasTowardsPlayer = 0.7f; 
+    protected override void Awake()
     {
-        base.Start(); // Call the base class Start method
-        originalY = transform.position.y;
-        StartCoroutine(RandomVerticalMovement());
+        rb = GetComponent<Rigidbody>();
+        spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        health = maxHealth;
+
+        StateMachine = new EnemyStateMachineBuilder()
+            .AddState(new LookingState())
+            .AddState(new FlyingWonderState())
+            .AddState(new FlyingAttackingState())
+            .Build();
+
+        SetDefaultState();
+        delayTimer = gameObject.AddComponent<Timer>();
+        launchTimer = gameObject.AddComponent<Timer>();
+        weapons = GetComponentsInChildren<Weapon>();
+        rb.useGravity = false; // Disable gravity for flying
+        rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
+
+        ChangeRandomDirection();
+    }
+    protected new void Update()
+    {
+        StateMachine.Update(this);
+        currentState = StateMachine.GetCurrentState();
     }
 
-    private IEnumerator RandomVerticalMovement()
+    private void FixedUpdate()
     {
-        while (true)
+        PerformRaycastMovement();
+        UpdateRandomMovement();
+    }
+
+    private void PerformRaycastMovement()
+    {
+        Vector3 moveDirection = Vector3.zero;
+        bool playerDetected = false;
+
+        float goldenAngle = Mathf.PI * (3 - Mathf.Sqrt(5)); // Approximate 2.39996323
+
+        for (int i = 0; i < numberOfRays; i++)
         {
-            float groundLevel = GetGroundLevel();
-            float minY = groundLevel + minimumHeightAboveGround;
-            float targetY = Mathf.Max(minY, originalY + Random.Range(-verticalMovementRange, verticalMovementRange));
+            // Calculate uniformly distributed points on a sphere using the Fibonacci sphere algorithm
+            float t = (float)i / numberOfRays;
+            float inclination = Mathf.Acos(1 - 2 * t); // Inclination angle (theta) from 0 to π
+            float azimuth = goldenAngle * i; // Azimuthal angle (phi)
 
-            float totalDuration = verticalMovementSpeed + movementInterval;
-            float elapsedTime = 0f;
+            // Convert spherical coordinates to Cartesian coordinates
+            float x = Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = Mathf.Cos(inclination);
 
-            while (elapsedTime < totalDuration)
+            Vector3 direction = new Vector3(x, y, z);
+
+            // Apply flattening to the vertical component
+            direction.y /= flatteningFactor;
+
+            // Normalize the direction vector after flattening
+            direction.Normalize();
+
+            // Perform the raycast in the calculated direction
+            if (Physics.Raycast(transform.position, direction, out RaycastHit hit, raycastDistance))
             {
-                float t = elapsedTime / totalDuration;
-                foreach (var child in children)
+                // Draw the ray in red if it hits something
+                Debug.DrawRay(transform.position, direction * hit.distance, Color.red);
+
+                if (hit.collider.CompareTag("Player"))
                 {
-                    float newY = Mathf.Lerp(child.transform.position.y, targetY, t);
-                    child.transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+                    playerDetected = true;
+                    moveDirection += direction;
+                    break;
                 }
-
-                elapsedTime += Time.deltaTime;
-                yield return null;
+                else if (hit.collider.CompareTag("Untagged"))
+                {
+                    // Calculate avoidance force based on distance
+                    float distance = hit.distance;
+                    float avoidanceMultiplier = distance != 0 ? 1f / distance : 100f; // Avoid division by zero
+                    moveDirection -= direction * avoidanceMultiplier;
+                }
             }
-
-            yield return new WaitForSeconds(movementInterval); // Wait before changing direction again
+            else
+            {
+                // Draw the ray in green if it doesn't hit anything
+                Debug.DrawRay(transform.position, direction * raycastDistance, Color.green);
+            }
         }
-    }
 
-    private float GetGroundLevel()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity))
+        if (playerDetected)
         {
-            return hit.point.y;
+            // Move towards the player
+            rb.velocity = moveDirection.normalized * moveSpeed;
         }
-        return transform.position.y; // Default to current position if no ground is detected
+        else
+        {
+            // Blend random movement with avoidance
+            moveDirection += randomDirection;
+            rb.velocity = moveDirection.normalized * moveSpeed;
+        }
     }
+
+
+    private void UpdateRandomMovement()
+    {
+        timeSinceLastRandomDirectionChange += Time.deltaTime;
+        if (timeSinceLastRandomDirectionChange >= randomMovementInterval)
+        {
+            ChangeRandomDirection();
+            timeSinceLastRandomDirectionChange = 0f;
+        }
+    }
+
+    private void ChangeRandomDirection()
+    {
+        // Generate a random variation
+        Vector3 randomVariation = new Vector3(
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f) / flatteningFactor, // Flatten vertically
+            Random.Range(-1f, 1f)
+        ).normalized;
+
+        if (target != null)
+        {
+            // Direction towards the player
+            Vector3 directionToPlayer = (target.position - transform.position).normalized;
+
+            // Define how strongly the enemy is biased towards the player
+            float biasTowardsPlayer = 0.7f; // Value between 0 (no bias) and 1 (full bias)
+
+            // Blend the random variation with the direction to the player
+            randomDirection = Vector3.Lerp(randomVariation, directionToPlayer, biasTowardsPlayer).normalized;
+        }
+        else
+        {
+            // If player is not found, use random variation
+            randomDirection = randomVariation;
+        }
+    }
+
 }
