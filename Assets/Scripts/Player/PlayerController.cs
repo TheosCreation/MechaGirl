@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour, IDamageable
     [HideInInspector] public PlayerLook playerLook;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public WeaponHolder weaponHolder;
+    [SerializeField] private AudioSource audio1;
+    [SerializeField] private AudioSource audio2;
 
     public int maxHealth = 100;
     private float health;
@@ -77,5 +79,11 @@ public class PlayerController : MonoBehaviour, IDamageable
     private void RemoveCamera()
     {
         LevelManager.Instance.SetTempCamera(true);
+    }
+
+    public void SetAudio(bool active)
+    {
+        audio1.mute = !active;
+        audio2.mute = !active;
     }
 }
