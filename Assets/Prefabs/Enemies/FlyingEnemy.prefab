@@ -381,40 +381,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 195759607885323213}
     m_Modifications:
-    - target: {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc,
+    - target: {fileID: 1442778625901810694, guid: 50a494943e0246d44b765b9fb93ddedc,
         type: 3}
-      propertyPath: isEquip
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: canPickup
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: startingAmmo
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2163744701076583021, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.4
+      propertyPath: AnimationPosition.x
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
         type: 3}
@@ -466,84 +436,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7633853622247973118, guid: 50a494943e0246d44b765b9fb93ddedc,
         type: 3}
       propertyPath: m_Name
       value: Granade
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7633853622247973118, guid: 50a494943e0246d44b765b9fb93ddedc,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7010130907119160979}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50a494943e0246d44b765b9fb93ddedc, type: 3}
---- !u!1 &1627981554119414291 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7633853622247973118, guid: 50a494943e0246d44b765b9fb93ddedc,
-    type: 3}
-  m_PrefabInstance: {fileID: 9180348101616366317}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &7010130907119160979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1627981554119414291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33daa7d34d699aa44b06928e9d84ef49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
-  AnimationPosition: {x: 0, y: 0, z: 0}
-  AnimationRotation: {x: 0, y: 0, z: 0}
-  iconSprite: {fileID: 21300000, guid: d5633312c26bf8441acc5e9033a263a4, type: 3}
-  inGameSprite: {fileID: 21300000, guid: f9cf9e8896c64af429eae78776503858, type: 3}
-  gunPlayerController: {fileID: 22100000, guid: eac983e78fb3be4409f230d1aad22eec,
-    type: 2}
-  gunInGameController: {fileID: 22100000, guid: a9b67be26b3f0e841a0fb1ea6df40a81,
-    type: 2}
-  isEquip: 1
-  equipTime: 0.5
-  canThrow: 1
-  canShoot: 1
-  isShooting: 0
-  shootsPerSecond: 1
-  screenShakeDuration: 0.1
-  screenShakeAmount: 0.1
-  canPickup: 0
-  startingAmmo: 1
-  casingToSpawn: {fileID: 0}
-  casingSpawnTransform: {fileID: 0}
-  enemyProjectilePrefab: {fileID: 5626980587879904056, guid: ee5a99208c853624ba95c6a4ec2071c8,
-    type: 3}
-  playerProjectilePrefab: {fileID: 5626980587879904056, guid: ee5a99208c853624ba95c6a4ec2071c8,
-    type: 3}
-  shootingSource: {fileID: 4079941613346214454}
-  shootingSounds:
-  - {fileID: 8300000, guid: df51f73ac607e0048a801c911f7bd37f, type: 3}
-  predictionTime: 0.2
-  playerController: {fileID: 0}
-  WeaponHolder: {fileID: 0}
-  bc: {fileID: 0}
-  rb: {fileID: 0}
-  ignoreAmmo: 1
---- !u!82 &4079941613346214454 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 5186449891707298011, guid: 50a494943e0246d44b765b9fb93ddedc,
-    type: 3}
-  m_PrefabInstance: {fileID: 9180348101616366317}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6285503187940527841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2908676843253120012, guid: 50a494943e0246d44b765b9fb93ddedc,
