@@ -3,16 +3,17 @@ using UnityEngine.Events;
 
 public class TriggerZone : IResetable
 {
-    [SerializeField] private bool reuseable = false;
+    [SerializeField] protected bool reuseable = false;
 
     // UnityEvent that can be configured in the Inspector
     public UnityEvent onTriggerEnter;
     public UnityEvent onTriggerExit;
 
     private bool active = true;
+    private bool complete = false;
 
     // This method is called when another collider enters the trigger zone
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.tag != "Player") return;
 
@@ -23,7 +24,7 @@ public class TriggerZone : IResetable
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.tag != "Player") return;
 
@@ -34,8 +35,14 @@ public class TriggerZone : IResetable
         }
     }
 
+    public void Complete()
+    {
+        complete = true;
+    }
+
     public override void Reset()
     {
+        if(complete) return;
         active = true;
     }
 }

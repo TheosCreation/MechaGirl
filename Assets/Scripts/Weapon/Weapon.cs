@@ -37,7 +37,7 @@ public class Weapon : MonoBehaviour
     [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
-    [SerializeField] protected bool canPickup = true; // moved up to settings tab so easily visable
+    public bool canPickup = true; // moved up to settings tab so easily visable
 
     [Tab("Setup")]
     [Header("Projectile Settings")]
@@ -58,12 +58,12 @@ public class Weapon : MonoBehaviour
 
     protected Transform target; // Target to aim at
 
-    protected PlayerController playerController;
+    public PlayerController playerController;
     [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
-    protected BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
-    protected Rigidbody rb;
+    public BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
+    public Rigidbody rb;
     protected Timer pickupTimer;
     protected Vector3 shotDirection;
     protected SpriteBillboard spriteBillboard;
@@ -197,7 +197,7 @@ public class Weapon : MonoBehaviour
         isEquip = false;
     }
 
-    protected virtual void Attach()
+    public virtual void Attach()
     {
         if (Ammo > 0)
         {
@@ -207,7 +207,6 @@ public class Weapon : MonoBehaviour
         spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
-        rb.useGravity = true;
         transform.localRotation = Quaternion.identity;
         if (playerController != null)
         {
@@ -223,7 +222,7 @@ public class Weapon : MonoBehaviour
 
     protected void Equip()
     {
-        Attach();
+        //Attach();
         animator.enabled = true;
         if (playerController != null)
         {
@@ -288,20 +287,22 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public void PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
+    public bool PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
     {
-        if (!canPickup && !ignorePickup) return;
+        if (!canPickup && !ignorePickup) return false;
 
         playerController = pc;
 
         canPickup = false;
 
         //this will attach it to the weapon holder game object and add it to the weapons array
-        if (weaponHolder.AddWeapon(this))
+        if (weaponHolder.AddWeapon(this, false))
         {
             //if is new weapon lets equip it
             Attach();
         }
+
+        return true;
     }
 
     protected float CalculateFireRate()

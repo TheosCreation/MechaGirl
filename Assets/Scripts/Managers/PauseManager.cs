@@ -57,6 +57,14 @@ public class PauseManager : MonoBehaviour
         UiManager.Instance.PauseMenu(true);
         Time.timeScale = 0;
 
+
+        PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
+        if (player != null)
+        {
+            player.SetAudio(false);
+        }
+
+
         Cursor.lockState = CursorLockMode.None;
     }
 
@@ -73,6 +81,11 @@ public class PauseManager : MonoBehaviour
         InputManager.Instance.EnableInGameInput();
         UiManager.Instance.PauseMenu(false);
 
+        PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
+        if (player != null)
+        {
+            player.SetAudio(true);
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
     }

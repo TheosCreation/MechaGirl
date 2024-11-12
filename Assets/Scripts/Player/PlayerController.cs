@@ -7,9 +7,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     [HideInInspector] public PlayerLook playerLook;
     [HideInInspector] public PlayerMovement playerMovement;
     [HideInInspector] public WeaponHolder weaponHolder;
+    [SerializeField] private AudioSource audio1;
+    [SerializeField] private AudioSource audio2;
 
     public int maxHealth = 100;
     private float health;
+    public bool isInvinsable = false;
     public float Health
     {
         get => health;
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             if (health <= 0)
             {
+                if (isInvinsable) return;
                 Die();
             }
         }
@@ -54,10 +58,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         UiManager.Instance.FlashHurtScreen();
     }
 
-    public void Heal(float healAmount)
+    public bool Heal(float healAmount)
     {
+        float previousHealth = Health;
         float newHealth = Health + healAmount;
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
+
+        return Health > previousHealth;
     }
 
     public void Die()
@@ -74,6 +81,12 @@ public class PlayerController : MonoBehaviour, IDamageable
     }
     private void RemoveCamera()
     {
-        LevelManager.Instance.SetTempCamera(GetComponentInChildren<Camera>().gameObject);
+        LevelManager.Instance.SetTempCamera(true);
+    }
+
+    public void SetAudio(bool active)
+    {
+        audio1.mute = !active;
+        audio2.mute = !active;
     }
 }

@@ -37,6 +37,8 @@ public class EnemyStateMachine
             return EnemyState.FlyingWonder;
         else if (currentState is FlyingAttackingState)
             return EnemyState.FlyingAttacking;
+        else if (currentState is IdleState)
+            return EnemyState.Idle;
         else
             return EnemyState.NOTIMPLEMENTED; // Default
     }

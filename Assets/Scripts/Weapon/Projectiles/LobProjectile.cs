@@ -20,7 +20,7 @@ public class LobProjectile : Projectile
             RemoveEnemyFromHitMask();
         }
         // Apply force to move the projectile
-        rb.AddForce(direction * speed, ForceMode.Impulse);
+        rb.AddForce(direction * speed, ForceMode.VelocityChange);
 
         // Destroy the projectile after its lifetime
         Destroy(gameObject, lifetime);

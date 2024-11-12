@@ -3,10 +3,11 @@ using UnityEngine.Events;
 
 public class TriggerCheckPoint : IResetable
 {
-    public UnityEvent OnPlayerRespawn;
     private bool active = true;
     private SpriteRenderer spriteRenderer;
     private BoxCollider boxCollider;
+    public WeaponSpawner[] weaponSpawners;
+    public UnityEvent OnCheckPoint;
 
     private void Start()
     {
@@ -22,10 +23,14 @@ public class TriggerCheckPoint : IResetable
         if(active)
         {
             active = false;
-            LevelManager.Instance.SetCheckPoint(transform);
-            LevelManager.Instance.OnPlayerRespawn = OnPlayerRespawn;
+            LevelManager.Instance.SetCheckPoint(this);
             spriteRenderer.enabled = false;
             boxCollider.enabled = false;
+            OnCheckPoint?.Invoke();
+            foreach (WeaponSpawner weaponSpawner in weaponSpawners)
+            {
+                weaponSpawner.DeActivate();
+            }
         }
     }
 

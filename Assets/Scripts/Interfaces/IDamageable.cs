@@ -6,7 +6,7 @@ public interface IDamageable
 
     void Damage(float damageAmount);
 
-    void Heal(float healAmount);
+    bool Heal(float healAmount);
 
     event Action OnDeath;
 }

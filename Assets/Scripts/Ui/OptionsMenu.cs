@@ -70,8 +70,8 @@ public class OptionsMenu : MonoBehaviour
             CreateSliderOption(SettingsManager.Instance.options.musicVolume, musicVolumeSlider, musicVolumeText, musicVolumeResetButton, SettingsManager.Instance.UpdateVolume, true),
             CreateSliderOption(SettingsManager.Instance.options.sensitivity, sensitivitySlider, sensitivityText, sensitivityResetButton, SettingsManager.Instance.UpdateSensitivity, true),
             CreateSliderOption(SettingsManager.Instance.options.lookSmoothing, lookSmoothingSlider, lookSmoothingText, lookSmoothingResetButton, SettingsManager.Instance.UpdateLookSmoothing, true),
-            CreateSliderOption(SettingsManager.Instance.options.screenShake, screenShakeSlider, screenShakeText, screenShakeResetButton, SettingsManager.Instance.UpdateScreenShake, true),
-            CreateSliderOption(SettingsManager.Instance.options.fov, fovSlider, fovText, fovResetButton, SettingsManager.Instance.UpdateFov),
+            CreateSliderOption(SettingsManager.Instance.options.screenShake, screenShakeSlider, screenShakeText, screenShakeResetButton, SettingsManager.Instance.UpdateScreenShake, true, "SHAKE IT OFF!!!"),
+            CreateSliderOption(SettingsManager.Instance.options.fov, fovSlider, fovText, fovResetButton, SettingsManager.Instance.UpdateFov, false, "FISH EYE LENS!!!"),
 
             CreateToggleOption(SettingsManager.Instance.options.tilt, tiltToggle, tiltResetButton, SettingsManager.Instance.UpdateTilt),
             CreateToggleOption(SettingsManager.Instance.options.fullscreen, fullscreenToggle, fullscreenButton, SettingsManager.Instance.UpdateFullscreen),
@@ -82,9 +82,9 @@ public class OptionsMenu : MonoBehaviour
         };
     }
 
-    private OptionsSlider CreateSliderOption(FloatSetting setting, Slider slider, TMP_Text text, Button resetButton, System.Action<FloatSetting> updateAction, bool isPercentage = false)
+    private OptionsSlider CreateSliderOption(FloatSetting setting, Slider slider, TMP_Text text, Button resetButton, System.Action<FloatSetting> updateAction, bool isPercentage = false, string maxValueText = "")
     {
-        return new OptionsSlider(slider, text, resetButton, value => updateAction(setting), setting, isPercentage);
+        return new OptionsSlider(slider, text, resetButton, value => updateAction(setting), setting, isPercentage, maxValueText);
     }
 
     private OptionsToggle CreateToggleOption(BoolSetting setting, Toggle toggle, Button resetButton, System.Action<BoolSetting> updateAction)

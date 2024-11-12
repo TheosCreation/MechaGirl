@@ -114,10 +114,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 1.5
+  MaxDistance: 30
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -125,23 +125,50 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.06
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -16.673332
+      outSlope: -16.673332
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.12
+      value: 0.5
+      inSlope: -4.168333
+      outSlope: -4.168333
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.24
+      value: 0.25
+      inSlope: -1.0420833
+      outSlope: -1.0420833
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.48
+      value: 0.125
+      inSlope: -0.26052082
+      outSlope: -0.26052082
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.065130204
+      outSlope: -0.065130204
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -150,7 +177,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -225,7 +252,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 1160
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -285,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006ba027599b78479bea7cc13d1cbcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: a0e8b1400650a9e44b144c3d83df2d89, type: 3}
+  Sprite: {fileID: 21300000, guid: 548ec1eef9953974b9703f7194b4cd34, type: 3}
   AnimationPosition: {x: 0, y: 0, z: 0}
   AnimationRotation: {x: 0, y: 0, z: 0}
   iconSprite: {fileID: 21300000, guid: d5633312c26bf8441acc5e9033a263a4, type: 3}
@@ -302,7 +329,7 @@ MonoBehaviour:
   shootsPerSecond: 1.5
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
-  canPickup: 1
+  canPickup: 0
   startingAmmo: 5
   casingToSpawn: {fileID: 0}
   casingSpawnTransform: {fileID: 0}
@@ -314,5 +341,8 @@ MonoBehaviour:
   shootingSounds:
   - {fileID: 8300000, guid: df51f73ac607e0048a801c911f7bd37f, type: 3}
   predictionTime: 0.2
+  playerController: {fileID: 0}
   WeaponHolder: {fileID: 0}
+  bc: {fileID: 0}
+  rb: {fileID: 0}
   ignoreAmmo: 0

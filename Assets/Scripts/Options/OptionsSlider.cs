@@ -11,8 +11,9 @@ public class OptionsSlider : OptionsBase
     private Action<FloatSetting> updateValueAction;
     private FloatSetting floatSetting;
     private bool isPercentage;
+    private string maxValueText;
 
-    public OptionsSlider(Slider slider, TMP_Text text, Button resetButton, Action<FloatSetting> updateValueAction, FloatSetting floatSetting, bool isPercentage)
+    public OptionsSlider(Slider slider, TMP_Text text, Button resetButton, Action<FloatSetting> updateValueAction, FloatSetting floatSetting, bool isPercentage, string maxValueText = "")
     {
         this.slider = slider;
         this.text = text;
@@ -20,6 +21,7 @@ public class OptionsSlider : OptionsBase
         this.updateValueAction = updateValueAction;
         this.floatSetting = floatSetting;
         this.isPercentage = isPercentage;
+        this.maxValueText = maxValueText;
     }
 
     public override void Initialize()
@@ -71,7 +73,16 @@ public class OptionsSlider : OptionsBase
         {
             settingsText += "%";
         }
+
         text.text = settingsText;
+        // If the slider is at max value change the text to a funny text
+        if (value == slider.maxValue)
+        {
+            if(maxValueText != "")
+            {
+                text.text = maxValueText;
+            }
+        }
     }
 
     private void SaveValue(float value)

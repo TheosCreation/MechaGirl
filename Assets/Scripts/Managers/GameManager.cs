@@ -131,6 +131,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void ReopenLevel()
+    {
+        if (GameState.currentLevelIndex < levelScenes.Length - 1)
+        {
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]); //May required load screen
+        }
+        else
+        {
+            Debug.Log("No more levels to load, returning to main menu.");
+            ExitToMainMenu();
+        }
+    }
+
     public void ExitToMainMenu()
     {
         PauseManager.Instance.SetPaused(false);

@@ -11,10 +11,10 @@ public class FlyingEnemy : Enemy
     public float flatteningFactor = 2.0f; // Cntrol flattening
     private Vector3 randomDirection;
     private float timeSinceLastRandomDirectionChange;
-    private Transform playerTransform;
+
     [Range(0, 2)]
     public float biasTowardsPlayer = 0.7f; 
-    protected override void Start()
+    protected override void Awake()
     {
         rb = GetComponent<Rigidbody>();
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
@@ -29,18 +29,9 @@ public class FlyingEnemy : Enemy
         SetDefaultState();
         delayTimer = gameObject.AddComponent<Timer>();
         launchTimer = gameObject.AddComponent<Timer>();
-        weapon = GetComponentInChildren<Weapon>();
+        weapons = GetComponentsInChildren<Weapon>();
         rb.useGravity = false; // Disable gravity for flying
         rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            playerTransform = player.transform;
-        }
-        else
-        {
-            Debug.LogWarning("Player not found! Make sure the player has the tag 'Player'.");
-        }
 
         ChangeRandomDirection();
     }
@@ -48,6 +39,10 @@ public class FlyingEnemy : Enemy
     {
         StateMachine.Update(this);
         currentState = StateMachine.GetCurrentState();
+    }
+
+    private void FixedUpdate()
+    {
         PerformRaycastMovement();
         UpdateRandomMovement();
     }
@@ -139,10 +134,10 @@ public class FlyingEnemy : Enemy
             Random.Range(-1f, 1f)
         ).normalized;
 
-        if (playerTransform != null)
+        if (target != null)
         {
             // Direction towards the player
-            Vector3 directionToPlayer = (playerTransform.position - transform.position).normalized;
+            Vector3 directionToPlayer = (target.position - transform.position).normalized;
 
             // Define how strongly the enemy is biased towards the player
             float biasTowardsPlayer = 0.7f; // Value between 0 (no bias) and 1 (full bias)

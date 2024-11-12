@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,7 +33,7 @@ public class Spawner : IResetable
     public UnityEvent OnAllEnemiesDead;
     private bool spawnerComplete = false;
 
-    public TriggerDoor[] doors; 
+    public TriggerDoor[] doors;
     private List<Enemy> activeEnemies = new List<Enemy>();
 
     private void OnDrawGizmos()
@@ -54,15 +55,15 @@ public class Spawner : IResetable
     {
         if (currentWaveIndex >= waves.Length)
         {
-            Debug.LogWarning("All waves have been completed. Wave count " + currentWaveIndex.ToString());
+            Debug.LogWarning("All waves have been completed. Wave count " + currentWaveIndex);
             return;
         }
 
-        // Spawn the enemies for the current wave
-        SpawnEnemiesForWave(waves[currentWaveIndex]);
+        // Start coroutine to spawn enemies for the current wave
+        StartCoroutine(SpawnEnemiesForWave(waves[currentWaveIndex]));
     }
 
-    private void SpawnEnemiesForWave(Wave wave)
+    private IEnumerator SpawnEnemiesForWave(Wave wave)
     {
         int spawnedEnemies = 0;
 
@@ -70,10 +71,13 @@ public class Spawner : IResetable
         {
             for (int i = 0; i < enemySpawn.count; i++)
             {
+                // Spawn each enemy with a delay to avoid performance spikes
                 if (SpawnEnemy(enemySpawn.enemyPrefab))
                 {
                     spawnedEnemies++;
                 }
+
+                yield return new WaitForSeconds(0.02f);
             }
         }
 
@@ -85,30 +89,72 @@ public class Spawner : IResetable
 
     private bool SpawnEnemy(Enemy enemyPrefab)
     {
-        Vector3 randomPoint = GetRandomPointInArea();
+        const int maxRetries = 10; // Maximum attempts to find a valid spawn point
+        int attemptCount = 0;
 
-        // Check if the random point is on the NavMesh
-        if (IsPointOnNavMesh(randomPoint))
+        while (attemptCount < maxRetries)
         {
-            // Instantiate the enemy at the random point
-            Enemy enemy = Instantiate(enemyPrefab, randomPoint, Quaternion.identity);
+            Vector3 randomPoint = GetRandomPointInArea();
 
-            if (enemy != null)
+            if (enemyPrefab.ignoreNavMeshOnSpawn)
             {
-                // Subscribe to the OnDeath event
-                enemy.OnDeath += HandleEnemyDeath;
-                activeEnemies.Add(enemy);
+                // Instantiate the enemy at the random point
+                Enemy enemy = Instantiate(enemyPrefab, randomPoint, Quaternion.identity);
 
-                PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
-                if (player != null)
+                if (enemy != null)
                 {
-                    enemy.SetTarget(player.transform);
+                    // Subscribe to the OnDeath event
+                    enemy.OnDeath += HandleEnemyDeath;
+                    activeEnemies.Add(enemy);
+
+                    // Set the player as the target
+                    PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
+                    if (player != null)
+                    {
+                        enemy.SetTarget(player.transform);
+                    }
+                    return true;
                 }
-                return true;
             }
+            else
+            {
+                // Raycast down to find ground level
+                float raycastHeight = 20.0f;
+                Vector3 raycastOrigin = randomPoint + Vector3.up * raycastHeight;
+
+                if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, raycastHeight * 2, navMeshLayer))
+                {
+                    // Check if the hit point is on the NavMesh
+                    if (IsPointOnNavMesh(hit.point))
+                    {
+                        // Instantiate the enemy at the hit point
+                        Enemy enemy = Instantiate(enemyPrefab, hit.point, Quaternion.identity);
+
+                        if (enemy != null)
+                        {
+                            // Subscribe to the OnDeath event
+                            enemy.OnDeath += HandleEnemyDeath;
+                            activeEnemies.Add(enemy);
+
+                            // Set the player as the target
+                            PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
+                            if (player != null)
+                            {
+                                enemy.SetTarget(player.transform);
+                            }
+                            return true;
+                        }
+                    }
+                }
+
+                // Debugging information to track failed attempts
+                Debug.LogWarning($"Attempt {attemptCount + 1}: Failed to find a valid point on the NavMesh at {randomPoint}. Trying again.");
+            }
+
+            attemptCount++;
         }
 
-        Debug.Log("Failed to find a valid point on the NavMesh. Trying again.");
+        Debug.LogError("Exceeded maximum retries. Failed to spawn enemy.");
         return false;
     }
 
@@ -155,7 +201,7 @@ public class Spawner : IResetable
             {
                 door.Unlock();
             }
-            return; // Exit if no more waves are available
+            return;
         }
 
         // Check if all enemies in the current wave are dead
@@ -175,14 +221,17 @@ public class Spawner : IResetable
             {
                 // Trigger the OnAllEnemiesDead event if all waves are completed
                 OnAllEnemiesDead?.Invoke();
-                spawnerComplete = true;
             }
         }
     }
 
+    public void CompleteSpawner()
+    {
+        spawnerComplete = true;
+    }
 
     private int GetEnemyCountInWave(Wave? wave)
-    { 
+    {
         if (!wave.HasValue)
         {
             Debug.LogError("Wave is null!");
@@ -206,8 +255,10 @@ public class Spawner : IResetable
 
     public override void Reset()
     {
-        if(!spawnerComplete)
+        if (!spawnerComplete)
         {
+            StopAllCoroutines();
+
             foreach (Enemy enemy in activeEnemies)
             {
                 if (enemy != null)
@@ -222,5 +273,4 @@ public class Spawner : IResetable
             deadEnemyCount = 0;
         }
     }
-
 }

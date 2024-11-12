@@ -1,5 +1,4 @@
 using Unity.AI.Navigation;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -12,6 +11,11 @@ public class Door : IResetable
     [SerializeField] protected bool locked = false;
 
     [SerializeField] private GameObject killOverlay;
+    [SerializeField] protected AudioSource doorSoundSource;
+    [SerializeField] protected AudioClip doorOpenClip;
+    [SerializeField] protected AudioClip doorCloseClip;
+
+    public bool isOpen = false;
 
     private Timer lockTimer;
 
@@ -31,11 +35,31 @@ public class Door : IResetable
         UpdateKillLockOverlay();
     }
 
-    protected virtual void OnTriggerStay(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if ((other.CompareTag("Player") || other.CompareTag("Body")) && !locked)
         {
             Open(other);
+        }
+    }
+    
+    protected virtual void OnTriggerStay(Collider other)
+    {
+        if ((other.CompareTag("Player") || other.CompareTag("Body")) && !locked)
+        {
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                AdjustDoorAnimationBySpeed(rb.velocity);
+            }
+            else
+            {
+                NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
+                if (agent != null)
+                {
+                    AdjustDoorAnimationBySpeed(agent.velocity);
+                }
+            }
         }
     }
 
@@ -50,24 +74,25 @@ public class Door : IResetable
 
     protected virtual void Open(Collider other)
     {
-        _animator.SetBool("Open", true);
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if (rb != null)
-        {
-            AdjustDoorAnimationBySpeed(rb.velocity);
-        }
-        else
-        {
-            NavMeshAgent agent = other.GetComponent<NavMeshAgent>();
-            if (agent != null)
-            {
-                AdjustDoorAnimationBySpeed(agent.velocity);
-            }
-        }
+        if (isOpen) return;
+
+        isOpen = true;
+        _animator.SetBool("Open", isOpen);
+        doorSoundSource.Stop();
+        doorSoundSource.clip = doorOpenClip;
+        doorSoundSource.Play();
+        
     }
+
     protected virtual void Close(Collider other)
     {
-        _animator.SetBool("Open", false);
+        if (!isOpen) return;
+
+        isOpen = false;
+        _animator.SetBool("Open", isOpen);
+        doorSoundSource.Stop();
+        doorSoundSource.clip = doorCloseClip;
+        doorSoundSource.Play();
     }
 
     public virtual void Lock()

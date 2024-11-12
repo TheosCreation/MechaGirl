@@ -39,6 +39,8 @@ public class PlayerLook : MonoBehaviour
 
     private float shakeTimeRemaining = 0f;
     private Vector3 originalCameraPosition;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip landingClip;
 
     private void Awake()
     {
@@ -143,6 +145,7 @@ public class PlayerLook : MonoBehaviour
     {
         if (!playingLandAnim)
         {
+            audioSource.PlayOneShot(landingClip);
             playingLandAnim = true;
             landElapsedTime = 0f;
         }

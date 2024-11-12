@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.GraphicsBuffer;
 
 // Enum for possible enemy states for debugging purposes mostly
 public enum EnemyState
@@ -10,6 +11,7 @@ public enum EnemyState
     BossAttacking,
     FlyingWonder,
     FlyingAttacking,
+    Idle,
     NOTIMPLEMENTED
 }
 public interface IEnemyState
@@ -74,17 +76,25 @@ public class ChaseState : IEnemyState
     float timer = 0.0f;
     public void Enter(Enemy enemy)
     {
+        if (enemy.target == null || enemy.agent.enabled) return;
         if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
         enemy.animator.SetBool("IsMoving", true);
     }
 
     public void Execute(Enemy enemy)
     {
-        if (!enemy.target) return;
+        if (enemy.target == null) return;
+
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
-        if (dist < enemy.attackDistance)
+        if (dist < enemy.attackDistance && enemy.isRanged)
         {
+            //change to ranged attack state
             enemy.StateMachine.ChangeState(new AttackingState(), enemy);
+        }
+        else if(dist < enemy.attackDistance)
+        {
+            //change to melee attack state
+            enemy.StateMachine.ChangeState(new MeleeAttackingState(), enemy);
         }
         else if (dist > enemy.lookDistance)
         {
@@ -95,7 +105,7 @@ public class ChaseState : IEnemyState
         if (timer < 0.0f)
         {
             timer = enemy.updatePathTime;
-            if (!enemy.isLaunching) enemy.agent.SetDestination(enemy.target.position);
+            if (!enemy.isLaunching && enemy.agent.enabled) enemy.agent.SetDestination(enemy.target.position);
         }
     }
 
@@ -114,6 +124,8 @@ public class FlyingWonderState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
+
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
@@ -149,7 +161,10 @@ public class FlyingAttackingState : IEnemyState
         // Start attack delay and animation
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
-        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
+        foreach(Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack += () => AttackExecuted(enemy);
+        }
         attackStartTime = Time.time;
     }
 
@@ -162,10 +177,13 @@ public class FlyingAttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
 
-        Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
-        enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
-
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            Vector3 directionToTarget = enemy.target.position - weapon.transform.position;
+            weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
 
@@ -179,8 +197,11 @@ public class FlyingAttackingState : IEnemyState
     public void Exit(Enemy enemy)
     {
         enemy.delayTimer.StopTimer();
-        enemy.EndAttack();
-        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
+        enemy.EndAttack(); 
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack -= () => AttackExecuted(enemy);
+        }
     }
 }
 
@@ -196,7 +217,10 @@ public class AttackingState : IEnemyState
         // Start attack delay and animation
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
-        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack += () => AttackExecuted(enemy);
+        }
         attackStartTime = Time.time;
         if (!enemy.isLaunching && !enemy.agent.enabled) enemy.agent.isStopped = true;
     }
@@ -231,10 +255,13 @@ public class AttackingState : IEnemyState
 
     public void Execute(Enemy enemy)
     {
+        if (enemy.target == null) return;
 
-        Vector3 directionToTarget = enemy.target.position - enemy.weapon.transform.position;
-        enemy.weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
-
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            Vector3 directionToTarget = enemy.target.position - weapon.transform.position;
+            weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
         // Check distance to target
         float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
 
@@ -260,8 +287,11 @@ public class AttackingState : IEnemyState
     public void Exit(Enemy enemy)
     {
         enemy.delayTimer.StopTimer();
-        enemy.EndAttack();
-        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
+        enemy.EndAttack(); 
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack -= () => AttackExecuted(enemy);
+        }
 
         if (!enemy.isLaunching) enemy.agent.isStopped = false;
     }
@@ -277,7 +307,10 @@ public class BossAttackingState : IEnemyState
     {
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
 
-        enemy.weapon.OnAttack += () => AttackExecuted(enemy);
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack += () => AttackExecuted(enemy);
+        }
         attackStartTime = Time.time;
     }
 
@@ -301,6 +334,74 @@ public class BossAttackingState : IEnemyState
     {
         enemy.EndAttack();
         enemy.delayTimer.StopTimer();
-        enemy.weapon.OnAttack -= () => AttackExecuted(enemy);
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            weapon.OnAttack -= () => AttackExecuted(enemy);
+        }
+    }
+}
+
+public class IdleState : IEnemyState
+{
+    public void Enter(Enemy enemy)
+    {
+    }
+
+    public void Execute(Enemy enemy)
+    {
+    }
+
+    public void Exit(Enemy enemy)
+    {
+    }
+}
+
+
+public class MeleeAttackingState : IEnemyState
+{
+
+    private float attackStartTime;
+
+    public void Enter(Enemy enemy)
+    {
+        // Start attack delay and animation
+        enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
+        attackStartTime = Time.time;
+    }
+
+    public void Execute(Enemy enemy)
+    {
+        if (enemy.target == null) return;
+
+        foreach (Weapon weapon in enemy.weapons)
+        {
+            Vector3 directionToTarget = enemy.target.position - weapon.transform.position;
+            weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
+        }
+        // Check distance to target
+        float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
+
+        if (!enemy.agent.enabled) return;
+        if (Time.time >= attackStartTime + enemy.attackDuration)
+        {
+            if (distanceToTarget >= enemy.attackDistance)
+            {
+                // Switch back to chasing if the target is out of sight
+                enemy.StateMachine.ChangeState(new ChaseState(), enemy);
+            }
+            else if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
+            {
+                // Allow shooting again if the enemy has reached the destination
+                enemy.StartAttack();
+                enemy.animator.SetBool("IsMoving", false);
+            }
+        }
+    }
+
+
+    public void Exit(Enemy enemy)
+    {
+        enemy.delayTimer.StopTimer();
+        enemy.EndAttack();
     }
 }

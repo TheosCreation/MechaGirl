@@ -1,6 +1,15 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+
+[Serializable]
+public struct WeaponSpawn
+{
+    public Weapon weaponPrefab;
+    public int startingAmmo;
+}
 
 class LevelManager : MonoBehaviour
 {
@@ -12,8 +21,10 @@ class LevelManager : MonoBehaviour
     [HideInInspector] public PlayerSpawn playerSpawn;
     [SerializeField] public GameObject tempCamera;
     [HideInInspector] public UnityEvent OnPlayerRespawn;
+    private TriggerCheckPoint currentCheckPoint;
 
     public List<Keycard> currentHeldKeycards;
+    [SerializeField] List<WeaponSpawn> weaponsToSpawnWith;
 
     private List<IResetable> resetables = new List<IResetable>();
 
@@ -28,6 +39,14 @@ class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
+        if (playerSpawn == null)
+        {
+            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
+        }
+
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
     }
 
     void Start()
@@ -37,11 +56,7 @@ class LevelManager : MonoBehaviour
             GameManager.Instance.Init();
         }
         
-        playerSpawn = FindFirstObjectByType<PlayerSpawn>();
-        if (playerSpawn == null)
-        {
-            Debug.LogAssertion("Player Spawn does not exist in scene cannot continue play");
-        }
+        
     }
 
     public void StartLevelTimer()
@@ -81,43 +96,62 @@ class LevelManager : MonoBehaviour
     {
         return levelCompleteTime;
     }
-
+    
+    // Use only if the player is going to be respawned in the next frame
     public void KillCurrentPlayer()
     {
         if (playerSpawn.playerSpawned)
         {
-            playerSpawn.playerSpawned.Die();
+            Destroy(playerSpawn.playerSpawned.gameObject);
+            SetTempCamera(true);
         }
+    }
+    public void ResetToCheckPoint()
+    {
+        KillCurrentPlayer();
+        DestroyAllEnemies();
+        DestroyAllWeapons();
+
+        StartCoroutine(RespawnPlayerNextFrame());
+    }
+
+    private IEnumerator RespawnPlayerNextFrame()
+    {
+        yield return new WaitForEndOfFrame(); // Waits until the end of the current frame
+        RespawnPlayer();
     }
 
     public void RespawnPlayer()
     {
+        // Spawn the new player with the weapons again
+        playerSpawn.SpawnPlayer(weaponsToSpawnWith);
+
         ResetLevel();
         OnPlayerRespawn?.Invoke();
 
         UiManager.Instance.OpenPlayerHud();
 
-        //reset player health reset scene
-
-        playerSpawn.SpawnPlayer();
 
         //reset doors, remove enemies, reset trigger zones
         SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
-        if (tempCamera != null)
-        {
-            Destroy(tempCamera);
-        }
+        SetTempCamera(false);
         PauseManager.Instance.SetPaused(false);
         SettingsManager.Instance.ApplyAllSettings();
 
         //playerSpawn.playerSpawned.weaponHolder.SwitchToWeaponWithAmmo();
     }
 
-    public void SetCheckPoint(Transform checkPointTransform)
+    public void SetCheckPoint(TriggerCheckPoint checkPoint)
     {
-        playerSpawn.transform.position = checkPointTransform.position;
-        playerSpawn.transform.rotation = checkPointTransform.rotation;
+        playerSpawn.transform.position = checkPoint.transform.position;
+        playerSpawn.transform.rotation = checkPoint.transform.rotation;
+
+        currentCheckPoint = checkPoint;
+        foreach (var weaponSpawner in currentCheckPoint.weaponSpawners)
+        {
+            weaponsToSpawnWith.Add(weaponSpawner.weaponToSpawn);
+        }
     }
 
     public void DestroyAllEnemies()
@@ -161,10 +195,8 @@ class LevelManager : MonoBehaviour
         }
     }
 
-    public void SetTempCamera(GameObject gameObject)
+    public void SetTempCamera(bool active)
     {
-        if (gameObject == null) return;
-        tempCamera = gameObject;
-        tempCamera.transform.SetParent(null);
+        tempCamera.SetActive(active);
     }
 }

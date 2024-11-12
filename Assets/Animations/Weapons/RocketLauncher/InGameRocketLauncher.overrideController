@@ -8,4 +8,10 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: InGameRocketLauncher
   m_Controller: {fileID: 9100000, guid: 349fe2432038bd9449b6676f9428d92a, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 6193ee378b420444a8ea1c1909a13110, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eda78d7eabc452348a16e6251ddb910c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 1a7c42e9a44061d48a4a8cc988602019, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eda78d7eabc452348a16e6251ddb910c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b304c3a6021012345aef83708ec614a3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: eda78d7eabc452348a16e6251ddb910c, type: 2}
