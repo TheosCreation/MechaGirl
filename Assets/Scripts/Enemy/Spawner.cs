@@ -120,7 +120,7 @@ public class Spawner : IResetable
             {
                 // Raycast down to find ground level
                 float raycastHeight = 20.0f;
-                Vector3 raycastOrigin = randomPoint + Vector3.up * raycastHeight;
+                Vector3 raycastOrigin = randomPoint;
 
                 if (Physics.Raycast(raycastOrigin, Vector3.down, out RaycastHit hit, raycastHeight * 2, navMeshLayer))
                 {

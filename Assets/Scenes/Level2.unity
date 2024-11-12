@@ -587,6 +587,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1688441905}
     m_Modifications:
+    - target: {fileID: 4691281741843575952, guid: 661f97246c6eeb841bcca0d8ddc8cf47,
+        type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5859723246802522111, guid: 661f97246c6eeb841bcca0d8ddc8cf47,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -13313,7 +13318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 111.668625, y: 53.995186, z: 129.82715}
+  size: {x: 111.66861, y: 53.995182, z: 129.82715}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -13353,7 +13358,7 @@ Transform:
   m_GameObject: {fileID: 2010575628}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.062778, y: 12.881756, z: 81.32576}
+  m_LocalPosition: {x: 12.062771, y: 12.881754, z: 81.32576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
