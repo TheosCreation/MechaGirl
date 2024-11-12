@@ -8,13 +8,13 @@ public class HealthScript : IResetable
 
     private bool isActive = true;
     private BoxCollider bc;
-    private SpriteRenderer sr;
+    private Animator animator;
     private Timer timer;
 
     private void Awake()
     {
         bc = GetComponent<BoxCollider>();
-        sr = GetComponentInChildren<SpriteRenderer>();
+        animator = GetComponentInChildren<Animator>();
         timer = gameObject.AddComponent<Timer>();
     }
 
@@ -41,6 +41,6 @@ public class HealthScript : IResetable
     private void CheckActive()
     {
         bc.enabled = isActive;
-        sr.enabled = isActive;
+        animator.SetBool("Active", isActive);
     }
 }
