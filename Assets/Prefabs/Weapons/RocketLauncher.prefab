@@ -329,7 +329,7 @@ MonoBehaviour:
   shootsPerSecond: 1.5
   screenShakeDuration: 0.1
   screenShakeAmount: 0.1
-  canPickup: 1
+  canPickup: 0
   startingAmmo: 5
   casingToSpawn: {fileID: 0}
   casingSpawnTransform: {fileID: 0}

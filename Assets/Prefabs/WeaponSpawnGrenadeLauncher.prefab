@@ -67,7 +67,7 @@ PrefabInstance:
     - target: {fileID: 5790363701138249536, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
       propertyPath: m_Name
-      value: WeaponSpawnGrenadeLauncher Variant
+      value: WeaponSpawnGrenadeLauncher
       objectReference: {fileID: 0}
     - target: {fileID: 7426045164657549955, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
@@ -78,7 +78,7 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponToSpawn.weaponPrefab
       value: 
-      objectReference: {fileID: 1518447533003931881, guid: 50a494943e0246d44b765b9fb93ddedc,
+      objectReference: {fileID: 1442778625901810694, guid: 50a494943e0246d44b765b9fb93ddedc,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
