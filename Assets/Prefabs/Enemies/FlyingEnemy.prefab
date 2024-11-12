@@ -381,6 +381,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 195759607885323213}
     m_Modifications:
+    - target: {fileID: 843684890077650609, guid: 50a494943e0246d44b765b9fb93ddedc,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1442778625901810694, guid: 50a494943e0246d44b765b9fb93ddedc,
         type: 3}
       propertyPath: AnimationPosition.x
