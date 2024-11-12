@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Robot_Katana_Override
+  m_Controller: {fileID: 9100000, guid: 6c9fe8b2b3b5cb74885de0e70d00e8c6, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: ecbdd0f9566b8e54899b14718672e291, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 6857f799a65b9b14d97e138abc503f89, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bc25ebab9846ae2468fe699113e3fb42, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 0aa977d1fecf8c1479dd4583eeefdf09, type: 2}
