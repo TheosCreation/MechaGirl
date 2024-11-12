@@ -58,10 +58,13 @@ public class PlayerController : MonoBehaviour, IDamageable
         UiManager.Instance.FlashHurtScreen();
     }
 
-    public void Heal(float healAmount)
+    public bool Heal(float healAmount)
     {
+        float previousHealth = Health;
         float newHealth = Health + healAmount;
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
+
+        return Health > previousHealth;
     }
 
     public void Die()

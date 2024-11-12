@@ -10,7 +10,7 @@ public class RestartButton : MonoBehaviour
 
     private void Start()
     {
-        playerInput.Ui.Restart.started += _ctx => LevelManager.Instance.RespawnPlayer();
+        playerInput.Ui.Restart.started += _ctx => LevelManager.Instance.ResetToCheckPoint();
     }
 
     void OnEnable()

@@ -3894,7 +3894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 170.66438, y: 67.24166, z: 156.31628}
+  size: {x: 170.6644, y: 67.24166, z: 156.31628}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -3934,7 +3934,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.580475, y: 27.670567, z: 83.05233}
+  m_LocalPosition: {x: 4.5804825, y: 27.670567, z: 83.05233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12268,7 +12268,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1543548494}
   - component: {fileID: 1543548495}
-  - component: {fileID: 1543548496}
   m_Layer: 0
   m_Name: LevelNavMesh
   m_TagString: Untagged
@@ -12325,37 +12324,6 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: b744b570ea09a55469a0d5c59d027077, type: 2}
-  m_BuildHeightMesh: 0
---- !u!114 &1543548496
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1543548493}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: -1372625422
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 1
-  m_VoxelSize: 0.06
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 869b0576ad43e7b40b2dfab4b5522159, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &1544453510
 PrefabInstance:

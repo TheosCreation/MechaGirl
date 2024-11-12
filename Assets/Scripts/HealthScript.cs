@@ -23,10 +23,12 @@ public class HealthScript : IResetable
     {
         PlayerController controller = other.gameObject.GetComponent<PlayerController>();
         if (controller != null) {
-            controller.Heal(health);
-            isActive = false;
-            timer.SetTimer(resetTime, Reset);
-            CheckActive();
+            if(controller.Heal(health))
+            {
+                isActive = false;
+                timer.SetTimer(resetTime, Reset);
+                CheckActive();
+            }
         }
     }
 

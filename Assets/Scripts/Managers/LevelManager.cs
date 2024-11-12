@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -104,6 +105,20 @@ class LevelManager : MonoBehaviour
             Destroy(playerSpawn.playerSpawned.gameObject);
             SetTempCamera(true);
         }
+    }
+    public void ResetToCheckPoint()
+    {
+        KillCurrentPlayer();
+        DestroyAllEnemies();
+        DestroyAllWeapons();
+
+        StartCoroutine(RespawnPlayerNextFrame());
+    }
+
+    private IEnumerator RespawnPlayerNextFrame()
+    {
+        yield return new WaitForEndOfFrame(); // Waits until the end of the current frame
+        RespawnPlayer();
     }
 
     public void RespawnPlayer()

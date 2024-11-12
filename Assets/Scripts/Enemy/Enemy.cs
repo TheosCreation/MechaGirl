@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.EventSystems.EventTrigger;
 
 
 [RequireComponent(typeof(Rigidbody))]
@@ -178,10 +177,14 @@ public class Enemy : MonoBehaviour, IDamageable
         rb.isKinematic = true;
     }
 
-    public void Heal(float healAmount)
+    public bool Heal(float healAmount)
     {
+        float previousHealth = Health;
         float newHealth = Health + healAmount;
         Health = Mathf.Clamp(newHealth, 0, maxHealth);
+
+
+        return Health > previousHealth;
     }
 
     public virtual void Die()
