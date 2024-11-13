@@ -84,7 +84,7 @@ MonoBehaviour:
   ownerLayer: -1
   ownerTag: 
   speed: 20
-  headShotMultiplier: 1.5
+  headShotMultiplier: 1
   destroyOnHit: 1
   onCollision:
     m_PersistentCalls:

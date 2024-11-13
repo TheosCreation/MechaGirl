@@ -3727,7 +3727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 170.66438, y: 67.24166, z: 156.31628}
+  size: {x: 170.66437, y: 67.24166, z: 156.31628}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -3736,7 +3736,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: -1
   overridesSubdivLevels: 0
-  mightNeedRebaking: 0
+  mightNeedRebaking: 1
   cachedTransform:
     e00: 1
     e01: 0
@@ -3767,7 +3767,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.580475, y: 27.670567, z: 83.05233}
+  m_LocalPosition: {x: 4.580467, y: 27.670567, z: 83.05233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7491,7 +7491,7 @@ MonoBehaviour:
       count: 4
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 3
+      count: 2
     - enemyPrefab: {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec,
         type: 3}
       count: 2
@@ -9060,10 +9060,10 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 5
+      count: 3
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 3
+      count: 2
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -11462,7 +11462,7 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 3
+      count: 2
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
       count: 2
@@ -11629,10 +11629,10 @@ MonoBehaviour:
       count: 2
     - enemyPrefab: {fileID: 4518206362362337328, guid: 27589f5d9cece7c4fbd5f20b42f388ec,
         type: 3}
-      count: 4
+      count: 2
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 4
+      count: 3
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 65
@@ -12816,7 +12816,7 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 4
+      count: 2
     - enemyPrefab: {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9,
         type: 3}
       count: 3

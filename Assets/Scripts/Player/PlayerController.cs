@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
     public int maxHealth = 100;
     private float health;
-    public bool isInvinsable = false;
+    public bool isInvisible = false;
     public float Health
     {
         get => health;
@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, IDamageable
 
             if (health <= 0)
             {
-                if (isInvinsable) return;
+                if (isInvisible) return;
                 Die();
             }
         }

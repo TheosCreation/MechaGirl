@@ -99,8 +99,8 @@ MonoBehaviour:
     m_Bits: 1
   isLaunching: 0
   launchbackThreshold: 30
-  isInvinsable: 0
-  maxHealth: 10
+  isInvisible: 0
+  maxHealth: 50
   isGrounded: 0
   groundLayer:
     serializedVersion: 2

@@ -98,8 +98,8 @@ MonoBehaviour:
     m_Bits: 0
   isLaunching: 0
   launchbackThreshold: 30
-  isInvinsable: 0
-  maxHealth: 10
+  isInvisible: 0
+  maxHealth: 25
   isGrounded: 1
   groundLayer:
     serializedVersion: 2
@@ -329,6 +329,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728281649119682876, guid: 00675b4a399ea8f47837694d2ba71e5f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9933991
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728281649119682876, guid: 00675b4a399ea8f47837694d2ba71e5f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728281649119682876, guid: 00675b4a399ea8f47837694d2ba71e5f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4728281649119682876, guid: 00675b4a399ea8f47837694d2ba71e5f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 13.174
       objectReference: {fileID: 0}
     - target: {fileID: 5638191641704107535, guid: 00675b4a399ea8f47837694d2ba71e5f,
         type: 3}

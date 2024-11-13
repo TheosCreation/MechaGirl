@@ -3794,10 +3794,10 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 8
+      count: 5
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 6
+      count: 2
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -11464,10 +11464,10 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 2
+      count: 3
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 5
+      count: 2
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -12625,10 +12625,10 @@ MonoBehaviour:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
-      count: 5
+      count: 4
     - enemyPrefab: {fileID: 4518206362362337328, guid: d7c1c5a9e58d948489ac9b4b57918db5,
         type: 3}
-      count: 5
+      count: 2
   navMeshLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -13589,7 +13589,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 111.67343, y: 53.995186, z: 128.93959}
+  size: {x: 111.67343, y: 53.995182, z: 128.93959}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -13598,7 +13598,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: -1
   overridesSubdivLevels: 0
-  mightNeedRebaking: 0
+  mightNeedRebaking: 1
   cachedTransform:
     e00: 1
     e01: 0
@@ -13629,7 +13629,7 @@ Transform:
   m_GameObject: {fileID: 2010575628}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.060371, y: 12.881756, z: 80.88198}
+  m_LocalPosition: {x: 12.060371, y: 12.881754, z: 80.88198}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

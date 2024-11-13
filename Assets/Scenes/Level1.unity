@@ -1737,7 +1737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 35.15077, y: 35.737762, z: 138.00632}
+  size: {x: 35.15077, y: 35.73776, z: 138.00632}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -1777,7 +1777,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.070305, y: 28.434381, z: 73.70735}
+  m_LocalPosition: {x: -10.070305, y: 28.434381, z: 73.707344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2775,7 +2775,8 @@ PrefabInstance:
     - target: {fileID: 5162374192407375795, guid: 4e5eaa0a631d63c4b97b816378d48447,
         type: 3}
       propertyPath: textToDisplay
-      value: Here is a checkpoint you will be able to\nrespawn here when you die
+      value: Now fight some enemies, the eye on top of their heads is their weak
+        spot
       objectReference: {fileID: 0}
     - target: {fileID: 6574084460042221836, guid: 4e5eaa0a631d63c4b97b816378d48447,
         type: 3}

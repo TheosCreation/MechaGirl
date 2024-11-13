@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [Header("Health")]
-    public bool isInvinsable = false;
+    public bool isInvisible = false;
     public float maxHealth = 100;
     protected float health;
 
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
         get => health;
         set
         {
-            if (isInvinsable) return;
+            if (isInvisible) return;
             OnHealthChanged?.Invoke();
             health = value;
 
