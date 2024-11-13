@@ -7770,8 +7770,7 @@ PrefabInstance:
         type: 3}
       propertyPath: weaponToSpawn.weaponPrefab
       value: 
-      objectReference: {fileID: 1518447533003931881, guid: 0436506897a7d69419e5217cb8e7513a,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7476657741071010793, guid: 6777d28a1a597c34cba5c51b9b921889,
         type: 3}
       propertyPath: m_Name
@@ -9843,6 +9842,9 @@ MonoBehaviour:
   waves:
   - enemiesToSpawn:
     - enemyPrefab: {fileID: 6095716343603737473, guid: 7f9cbda8b44f28648a8495aa473f25b9,
+        type: 3}
+      count: 5
+    - enemyPrefab: {fileID: 4518206362362337328, guid: 6932a7d54a614c54f9e2edcefab4782a,
         type: 3}
       count: 5
   navMeshLayer:
