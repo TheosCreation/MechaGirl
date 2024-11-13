@@ -1,15 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject mainPage;
     [SerializeField] private GameObject optionsPage;
+    [SerializeField] private GameObject levelSelectPage;
+    [SerializeField] private Button playButton;
 
     public PlayerInput Input;
 
     private void Awake()
     {
         Input = new PlayerInput();
+        playButton.onClick.AddListener(OpenLevelSelectPage);
     }
     private void OnEnable()
     {
@@ -30,11 +34,17 @@ public class MainMenu : MonoBehaviour
     {
         mainPage.SetActive(true);
         optionsPage.SetActive(false);
+        levelSelectPage.SetActive(false);
     }
 
     public void OpenOptionsPage()
     {
         optionsPage.SetActive(true);
+        mainPage.SetActive(false);
+    }
+    public void OpenLevelSelectPage()
+    {
+        levelSelectPage.SetActive(true);
         mainPage.SetActive(false);
     }
 

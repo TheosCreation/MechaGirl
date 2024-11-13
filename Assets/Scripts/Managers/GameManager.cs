@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
         catch (Exception ex)
         {
             // Log the error but ensure the game can still proceed
-            Debug.LogError("Error loading game state: " + ex.Message);
+            //Debug.LogError("Error loading game state: " + ex.Message);
 
             // Initialize default game state to ensure gameplay can continue
             GameState = new GameState(levelScenes.Length);
@@ -160,5 +160,21 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         SerializeGameStateToJson();
+    }
+
+    public void TryOpenLevel(int levelToOpen)
+    {
+        if (GameState.IsCurrentLevelLocked(levelToOpen)) return;
+
+        GameState.currentLevelIndex = levelToOpen;
+        if (GameState.currentLevelIndex < levelScenes.Length - 1)
+        {
+            SceneManager.LoadScene(levelScenes[GameState.currentLevelIndex]); //May required load screen
+        }
+        else
+        {
+            Debug.Log("No more levels to load, returning to main menu.");
+            ExitToMainMenu();
+        }
     }
 }
