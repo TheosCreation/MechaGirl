@@ -3727,7 +3727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mode: 1
-  size: {x: 170.66437, y: 67.24166, z: 156.31628}
+  size: {x: 170.66438, y: 67.24166, z: 156.31628}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -3736,16 +3736,16 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: -1
   overridesSubdivLevels: 0
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
     e02: 0
-    e03: -4.54055
+    e03: -4.580475
     e10: 0
     e11: 1
     e12: 0
-    e13: -28.501463
+    e13: -27.670567
     e20: 0
     e21: 0
     e22: 1
@@ -3754,7 +3754,7 @@ MonoBehaviour:
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: -1236152249
+  cachedHashCode: -887580126
   fillEmptySpaces: 0
   version: 1
   globalVolume: 0
@@ -3767,7 +3767,7 @@ Transform:
   m_GameObject: {fileID: 533606247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.580467, y: 27.670567, z: 83.05233}
+  m_LocalPosition: {x: 4.580475, y: 27.670567, z: 83.05233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5712,6 +5712,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1450454744}
     m_Modifications:
+    - target: {fileID: 859087153702042643, guid: 9d2b17f450fbd5f499f580ce599a2ff1,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 126
+      objectReference: {fileID: 0}
     - target: {fileID: 3901591314080775265, guid: 9d2b17f450fbd5f499f580ce599a2ff1,
         type: 3}
       propertyPath: m_LocalScale.x
