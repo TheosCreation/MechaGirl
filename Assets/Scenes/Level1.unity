@@ -3845,6 +3845,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Sparks
       objectReference: {fileID: 0}
+    - target: {fileID: 8429187216461139093, guid: e5c81fafe737e864d9295617f81ed87a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

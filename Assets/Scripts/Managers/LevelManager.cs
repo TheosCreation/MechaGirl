@@ -86,9 +86,11 @@ class LevelManager : MonoBehaviour
                 // Update the best time for the current level
                 GameManager.Instance.GameState.SetBestTimeForCurrentLevel(levelCompleteTime);
             }
+            int currentLevel = GameManager.Instance.GameState.currentLevelIndex;
+            GameManager.Instance.GameState.UnlockLevel(currentLevel + 1);
 
             // Pass the time to the UIManager and open the level complete screen
-            UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime, GameManager.Instance.GameState.currentLevelIndex + 1);
+            UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime, currentLevel + 1);
         }
     }
 

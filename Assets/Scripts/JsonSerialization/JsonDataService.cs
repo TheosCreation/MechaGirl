@@ -39,7 +39,7 @@ public class JsonDataService : IDataService
 
         if(!File.Exists(path))
         {
-            Debug.LogError($"Cannot load file at {path}. File does not exist!");
+            //Debug.LogError($"Cannot load file at {path}. File does not exist!");
             throw new FileNotFoundException($"{path} does not exist!");
         }
 
@@ -50,7 +50,7 @@ public class JsonDataService : IDataService
         }
         catch(Exception e)
         {
-            Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
+            //Debug.LogError($"Failed to load data due to: {e.Message} {e.StackTrace}");
             throw e;
         }
     }
