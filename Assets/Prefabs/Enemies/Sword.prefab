@@ -100,7 +100,7 @@ MonoBehaviour:
   isLaunching: 0
   launchbackThreshold: 30
   isInvisible: 0
-  maxHealth: 50
+  maxHealth: 40
   isGrounded: 0
   groundLayer:
     serializedVersion: 2

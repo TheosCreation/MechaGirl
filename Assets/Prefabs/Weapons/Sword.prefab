@@ -347,8 +347,8 @@ MonoBehaviour:
   rb: {fileID: 0}
   ignoreAmmo: 0
   meleeRange: 1.5
-  dashSpeed: 20
-  dashDuration: 0.5
+  dashSpeed: 40
+  dashDuration: 0.25
   targetLayer:
     serializedVersion: 2
     m_Bits: 0
