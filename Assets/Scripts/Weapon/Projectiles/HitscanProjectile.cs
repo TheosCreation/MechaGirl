@@ -76,15 +76,18 @@ public class HitscanProjectile : Projectile
                 UiManager.Instance.FlashHitMarker();
             }
 
+            GameObject soundMakerObject = new GameObject("SoundMaker");
+            soundMakerObject.transform.position = hit.point;
+            SoundMaker soundMaker = soundMakerObject.AddComponent<SoundMaker>();
             if (hit.collider.gameObject.CompareTag("Head"))
             {
                 damageable.Damage(damage * headShotMultiplier);
-                PlayHitSound(hit.point, enemyWeakspotHitSound, damage);
+                soundMaker.PlaySound(enemyWeakspotHitSound, 0.1f);
             }
             else
             {
                 damageable.Damage(damage);
-                PlayHitSound(hit.point, enemyHitSound, damage);
+                soundMaker.PlaySound(enemyHitSound, 0.1f);
             }
 
 
@@ -106,30 +109,5 @@ public class HitscanProjectile : Projectile
           //  PlayHitSound(hit.point, wallHitSound, 1f);
         }
         Destroy(gameObject);
-    }
-
-    private void PlayHitSound(Vector3 position, AudioClip sound, float volumeByDamage)
-    {
-        if (sound != null && audioSource != null)
-        {
-            GameObject soundObject = new GameObject("SoundPlayer");
-            soundObject.transform.position = position;
-            AudioSource newAudioSource = soundObject.AddComponent<AudioSource>();
-       
-            newAudioSource.clip = sound;
-            newAudioSource.priority = audioSource.priority;
-            newAudioSource.volume = volumeByDamage * audioVolume;
-            newAudioSource.pitch = audioSource.pitch;
-            newAudioSource.spatialBlend = audioSource.spatialBlend;
-            newAudioSource.rolloffMode = audioSource.rolloffMode;
-            newAudioSource.minDistance = audioSource.minDistance;
-            newAudioSource.maxDistance = audioSource.maxDistance;
-            newAudioSource.outputAudioMixerGroup = audioSource.outputAudioMixerGroup;
-            Debug.Log(newAudioSource.volume);
-
-
-            newAudioSource.Play();
-            Destroy(soundObject, sound.length);
-        }
     }
 }

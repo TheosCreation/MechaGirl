@@ -11,6 +11,7 @@ public class FlyingEnemy : Enemy
     public float flatteningFactor = 2.0f; // Cntrol flattening
     private Vector3 randomDirection;
     private float timeSinceLastRandomDirectionChange;
+    private ExplosionSpawner explosionSpawner;
 
     [Range(0, 2)]
     public float biasTowardsPlayer = 0.7f; 
@@ -21,9 +22,10 @@ public class FlyingEnemy : Enemy
         health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()
-            .AddState(new LookingState())
-            .AddState(new FlyingWonderState())
-            .AddState(new FlyingAttackingState())
+            .AddState(new LookingState(), EnemyState.Looking)
+            .AddState(new ChaseState(), EnemyState.Chasing)
+            .AddState(new FlyingWonderState(), EnemyState.Wonder)
+            .AddState(new FlyingAttackingState(), EnemyState.Attacking)
             .Build();
 
         SetDefaultState();
@@ -32,6 +34,7 @@ public class FlyingEnemy : Enemy
         weapons = GetComponentsInChildren<Weapon>();
         rb.useGravity = false; // Disable gravity for flying
         rb.isKinematic = false; // Ensure Rigidbody is not kinematic for applying forces
+        explosionSpawner = GetComponent<ExplosionSpawner>();
 
         ChangeRandomDirection();
     }
@@ -45,6 +48,12 @@ public class FlyingEnemy : Enemy
     {
         PerformRaycastMovement();
         UpdateRandomMovement();
+    }
+
+    public override void StartAttack()
+    {
+        explosionSpawner.SpawnExplosion();
+        Die();
     }
 
     private void PerformRaycastMovement()

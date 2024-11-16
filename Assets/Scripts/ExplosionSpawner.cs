@@ -10,12 +10,16 @@ public class ExplosionSpawner : MonoBehaviour
       
         Explosion explosionObjectSpawned = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
         explosionObjectSpawned.damage = explosionDamage;
+
+        //Rework needed
         Projectile spawner = GetComponent<Projectile>();
         
-        if (spawner.ownerTag == "Player")
+        if(spawner != null )
         {
-            explosionObjectSpawned.fromEnemy = false;
+            if (spawner.ownerTag == "Player")
+            {
+                explosionObjectSpawned.fromEnemy = false;
+            }
         }
-        
     }
 }

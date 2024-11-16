@@ -16,8 +16,8 @@ public class BossEnemy : Enemy
         weapons = GetComponentsInChildren<Weapon>();
         delayTimer = gameObject.AddComponent<Timer>();
         StateMachine = new EnemyStateMachineBuilder()
-            .AddState(new IdleState())
-            .AddState(new BossAttackingState())
+            .AddState(new IdleState(), EnemyState.Idle)
+            .AddState(new BossAttackingState(), EnemyState.Attacking)
             .Build();
 
         SetDefaultState();
@@ -43,13 +43,13 @@ public class BossEnemy : Enemy
     {
         if (active == true)
         {
-            StateMachine.ChangeState(new BossAttackingState(), this);
-            isInvisible = false;
+            StateMachine.ChangeState(EnemyState.Attacking, this);
+            isInvincible = false;
         }
         else
         {
-            StateMachine.ChangeState(new IdleState(), this);
-            isInvisible = true;
+            StateMachine.ChangeState(EnemyState.Idle, this);
+            isInvincible = true;
         }
     }
 }

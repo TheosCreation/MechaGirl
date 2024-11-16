@@ -1,19 +1,35 @@
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 public class EnemyStateMachine
 {
     private IEnemyState currentState;
+    private Dictionary<EnemyState, IEnemyState> stateInstances = new Dictionary<EnemyState, IEnemyState>();
 
-    public void ChangeState(IEnemyState newState, Enemy enemy)
+    public void RegisterState(EnemyState stateEnum, IEnemyState stateInstance)
     {
-        if (currentState == newState)
-        {
-            Debug.Log("state unchanged" + newState);
-            return;
+        stateInstances[stateEnum] = stateInstance;
+    }
 
+    public void ChangeState(EnemyState newState, Enemy enemy)
+    {
+        if (!stateInstances.ContainsKey(newState))
+        {
+            Debug.LogError($"State {newState} not registered.");
+            return;
         }
+
+        IEnemyState newStateInstance = stateInstances[newState];
+
+        if (currentState == newStateInstance)
+        {
+            Debug.Log("State unchanged: " + newState);
+            return;
+        }
+
         currentState?.Exit(enemy);
-        currentState = newState;
+        currentState = newStateInstance;
         currentState.Enter(enemy);
     }
 
@@ -24,25 +40,15 @@ public class EnemyStateMachine
 
     public EnemyState GetCurrentState()
     {
-        // Determine the current state based on the state machine
-        if (currentState is LookingState)
-            return EnemyState.Looking;
-        else if (currentState is ChaseState)
-            return EnemyState.Chasing;
-        else if (currentState is AttackingState)
-            return EnemyState.Attacking;
-        else if (currentState is BossAttackingState)
-            return EnemyState.BossAttacking;
-        else if (currentState is FlyingWonderState)
-            return EnemyState.FlyingWonder;
-        else if (currentState is FlyingAttackingState)
-            return EnemyState.FlyingAttacking;
-        else if (currentState is IdleState)
-            return EnemyState.Idle;
-        else
-            return EnemyState.NOTIMPLEMENTED; // Default
+        foreach (var pair in stateInstances)
+        {
+            if (pair.Value == currentState)
+                return pair.Key;
+        }
+        return EnemyState.NOTIMPLEMENTED;
     }
 }
+
 public class EnemyStateMachineBuilder
 {
     private EnemyStateMachine stateMachine;
@@ -52,8 +58,9 @@ public class EnemyStateMachineBuilder
         stateMachine = new EnemyStateMachine();
     }
 
-    public EnemyStateMachineBuilder AddState(IEnemyState state)
+    public EnemyStateMachineBuilder AddState(IEnemyState stateInstance, EnemyState stateEnum)
     {
+        stateMachine.RegisterState(stateEnum, stateInstance);
         return this;
     }
 

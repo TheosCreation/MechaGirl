@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour, IDamageable
     [SerializeField] protected float launchbackThreshold = 30.0f;
 
     [Header("Health")]
-    public bool isInvisible = false;
+    public bool isInvincible = false;
     public float maxHealth = 100;
     protected float health;
 
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable
         get => health;
         set
         {
-            if (isInvisible) return;
+            if (isInvincible) return;
             OnHealthChanged?.Invoke();
             health = value;
 
@@ -89,9 +89,9 @@ public class Enemy : MonoBehaviour, IDamageable
         health = maxHealth;
 
         StateMachine = new EnemyStateMachineBuilder()
-            .AddState(new LookingState())
-            .AddState(new ChaseState())
-            .AddState(new AttackingState())
+            .AddState(new LookingState(), EnemyState.Looking)
+            .AddState(new ChaseState(), EnemyState.Chasing)
+            .AddState(new AttackingState(), EnemyState.Attacking)
             .Build();
 
         SetDefaultState();
@@ -113,30 +113,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     protected void SetDefaultState()
     {
-        switch (defaultState)
-        {
-            case EnemyState.Looking:
-                StateMachine.ChangeState(new LookingState(), this);
-                break;
-            case EnemyState.Chasing:
-                StateMachine.ChangeState(new ChaseState(), this);
-                break;
-            case EnemyState.Attacking:
-                StateMachine.ChangeState(new AttackingState(), this);
-                break;
-            case EnemyState.BossAttacking:
-                StateMachine.ChangeState(new BossAttackingState(), this);
-                break;
-            case EnemyState.FlyingWonder:
-                StateMachine.ChangeState(new FlyingWonderState(), this);
-                break;
-            case EnemyState.FlyingAttacking:
-                StateMachine.ChangeState(new FlyingAttackingState(), this);
-                break;
-            case EnemyState.Idle:
-                StateMachine.ChangeState(new IdleState(), this);
-                break;
-        }
+        StateMachine.ChangeState(defaultState, this);
     }
 
     public void Damage(float damageAmount)
@@ -229,7 +206,7 @@ public class Enemy : MonoBehaviour, IDamageable
         return false;
     }
 
-    public void StartAttack()
+    public virtual void StartAttack()
     {
         if (isRanged)
         {

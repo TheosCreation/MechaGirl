@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7390658371230026253}
   - component: {fileID: 2149757717314550231}
   - component: {fileID: 6095716343603737473}
+  - component: {fileID: 3380233414308935814}
   m_Layer: 7
   m_Name: FlyingEnemy
   m_TagString: Enemy
@@ -125,7 +126,7 @@ MonoBehaviour:
     m_Bits: 0
   isLaunching: 0
   launchbackThreshold: 30
-  isInvinsable: 0
+  isInvincible: 0
   maxHealth: 10
   isGrounded: 1
   groundLayer:
@@ -141,6 +142,21 @@ MonoBehaviour:
   randomMovementInterval: 3
   flatteningFactor: 2
   biasTowardsPlayer: 0.7
+--- !u!114 &3380233414308935814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4274951009702948806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d5875951c8fb1d4384331251bc9a188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 2583168012860547609, guid: 75880f9a0c3f159469bb1facc2aa4248,
+    type: 3}
+  explosionDamage: 20
 --- !u!1 &8187505603555233600
 GameObject:
   m_ObjectHideFlags: 0

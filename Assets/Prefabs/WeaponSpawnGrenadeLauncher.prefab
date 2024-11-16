@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: 1970063578944646839, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.5
+      value: -12.71303
       objectReference: {fileID: 0}
     - target: {fileID: 1970063578944646839, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5
+      value: 6.929
       objectReference: {fileID: 0}
     - target: {fileID: 1970063578944646839, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 63.869137
+      value: 62.036156
       objectReference: {fileID: 0}
     - target: {fileID: 1970063578944646839, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
@@ -69,10 +69,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: WeaponSpawnGrenadeLauncher
       objectReference: {fileID: 0}
+    - target: {fileID: 5790363701138249536, guid: 19c95f2070f4c6342973ded3adefb9bc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7426045164657549955, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}
       propertyPath: weaponToSpawn.startingAmmo
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7426045164657549955, guid: 19c95f2070f4c6342973ded3adefb9bc,
         type: 3}

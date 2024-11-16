@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     private string gameStateFilePath;
     public bool isInit = false;
+    [SerializeField] private bool skipInitOnAwake = true;
+    public AudioSource audioSourceExample;
 
 
     private void Awake()
@@ -30,6 +32,13 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+
+        audioSourceExample = GetComponent<AudioSource>();
+
+        if (!skipInitOnAwake)
+        {
+            StartCoroutine(Init());
         }
     }
 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 // Enum for possible enemy states for debugging purposes mostly
 public enum EnemyState
@@ -8,10 +7,8 @@ public enum EnemyState
     Looking,
     Chasing,
     Attacking,
-    BossAttacking,
-    FlyingWonder,
-    FlyingAttacking,
     Idle,
+    Wonder,
     NOTIMPLEMENTED
 }
 public interface IEnemyState
@@ -41,7 +38,7 @@ public class LookingState : IEnemyState
         {
             if (enemy.target)
             {
-                enemy.StateMachine.ChangeState(new ChaseState(), enemy);
+                enemy.StateMachine.ChangeState(EnemyState.Chasing, enemy);
                 return;
             }
         }
@@ -86,19 +83,14 @@ public class ChaseState : IEnemyState
         if (enemy.target == null) return;
 
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
-        if (dist < enemy.attackDistance && enemy.isRanged)
-        {
-            //change to ranged attack state
-            enemy.StateMachine.ChangeState(new AttackingState(), enemy);
-        }
-        else if(dist < enemy.attackDistance)
+        if(dist < enemy.attackDistance)
         {
             //change to melee attack state
-            enemy.StateMachine.ChangeState(new MeleeAttackingState(), enemy);
+            enemy.StateMachine.ChangeState(EnemyState.Attacking, enemy);
         }
         else if (dist > enemy.lookDistance)
         {
-            enemy.StateMachine.ChangeState(new LookingState(), enemy);
+            enemy.StateMachine.ChangeState(EnemyState.Looking, enemy);
         }
 
         timer -= Time.deltaTime;
@@ -129,11 +121,11 @@ public class FlyingWonderState : IEnemyState
         float dist = Vector3.Distance(enemy.transform.position, enemy.target.position);
         if (dist < enemy.attackDistance)
         {
-            enemy.StateMachine.ChangeState(new FlyingAttackingState(), enemy);
+            enemy.StateMachine.ChangeState(EnemyState.Attacking, enemy);
         }
         else if (dist > enemy.lookDistance)
         {
-            enemy.StateMachine.ChangeState(new LookingState(), enemy);
+            enemy.StateMachine.ChangeState(EnemyState.Looking, enemy);
         }
 
         timer -= Time.deltaTime;
@@ -271,7 +263,7 @@ public class AttackingState : IEnemyState
             if (!enemy.agent.pathPending && distanceToTarget >= enemy.attackDistance)
             {
                 // Switch back to chasing if the target is out of sight
-                enemy.StateMachine.ChangeState(new ChaseState(), enemy);
+                enemy.StateMachine.ChangeState(EnemyState.Chasing, enemy);
             }
             else if (!enemy.agent.pathPending && enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
             {
@@ -387,7 +379,7 @@ public class MeleeAttackingState : IEnemyState
             if (distanceToTarget >= enemy.attackDistance)
             {
                 // Switch back to chasing if the target is out of sight
-                enemy.StateMachine.ChangeState(new ChaseState(), enemy);
+                enemy.StateMachine.ChangeState(EnemyState.Looking, enemy);
             }
             else if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance)
             {
