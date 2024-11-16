@@ -152,48 +152,15 @@ public class FlyingAttackingState : IEnemyState
     {
         // Start attack delay and animation
         enemy.delayTimer.SetTimer(enemy.attackStartDelay, enemy.StartAttack);
-
-        foreach(Weapon weapon in enemy.weapons)
-        {
-            weapon.OnAttack += () => AttackExecuted(enemy);
-        }
-        attackStartTime = Time.time;
     }
-
-    private void AttackExecuted(Enemy enemy)
-    {
-        enemy.Die();
-    }
-
-
 
     public void Execute(Enemy enemy)
     {
-        if (enemy.target == null) return;
-
-        foreach (Weapon weapon in enemy.weapons)
-        {
-            Vector3 directionToTarget = enemy.target.position - weapon.transform.position;
-            weapon.transform.rotation = Quaternion.LookRotation(directionToTarget);
-        }
-        // Check distance to target
-        float distanceToTarget = Vector3.Distance(enemy.transform.position, enemy.target.position);
-
-        if (Time.time >= attackStartTime + enemy.attackDuration)
-        {
-            enemy.StartAttack();
-        }
     }
 
 
     public void Exit(Enemy enemy)
     {
-        enemy.delayTimer.StopTimer();
-        enemy.EndAttack(); 
-        foreach (Weapon weapon in enemy.weapons)
-        {
-            weapon.OnAttack -= () => AttackExecuted(enemy);
-        }
     }
 }
 
