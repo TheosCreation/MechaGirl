@@ -5,9 +5,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonPersistent<GameManager>
 {
-    public static GameManager Instance;
     [HideInInspector] public GameState GameState;
     public string mainMenuScene = "MainMenu";
     private string[] levelScenes;
@@ -21,19 +20,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool skipInitOnAwake = true;
     public AudioSource audioSourceExample;
 
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        base.Awake();
 
+        DontDestroyOnLoad(gameObject); 
+        
         audioSourceExample = GetComponent<AudioSource>();
 
         if (!skipInitOnAwake)

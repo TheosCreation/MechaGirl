@@ -5,10 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour
+public class UiManager : Singleton<UiManager>
 {
-    public static UiManager Instance { get; private set; }
-
     [Header("UI Screens")]
     [SerializeField] private GameObject playerHud;
     [SerializeField] private GameObject pauseMenu;
@@ -40,19 +38,6 @@ public class UiManager : MonoBehaviour
 
     //public Image image;
     //public UiBar bar;
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-    }
 
     private void Start()
     {
