@@ -15,7 +15,7 @@ public abstract class WeaponUser : MonoBehaviour
     {
 
         Projectile projectile = Instantiate(newProjectile, GetFirePoint().position, Quaternion.identity);
-        projectile.hitMask = GetHitMask();
+       // projectile.hitMask = GetHitMask();
         projectile.owner = gameObject;
         projectile.ownerLayer = gameObject.layer;
 
