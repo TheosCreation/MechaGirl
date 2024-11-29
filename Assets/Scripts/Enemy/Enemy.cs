@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 
 [RequireComponent(typeof(Rigidbody))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : WeaponUser, IDamageable
 {
     protected Rigidbody rb;
     [HideInInspector] public NavMeshAgent agent;
@@ -100,7 +100,13 @@ public class Enemy : MonoBehaviour, IDamageable
         dashTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
     }
-
+    private void Start()
+    {
+        foreach (Weapon weapon in weapons)
+        {
+            weapon.SetWeaponUser(this);
+        }
+    }
     protected void Update()
     {
         StateMachine.Update(this);
@@ -336,5 +342,42 @@ public class Enemy : MonoBehaviour, IDamageable
     public bool isAgentReady()
     {
         return agent.enabled && agent.isOnNavMesh;
+    }
+
+    public override Transform GetFirePoint()
+    {
+        // Potential problem with boss tofix later lmao
+        Weapon weapon = GetComponentInChildren<Weapon>();
+        if (weapon != null)
+        {
+            return weapon.transform;
+        }
+        // fallback 
+        return transform;
+       
+    }
+
+    public override Vector3 GetForwardDirection()
+    {
+        return transform.forward;
+    }
+
+    public override LayerMask GetHitMask()
+    {
+        return LayerMask.GetMask("Player");
+    }
+    public override void OnWeaponFire(Projectile newProjectile, bool player = false)
+    {
+        base.OnWeaponFire(newProjectile, false);
+    }
+
+    public override void OnPickUp()
+    {
+        base.OnPickUp();
+    }
+
+    public override Projectile GetProjectilePrefab(Weapon weapon)
+    {
+        return weapon.enemyProjectilePrefab;
     }
 }

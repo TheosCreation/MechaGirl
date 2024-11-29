@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour, IDamageable
+public class PlayerController : WeaponUser, IDamageable
 {
     [HideInInspector] public Camera playerCamera;
     [HideInInspector] public PlayerLook playerLook;
@@ -88,5 +88,34 @@ public class PlayerController : MonoBehaviour, IDamageable
     {
         audio1.mute = !active;
         audio2.mute = !active;
+    }
+
+    public override Transform GetFirePoint()
+    {
+        return playerCamera.transform;
+    }
+
+    public override Vector3 GetForwardDirection()
+    {
+        return playerCamera.transform.forward;
+    }
+
+    public override LayerMask GetHitMask()
+    {
+        return LayerMask.GetMask("Enemy") | LayerMask.GetMask("Head");
+    }
+    public override void OnWeaponFire(Projectile newProjectile, bool player = false)
+    {
+        base.OnWeaponFire(newProjectile, true);
+    }
+
+    public override void OnPickUp()
+    {
+        base.OnPickUp();
+    }
+
+    public override Projectile GetProjectilePrefab(Weapon weapon)
+    {
+        return weapon.playerProjectilePrefab;
     }
 }

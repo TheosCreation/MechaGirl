@@ -45,12 +45,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected Casing casingToSpawn;
     [SerializeField] protected Transform casingSpawnTransform;
 
-    [SerializeField] protected Projectile enemyProjectilePrefab;
-    [SerializeField] protected Projectile playerProjectilePrefab;
+    [SerializeField] public Projectile enemyProjectilePrefab;
+    [SerializeField] public Projectile playerProjectilePrefab;
 
     [Header("Audio")]
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
+
+    WeaponUser weaponUser;
 
     [HideInInspector] public float predictionTime = 0.2f;
 
@@ -287,11 +289,18 @@ public class Weapon : MonoBehaviour
         this.enabled = false;
     }
 
-    public bool PickUp(WeaponHolder weaponHolder, PlayerController pc, bool ignorePickup)
+    public bool PickUp(WeaponHolder weaponHolder, WeaponUser user, bool ignorePickup)
     {
         if (!canPickup && !ignorePickup) return false;
+        
+        SetWeaponUser(user);
 
-        playerController = pc;
+        if (user is PlayerController pc)
+        {
+            playerController = pc;
+        }
+
+
 
         canPickup = false;
 
@@ -339,44 +348,14 @@ public class Weapon : MonoBehaviour
         }
         OnAttack?.Invoke();
     }
-
-    protected void FireProjectile()
+    public void SetWeaponUser(WeaponUser user)
     {
-        if (enemyProjectilePrefab == null)
-        {
-            Debug.LogError("Projectile has not been set");
-            return;
-        }
+        weaponUser = user;
+    }
+    protected void FireProjectile()
 
-        Projectile projectile = null;
-        if (playerController != null)
-        {
-            projectile = Instantiate(playerProjectilePrefab, transform.position, playerController.playerCamera.transform.rotation);
-        }
-        else
-        {
-            projectile = Instantiate(enemyProjectilePrefab, transform.position, transform.rotation);
-        }
-
-        if (projectile != null)
-        {
-            if (playerController)
-            {
-                projectile.owner = playerController.gameObject;
-
-                projectile.Initialize(playerController.playerCamera.transform.position, playerController.playerCamera.transform.forward, true);
-                projectile.ownerLayer = playerController.gameObject.layer;
-                
-
-            }
-            else
-            {
-                GameObject enemyRef = GetComponentInParent<Enemy>().gameObject;
-                projectile.owner = enemyRef;
-                projectile.ownerLayer = enemyRef.layer;
-                projectile.Initialize(transform.position, transform.forward, false);
-            }
-        }
+    {
+        weaponUser.OnWeaponFire(weaponUser.GetProjectilePrefab(this));
     }
 
     protected void SpawnCasing()
