@@ -42,10 +42,12 @@ namespace HeathenEngineering.SteamworksIntegration
             IsClientTicket = isClient;
             var array = new byte[1024];
             uint m_pcbTicket;
-            if(isClient)
-                Handle = SteamUser.GetAuthSessionTicket(array, 1024, out m_pcbTicket);
+            SteamNetworkingIdentity steamNetworkingIdentity = new SteamNetworkingIdentity();
+
+            if (isClient)
+                Handle = SteamUser.GetAuthSessionTicket(array, 1024, out m_pcbTicket, ref steamNetworkingIdentity);
             else
-                Handle = SteamGameServer.GetAuthSessionTicket(array, 1024, out m_pcbTicket);
+                Handle = SteamGameServer.GetAuthSessionTicket(array, 1024, out m_pcbTicket, ref steamNetworkingIdentity);
             CreatedOn = SteamUtils.GetServerRealTime();
             Array.Resize(ref array, (int)m_pcbTicket);
             Data = array;
