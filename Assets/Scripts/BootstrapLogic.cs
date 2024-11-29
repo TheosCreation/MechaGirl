@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 //Bootstrap script to validate that all the persistant components are initilized smoothly and correctly
 public class BootstrapLogic : MonoBehaviour
 {
+    [SerializeField] SteamInit steamInit;
+
     private void Start()
     {
         StartCoroutine(Validate());
@@ -15,6 +17,7 @@ public class BootstrapLogic : MonoBehaviour
         yield return null;
 
         yield return StartCoroutine(GameManager.Instance.Init());
+        yield return StartCoroutine(steamInit.InitSteam());
 
         Debug.Log("Starting Main Menu Scene Load!");
 
