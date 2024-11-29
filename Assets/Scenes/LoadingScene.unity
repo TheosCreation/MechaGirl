@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &38933641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 38933642}
+  - component: {fileID: 38933643}
+  m_Layer: 0
+  m_Name: SteamInit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &38933642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &38933643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8309facb11dfa34ebeab32498bd47d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: fc9e9e66af7d1874cb8d297cadfac003, type: 2}
 --- !u!1 &68875056
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2be9d31e6e4a247a4d426cae4e4fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  steamInit: {fileID: 38933643}
 --- !u!1 &355557388
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,6 +454,7 @@ MonoBehaviour:
   mainMenuScene: MainMenu
   isInit: 0
   skipInitOnAwake: 1
+  audioSourceExample: {fileID: 0}
 --- !u!4 &425535151
 Transform:
   m_ObjectHideFlags: 0
@@ -796,3 +843,4 @@ SceneRoots:
   - {fileID: 2129176941}
   - {fileID: 225297666}
   - {fileID: 425535151}
+  - {fileID: 38933642}
