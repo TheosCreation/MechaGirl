@@ -10,15 +10,11 @@ public class LobProjectile : Projectile
     [SerializeField] protected bool destroyOnHit = true; // Does obj destroy on hit
     public UnityEvent onCollision;
 
-    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
-        base.Initialize(startPosition, direction, fromPlayer);
+        base.Initialize(startPosition, direction, weaponUser);
         rb.useGravity = true;
-        if (!fromPlayer)
-        {
-            //remove the Enemy layer from the hitMask
-            RemoveEnemyFromHitMask();
-        }
+
         // Apply force to move the projectile
         rb.AddForce(direction * speed, ForceMode.VelocityChange);
 

@@ -366,14 +366,12 @@ public class Enemy : WeaponUser, IDamageable
     {
         return LayerMask.GetMask("Player");
     }
-    public override void OnWeaponFire(Projectile newProjectile, bool player = false)
+    public override void OnWeaponFire(Weapon weaponFired)
     {
-        base.OnWeaponFire(newProjectile, false);
     }
 
     public override void OnPickUp()
     {
-        base.OnPickUp();
     }
 
     public override Projectile GetProjectilePrefab(Weapon weapon)

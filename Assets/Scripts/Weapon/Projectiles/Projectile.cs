@@ -14,6 +14,8 @@ public class Projectile : MonoBehaviour
     public string ownerTag;
     protected Rigidbody rb;
 
+    protected WeaponUser m_weaponUser;
+
     private void Awake()
     {   
 
@@ -22,9 +24,14 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public virtual void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
+    public virtual void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
         ownerTag = owner.tag;
+        m_weaponUser = weaponUser;
+        if (m_weaponUser is PlayerController)
+        {
+            RemoveEnemyFromHitMask();
+        }
     }
 
     protected void RemoveEnemyFromHitMask()

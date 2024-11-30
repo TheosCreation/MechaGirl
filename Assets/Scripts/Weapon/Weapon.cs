@@ -33,8 +33,8 @@ public class Weapon : MonoBehaviour
     private float quickShootTimer = 0.0f;
 
     [Header("Screen Shake")]
-    [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeDuration = 0.1f;
-    [Range(0.0f, 0.1f)][SerializeField] protected float screenShakeAmount = 0.1f;
+    [Range(0.0f, 0.1f)] public float screenShakeDuration = 0.1f;
+    [Range(0.0f, 0.1f)] public float screenShakeAmount = 0.1f;
 
     [Header("Pick Up")]
     public bool canPickup = true; // moved up to settings tab so easily visable
@@ -327,19 +327,11 @@ public class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootTimer = CalculateFireRate();
-
         animator.SetTrigger("Shoot");
 
-        // Trigger screen shake if applicable
-        if (playerController != null)
-        {
-            playerController.playerLook.TriggerScreenShake(screenShakeDuration, screenShakeAmount);
-        }
-
+        weaponUser.OnWeaponFire(this);
         PlayRandomFiringSound();
-
         FireProjectile();
-
         SpawnCasing();
 
         if (playerController != null && !ignoreAmmo)
@@ -352,10 +344,15 @@ public class Weapon : MonoBehaviour
     {
         weaponUser = user;
     }
-    protected void FireProjectile()
 
+    protected void FireProjectile()
     {
-        weaponUser.OnWeaponFire(weaponUser.GetProjectilePrefab(this));
+        Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
+        // projectile.hitMask = GetHitMask();
+        projectile.owner = gameObject;
+        projectile.ownerLayer = gameObject.layer;
+
+        projectile.Initialize(weaponUser.GetFirePoint().position, weaponUser.GetForwardDirection(), weaponUser);
     }
 
     protected void SpawnCasing()

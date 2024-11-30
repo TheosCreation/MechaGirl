@@ -10,9 +10,9 @@ public class SwordsSwing : PhysicalProjectile
     public GameObject player;
     public PlayerMovement playerMove;
     public Enemy enemy;
-    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
-        base.Initialize(startPosition, direction, fromPlayer);
+        base.Initialize(startPosition, direction, weaponUser);
 
         playerMove = owner.GetComponent<PlayerMovement>();
         if (playerMove == null)

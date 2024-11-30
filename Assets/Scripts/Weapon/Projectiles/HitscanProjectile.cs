@@ -28,13 +28,10 @@ public class HitscanProjectile : Projectile
         }
     }
 
-    public override void Initialize(Vector3 startPosition, Vector3 direction, bool fromPlayer)
+    public override void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
-        base.Initialize(startPosition, direction, fromPlayer);
-        if (!fromPlayer)
-        {
-            RemoveEnemyFromHitMask();
-        }
+        base.Initialize(startPosition, direction, weaponUser);
+
         Ray ray = new Ray(startPosition, direction);
         RaycastHit hit;
 
@@ -42,7 +39,7 @@ public class HitscanProjectile : Projectile
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, hitMask))
         {
             targetPoint = hit.point;
-            HandleHit(hit, fromPlayer);
+            HandleHit(hit);
         }
         else
         {
@@ -60,7 +57,7 @@ public class HitscanProjectile : Projectile
         }
     }
 
-    private void HandleHit(RaycastHit hit, bool fromPlayer)
+    private void HandleHit(RaycastHit hit)
     {
         GameObject hitParticles;
         IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
@@ -71,10 +68,7 @@ public class HitscanProjectile : Projectile
 
         if (damageable != null)
         {
-            if (fromPlayer)
-            {
-                UiManager.Instance.FlashHitMarker();
-            }
+            m_weaponUser.OnHit();
 
             GameObject soundMakerObject = new GameObject("SoundMaker");
             soundMakerObject.transform.position = hit.point;

@@ -104,9 +104,17 @@ public class PlayerController : WeaponUser, IDamageable
     {
         return LayerMask.GetMask("Enemy") | LayerMask.GetMask("Head");
     }
-    public override void OnWeaponFire(Projectile newProjectile, bool player = false)
+
+    public override void OnWeaponFire(Weapon weapon)
     {
-        base.OnWeaponFire(newProjectile, true);
+        playerLook.TriggerScreenShake(weapon.screenShakeDuration, weapon.screenShakeAmount);
+    }
+
+    public override void OnHit()
+    {
+        base.OnHit();
+
+        UiManager.Instance.FlashHitMarker();
     }
 
     public override void OnPickUp()

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class WeaponUser : MonoBehaviour
@@ -11,19 +9,12 @@ public abstract class WeaponUser : MonoBehaviour
     public abstract LayerMask GetHitMask();
     public abstract Projectile GetProjectilePrefab(Weapon weapon);
 
-    public virtual void OnWeaponFire(Projectile newProjectile, bool fromPlayer = false)
-    {
+    // An event function to call other functions
+    public virtual void OnWeaponFire(Weapon weaponFired) { }
 
-        Projectile projectile = Instantiate(newProjectile, GetFirePoint().position, Quaternion.identity);
-       // projectile.hitMask = GetHitMask();
-        projectile.owner = gameObject;
-        projectile.ownerLayer = gameObject.layer;
-
-        projectile.Initialize(GetFirePoint().position, GetForwardDirection(), fromPlayer);
-    }
-
-    public virtual void OnPickUp()
-    {
-
-    }
+    // An event function to call other functions
+    public virtual void OnPickUp() { }
+    
+    // An event function to call other functions
+    public virtual void OnHit() { }
 }
