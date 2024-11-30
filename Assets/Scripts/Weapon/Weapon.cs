@@ -26,11 +26,9 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected bool canThrow = true;
 
     [Header("Shooting")]
-    [SerializeField] protected bool canShoot = true;
     public bool isShooting = false;
     [SerializeField] protected float shootsPerSecond = 1.0f;
     protected float shootTimer = 0.0f;
-    private float quickShootTimer = 0.0f;
 
     [Header("Screen Shake")]
     [Range(0.0f, 0.1f)] public float screenShakeDuration = 0.1f;
@@ -52,16 +50,13 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected AudioSource shootingSource;
     [SerializeField] protected AudioClip[] shootingSounds;
 
-    WeaponUser weaponUser;
+    protected WeaponUser weaponUser;
 
     [HideInInspector] public float predictionTime = 0.2f;
 
     protected Animator animator;
 
     protected Transform target; // Target to aim at
-
-    public PlayerController playerController;
-    [HideInInspector] public WeaponHolder WeaponHolder;
 
     protected SpriteRenderer spriteRenderer;
     public BoxCollider bc; // lets keep the theme going, things are keeped private for a reason
@@ -78,22 +73,24 @@ public class Weapon : MonoBehaviour
         get => ammo;
         set
         {
-            ammo = value;
-            if (playerController != null && isActiveAndEnabled)
+            if (weaponUser is PlayerController && !ignoreAmmo)
             {
-                UiManager.Instance.UpdateAmmoUi(ammo);
-            }
-            if (!ignoreAmmo)
-            {
-                if (ammo <= 0 && isActiveAndEnabled && WeaponHolder != null)
+                ammo = value;
+
+                //we only set the value if its not equip
+                if(!isActiveAndEnabled) return;
+
+                weaponUser.OnAmmoChange(ammo);
+
+                if (ammo <= 0)
                 {
                     weaponColor = Color.red;
-
                 }
                 else if (ammo > 0 && weaponColor == Color.red)
                 {
                     weaponColor = Color.white;
                 }
+                //Need to fix this later we dont want a direct is player call and UiManager call here
                 UiManager.Instance.UpdateWeaponImageColor(weaponColor);
             }
         }
@@ -101,25 +98,33 @@ public class Weapon : MonoBehaviour
 
     public event Action OnAttack;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         animator = GetComponent<Animator>();
-
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteBillboard = GetComponent<SpriteBillboard>();
+        rb = GetComponent<Rigidbody>();
+        bc = GetComponent<BoxCollider>();
         equipTimer = gameObject.AddComponent<Timer>();
         pickupTimer = gameObject.AddComponent<Timer>();
 
+        //Try and get weapon user if attached already
+        Enemy enemy = GetComponentInParent<Enemy>();
+        PlayerController pc = GetComponentInParent<PlayerController>();
+        if(enemy != null)
+        {
+            weaponUser = enemy;
+        }
+        if (pc != null)
+        {
+            weaponUser = pc;
+        }
 
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        rb = GetComponent<Rigidbody>();
-        bc = GetComponent<BoxCollider>();
-        spriteBillboard = GetComponent<SpriteBillboard>();
-        playerController = GetComponentInParent<PlayerController>();
 
         ammo = startingAmmo;
     }
 
-    protected void Start()
+    protected virtual void Start()
     {
         Ammo = startingAmmo;
     }
@@ -127,29 +132,12 @@ public class Weapon : MonoBehaviour
     protected void Update()
     {
         shootTimer -= Time.deltaTime;
-        /*quickShootTimer -= Time.deltaTime;
-        if (quickShootTimer < 0.0f && isShooting)
-        {
-            //this is just a slight delay to stop the enemy from rotating
-           
-        }*/
 
-        if (shootTimer < 0.0f && isShooting)
-        {
-
-            canShoot = true;
-
-        }
-
-        if (canShoot && isShooting && isEquip)
+        if (shootTimer < 0.0f && isShooting && isEquip)
         {
             if (Ammo > 0 || ignoreAmmo)
             {
-                canShoot = false;
-
-
                 shootTimer = CalculateFireRate();
-                quickShootTimer = shootTimer - predictionTime;
                 Shoot();
             }
         }
@@ -157,7 +145,7 @@ public class Weapon : MonoBehaviour
         if (currentSprite != Sprite)
         {
             currentSprite = Sprite;
-            if (playerController != null)
+            if(weaponUser is PlayerController)
             {
                 UiManager.Instance.UpdateWeaponImage(currentSprite);
             }
@@ -170,7 +158,7 @@ public class Weapon : MonoBehaviour
         if (AnimationPosition != currentAnimationPosition)
         {
             currentAnimationPosition = AnimationPosition;
-            if (playerController != null)
+            if (weaponUser is PlayerController)
             {
                 UiManager.Instance.UpdateWeaponAnimationPosition(currentAnimationPosition);
             }
@@ -179,7 +167,7 @@ public class Weapon : MonoBehaviour
         if (AnimationRotation != currentAnimationRotation)
         {
             currentAnimationRotation = AnimationRotation;
-            if (playerController != null)
+            if (weaponUser is PlayerController)
             {
                 UiManager.Instance.UpdateWeaponAnimationRotation(currentAnimationRotation);
             }
@@ -188,8 +176,6 @@ public class Weapon : MonoBehaviour
 
     private void OnEnable()
     {
-        // We equip if the weapon has been selected and is held
-        if (playerController == null) return;
         Equip();
     }
 
@@ -210,7 +196,7 @@ public class Weapon : MonoBehaviour
         bc.enabled = false;
         rb.isKinematic = true;
         transform.localRotation = Quaternion.identity;
-        if (playerController != null)
+        if (weaponUser is PlayerController)
         {
             spriteRenderer.enabled = false;
             animator.runtimeAnimatorController = gunPlayerController;
@@ -224,31 +210,31 @@ public class Weapon : MonoBehaviour
 
     protected void Equip()
     {
-        //Attach();
         animator.enabled = true;
-        if (playerController != null)
+
+        if (weaponUser is PlayerController)
         {
             if (!ignoreAmmo)
             {
-                UiManager.Instance.UpdateAmmoUi(Ammo);
+                weaponUser.OnAmmoChange(Ammo);
             }
             else
             {
-                UiManager.Instance.UpdateAmmoUi(0);
+                weaponUser.OnAmmoChange(0);
             }
+
+            UiManager.Instance.UpdateWeaponImageColor(weaponColor);
 
             spriteRenderer.enabled = false;
         }
         else
         {
 
-            spriteRenderer.enabled = true;
+           // spriteRenderer.enabled = true;
         }
 
         animator.SetTrigger("Equip");
-
         equipTimer.SetTimer(equipTime, EquipFinish);
-        UiManager.Instance.UpdateWeaponImageColor(weaponColor);
     }
 
     protected void EquipFinish()
@@ -278,9 +264,6 @@ public class Weapon : MonoBehaviour
 
         isShooting = false;
 
-        playerController = null;
-        WeaponHolder = null;
-
         //clear attached functions
         OnAttack = null;
 
@@ -294,13 +277,6 @@ public class Weapon : MonoBehaviour
         if (!canPickup && !ignorePickup) return false;
         
         SetWeaponUser(user);
-
-        if (user is PlayerController pc)
-        {
-            playerController = pc;
-        }
-
-
 
         canPickup = false;
 
@@ -334,12 +310,12 @@ public class Weapon : MonoBehaviour
         FireProjectile();
         SpawnCasing();
 
-        if (playerController != null && !ignoreAmmo)
-        {
-            Ammo--;
-        }
+        //if enemy ammo doesnt decrease
+        Ammo--;
+
         OnAttack?.Invoke();
     }
+
     public void SetWeaponUser(WeaponUser user)
     {
         weaponUser = user;

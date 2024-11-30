@@ -13,17 +13,7 @@ public class Sword : Weapon
     {
         if (transform.parent == null) { return; }
 
-        if (playerController != null)
-        {
-            playerController.playerMovement.Dash(playerController.playerCamera.transform.forward, dashSpeed, dashDuration, true);
-
-        }
-        else
-        {
-         
-            Enemy enemyRef = GetComponentInParent<Enemy>();
-            enemyRef.Dash(dashSpeed, dashDuration,transform.forward);
-        }
+        weaponUser.DashForward(dashSpeed, dashDuration);
 
         base.Shoot();
     }

@@ -233,6 +233,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MDS_Robots_Flying
       objectReference: {fileID: 0}
+    - target: {fileID: -8240189966668733465, guid: 0aed2311b1b62504d9b98c7a82d035df,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 0aed2311b1b62504d9b98c7a82d035df,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -326,6 +331,16 @@ PrefabInstance:
     - target: {fileID: -6559860160919856772, guid: 0aed2311b1b62504d9b98c7a82d035df,
         type: 3}
       propertyPath: m_SpriteSortPoint
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6027135261324788649, guid: 0aed2311b1b62504d9b98c7a82d035df,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5975784022587945702, guid: 0aed2311b1b62504d9b98c7a82d035df,
+        type: 3}
+      propertyPath: m_AlwaysUpdate
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -28,7 +28,7 @@ public class Projectile : MonoBehaviour
     {
         ownerTag = owner.tag;
         m_weaponUser = weaponUser;
-        if (m_weaponUser is PlayerController)
+        if (m_weaponUser is Enemy)
         {
             RemoveEnemyFromHitMask();
         }

@@ -100,6 +100,7 @@ public class Enemy : WeaponUser, IDamageable
         dashTimer = gameObject.AddComponent<Timer>();
         weapons = GetComponentsInChildren<Weapon>();
     }
+
     private void Start()
     {
         foreach (Weapon weapon in weapons)
@@ -107,6 +108,7 @@ public class Enemy : WeaponUser, IDamageable
             weapon.SetWeaponUser(this);
         }
     }
+
     protected void Update()
     {
         StateMachine.Update(this);
@@ -377,5 +379,10 @@ public class Enemy : WeaponUser, IDamageable
     public override Projectile GetProjectilePrefab(Weapon weapon)
     {
         return weapon.enemyProjectilePrefab;
+    }
+
+    public override void DashForward(float speed, float dashDuration)
+    {
+        Dash(speed, dashDuration, transform.forward);
     }
 }

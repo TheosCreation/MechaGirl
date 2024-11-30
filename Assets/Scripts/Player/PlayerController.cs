@@ -117,6 +117,11 @@ public class PlayerController : WeaponUser, IDamageable
         UiManager.Instance.FlashHitMarker();
     }
 
+    public override void OnAmmoChange(int currentAmmo)
+    {
+        UiManager.Instance.UpdateAmmoUi(currentAmmo);
+    }
+
     public override void OnPickUp()
     {
         base.OnPickUp();
@@ -126,4 +131,14 @@ public class PlayerController : WeaponUser, IDamageable
     {
         return weapon.playerProjectilePrefab;
     }
+
+    public override void DashForward(float speed, float dashDuration)
+    {
+        playerMovement.Dash(playerCamera.transform.forward, speed, dashDuration, true);
+    }
+
+    //public override void OnSpriteChange(Sprite newSprite)
+    //{
+    //    UiManager.Instance.UpdateWeaponImage(newSprite);
+    //}
 }

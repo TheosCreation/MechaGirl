@@ -170,7 +170,6 @@ public class WeaponHolder : MonoBehaviour
             {
                 currentWeaponIndex = index;
                 currentWeapon = weapons[i];
-                currentWeapon.WeaponHolder = this;
 
                 UiManager.Instance.UpdateWeaponImage(currentWeapon.Sprite);
                 UiManager.Instance.UpdateWeaponIcon(currentWeapon.iconSprite);

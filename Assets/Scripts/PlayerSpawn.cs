@@ -33,8 +33,7 @@ public class PlayerSpawn : MonoBehaviour
         foreach(WeaponSpawn weaponToSpawn in weaponsToSpawn)
         {
             Weapon weapon = Instantiate(weaponToSpawn.weaponPrefab);
-
-            weapon.playerController = playerSpawned;
+            weapon.SetWeaponUser(playerSpawned);
             weapon.canPickup = false;
             weapon.startingAmmo = weaponToSpawn.startingAmmo;
 
