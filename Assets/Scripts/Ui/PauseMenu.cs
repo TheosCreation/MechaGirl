@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenu : MonoBehaviour, IMenuManager
 {
     [SerializeField] private GameObject mainPage;
     [SerializeField] private GameObject optionsMenu;
@@ -44,5 +44,10 @@ public class PauseMenu : MonoBehaviour
     public void ResetLevel()
     {
         GameManager.Instance.ReopenLevel();
+    }
+
+    public void Back()
+    {
+        OpenMainPage();
     }
 }

@@ -204,7 +204,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 197.5
+  m_fontSize: 96.5
   m_fontSizeBase: 35.53
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1174,6 +1174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuScene: MainMenu
   isInit: 0
+  skipInitOnAwake: 0
+  audioSourceExample: {fileID: 0}
 --- !u!1 &288338064
 GameObject:
   m_ObjectHideFlags: 0
@@ -1765,10 +1767,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2d48e799ab3e49428e31b3449163cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainPage: {fileID: 2136996999}
+  mainPage: {fileID: 2136997001}
   optionsPage: {fileID: 163316431}
   levelSelectPage: {fileID: 655317890}
-  playButton: {fileID: 436606935}
 --- !u!1 &502368379
 GameObject:
   m_ObjectHideFlags: 0
@@ -2560,7 +2561,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 5
-  m_Spacing: 43.2
+  m_Spacing: 21.6
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -2905,7 +2906,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: QUIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1d141b77288e97542a88bff1e308b302, type: 2}
   m_sharedMaterial: {fileID: 1085877498107031680, guid: 1d141b77288e97542a88bff1e308b302,
@@ -2933,7 +2934,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 197.5
+  m_fontSize: 96.5
   m_fontSizeBase: 35.53
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3503,7 +3504,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 197.5
+  m_fontSize: 96.5
   m_fontSizeBase: 35.53
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3909,19 +3910,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1792478275}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 501348003}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: OpenOptionsPage
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1792478275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4692,6 +4681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2136997000}
+  - component: {fileID: 2136997001}
   m_Layer: 5
   m_Name: MainPage
   m_TagString: Untagged
@@ -4719,6 +4709,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2136997001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136996999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b30e1b3b20bc2d4ca5bf09a4b689ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttons:
+  - button: {fileID: 436606935}
+    clickFunction: OpenLevelSelectPage
+  - button: {fileID: 1792478274}
+    clickFunction: OpenOptionPage
+  - button: {fileID: 1002163366}
+    clickFunction: Quit
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

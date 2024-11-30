@@ -1,0 +1,4 @@
+interface IMenuManager
+{
+    void Back();
+}

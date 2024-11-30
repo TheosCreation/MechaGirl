@@ -1,19 +1,18 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Singleton<MainMenu>, IMenuManager
 {
-    [SerializeField] private GameObject mainPage;
+    [SerializeField] private MainMenuMainPage mainPage;
     [SerializeField] private GameObject optionsPage;
     [SerializeField] private GameObject levelSelectPage;
-    [SerializeField] private Button playButton;
 
     public PlayerInput Input;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         Input = new PlayerInput();
-        playButton.onClick.AddListener(OpenLevelSelectPage);
     }
     private void OnEnable()
     {
@@ -32,7 +31,7 @@ public class MainMenu : MonoBehaviour
 
     public void OpenMainPage()
     {
-        mainPage.SetActive(true);
+        mainPage.gameObject.SetActive(true);
         optionsPage.SetActive(false);
         levelSelectPage.SetActive(false);
     }
@@ -40,22 +39,17 @@ public class MainMenu : MonoBehaviour
     public void OpenOptionsPage()
     {
         optionsPage.SetActive(true);
-        mainPage.SetActive(false);
+        mainPage.gameObject.SetActive(false);
     }
     public void OpenLevelSelectPage()
     {
         levelSelectPage.SetActive(true);
-        mainPage.SetActive(false);
+        mainPage.gameObject.SetActive(false);
     }
 
     public void Quit()
     {
         GameManager.Instance.Quit();
-    }
-
-    public void StartGame()
-    {
-        GameManager.Instance.StartGame();
     }
 
     public void Back()

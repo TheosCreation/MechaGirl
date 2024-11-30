@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class OptionsMenu : MonoBehaviour
+public class OptionsMenu : UiPage
 {
     [Header("Master Volume Slider Option")]
     [SerializeField] private Slider masterVolumeSlider;
@@ -118,6 +118,19 @@ public class OptionsMenu : MonoBehaviour
         foreach (var option in options)
         {
             option.CleanUp();
+        }
+    }
+
+    public void Back()
+    {
+        IMenuManager menuOwner = GetComponentInParent<IMenuManager>();
+        if (menuOwner != null)
+        {
+            menuOwner.Back();
+        }
+        else
+        {
+            Debug.LogWarning("No menu owner?");
         }
     }
 }
