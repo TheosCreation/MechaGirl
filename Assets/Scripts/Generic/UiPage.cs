@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class UiPage : MonoBehaviour
 {
-    [SerializeField] private UiButton[] buttons;
+    [SerializeField] protected UiButton[] buttons;
 
     // Cache for MethodInfo lookups
     private readonly Dictionary<string, MethodInfo> methodCache = new Dictionary<string, MethodInfo>();
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         if (buttons == null || buttons.Length == 0) return;
 
@@ -49,7 +49,7 @@ public class UiPage : MonoBehaviour
             }
         }
     }
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         if (buttons == null || buttons.Length == 0) return;
 

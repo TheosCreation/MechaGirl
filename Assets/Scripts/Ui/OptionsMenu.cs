@@ -102,8 +102,9 @@ public class OptionsMenu : UiPage
         return new OptionsDropdown(dropdown, resetButton, value => updateAction(setting), setting);
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
+        base.OnEnable();
         foreach (var option in options)
         {
             option.Initialize();
@@ -118,8 +119,9 @@ public class OptionsMenu : UiPage
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         foreach (var option in options)
         {
             option.CleanUp();
