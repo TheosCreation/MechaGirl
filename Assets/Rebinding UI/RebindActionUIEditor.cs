@@ -26,6 +26,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindStopEventProperty = serializedObject.FindProperty("m_RebindStopEvent");
             m_DisplayStringOptionsProperty = serializedObject.FindProperty("m_DisplayStringOptions");
             m_BindButtonProperty = serializedObject.FindProperty("bindButton");
+            m_ResetButtonProperty = serializedObject.FindProperty("resetButton");
 
             RefreshBindingOptions();
         }
@@ -35,6 +36,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             EditorGUI.BeginChangeCheck();
 
             EditorGUILayout.PropertyField(m_BindButtonProperty);
+            EditorGUILayout.PropertyField(m_ResetButtonProperty);
 
             // Binding section.
             EditorGUILayout.LabelField(m_BindingLabel, Styles.boldLabel);
@@ -163,6 +165,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         private SerializedProperty m_UpdateBindingUIEventProperty;
         private SerializedProperty m_DisplayStringOptionsProperty;
         private SerializedProperty m_BindButtonProperty;
+        private SerializedProperty m_ResetButtonProperty;
 
         private GUIContent m_BindingLabel = new GUIContent("Binding");
         private GUIContent m_DisplayOptionsLabel = new GUIContent("Display Options");

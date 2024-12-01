@@ -16,6 +16,7 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
     public class RebindActionUI : MonoBehaviour
     {
         [SerializeField] private Button bindButton;
+        [SerializeField] private Button resetButton;
 
         /// <summary>
         /// Reference to the action that is to be rebound.
@@ -296,15 +297,15 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             // If it's a part binding, show the name of the part in the UI.
             var partName = default(string);
             if (action.bindings[bindingIndex].isPartOfComposite)
-                partName = $"Binding '{action.bindings[bindingIndex].name}'. ";
+                partName = action.bindings[bindingIndex].name.ToUpper();
 
             // Bring up rebind overlay, if we have one.
             m_RebindOverlay?.SetActive(true);
             if (m_RebindText != null)
             {
                 var text = !string.IsNullOrEmpty(m_RebindOperation.expectedControlType)
-                    ? $"{partName}Waiting for {m_RebindOperation.expectedControlType} input..."
-                    : $"{partName}Waiting for input...";
+                    ? $"PRESS {partName}"
+                    : $"...";
                 m_RebindText.text = text;
             }
 
@@ -328,6 +329,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 InputSystem.onActionChange += OnActionChange;
             if (bindButton != null)
                 bindButton.onClick.AddListener(StartInteractiveRebind);
+            if (resetButton != null)
+                resetButton.onClick.AddListener(ResetToDefault);
         }
 
         protected void OnDisable()
@@ -344,6 +347,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
 
             if (bindButton != null)
                 bindButton.onClick.RemoveAllListeners();
+            if (resetButton != null)
+                resetButton.onClick.RemoveAllListeners();
         }
 
         // When the action system re-resolves bindings, we want to update our UI in response. While this will
