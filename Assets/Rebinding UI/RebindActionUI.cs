@@ -284,6 +284,9 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                         UpdateBindingDisplay();
                         CleanUp();
 
+                        // Save the updated bindings
+                        SaveRebinds(m_Action.asset);
+
                         // If there's more composite parts we should bind, initiate a rebind
                         // for the next part.
                         if (allCompositeParts)
@@ -318,6 +321,19 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
             m_RebindStartEvent?.Invoke(this, m_RebindOperation);
 
             m_RebindOperation.Start();
+        }
+
+        private void SaveRebinds(InputActionAsset actionAsset)
+        {
+            if (actionAsset != null)
+            {
+                // Serialize the InputActionAsset to JSON
+                var rebinds = actionAsset.SaveBindingOverridesAsJson();
+
+                // Save the JSON string to PlayerPrefs or another storage
+                PlayerPrefs.SetString("rebinds", rebinds);
+                PlayerPrefs.Save();
+            }
         }
 
         protected void OnEnable()

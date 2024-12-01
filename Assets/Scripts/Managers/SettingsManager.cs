@@ -1,28 +1,23 @@
+using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class SettingsManager : MonoBehaviour
+public class SettingsManager : SingletonPersistent<SettingsManager>
 {
     public Options options;
     [SerializeField] private AudioMixer Mixer;
     [HideInInspector] public PlayerController player;
-    public static SettingsManager Instance { get; private set; }
-    private void Awake()
+    [SerializeField] private InputActionAsset actionAsset;
+
+    protected override void Awake()
     {
-        if (Instance == null)
-        {
-     
-            Instance = this;
-        }
-        else
-        {
-         
-            Destroy(gameObject);
-            return;
-        }
+        base.Awake();
+        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
-    private void Start()
+    private void OnSceneChanged(Scene arg0, LoadSceneMode arg1)
     {
         player = FindFirstObjectByType<PlayerController>();
         ApplyAllSettings();
@@ -42,6 +37,26 @@ public class SettingsManager : MonoBehaviour
         UpdateScreenShake(options.screenShake);
         UpdateGraphicsQuality(options.graphicsQuality);
         UpdateScreenResolution(options.resolution);
+        ApplyInputBindingOverrides();
+    }
+
+    private void ApplyInputBindingOverrides()
+    {
+        if (PlayerPrefs.HasKey("rebinds"))
+        {
+            var json = PlayerPrefs.GetString("rebinds");
+
+            // Temporarily disable the input actions to ensure changes are applied
+            bool wasEnabled = actionAsset.enabled;
+            if (wasEnabled)
+                actionAsset.Disable();
+
+            actionAsset.LoadBindingOverridesFromJson(json);
+
+            // Re-enable the input actions if they were previously enabled
+            if (wasEnabled)
+                actionAsset.Enable();
+        }
     }
 
     public void UpdateVolume(FloatSetting VolumeSetting)
