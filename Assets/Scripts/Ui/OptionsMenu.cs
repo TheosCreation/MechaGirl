@@ -4,6 +4,11 @@ using UnityEngine.UI;
 
 public class OptionsMenu : UiPage
 {
+    [SerializeField] private GameObject generalPage;
+    [SerializeField] private GameObject controlsPage;
+    [SerializeField] private GameObject graphicsPage;
+    [SerializeField] private GameObject audioPage;
+
     [Header("Master Volume Slider Option")]
     [SerializeField] private Slider masterVolumeSlider;
     [SerializeField] private TMP_Text masterVolumeText;
@@ -132,5 +137,37 @@ public class OptionsMenu : UiPage
         {
             Debug.LogWarning("No menu owner?");
         }
+    }
+
+    public void OpenGeneralPage()
+    {
+        generalPage.SetActive(true);
+        graphicsPage.SetActive(false);
+        controlsPage.SetActive(false);
+        audioPage.SetActive(false);
+    }
+
+    public void OpenControlsPage()
+    {
+        controlsPage.SetActive(true);
+        generalPage.SetActive(false);
+        graphicsPage.SetActive(false);
+        audioPage.SetActive(false);
+    }
+
+    public void OpenGraphicsPage()
+    {
+        graphicsPage.SetActive(true);
+        controlsPage.SetActive(false);
+        generalPage.SetActive(false);
+        audioPage.SetActive(false);
+    }
+
+    public void OpenAudioPage()
+    {
+        audioPage.SetActive(true);
+        generalPage.SetActive(false);
+        controlsPage.SetActive(false);
+        graphicsPage.SetActive(false);
     }
 }
