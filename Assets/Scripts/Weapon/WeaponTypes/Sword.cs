@@ -23,4 +23,8 @@ public class Sword : Weapon
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, meleeRange);
     }
+    protected override void OnThrow()
+    {
+        base.OnThrow();
+    }
 }

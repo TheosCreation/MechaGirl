@@ -1,4 +1,4 @@
-public class RocketLauncher : ProjectileWeapon
+public class Granade : ProjectileWeapon
 {
     protected override void OnThrow()
     {

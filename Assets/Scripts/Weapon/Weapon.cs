@@ -207,7 +207,10 @@ public class Weapon : MonoBehaviour
             animator.runtimeAnimatorController = gunInGameController;
         }
     }
+    protected virtual void OnThrow()
+    {
 
+    }
     protected void Equip()
     {
         animator.enabled = true;
@@ -270,6 +273,7 @@ public class Weapon : MonoBehaviour
         spriteBillboard.enabled = true;
         //disable script just like unequiping the weapon
         this.enabled = false;
+        OnThrow();
     }
 
     public bool PickUp(WeaponHolder weaponHolder, WeaponUser user, bool ignorePickup)
@@ -324,7 +328,7 @@ public class Weapon : MonoBehaviour
     protected void FireProjectile()
     {
         Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
-        // projectile.hitMask = GetHitMask();
+        projectile.hitMask = weaponUser.GetHitMask();
         projectile.owner = gameObject;
         projectile.ownerLayer = gameObject.layer;
 
