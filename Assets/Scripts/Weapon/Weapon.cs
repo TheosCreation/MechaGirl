@@ -327,12 +327,17 @@ public class Weapon : MonoBehaviour
 
     protected void FireProjectile()
     {
+        Vector3 firePosition = weaponUser.GetFirePoint();
+        if (firePosition == Vector3.zero)
+        {
+            firePosition = transform.position;
+        }
+
         Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
         projectile.hitMask = weaponUser.GetHitMask();
         projectile.owner = gameObject;
         projectile.ownerLayer = gameObject.layer;
-
-        projectile.Initialize(weaponUser.GetFirePoint().position, weaponUser.GetForwardDirection(), weaponUser);
+        projectile.Initialize(firePosition, weaponUser.GetForwardDirection(), weaponUser);
     }
 
     protected void SpawnCasing()

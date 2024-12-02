@@ -824,6 +824,7 @@ PlayerSettings:
   webGLWebAssemblyBigInt: 0
   webGLCloseOnQuit: 0
   scriptingDefineSymbols:
+    Android: STEAMWORKS_NET
     Standalone: STEAMWORKS_NET
   additionalCompilerArguments: {}
   platformArchitecture: {}

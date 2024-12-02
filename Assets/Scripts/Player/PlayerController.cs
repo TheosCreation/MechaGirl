@@ -90,9 +90,9 @@ public class PlayerController : WeaponUser, IDamageable
         audio2.mute = !active;
     }
 
-    public override Transform GetFirePoint()
+    public override Vector3 GetFirePoint()
     {
-        return playerCamera.transform;
+        return playerCamera.transform.position;
     }
 
     public override Vector3 GetForwardDirection()

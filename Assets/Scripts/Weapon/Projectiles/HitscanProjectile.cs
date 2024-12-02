@@ -30,6 +30,7 @@ public class HitscanProjectile : Projectile
 
     public override void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
+        direction = direction.normalized;
         base.Initialize(startPosition, direction, weaponUser);
 
         Ray ray = new Ray(startPosition, direction);
@@ -50,7 +51,7 @@ public class HitscanProjectile : Projectile
 
         if (gunTrailPrefab != null)
         {
-            GameObject gunTrailObject = Instantiate(gunTrailPrefab, transform.position, Quaternion.LookRotation(targetPoint - transform.position));
+            GameObject gunTrailObject = Instantiate(gunTrailPrefab, transform.position, Quaternion.LookRotation(direction));
             TrailMovement trail = gunTrailObject.GetComponent<TrailMovement>();
             trail.hitpoint = targetPoint;
             trail.hitnormal = hit.normal;

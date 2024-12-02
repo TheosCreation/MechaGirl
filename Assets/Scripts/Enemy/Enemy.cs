@@ -346,19 +346,6 @@ public class Enemy : WeaponUser, IDamageable
         return agent.enabled && agent.isOnNavMesh;
     }
 
-    public override Transform GetFirePoint()
-    {
-        // Potential problem with boss tofix later lmao
-        Weapon weapon = GetComponentInChildren<Weapon>();
-        if (weapon != null)
-        {
-            return weapon.transform;
-        }
-        // fallback 
-        return transform;
-       
-    }
-
     public override Vector3 GetForwardDirection()
     {
         return transform.forward;

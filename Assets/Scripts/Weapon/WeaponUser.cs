@@ -2,7 +2,10 @@ using UnityEngine;
 
 public abstract class WeaponUser : MonoBehaviour
 {
-    public abstract Transform GetFirePoint();
+    public virtual Vector3 GetFirePoint()
+    {
+        return Vector3.zero;
+    }
 
     public abstract Vector3 GetForwardDirection();
 

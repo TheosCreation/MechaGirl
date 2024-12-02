@@ -65,7 +65,7 @@ MonoBehaviour:
   enemyHitSound: {fileID: 8300000, guid: a75ce797e6481ab4d87b541039cd0197, type: 3}
   enemyWeakspotHitSound: {fileID: 8300000, guid: 694f00b1d5204b142bb84ab6a8c8c645,
     type: 3}
-  wallHitSound: {fileID: 8300000, guid: 751e4944cb2358341a9de51aad1f10f6, type: 3}
+  wallHitSound: {fileID: 8300000, guid: 088ffdacf4dbb5a4d97ea22fca7baeda, type: 3}
   audioVolume: 0.05
 --- !u!82 &-4159673269489278298
 AudioSource:
