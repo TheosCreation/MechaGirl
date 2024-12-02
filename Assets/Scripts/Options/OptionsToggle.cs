@@ -70,7 +70,7 @@ public class OptionsToggle : OptionsBase
         return PlayerPrefs.GetInt(boolSetting.name, boolSetting.defaultValue ? 1 : 0) == 1;
     }
 
-    public void ResetToDefault()
+    public override void ResetToDefault()
     {
         if (toggle != null)
         {

@@ -68,7 +68,7 @@ public class OptionsDropdown : OptionsBase
         return PlayerPrefs.GetInt(intSetting.name, intSetting.defaultValue);
     }
 
-    public void ResetToDefault()
+    public override void ResetToDefault()
     {
         dropdown.value = intSetting.defaultValue;
         SaveValue(intSetting.defaultValue);

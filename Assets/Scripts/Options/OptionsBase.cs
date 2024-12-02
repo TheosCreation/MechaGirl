@@ -4,4 +4,5 @@ public abstract class OptionsBase
     public abstract void Initialize();
     public abstract void CleanUp();
     public abstract void Update();
+    public abstract void ResetToDefault();
 }

@@ -25,7 +25,10 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
     public void ResetAllSettings()
     {
         PlayerPrefs.DeleteAll();
-        InputManager.Instance.LoadBindingOverrides();
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.LoadBindingOverrides();
+        }
         ApplyAllSettings();
     }
 

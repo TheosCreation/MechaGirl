@@ -4585,6 +4585,8 @@ MonoBehaviour:
   - button: {fileID: 8859052246629987450}
     clickFunction: OpenAudioPage
     parameters: []
+  rebindingButtons:
+  - {fileID: 822593264425849679}
   generalPage: {fileID: 4122422579171953709}
   controlsPage: {fileID: 1253393668344478336}
   graphicsPage: {fileID: 4062277982807091915}

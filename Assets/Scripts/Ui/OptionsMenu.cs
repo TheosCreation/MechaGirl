@@ -1,9 +1,11 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.InputSystem.Samples.RebindUI;
 
 public class OptionsMenu : UiPage
 {
+    [SerializeField] private RebindActionUI[] rebindingButtons;
     [SerializeField] private GameObject generalPage;
     [SerializeField] private GameObject controlsPage;
     [SerializeField] private GameObject graphicsPage;
@@ -64,6 +66,7 @@ public class OptionsMenu : UiPage
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Button resolutionResetButton;
 
+
     private OptionsBase[] options;
 
     private void Awake()
@@ -116,6 +119,19 @@ public class OptionsMenu : UiPage
         foreach (var option in options)
         {
             option.Update();
+        }
+    }
+    
+    public void ResetToDefaultsOptions()
+    {
+        foreach (var option in options)
+        {
+            option.ResetToDefault();
+        }
+
+        foreach(var rebindOption in rebindingButtons)
+        {
+            rebindOption.ResetToDefault();
         }
     }
 
@@ -184,5 +200,7 @@ public class OptionsMenu : UiPage
     public void ResetAllSettings()
     {
         SettingsManager.Instance.ResetAllSettings();
+        ResetToDefaultsOptions();
+        
     }
 }

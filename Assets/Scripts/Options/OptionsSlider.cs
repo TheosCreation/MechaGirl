@@ -98,7 +98,7 @@ public class OptionsSlider : OptionsBase
         return PlayerPrefs.GetFloat(floatSetting.name, Convert.ToSingle(floatSetting.defaultValue));
     }
 
-    public void ResetToDefault()
+    public override void ResetToDefault()
     {
         slider.value = Convert.ToSingle(floatSetting.defaultValue);
         UpdateText(floatSetting.defaultValue);
