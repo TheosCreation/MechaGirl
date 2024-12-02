@@ -19,8 +19,9 @@ public class HitscanProjectile : Projectile
 
     private AudioSource audioSource;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {

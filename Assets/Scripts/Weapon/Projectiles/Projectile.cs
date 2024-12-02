@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
 
     protected WeaponUser m_weaponUser;
 
-    private void Awake()
+    protected virtual void Awake()
     {   
 
         rb = GetComponent<Rigidbody>();
