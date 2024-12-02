@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class UiPage : MonoBehaviour
 {
-    [SerializeField] private UiButton[] buttons;
+    [SerializeField] protected UiButton[] buttons;
 
     // Cache for MethodInfo lookups
     private readonly Dictionary<string, MethodInfo> methodCache = new Dictionary<string, MethodInfo>();
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         if (buttons == null || buttons.Length == 0) return;
 
@@ -21,30 +21,35 @@ public class UiPage : MonoBehaviour
                 // Attempt to cache or retrieve the MethodInfo
                 if (!methodCache.TryGetValue(uiButton.clickFunction, out MethodInfo method))
                 {
-                    method = GetType().GetMethod(uiButton.clickFunction, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                    methodCache[uiButton.clickFunction] = method; // Cache the result
+                    method = GetType().GetMethod(
+                        uiButton.clickFunction,
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy
+                    );
+
+                    if (method != null)
+                    {
+                        methodCache[uiButton.clickFunction] = method; // Cache the result
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Method '{uiButton.clickFunction}' not found in {GetType().Name} or its base classes.");
+                        continue; // Skip this button if no valid method is found
+                    }
                 }
 
-                if (method != null)
+                // Add the listener if the method was found
+                try
                 {
-                    try
-                    {
-                        uiButton.button.onClick.AddListener(() => method.Invoke(this, null));
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogError($"Error invoking method '{uiButton.clickFunction}' on {nameof(UiPage)}: {ex.Message}");
-                    }
+                    uiButton.button.onClick.AddListener(() => method.Invoke(this, null));
                 }
-                else
+                catch (Exception ex)
                 {
-                    Debug.LogWarning($"Method '{uiButton.clickFunction}' not found on {nameof(UiPage)}");
+                    Debug.LogError($"Error invoking method '{uiButton.clickFunction}' on {nameof(UiPage)}: {ex.Message}");
                 }
             }
         }
     }
-
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
         if (buttons == null || buttons.Length == 0) return;
 
