@@ -180,4 +180,9 @@ public class OptionsMenu : UiPage
             InputManager.Instance.LoadBindingOverrides();
         }
     }
+
+    public void ResetAllSettings()
+    {
+        SettingsManager.Instance.ResetAllSettings();
+    }
 }

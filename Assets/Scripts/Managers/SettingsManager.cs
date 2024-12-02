@@ -22,6 +22,13 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
         ApplyAllSettings();
     }
 
+    public void ResetAllSettings()
+    {
+        PlayerPrefs.DeleteAll();
+        InputManager.Instance.LoadBindingOverrides();
+        ApplyAllSettings();
+    }
+
     public void ApplyAllSettings()
     {
         UpdateVolume(options.masterVolume);
