@@ -1,8 +1,13 @@
 public class MainMenuMainPage : UiPage
 {
-    public void OpenLevelSelectPage()
+    public void OpenEndlessMode()
     {
-        MainMenu.Instance.OpenLevelSelectPage();
+
+    }
+
+    public void OpenCampaignPage()
+    {
+        MainMenu.Instance.OpenCampaignPage();
     }
 
     public void OpenOptionPage()

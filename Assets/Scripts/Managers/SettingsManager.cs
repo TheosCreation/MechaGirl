@@ -9,7 +9,6 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
     public Options options;
     [SerializeField] private AudioMixer Mixer;
     [HideInInspector] public PlayerController player;
-    [SerializeField] private InputActionAsset actionAsset;
 
     protected override void Awake()
     {
@@ -37,26 +36,6 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
         UpdateScreenShake(options.screenShake);
         UpdateGraphicsQuality(options.graphicsQuality);
         UpdateScreenResolution(options.resolution);
-        ApplyInputBindingOverrides();
-    }
-
-    private void ApplyInputBindingOverrides()
-    {
-        if (PlayerPrefs.HasKey("rebinds"))
-        {
-            var json = PlayerPrefs.GetString("rebinds");
-
-            // Temporarily disable the input actions to ensure changes are applied
-            bool wasEnabled = actionAsset.enabled;
-            if (wasEnabled)
-                actionAsset.Disable();
-
-            actionAsset.LoadBindingOverridesFromJson(json);
-
-            // Re-enable the input actions if they were previously enabled
-            if (wasEnabled)
-                actionAsset.Enable();
-        }
     }
 
     public void UpdateVolume(FloatSetting VolumeSetting)

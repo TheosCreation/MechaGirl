@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputManager : MonoBehaviour
 {
@@ -22,13 +23,24 @@ public class InputManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         playerInput = new PlayerInput();
+        LoadBindingOverrides();
     }
 
     private void FixedUpdate()
     {
         MovementVector = playerInput.InGame.Movement.ReadValue<Vector2>();
+    }
+
+    public void LoadBindingOverrides()
+    {
+        if (PlayerPrefs.HasKey("rebinds"))
+        {
+            string json = PlayerPrefs.GetString("rebinds");
+
+            // Apply the rebinds to the action asset
+            playerInput.asset.LoadBindingOverridesFromJson(json);
+        }
     }
 
     private void LateUpdate()

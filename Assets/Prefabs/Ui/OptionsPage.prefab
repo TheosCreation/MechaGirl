@@ -862,8 +862,8 @@ RectTransform:
   - {fileID: 5693715177253405703}
   m_Father: {fileID: 6919147578711902211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.39600003, y: 0.15245254}
-  m_AnchorMax: {x: 0.60400003, y: 0.8374526}
+  m_AnchorMin: {x: 0.35, y: 0.15}
+  m_AnchorMax: {x: 0.65, y: 0.8434526}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3592,6 +3592,21 @@ MonoBehaviour:
   m_RebindStopEvent:
     m_PersistentCalls:
       m_Calls: []
+  m_RebindsChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5331594048086239154}
+        m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
+        m_MethodName: UpdateRebinds
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2323467731410187339
 GameObject:
   m_ObjectHideFlags: 0
@@ -4553,14 +4568,19 @@ MonoBehaviour:
   buttons:
   - button: {fileID: 2742805609425762303}
     clickFunction: Back
+    parameters: []
   - button: {fileID: 3001452054313861086}
     clickFunction: OpenGeneralPage
+    parameters: []
   - button: {fileID: 3672744158320589971}
     clickFunction: OpenControlsPage
+    parameters: []
   - button: {fileID: 3095886033531448088}
     clickFunction: OpenGraphicsPage
+    parameters: []
   - button: {fileID: 8859052246629987450}
     clickFunction: OpenAudioPage
+    parameters: []
   generalPage: {fileID: 4122422579171953709}
   controlsPage: {fileID: 1253393668344478336}
   graphicsPage: {fileID: 4062277982807091915}
@@ -14775,8 +14795,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1226912650988653186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.3}
-  m_AnchorMax: {x: 1, y: 0.7}
+  m_AnchorMin: {x: 0, y: 0.357536}
+  m_AnchorMax: {x: 1, y: 0.656}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14808,7 +14828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: W/A/S/D
+  m_text: Up/Left/Down/Right
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0a6537be23339af4795d043299f2529e, type: 2}
   m_sharedMaterial: {fileID: -5676924216280330263, guid: 0a6537be23339af4795d043299f2529e,
@@ -14836,7 +14856,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32.65
+  m_fontSize: 24.65
   m_fontSizeBase: 1
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -14844,7 +14864,7 @@ MonoBehaviour:
   m_fontSizeMax: 32767
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

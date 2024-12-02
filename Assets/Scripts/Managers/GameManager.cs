@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class GameManager : SingletonPersistent<GameManager>
@@ -19,6 +20,7 @@ public class GameManager : SingletonPersistent<GameManager>
     public bool isInit = false;
     [SerializeField] private bool skipInitOnAwake = true;
     public AudioSource audioSourceExample;
+    public InputActionAsset inputActionsAsset;
 
     protected override void Awake()
     {
@@ -50,6 +52,17 @@ public class GameManager : SingletonPersistent<GameManager>
 
         Debug.Log("GameManager initialization complete.");
         isInit = true;
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("rebinds"))
+        {
+            string json = PlayerPrefs.GetString("rebinds");
+
+            // Apply the rebinds to the action asset
+            inputActionsAsset.LoadBindingOverridesFromJson(json);
+        }
     }
 
     public void UnSerializeGameStateFromJson()
@@ -177,5 +190,10 @@ public class GameManager : SingletonPersistent<GameManager>
             Debug.Log("No more levels to load, returning to main menu.");
             ExitToMainMenu();
         }
+    }
+
+    public void SetDifficultyLevel(int difficultyLevel)
+    {
+        Debug.Log("Difficulty level set to " + difficultyLevel);
     }
 }

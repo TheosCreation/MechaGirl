@@ -1,11 +1,12 @@
-
-using System;
 using UnityEngine;
+using System.Text;
 
 public class TutorialTextZone : TriggerZone
 {
     [TextArea, SerializeField]
-    string textToDisplay = "";
+    private string textToDisplay = ""; // Text set in the editor
+
+    private string dynamicText; // To store additional dynamic text
 
     private void Start()
     {
@@ -16,11 +17,18 @@ public class TutorialTextZone : TriggerZone
 
     private void RemoveText()
     {
-        UiManager.Instance.SetTutorialText("");
+        UiManager.Instance.SetTutorialText(""); // Clear the tutorial text
     }
 
     private void DisplayText()
     {
-        UiManager.Instance.SetTutorialText(textToDisplay);
+        // Combine the static text from the editor and dynamic text
+        string fullText = dynamicText + textToDisplay;
+        UiManager.Instance.SetTutorialText(fullText);
+    }
+
+    public void SetDynamicText(string text)
+    {
+        dynamicText = text;
     }
 }

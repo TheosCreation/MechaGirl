@@ -40,7 +40,26 @@ public class UiPage : MonoBehaviour
                 // Add the listener if the method was found
                 try
                 {
-                    uiButton.button.onClick.AddListener(() => method.Invoke(this, null));
+                    uiButton.button.onClick.AddListener(() =>
+                    {
+                        // Convert string parameters to the method's expected types
+                        ParameterInfo[] paramInfos = method.GetParameters();
+                        object[] methodParams = new object[paramInfos.Length];
+
+                        for (int i = 0; i < paramInfos.Length; i++)
+                        {
+                            if (uiButton.parameters != null && uiButton.parameters.Length > i)
+                            {
+                                methodParams[i] = Convert.ChangeType(uiButton.parameters[i], paramInfos[i].ParameterType);
+                            }
+                            else
+                            {
+                                methodParams[i] = paramInfos[i].DefaultValue; // Use default value if no parameter is specified
+                            }
+                        }
+
+                        method.Invoke(this, methodParams);
+                    });
                 }
                 catch (Exception ex)
                 {
@@ -49,6 +68,7 @@ public class UiPage : MonoBehaviour
             }
         }
     }
+
     protected virtual void OnDisable()
     {
         if (buttons == null || buttons.Length == 0) return;
@@ -57,5 +77,10 @@ public class UiPage : MonoBehaviour
         {
             uiButton.button?.onClick.RemoveAllListeners();
         }
+    }
+
+    public void SetActive(bool active)
+    {
+        gameObject.SetActive(active);
     }
 }

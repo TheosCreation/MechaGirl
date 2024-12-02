@@ -137,7 +137,7 @@ public class OptionsMenu : UiPage
         }
         else
         {
-            Debug.LogWarning("No menu owner?");
+            Debug.LogWarning("No IMenuManager found in parent hierarchy!");
         }
     }
 
@@ -171,5 +171,13 @@ public class OptionsMenu : UiPage
         generalPage.SetActive(false);
         controlsPage.SetActive(false);
         graphicsPage.SetActive(false);
+    }
+
+    public void UpdateRebinds()
+    {
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.LoadBindingOverrides();
+        }
     }
 }

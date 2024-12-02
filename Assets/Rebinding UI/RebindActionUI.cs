@@ -220,7 +220,6 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         {
             if (!ResolveActionAndBinding(out var action, out var bindingIndex))
                 return;
-
             if (action.bindings[bindingIndex].isComposite)
             {
                 // It's a composite. Remove overrides from part bindings.
@@ -232,6 +231,9 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 action.RemoveBindingOverride(bindingIndex);
             }
             UpdateBindingDisplay();
+
+            // Save the updated bindings
+            SaveRebinds(m_Action.asset);
         }
 
         /// <summary>
@@ -273,6 +275,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                     {
                         m_RebindStopEvent?.Invoke(this, operation);
                         m_RebindOverlay?.SetActive(false);
+                        // Save the updated bindings
+                        SaveRebinds(m_Action.asset);
                         UpdateBindingDisplay();
                         CleanUp();
                     })
@@ -334,6 +338,8 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
                 PlayerPrefs.SetString("rebinds", rebinds);
                 PlayerPrefs.Save();
             }
+
+            m_RebindsChanged?.Invoke();
         }
 
         protected void OnEnable()
@@ -435,6 +441,10 @@ namespace UnityEngine.InputSystem.Samples.RebindUI
         [Tooltip("Event that is triggered when an interactive rebind is complete or has been aborted.")]
         [SerializeField]
         private InteractiveRebindEvent m_RebindStopEvent;
+        
+        [Tooltip("Event that is triggered when binding have changed")]
+        [SerializeField]
+        private UnityEvent m_RebindsChanged;
 
         private InputActionRebindingExtensions.RebindingOperation m_RebindOperation;
 
