@@ -6,8 +6,6 @@ public class HitscanProjectile : Projectile
 {
     [Tab("Setup")]
     [SerializeField] protected float headShotMultiplier = 1.5f;
-    [SerializeField] protected float hitParticlesLifetime = 1.0f;
-    [SerializeField] protected float particleOffset = 0.1f;
     [SerializeField] protected GameObject gunTrailPrefab;
 
     [Tab("Audio")]

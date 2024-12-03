@@ -26,7 +26,16 @@ public class PhysicalProjectile : Projectile
         // Check if we hit an object on the collisionMask
         if (other.gameObject.layer == ownerLayer) {  return; };
         if ((hitMask.value & (1 << other.gameObject.layer)) == 0) return;
-        
+
+        // Calculate the hit point and normal
+        Vector3 hitPoint = Physics.ClosestPoint(transform.position, other, other.transform.position, other.transform.rotation);
+        Vector3 hitNormal = (transform.position - hitPoint).normalized;
+
+        if (hitNormal == Vector3.zero)
+        {
+            hitNormal = Vector3.up; // Fallback normal
+        }
+
         // Deal damage if the object is damageable
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
@@ -36,11 +45,18 @@ public class PhysicalProjectile : Projectile
             if (other.gameObject.CompareTag("Head"))
             {
                 damageable.Damage(damage * headShotMultiplier);
+                HitDamageable(hitPoint, hitNormal, GameManager.Instance.prefabs.hitEnemyPrefab, GameManager.Instance.prefabs.enemyWeakspotHitSound);
             }
             else
             {
-                damageable.Damage(damage);
+                damageable.Damage(damage); 
+                HitDamageable(hitPoint, hitNormal, GameManager.Instance.prefabs.hitEnemyPrefab, GameManager.Instance.prefabs.enemyWeakspotHitSound);
             }
+        }
+        else
+        {
+            // hit a wall
+            HitWall(hitPoint, hitNormal);
         }
         
         onCollision?.Invoke();

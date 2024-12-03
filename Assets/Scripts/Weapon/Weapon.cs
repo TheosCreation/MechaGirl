@@ -333,11 +333,16 @@ public class Weapon : MonoBehaviour
         {
             firePosition = transform.position;
         }
+        Vector3 direction = transform.forward;
+        if (weaponUser is PlayerController)
+        {
+            direction = weaponUser.GetForwardDirection();
+        }
 
         Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
         projectile.owner = gameObject;
         projectile.ownerLayer = gameObject.layer;
-        projectile.Initialize(firePosition, weaponUser.GetForwardDirection(), weaponUser);
+        projectile.Initialize(firePosition, direction, weaponUser);
     }
 
     protected void SpawnCasing()
