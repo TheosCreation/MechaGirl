@@ -346,6 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   steamInit: {fileID: 38933643}
+  discordManager: {fileID: 914741797}
 --- !u!1 &355557388
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +422,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355557388}
   m_CullTransparentMesh: 1
+--- !u!1 &914741796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 914741798}
+  - component: {fileID: 914741797}
+  m_Layer: 0
+  m_Name: DiscordManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!114 &914741797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914741796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e6cba66bb387e41aea8300fdb32dd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &914741798
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914741796}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1464603101
 GameObject:
   m_ObjectHideFlags: 0
@@ -744,6 +789,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 984560850154647028, guid: 3181f3a6c37c48b459d80d4e054d0054,
         type: 3}
+      propertyPath: skipInitOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 984560850154647028, guid: 3181f3a6c37c48b459d80d4e054d0054,
+        type: 3}
       propertyPath: inputActionsAsset
       value: 
       objectReference: {fileID: -944628639613478452, guid: 9451c9bddc9a4114d8502d7c2759ded2,
@@ -813,3 +863,4 @@ SceneRoots:
   - {fileID: 3115413554270207647}
   - {fileID: 38933642}
   - {fileID: 1821921727}
+  - {fileID: 914741798}

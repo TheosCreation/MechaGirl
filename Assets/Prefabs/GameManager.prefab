@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenuScene: MainMenu
   isInit: 0
-  skipInitOnAwake: 1
+  skipInitOnAwake: 0
   audioSourceExample: {fileID: 0}
   inputActionsAsset: {fileID: -944628639613478452, guid: 9451c9bddc9a4114d8502d7c2759ded2,
     type: 3}

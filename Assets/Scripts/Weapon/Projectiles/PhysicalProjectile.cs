@@ -31,6 +31,8 @@ public class PhysicalProjectile : Projectile
         IDamageable damageable = other.GetComponentInParent<IDamageable>();
         if (damageable != null)
         {
+            m_weaponUser.OnHit();
+
             if (other.gameObject.CompareTag("Head"))
             {
                 damageable.Damage(damage * headShotMultiplier);

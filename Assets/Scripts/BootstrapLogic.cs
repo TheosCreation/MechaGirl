@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class BootstrapLogic : MonoBehaviour
 {
     [SerializeField] SteamInit steamInit;
+    [SerializeField] DiscordManager discordManager;
 
     private void Start()
     {
@@ -18,6 +19,7 @@ public class BootstrapLogic : MonoBehaviour
 
         yield return StartCoroutine(GameManager.Instance.Init());
         yield return StartCoroutine(steamInit.InitSteam());
+        yield return StartCoroutine(discordManager.Init());
 
         Debug.Log("Starting Main Menu Scene Load!");
 
