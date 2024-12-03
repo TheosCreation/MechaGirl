@@ -46,10 +46,11 @@ public class PlayerMovement : MonoBehaviour
     public bool isSliding = false;
     [SerializeField] private float slideSpeed = 20.0f;
     [SerializeField] private float slideAcceleration = 10.0f;
-    [SerializeField, Range(0f, 1f)] private float slideHeightMultiplier = 0.5f;
     [SerializeField, Range(0f, 1f)] private float slideHorizontalMovement = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float slideHeight = 0.5f;
     [SerializeField] private float slideTiltAmount = 5f;
     [SerializeField] private float slideCancelDelay = 0.1f;
+    [SerializeField] private float maximumHeightOffset = -1.5f;
     private Vector3 initialSlideDirection;
     private bool canCancelSlide = false;
     private Timer slideCancelTimer;
@@ -120,26 +121,10 @@ public class PlayerMovement : MonoBehaviour
     private void Movement()
     {
         movementInput = InputManager.Instance.MovementVector;
-        //float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
-        //smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
-        //playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
-        if (movementInput == Vector2.zero)
-        {
-            movementController.movement = false;
-            audioSource.Stop();
-            return;
-        }
-
-        if (!audioSource.isPlaying && movementController.isGrounded)
-        {
-            audioSource.Play();
-        }
-
 
         Vector3 movement = new Vector3(movementInput.x, 0f, movementInput.y);
         movement = movement.normalized;
 
-        movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
         if (isSliding)
         {
             if (!movementController.isGrounded) return;
@@ -160,6 +145,20 @@ public class PlayerMovement : MonoBehaviour
             }
             return;
         }
+
+        if (movementInput == Vector2.zero)
+        {
+            movementController.movement = false;
+            audioSource.Stop();
+            return;
+        }
+
+        if (!audioSource.isPlaying && movementController.isGrounded)
+        {
+            audioSource.Play();
+        }
+
+        movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
     }
 
     void Jump()
@@ -324,22 +323,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (movementController.isGrounded)
         {
-            // Calculate the new height based on the multiplier
-            float newHeight = originalCapsuleHeight * slideHeightMultiplier;
+            float characterHeightOffset = maximumHeightOffset * (1 - slideHeight);
 
-            // Adjust the capsule collider's height
-            capsuleCollider.height = newHeight;
-
-            // Adjust the collider center so the player doesn't move up or down unexpectedly
+            //To do: offset the collider and shrink it
+            capsuleCollider.height += characterHeightOffset;
             capsuleCollider.center = new Vector3(capsuleCollider.center.x,
-                                                 originalCapsuleCenterY + (newHeight / 2), // Adjust based on the original center Y
+                                                 capsuleCollider.center.y + (characterHeightOffset / 2),
                                                  capsuleCollider.center.z);
-
-            // Ensure the player's position stays consistent by adjusting the player height (if necessary)
-            // Example: Adjusting the Y position of the player's transform to keep them grounded
-            Vector3 playerPosition = transform.position;
-            playerPosition.y += (newHeight - originalCapsuleHeight) / 2; // Maintain the player's position relative to the ground
-            transform.position = playerPosition;
 
             // Set sliding state and disable the ability to cancel sliding until the timer runs out
             isSliding = true;
@@ -374,18 +364,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isSliding)
         {
-            // Restore the original height of the capsule collider
-            capsuleCollider.height = originalCapsuleHeight;
+            float characterHeightOffset = maximumHeightOffset * (1 - slideHeight);
 
-            // Adjust the center of the capsule collider to match the original center
+            //To do: return the collider to original height
+            capsuleCollider.height -= characterHeightOffset;
             capsuleCollider.center = new Vector3(capsuleCollider.center.x,
-                                                 originalCapsuleCenterY + (originalCapsuleHeight / 2),
+                                                 capsuleCollider.center.y - (characterHeightOffset / 2),
                                                  capsuleCollider.center.z);
-
-            // Ensure the player's position stays consistent when the slide ends
-            Vector3 playerPosition = transform.position;
-            playerPosition.y += (originalCapsuleHeight - capsuleCollider.height) / 2; // Adjust position to match original height
-            transform.position = playerPosition;
 
             // Set the sliding state to false
             isSliding = false;
