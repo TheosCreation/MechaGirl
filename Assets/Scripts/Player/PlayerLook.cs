@@ -10,6 +10,7 @@ public class PlayerLook : MonoBehaviour
     [Header("Camera Tilt")]
     [HideInInspector] public int tiltStatus = 1;
     public float tiltAmount = 2.5f;
+    [HideInInspector] public float originalTiltAmount = 2.5f;
     [SerializeField] private float tiltSmoothTime = 0.1f;
 
     [Header("Jump Animation")]
@@ -46,6 +47,7 @@ public class PlayerLook : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         originalCameraPosition = cameraTransform.localPosition;
+        originalTiltAmount = tiltAmount;
     }
 
     private void Update()

@@ -1,11 +1,12 @@
-﻿using UnityEngine;
-using UnityEngine.Audio;
+﻿using System;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerController playerController;
     private MovementController movementController;
+    private CapsuleCollider capsuleCollider;
 
     [Header("Movement")]
     [SerializeField] private float maxWalkSpeed = 2.0f;
@@ -32,12 +33,6 @@ public class PlayerMovement : MonoBehaviour
     private int remainingWallJumps;
     private Vector3 wallNormal;
 
-    [Header("Wall Running")]
-    [SerializeField] private float maxWallRunSpeed = 2.0f;
-    [SerializeField] private float wallRunDuration = 2.0f; // How long the wall run lasts
-    public bool isWallRunning = false;
-    private Timer wallRunTimer;
-
     [Header("Dash")]
     public bool isDashing = false;
     [SerializeField] private bool canDash = true;
@@ -49,7 +44,17 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Sliding")]
     public bool isSliding = false;
-    [SerializeField] private float slideSpeed = 3.0f;
+    [SerializeField] private float slideSpeed = 20.0f;
+    [SerializeField] private float slideAcceleration = 10.0f;
+    [SerializeField, Range(0f, 1f)] private float slideHeightMultiplier = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float slideHorizontalMovement = 0.5f;
+    [SerializeField] private float slideTiltAmount = 5f;
+    [SerializeField] private float slideCancelDelay = 0.1f;
+    private Vector3 initialSlideDirection;
+    private bool canCancelSlide = false;
+    private Timer slideCancelTimer;
+    private float originalCapsuleHeight = 0f;
+    private float originalCapsuleCenterY = 0f;
 
     [Header("Gravity Reduction")]
     [SerializeField] private float reducedGravityFactor = 0.1f;
@@ -63,16 +68,21 @@ public class PlayerMovement : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         movementController = GetComponent<MovementController>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         InputManager.Instance.playerInput.InGame.Jump.started += _ctx => Jump();
         InputManager.Instance.playerInput.InGame.Jump.canceled += ctx => StopReducingGravity();
+        InputManager.Instance.playerInput.InGame.Slide.started += ctx => StartSliding();
+        InputManager.Instance.playerInput.InGame.Slide.canceled += ctx => EndSlide();
 
         jumpTimer = gameObject.AddComponent<Timer>();
         dashTimer = gameObject.AddComponent<Timer>();
         dashCoolDownTimer = gameObject.AddComponent<Timer>(); 
-        wallRunTimer = gameObject.AddComponent<Timer>();
+        slideCancelTimer = gameObject.AddComponent<Timer>();
 
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
+        originalCapsuleHeight = capsuleCollider.height;
+        originalCapsuleCenterY = capsuleCollider.center.y;
     }
 
     private void FixedUpdate()
@@ -103,31 +113,26 @@ public class PlayerMovement : MonoBehaviour
             audioSource.Stop();
         }
 
+        Movement();
+       
+    }
+
+    private void Movement()
+    {
         movementInput = InputManager.Instance.MovementVector;
         //float targetRight = Mathf.InverseLerp(-1f, 1f, movementInput.x);
         //smoothRight = Mathf.SmoothDamp(smoothRight, targetRight, ref currentVelocity, walkingRightTransition);
         //playerController.weaponHolder.currentWeapon.UpdateWalkingAnimations(movementInput != Vector2.zero, smoothRight);
         if (movementInput == Vector2.zero)
         {
-            movementController.movement = false; 
+            movementController.movement = false;
             audioSource.Stop();
             return;
         }
 
-        if(!audioSource.isPlaying && movementController.isGrounded)
+        if (!audioSource.isPlaying && movementController.isGrounded)
         {
             audioSource.Play();
-        }
-
-        if (isWallRunning)
-        {
-            Vector3 wallForward = Vector3.Cross(wallNormal, transform.up);
-
-            movementController.ResetVerticalVelocity();
-
-            movementController.AddForce(wallForward * 5.0f);
-
-            return;
         }
 
 
@@ -135,29 +140,26 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized;
 
         movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
-    }
-
-    private void EndWallRun()
-    {
-        if (!isWallRunning) // Only start wall run if not already wall running
+        if (isSliding)
         {
-            movementController.SetGravity(true);
-            isWallRunning = true;
+            if (!movementController.isGrounded) return;
 
-            // Reduce gravity while wall running
-            //movementController. *= wallRunGravityScale;
+            EndDash();
 
-            // Start the wall run timer
-            wallRunTimer.StopTimer();
-            wallRunTimer.SetTimer(wallRunDuration, EndWallRun);
+            // Calculate the right direction using cross product
+            Vector3 slideDirectionRight = Vector3.Cross(Vector3.up, initialSlideDirection);
+
+            Vector3 blendedDirection = initialSlideDirection + (movement.x * slideDirectionRight * slideHorizontalMovement);
+            blendedDirection.Normalize();
+
+            movementController.MoveWorld(blendedDirection, slideSpeed, slideAcceleration, deceleration);
+
+            if (movementController.GetLinearVelocityMagnitude() < (maxWalkSpeed / 2) && canCancelSlide)
+            {
+                EndSlide();
+            }
+            return;
         }
-    }
-
-    private void StartWallRun()
-    {
-        isWallRunning = false;
-        movementController.SetGravity(false);
-        // movementController. /= wallRunGravityScale;
     }
 
     void Jump()
@@ -175,6 +177,8 @@ public class PlayerMovement : MonoBehaviour
 
     void PerformJump()
     {
+        if(isSliding) EndSlide();
+
         canJump = false;
         movementController.AddForce(Vector3.up * jumpForce);
 
@@ -267,6 +271,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canDash)
         {
+            if (isSliding) EndSlide();
+
             // If input detected then apply it
             if (movementInput.sqrMagnitude > Mathf.Epsilon && !ignoreInput)
             {
@@ -314,4 +320,85 @@ public class PlayerMovement : MonoBehaviour
         // Update the grounded state for the next frame
         wasGrounded = movementController.isGrounded;
     }
+    private void StartSliding()
+    {
+        if (movementController.isGrounded)
+        {
+            // Calculate the new height based on the multiplier
+            float newHeight = originalCapsuleHeight * slideHeightMultiplier;
+
+            // Adjust the capsule collider's height
+            capsuleCollider.height = newHeight;
+
+            // Adjust the collider center so the player doesn't move up or down unexpectedly
+            capsuleCollider.center = new Vector3(capsuleCollider.center.x,
+                                                 originalCapsuleCenterY + (newHeight / 2), // Adjust based on the original center Y
+                                                 capsuleCollider.center.z);
+
+            // Ensure the player's position stays consistent by adjusting the player height (if necessary)
+            // Example: Adjusting the Y position of the player's transform to keep them grounded
+            Vector3 playerPosition = transform.position;
+            playerPosition.y += (newHeight - originalCapsuleHeight) / 2; // Maintain the player's position relative to the ground
+            transform.position = playerPosition;
+
+            // Set sliding state and disable the ability to cancel sliding until the timer runs out
+            isSliding = true;
+            canCancelSlide = false;
+            slideCancelTimer.SetTimer(slideCancelDelay, () => { canCancelSlide = true; });
+
+            // Set the camera tilt effect while sliding
+            playerController.playerLook.tiltAmount = slideTiltAmount;
+
+            // Get the player's movement input and determine the slide direction
+            Vector2 inputVector = InputManager.Instance.playerInput.InGame.Movement.ReadValue<Vector2>();
+
+            // Default to forward direction for sliding
+            initialSlideDirection = transform.forward;
+
+            // If input is detected, adjust the slide direction accordingly
+            if (inputVector.sqrMagnitude > 0)
+            {
+                initialSlideDirection = new Vector3(inputVector.x, 0, inputVector.y);
+                initialSlideDirection.Normalize();
+                initialSlideDirection = transform.TransformDirection(initialSlideDirection);
+            }
+
+            // Optional: Play sliding sound and particle effects
+            // slidingAudioSource.clip = slidingSoundEffect;
+            // slidingAudioSource.Play();
+            // slidingParticles.Play();
+        }
+    }
+
+    private void EndSlide()
+    {
+        if (isSliding)
+        {
+            // Restore the original height of the capsule collider
+            capsuleCollider.height = originalCapsuleHeight;
+
+            // Adjust the center of the capsule collider to match the original center
+            capsuleCollider.center = new Vector3(capsuleCollider.center.x,
+                                                 originalCapsuleCenterY + (originalCapsuleHeight / 2),
+                                                 capsuleCollider.center.z);
+
+            // Ensure the player's position stays consistent when the slide ends
+            Vector3 playerPosition = transform.position;
+            playerPosition.y += (originalCapsuleHeight - capsuleCollider.height) / 2; // Adjust position to match original height
+            transform.position = playerPosition;
+
+            // Set the sliding state to false
+            isSliding = false;
+
+            // Restore the original camera tilt amount
+            playerController.playerLook.tiltAmount = playerController.playerLook.originalTiltAmount;
+
+            // Optional: Play ending slide sound and stop particles
+            // slidingAudioSource.Stop();
+            // audioSource.PlayOneShot(slideEndSoundEffect);
+            // slidingParticles.Stop();
+        }
+    }
+
+
 }
