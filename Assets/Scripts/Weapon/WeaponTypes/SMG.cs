@@ -4,11 +4,33 @@ using UnityEngine;
 public class SMG : HitscanWeapon
 {
 
-    protected override void OnThrow()
+    public override void UseAbility()
     {
-        base.OnThrow();
+        base.UseAbility();
+        
+        PlayRandomFiringSound();
+        Ammo -= 10;
+        int projectileCount = 50;
+        float angleStep = Mathf.PI * 2 / projectileCount;
 
-      //  StartCoroutine(ShootInAllDirections());
+        for (int i = 0; i < projectileCount; i++)
+        {
+            float angleX = Random.Range(-Mathf.PI, Mathf.PI);
+            float angleY = Random.Range(0, Mathf.PI * 2);
+
+            Vector3 randomDirection = new Vector3(
+                Mathf.Cos(angleX) * Mathf.Sin(angleY),
+                Mathf.Sin(angleX),
+                Mathf.Cos(angleX) * Mathf.Cos(angleY)
+            );
+
+            Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
+            projectile.owner = gameObject;
+            projectile.ownerLayer = gameObject.layer;
+            projectile.hitMask = weaponUser.GetHitMask();
+
+            projectile.Initialize(transform.position, randomDirection, weaponUser);
+        }
 
     }
 
@@ -34,28 +56,6 @@ public class SMG : HitscanWeapon
     }
     void OnCollisionEnter(Collision collision)
     {
-        PlayRandomFiringSound();
 
-        int projectileCount = 50;
-        float angleStep = Mathf.PI * 2 / projectileCount;
-
-        for (int i = 0; i < projectileCount; i++)
-        {
-            float angleX = Random.Range(-Mathf.PI, Mathf.PI);
-            float angleY = Random.Range(0, Mathf.PI * 2);
-
-            Vector3 randomDirection = new Vector3(
-                Mathf.Cos(angleX) * Mathf.Sin(angleY),
-                Mathf.Sin(angleX),
-                Mathf.Cos(angleX) * Mathf.Cos(angleY)
-            );
-
-            Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
-            projectile.owner = gameObject;
-            projectile.ownerLayer = gameObject.layer;
-            projectile.hitMask = weaponUser.GetHitMask();
-
-            projectile.Initialize(transform.position, randomDirection, weaponUser);
-        }
     }
 }

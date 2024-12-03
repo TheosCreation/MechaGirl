@@ -26,7 +26,7 @@ public class WeaponHolder : MonoBehaviour
         InputManager.Instance.playerInput.InGame.Shoot.started += _ctx => StartShooting();
         InputManager.Instance.playerInput.InGame.Shoot.canceled += _ctx => EndShooting();
         InputManager.Instance.playerInput.InGame.WeaponThrow.started += _ctx => TryThrowWeapon();
-        InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashToWeapon();
+        InputManager.Instance.playerInput.InGame.WeaponPickUp.started += _ctx => DashAbility();
         playerController = GetComponentInParent<PlayerController>();
         pickupAudioSource = GetComponent<AudioSource>();
 
@@ -87,7 +87,6 @@ public class WeaponHolder : MonoBehaviour
         yield return new WaitForSeconds(scrollSwitchDelay);
         isSwitching = false;
     }
-
     private void DashToWeapon()
     {
         if (lastThrowWeapon != null)
@@ -95,6 +94,12 @@ public class WeaponHolder : MonoBehaviour
             playerController.playerMovement.Teleport(lastThrowWeapon.transform.position);
             lastThrowWeapon.PickUp(this, playerController, true);
         }
+    }
+    private void DashAbility()
+    {
+        Debug.Log("daash");
+        currentWeapon.UseAbility();
+        DashToWeapon();
     }
 
     public void TryThrowWeapon()
