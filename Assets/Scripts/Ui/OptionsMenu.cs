@@ -112,6 +112,10 @@ public class OptionsMenu : UiPage
         {
             option.Initialize();
         }
+        if (DiscordManager.Instance)
+        {
+            DiscordManager.Instance.ChangeActivity(Gamemode.Menu, 0, "Options Menu");
+        }
     }
 
     public void UpdateOptions()

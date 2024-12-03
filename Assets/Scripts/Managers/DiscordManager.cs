@@ -1,7 +1,13 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
+
+public enum Gamemode
+{
+    Campaign,
+    Endless,
+    Menu
+}
 
 public class DiscordManager : SingletonPersistent<DiscordManager>
 {
@@ -15,7 +21,7 @@ public class DiscordManager : SingletonPersistent<DiscordManager>
         yield return null;
 
         Debug.Log("Discord initialization complete.");
-        ChangeActivity();
+        ChangeActivity(Gamemode.Menu, 0, "Main Menu");
     }
 
     private void OnDisable()
@@ -23,13 +29,17 @@ public class DiscordManager : SingletonPersistent<DiscordManager>
         m_discord.Dispose();
     }
 
-    public void ChangeActivity()
+    public void ChangeActivity(Gamemode gameMode, int? level = null, string menuName = null)
     {
-        var activityManger = m_discord.GetActivityManager();
+        if (m_discord == null)
+        {
+            Debug.LogWarning("Discord is not initialized.");
+            return;
+        }
+
+        var activityManager = m_discord.GetActivityManager();
         var activity = new Discord.Activity
         {
-            State = "Campaign",
-            Details = "Level 1",
             Timestamps = new Discord.ActivityTimestamps
             {
                 Start = DateTimeOffset.UtcNow.ToUnixTimeSeconds()
@@ -39,17 +49,41 @@ public class DiscordManager : SingletonPersistent<DiscordManager>
                 Id = "party123"
             }
         };
-        activityManger.UpdateActivity(activity, (res) =>
+
+        // Customize activity based on the game mode
+        if (gameMode == Gamemode.Campaign)
         {
-            Debug.Log("Activity updated!");
+            activity.State = "Campaign";
+            activity.Details = level.HasValue ? $"Level {level + 1}" : "Exploring";
+        }
+        else if (gameMode == Gamemode.Endless)
+        {
+            activity.State = "Endless Mode";
+            activity.Details = "Surviving the waves";
+        }
+        else if (gameMode == Gamemode.Menu)
+        {
+            activity.State = "In Menu";
+            activity.Details = menuName != null ? $"Browsing {menuName}" : "Browsing the menu";
+        }
+        else
+        {
+            activity.State = "In Game";
+            activity.Details = "Exploring the unknown";
+        }
+
+        // Update the Discord activity
+        activityManager.UpdateActivity(activity, (result) =>
+        {
+            if (result != Discord.Result.Ok)
+            {
+                Debug.LogError($"Failed to update Discord activity: {result}");
+            }
         });
     }
 
     private void Update()
     {
-        if (m_discord != null)
-        {
-            m_discord.RunCallbacks();
-        }
+        m_discord?.RunCallbacks();
     }
 }

@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : SingletonPersistent<GameManager>
 {
     [HideInInspector] public GameState GameState;
+    public Gamemode currentGamemode = Gamemode.Campaign;
     public string mainMenuScene = "MainMenu";
     private string[] levelScenes;
 
@@ -195,5 +196,10 @@ public class GameManager : SingletonPersistent<GameManager>
     public void SetDifficultyLevel(int difficultyLevel)
     {
         Debug.Log("Difficulty level set to " + difficultyLevel);
+    }
+
+    public void OpenEndlessModeLevel()
+    {
+        // implementation needed to load the scene
     }
 }

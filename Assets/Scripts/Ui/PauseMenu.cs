@@ -23,6 +23,12 @@ public class PauseMenu : MonoBehaviour, IMenuManager
     {
         mainPage.SetActive(true);
         optionsMenu.SetActive(false);
+
+
+        if (DiscordManager.Instance)
+        {
+            DiscordManager.Instance.ChangeActivity(Gamemode.Menu, 0, "Pause Menu");
+        }
     }
     
     public void OpenOptionsMenu()

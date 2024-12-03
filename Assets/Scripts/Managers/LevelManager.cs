@@ -55,8 +55,11 @@ class LevelManager : MonoBehaviour
         {
             GameManager.Instance.Init();
         }
-        
-        
+
+        if (DiscordManager.Instance != null)
+        {
+            DiscordManager.Instance.ChangeActivity(GameManager.Instance.currentGamemode, GameManager.Instance.GameState.currentLevelIndex);
+        }
     }
 
     public void StartLevelTimer()
