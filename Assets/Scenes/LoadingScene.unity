@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 38933642}
   - component: {fileID: 38933643}
   m_Layer: 0
-  m_Name: SteamInit
+  m_Name: SteamManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: fc9e9e66af7d1874cb8d297cadfac003, type: 2}
+  leaderboardManager: {fileID: 0}
 --- !u!1 &68875056
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,8 +346,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2be9d31e6e4a247a4d426cae4e4fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steamInit: {fileID: 38933643}
   discordManager: {fileID: 914741797}
+  loadMainMenu: 1
 --- !u!1 &355557388
 GameObject:
   m_ObjectHideFlags: 0
@@ -551,7 +552,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 173.25
+  m_fontSize: 173.2
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

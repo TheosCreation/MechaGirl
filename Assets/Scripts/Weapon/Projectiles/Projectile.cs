@@ -1,10 +1,8 @@
 using Runtime;
 using UnityEngine;
 
-
 public class Projectile : MonoBehaviour
 {
-
     [Tab("Base")]
     [SerializeField] protected float lifetime = 5.0f; // Lifetime of the projectile
     [SerializeField] protected LayerMask hitMask;
@@ -21,10 +19,8 @@ public class Projectile : MonoBehaviour
 
     protected virtual void Awake()
     {   
-
         rb = GetComponent<Rigidbody>();
         Destroy(gameObject, lifetime);
-
     }
 
     public virtual void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)

@@ -29,6 +29,9 @@ namespace HeathenEngineering.SteamworksIntegration
         
         public void RefreshUserEntry()
         {
+            if(leaderboard == null) {
+                Debug.Log("Leaderboad is null");
+                    return; }
             leaderboard.GetUserEntry((r, e) =>
             {
                 if (!e)

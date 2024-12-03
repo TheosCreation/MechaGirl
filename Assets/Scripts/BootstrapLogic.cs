@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 //Bootstrap script to validate that all the persistant components are initilized smoothly and correctly
 public class BootstrapLogic : MonoBehaviour
 {
-    [SerializeField] SteamInit steamInit;
     [SerializeField] DiscordManager discordManager;
+    public bool loadMainMenu = true;
 
     private void Start()
     {
@@ -18,19 +18,21 @@ public class BootstrapLogic : MonoBehaviour
         yield return null;
 
         yield return StartCoroutine(GameManager.Instance.Init());
-        yield return StartCoroutine(steamInit.InitSteam());
+        yield return StartCoroutine(SteamManager.Instance.InitSteam());
         yield return StartCoroutine(discordManager.Init());
 
-        Debug.Log("Starting Main Menu Scene Load!");
-
-        var operation = SceneManager.LoadSceneAsync(GameManager.Instance.mainMenuScene);
-        // Tell unity to activate the scene soon as its ready
-        operation.allowSceneActivation = true;
-
-        // While the main menu scene is loading update the progress 
-        while (!operation.isDone)
+        if (loadMainMenu)
         {
-            yield return new WaitForEndOfFrame();
+            Debug.Log("Starting Main Menu Scene Load!");
+            var operation = SceneManager.LoadSceneAsync(GameManager.Instance.mainMenuScene);
+            // Tell unity to activate the scene soon as its ready
+            operation.allowSceneActivation = true;
+
+            // While the main menu scene is loading update the progress 
+            while (!operation.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
