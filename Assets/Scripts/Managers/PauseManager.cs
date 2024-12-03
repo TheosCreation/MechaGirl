@@ -80,6 +80,10 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1;
         InputManager.Instance.EnableInGameInput();
         UiManager.Instance.PauseMenu(false);
+        if (DiscordManager.Instance != null)
+        {
+            DiscordManager.Instance.ChangeActivity(GameManager.Instance.currentGamemode, GameManager.Instance.GameState.currentLevelIndex);
+        }
 
         PlayerController player = LevelManager.Instance.playerSpawn.playerSpawned;
         if (player != null)

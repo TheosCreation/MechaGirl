@@ -235,7 +235,6 @@ MonoBehaviour:
   isEquip: 0
   equipTime: 0.2
   canThrow: 0
-  canShoot: 1
   isShooting: 0
   shootsPerSecond: 1.6
   screenShakeDuration: 0.05
@@ -250,8 +249,6 @@ MonoBehaviour:
   shootingSounds:
   - {fileID: 8300000, guid: c9768162d2447eb4699ce136f9a0c413, type: 3}
   predictionTime: 0.2
-  playerController: {fileID: 0}
-  WeaponHolder: {fileID: 0}
   bc: {fileID: 0}
   rb: {fileID: 0}
   ignoreAmmo: 1
@@ -645,8 +642,8 @@ MonoBehaviour:
   gravityScale: 1
   originalGravityScale: -28.215
   useFriction: 1
-  friction: 0.9
-  airFriction: 0.992
+  friction: 0.9995
+  airFriction: 0.5
   groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -681,7 +678,7 @@ MonoBehaviour:
   audio1: {fileID: 4365726921385332421}
   audio2: {fileID: 1436812663872636834}
   maxHealth: 100
-  isInvinsable: 0
+  isInvisible: 0
 --- !u!114 &8559582919939915744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,14 +702,19 @@ MonoBehaviour:
   jumpingClip: {fileID: 8300000, guid: db2281b9de1863f409d62f9edf69c6cf, type: 3}
   wallDistance: 1
   maxWallJumps: 3
-  maxWallRunSpeed: 5
-  wallRunDuration: 2
-  isWallRunning: 0
   isDashing: 0
   canDash: 1
   dashForce: 30
   dashDuration: 0.2
   dashCooldown: 0.3
+  isSliding: 0
+  slideSpeed: 16
+  slideAcceleration: 10
+  slideHorizontalMovement: 0.5
+  slideHeight: 0.5
+  slideTiltAmount: 5
+  slideCancelDelay: 0.1
+  maximumHeightOffset: -1.5
   reducedGravityFactor: 0.15
   audioSource: {fileID: 4365726921385332421}
   audioSource2: {fileID: 1436812663872636834}
@@ -731,6 +733,7 @@ MonoBehaviour:
   lookSensitivity: 100
   tiltStatus: 1
   tiltAmount: 3
+  originalTiltAmount: 2.5
   tiltSmoothTime: 0.05
   jumpAnimTiltAngle: 2
   playingJumpAnim: 0

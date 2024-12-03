@@ -61,7 +61,14 @@ public class MovementController : MonoBehaviour
 
         if (!movement && useFriction)
         {
-            ApplyFriction(friction);
+            if(isGrounded)
+            {
+                ApplyFriction(friction);
+            }
+            else
+            {
+                ApplyFriction(airFriction);
+            }
         }
 
         if (rb.velocity.sqrMagnitude < velocityThreshold * velocityThreshold)
@@ -319,8 +326,11 @@ public class MovementController : MonoBehaviour
         // Apply friction only to the horizontal components (x and z)
         Vector3 horizontalVelocity = new Vector3(currentVelocity.x, 0, currentVelocity.z);
 
-        // Apply the friction coefficient to the horizontal velocity over time
-        horizontalVelocity = horizontalVelocity * friction;
+        // Calculate the friction effect over the fixed time step
+        float frictionFactor = Mathf.Pow(1 - friction, Time.fixedDeltaTime);
+
+        // Apply the friction factor to the horizontal velocity
+        horizontalVelocity *= frictionFactor;
 
         // Update the rigidbody's velocity with the new horizontal velocity and keep the vertical component unchanged
         rb.velocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);

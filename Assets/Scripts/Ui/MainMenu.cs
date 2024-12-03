@@ -6,11 +6,11 @@ public class MainMenu : Singleton<MainMenu>, IMenuManager
     [SerializeField] private MainMenuMainPage mainPage;
     [SerializeField] private OptionsMenu optionsPage;
     [SerializeField] private DifficultySelectPage difficultySelectPage;
-    [SerializeField] private GameObject levelSelectPage;
+    [SerializeField] private LevelSelectPage levelSelectPage;
 
     public PlayerInput Input;
 
-    private readonly Stack<GameObject> navigationHistory = new Stack<GameObject>();
+    private readonly Stack<UiPage> navigationHistory = new Stack<UiPage>();
 
     protected override void Awake()
     {
@@ -30,13 +30,15 @@ public class MainMenu : Singleton<MainMenu>, IMenuManager
         Input.Disable();
     }
 
-    private void ActivatePage(GameObject page)
+    private void ActivatePage(UiPage page)
     {
-        mainPage.gameObject.SetActive(false);
-        optionsPage.gameObject.SetActive(false);
-        difficultySelectPage.gameObject.SetActive(false);
+        // Deactivate all pages first
+        mainPage.SetActive(false);
+        optionsPage.SetActive(false);
+        difficultySelectPage.SetActive(false);
         levelSelectPage.SetActive(false);
 
+        // Finally, activate the selected page
         page.SetActive(true);
     }
 
@@ -44,39 +46,41 @@ public class MainMenu : Singleton<MainMenu>, IMenuManager
     public void OpenMainPage()
     {
         // Check if the page is already in the stack
-        if (navigationHistory.Contains(mainPage.gameObject)) return;
+        if (navigationHistory.Contains(mainPage)) return;
 
         // Push to stack and activate it
-        navigationHistory.Push(mainPage.gameObject);
-        ActivatePage(mainPage.gameObject);
+        navigationHistory.Push(mainPage);
+        ActivatePage(mainPage);
     }
 
     public void OpenOptionsPage()
     {
         if (optionsPage.gameObject.activeSelf) return; // Prevent duplicate pushes
-        navigationHistory.Push(optionsPage.gameObject);
-        ActivatePage(optionsPage.gameObject);
+        navigationHistory.Push(optionsPage);
+        ActivatePage(optionsPage);
     }
 
     public void OpenLevelSelectPage()
     {
-        if (levelSelectPage.activeSelf) return; // Prevent duplicate pushes
+        if (levelSelectPage.gameObject.activeSelf) return; // Prevent duplicate pushes
         navigationHistory.Push(levelSelectPage);
         ActivatePage(levelSelectPage);
     }
 
-    public void OpenCampaignPage()
+    public void OpenDifficultyPage(Gamemode gamemode)
     {
         if (difficultySelectPage.gameObject.activeSelf) return; // Prevent duplicate pushes
 
+        GameManager.Instance.currentGamemode = gamemode;
+
         // Ensure the main page is pushed before switching to the difficulty page
-        if (!navigationHistory.Contains(mainPage.gameObject))
+        if (!navigationHistory.Contains(mainPage))
         {
-            navigationHistory.Push(mainPage.gameObject);
+            navigationHistory.Push(mainPage);
         }
 
-        navigationHistory.Push(difficultySelectPage.gameObject);
-        ActivatePage(difficultySelectPage.gameObject);
+        navigationHistory.Push(difficultySelectPage);
+        ActivatePage(difficultySelectPage);
     }
 
 

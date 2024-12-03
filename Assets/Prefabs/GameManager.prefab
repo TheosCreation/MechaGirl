@@ -45,12 +45,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde959bb3a3674c428e64179ad7e4122, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentGamemode: 0
   mainMenuScene: MainMenu
   isInit: 0
-  skipInitOnAwake: 1
+  skipInitOnAwake: 0
   audioSourceExample: {fileID: 0}
   inputActionsAsset: {fileID: -944628639613478452, guid: 9451c9bddc9a4114d8502d7c2759ded2,
     type: 3}
+  prefabs:
+    hitWallPrefab: {fileID: 8500604869755476032, guid: 4024162e6003a37429c741e0fe335464,
+      type: 3}
+    hitEnemyPrefab: {fileID: 7421207701288780740, guid: 18346bbe949293f44b2a8b833e9858f0,
+      type: 3}
+    enemyHitSound: {fileID: 8300000, guid: a75ce797e6481ab4d87b541039cd0197, type: 3}
+    enemyWeakspotHitSound: {fileID: 8300000, guid: 694f00b1d5204b142bb84ab6a8c8c645,
+      type: 3}
+    wallHitSound: {fileID: 8300000, guid: 623ad07c146cedd4db6b902fd1612618, type: 3}
 --- !u!82 &8332674266949168536
 AudioSource:
   m_ObjectHideFlags: 0

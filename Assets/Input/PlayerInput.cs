@@ -98,6 +98,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Slide"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0e57baf-ce8e-4338-acf9-ae59014d1145"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -243,6 +252,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d438d61e-8e69-45d9-ae91-9b412275940f"",
+                    ""path"": ""<Keyboard>/ctrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -327,6 +347,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_InGame_WeaponThrow = m_InGame.FindAction("WeaponThrow", throwIfNotFound: true);
         m_InGame_WeaponPickUp = m_InGame.FindAction("WeaponPickUp", throwIfNotFound: true);
         m_InGame_Melee = m_InGame.FindAction("Melee", throwIfNotFound: true);
+        m_InGame_Slide = m_InGame.FindAction("Slide", throwIfNotFound: true);
         // Ui
         m_Ui = asset.FindActionMap("Ui", throwIfNotFound: true);
         m_Ui_Exit = m_Ui.FindAction("Exit", throwIfNotFound: true);
@@ -401,6 +422,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_InGame_WeaponThrow;
     private readonly InputAction m_InGame_WeaponPickUp;
     private readonly InputAction m_InGame_Melee;
+    private readonly InputAction m_InGame_Slide;
     public struct InGameActions
     {
         private @PlayerInput m_Wrapper;
@@ -413,6 +435,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @WeaponThrow => m_Wrapper.m_InGame_WeaponThrow;
         public InputAction @WeaponPickUp => m_Wrapper.m_InGame_WeaponPickUp;
         public InputAction @Melee => m_Wrapper.m_InGame_Melee;
+        public InputAction @Slide => m_Wrapper.m_InGame_Slide;
         public InputActionMap Get() { return m_Wrapper.m_InGame; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -446,6 +469,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Melee.started += instance.OnMelee;
             @Melee.performed += instance.OnMelee;
             @Melee.canceled += instance.OnMelee;
+            @Slide.started += instance.OnSlide;
+            @Slide.performed += instance.OnSlide;
+            @Slide.canceled += instance.OnSlide;
         }
 
         private void UnregisterCallbacks(IInGameActions instance)
@@ -474,6 +500,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Melee.started -= instance.OnMelee;
             @Melee.performed -= instance.OnMelee;
             @Melee.canceled -= instance.OnMelee;
+            @Slide.started -= instance.OnSlide;
+            @Slide.performed -= instance.OnSlide;
+            @Slide.canceled -= instance.OnSlide;
         }
 
         public void RemoveCallbacks(IInGameActions instance)
@@ -563,6 +592,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnWeaponThrow(InputAction.CallbackContext context);
         void OnWeaponPickUp(InputAction.CallbackContext context);
         void OnMelee(InputAction.CallbackContext context);
+        void OnSlide(InputAction.CallbackContext context);
     }
     public interface IUiActions
     {

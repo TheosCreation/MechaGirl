@@ -6,9 +6,21 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[Serializable]
+public struct PrefabAssets
+{
+    //For projectiles
+    public GameObject hitWallPrefab;
+    public GameObject hitEnemyPrefab;
+    public AudioClip enemyHitSound;
+    public AudioClip enemyWeakspotHitSound;
+    public AudioClip wallHitSound;
+}
+
 public class GameManager : SingletonPersistent<GameManager>
 {
     [HideInInspector] public GameState GameState;
+    public Gamemode currentGamemode = Gamemode.Campaign;
     public string mainMenuScene = "MainMenu";
     private string[] levelScenes;
 
@@ -21,6 +33,7 @@ public class GameManager : SingletonPersistent<GameManager>
     [SerializeField] private bool skipInitOnAwake = true;
     public AudioSource audioSourceExample;
     public InputActionAsset inputActionsAsset;
+    public PrefabAssets prefabs;
 
     protected override void Awake()
     {
@@ -195,5 +208,10 @@ public class GameManager : SingletonPersistent<GameManager>
     public void SetDifficultyLevel(int difficultyLevel)
     {
         Debug.Log("Difficulty level set to " + difficultyLevel);
+    }
+
+    public void OpenEndlessModeLevel()
+    {
+        // implementation needed to load the scene
     }
 }

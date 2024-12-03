@@ -192,17 +192,18 @@ public class Weapon : MonoBehaviour
             weaponColor = Color.white;
         }
 
-        spriteBillboard.enabled = false;
         bc.enabled = false;
         rb.isKinematic = true;
         transform.localRotation = Quaternion.identity;
         if (weaponUser is PlayerController)
         {
+            spriteBillboard.enabled = false;
             spriteRenderer.enabled = false;
             animator.runtimeAnimatorController = gunPlayerController;
         }
         else
         {
+            spriteBillboard.enabled = true;
             spriteRenderer.enabled = true;
             animator.runtimeAnimatorController = gunInGameController;
         }
@@ -332,12 +333,16 @@ public class Weapon : MonoBehaviour
         {
             firePosition = transform.position;
         }
+        Vector3 direction = transform.forward;
+        if (weaponUser is PlayerController)
+        {
+            direction = weaponUser.GetForwardDirection();
+        }
 
         Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
-        projectile.hitMask = weaponUser.GetHitMask();
         projectile.owner = gameObject;
         projectile.ownerLayer = gameObject.layer;
-        projectile.Initialize(firePosition, weaponUser.GetForwardDirection(), weaponUser);
+        projectile.Initialize(firePosition, direction, weaponUser);
     }
 
     protected void SpawnCasing()
