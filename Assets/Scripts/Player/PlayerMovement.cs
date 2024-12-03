@@ -39,13 +39,17 @@ public class PlayerMovement : MonoBehaviour
     private Timer wallRunTimer;
 
     [Header("Dash")]
-    [SerializeField] public bool isDashing = false;
+    public bool isDashing = false;
     [SerializeField] private bool canDash = true;
     [SerializeField] private float dashForce = 15.0f;
     [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashCooldown = 2.0f;
     Timer dashTimer;
     Timer dashCoolDownTimer;
+
+    [Header("Sliding")]
+    public bool isSliding = false;
+    [SerializeField] private float slideSpeed = 3.0f;
 
     [Header("Gravity Reduction")]
     [SerializeField] private float reducedGravityFactor = 0.1f;

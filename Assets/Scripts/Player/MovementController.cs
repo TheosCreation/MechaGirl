@@ -61,7 +61,14 @@ public class MovementController : MonoBehaviour
 
         if (!movement && useFriction)
         {
-            ApplyFriction(friction);
+            if(isGrounded)
+            {
+                ApplyFriction(friction);
+            }
+            else
+            {
+                ApplyFriction(airFriction);
+            }
         }
 
         if (rb.velocity.sqrMagnitude < velocityThreshold * velocityThreshold)
