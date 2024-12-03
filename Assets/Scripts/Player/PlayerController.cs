@@ -102,7 +102,7 @@ public class PlayerController : WeaponUser, IDamageable
 
     public override LayerMask GetHitMask()
     {
-        return LayerMask.GetMask("Enemy") | LayerMask.GetMask("Head");
+        return LayerMask.GetMask("Enemy") | LayerMask.GetMask("Head") | LayerMask.GetMask("Default") | LayerMask.GetMask("Ground");
     }
 
     public override void OnWeaponFire(Weapon weapon)

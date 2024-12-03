@@ -1,4 +1,5 @@
 using Runtime;
+using System;
 using UnityEngine;
 
 public class HitscanProjectile : Projectile
@@ -7,14 +8,9 @@ public class HitscanProjectile : Projectile
     [SerializeField] protected float headShotMultiplier = 1.5f;
     [SerializeField] protected float hitParticlesLifetime = 1.0f;
     [SerializeField] protected float particleOffset = 0.1f;
-    [SerializeField] protected GameObject hitWallPrefab;
-    [SerializeField] protected GameObject hitEnemyPrefab;
     [SerializeField] protected GameObject gunTrailPrefab;
 
     [Tab("Audio")]
-    [SerializeField] protected AudioClip enemyHitSound;
-    [SerializeField] protected AudioClip enemyWeakspotHitSound;
-    [SerializeField] protected AudioClip wallHitSound;
     [SerializeField] protected float audioVolume = 0.1f;
 
     private AudioSource audioSource;
@@ -61,7 +57,6 @@ public class HitscanProjectile : Projectile
 
     private void HandleHit(RaycastHit hit)
     {
-        GameObject hitParticles;
         IDamageable damageable = hit.collider.GetComponentInParent<IDamageable>();
         if (damageable == null)
         {
@@ -72,37 +67,25 @@ public class HitscanProjectile : Projectile
         {
             m_weaponUser.OnHit();
 
-            GameObject soundMakerObject = new GameObject("SoundMaker");
-            soundMakerObject.transform.position = hit.point;
-            SoundMaker soundMaker = soundMakerObject.AddComponent<SoundMaker>();
+            //Spawn hit enemy particle and play enemy hit sound also damage enemy
+            Vector3 spawnPosition = hit.point + hit.normal * particleOffset;
             if (hit.collider.gameObject.CompareTag("Head"))
             {
                 damageable.Damage(damage * headShotMultiplier);
-                soundMaker.PlaySound(enemyWeakspotHitSound, 0.1f);
+                HitDamageable(spawnPosition, hit.normal, GameManager.Instance.prefabs.hitEnemyPrefab, GameManager.Instance.prefabs.enemyWeakspotHitSound);
             }
             else
             {
                 damageable.Damage(damage);
-                soundMaker.PlaySound(enemyHitSound, 0.1f);
+                HitDamageable(spawnPosition, hit.normal, GameManager.Instance.prefabs.hitEnemyPrefab, GameManager.Instance.prefabs.enemyHitSound);
             }
 
-
-            if (hitEnemyPrefab != null)
-            {
-                Vector3 spawnPosition = hit.point + hit.normal * particleOffset;
-                hitParticles = Instantiate(hitEnemyPrefab, spawnPosition, Quaternion.LookRotation(-hit.normal));
-                Destroy(hitParticles.gameObject, hitParticlesLifetime);
-            }
         }
         else
         {
-            if (hitWallPrefab != null)
-            {
-                Vector3 spawnPosition = hit.point + hit.normal * particleOffset;
-                hitParticles = Instantiate(hitWallPrefab, spawnPosition, Quaternion.LookRotation(-hit.normal));
-                Destroy(hitParticles.gameObject, hitParticlesLifetime);
-            }
-          //  PlayHitSound(hit.point, wallHitSound, 1f);
+            //Spawns particles and sound
+            Vector3 spawnPosition = hit.point + hit.normal * 0.1f;
+            HitWall(spawnPosition, hit.normal);
         }
         Destroy(gameObject);
     }

@@ -6,6 +6,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+[Serializable]
+public struct PrefabAssets
+{
+    //For projectiles
+    public GameObject hitWallPrefab;
+    public GameObject hitEnemyPrefab;
+    public AudioClip enemyHitSound;
+    public AudioClip enemyWeakspotHitSound;
+    public AudioClip wallHitSound;
+}
+
 public class GameManager : SingletonPersistent<GameManager>
 {
     [HideInInspector] public GameState GameState;
@@ -22,6 +33,7 @@ public class GameManager : SingletonPersistent<GameManager>
     [SerializeField] private bool skipInitOnAwake = true;
     public AudioSource audioSourceExample;
     public InputActionAsset inputActionsAsset;
+    public PrefabAssets prefabs;
 
     protected override void Awake()
     {

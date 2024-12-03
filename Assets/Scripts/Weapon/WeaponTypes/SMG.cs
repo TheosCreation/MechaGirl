@@ -27,7 +27,6 @@ public class SMG : HitscanWeapon
        
             projectile.owner = gameObject;
             projectile.ownerLayer = gameObject.layer;
-            projectile.hitMask = weaponUser.GetHitMask();
 
             projectile.Initialize(transform.position, randomDirection, weaponUser);
         }
@@ -53,7 +52,6 @@ public class SMG : HitscanWeapon
             Projectile projectile = Instantiate(weaponUser.GetProjectilePrefab(this), transform.position, Quaternion.identity);
             projectile.owner = gameObject;
             projectile.ownerLayer = gameObject.layer;
-            projectile.hitMask = weaponUser.GetHitMask();
 
             projectile.Initialize(transform.position, randomDirection, weaponUser);
         }
