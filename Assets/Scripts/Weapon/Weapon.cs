@@ -208,7 +208,7 @@ public class Weapon : MonoBehaviour
             animator.runtimeAnimatorController = gunInGameController;
         }
     }
-    protected virtual void OnThrow()
+    public virtual void UseAbility()
     {
 
     }
@@ -274,7 +274,7 @@ public class Weapon : MonoBehaviour
         spriteBillboard.enabled = true;
         //disable script just like unequiping the weapon
         this.enabled = false;
-        OnThrow();
+             
     }
 
     public bool PickUp(WeaponHolder weaponHolder, WeaponUser user, bool ignorePickup)

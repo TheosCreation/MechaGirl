@@ -1,7 +1,7 @@
 public class Granade : ProjectileWeapon
 {
-    protected override void OnThrow()
+    public override void UseAbility()
     {
-        base.OnThrow();
+        base.UseAbility();
     }
 }
