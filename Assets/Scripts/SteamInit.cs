@@ -21,10 +21,9 @@ public class SteamManager : SingletonPersistent<SteamManager>
             Debug.LogError("Steam settings is null in the inspector");
         }
 
-        settings.CreateBehaviour(true);
 
         Debug.Log("Initializing Steam...");
-        settings.Init();
+        settings.CreateBehaviour(true);
 
         yield return null;
 

@@ -35,8 +35,14 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (SteamSettings.Initialized)
         {
-            leaderboardManager.UploadScore(100, new int[] { 123 });
-            leaderboardManager.GetAllFriendsEntries();
+            int score = 10; // Example score
+            int[] details = new int[] { 143 }; // Example details array with a value
+
+            // Log the details before uploading
+            Debug.Log($"Uploading score: {score}, with details: {string.Join(", ", details)}");
+
+            leaderboardManager.UploadScore(score, details);
+            //leaderboardManager.GetAllFriendsEntries();
         }
 
     }
@@ -44,10 +50,9 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (entry == null)
             score.text = "Entry null";
-        else if (entry.details == null)
-            score.text = "Details null";
         else
         {
+            if (entry.details == null) Debug.LogWarning("details null");
             // Get total seconds from the entry score
             int totalSeconds = entry.Score;
 
@@ -56,10 +61,11 @@ public class LevelSelectButton : MonoBehaviour
             int seconds = totalSeconds % 60;
 
             // Assuming entry.details[0] contains the milliseconds (as an integer)
-            int milliseconds = entry.details.Length > 0 ? Mathf.FloorToInt(entry.details[0]) : 0;
+            //int milliseconds = entry.details.Length > 0 ? Mathf.FloorToInt(entry.details[0]) : 0;
 
             // Format the time as mm:ss.mmm
-            string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
+            string formattedTime = string.Format("{0:D2}:{1:D2}", minutes, seconds);
+            //string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
 
             // Set the formatted time as the score text
             score.text = formattedTime;
@@ -84,5 +90,10 @@ public class LevelSelectButton : MonoBehaviour
             var comp = go.GetComponent<ExampleLdrboardDisplayRecord>();
             comp.SetEntry(entry);
         }
+    }
+
+    public void LogError(string message)
+    {
+        Debug.LogError(message);
     }
 }

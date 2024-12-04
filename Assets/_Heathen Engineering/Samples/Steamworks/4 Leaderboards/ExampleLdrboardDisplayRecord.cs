@@ -19,6 +19,8 @@ namespace HeathenEngineering.DEMO
 
         public void SetEntry(LeaderboardEntry entry)
         {
+            if (entry == null) return;
+
             userImage.LoadAvatar(entry.User);
             userName.SetName(entry.User);
 

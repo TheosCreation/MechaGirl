@@ -35,7 +35,9 @@ namespace HeathenEngineering.SteamworksIntegration
             leaderboard.GetUserEntry((r, e) =>
             {
                 if (!e)
+                {
                     LastKnownUserEntry = r;
+                }
                 else
                     evtQueryError.Invoke();
             });

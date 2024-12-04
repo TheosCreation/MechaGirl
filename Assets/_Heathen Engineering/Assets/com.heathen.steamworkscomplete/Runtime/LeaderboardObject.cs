@@ -59,11 +59,16 @@ namespace HeathenEngineering.SteamworksIntegration
             API.Leaderboards.Client.DownloadEntries(leaderboardId, new CSteamID[] { API.User.Client.Id }, maxDetailEntries, (results, error) =>
             {
                 if (error || results.Length == 0)
+                {
                     callback.Invoke(null, error);
+                }
                 else
+                {
                     callback.Invoke(results[0], error);
+                }
             });
         }
+
         /// <summary>
         /// Invokes the callback with the query results
         /// </summary>
