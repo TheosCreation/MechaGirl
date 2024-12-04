@@ -2,6 +2,7 @@
 
 using HeathenEngineering.SteamworksIntegration;
 using HeathenEngineering.SteamworksIntegration.UI;
+using TMPro;
 using UnityEngine;
 
 namespace HeathenEngineering.DEMO
@@ -14,15 +15,20 @@ namespace HeathenEngineering.DEMO
     {
         public SetUserAvatar userImage;
         public UGUISetUserName userName;
-        public UnityEngine.UI.Text score;
-        public UnityEngine.UI.Text rank;
+        public TMP_Text score;
 
         public void SetEntry(LeaderboardEntry entry)
         {
             userImage.LoadAvatar(entry.User);
             userName.SetName(entry.User);
-            score.text = entry.Score.ToString();
-            rank.text = entry.Rank.ToString();
+
+            int totalSeconds = entry.Score;
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, entry.details[0]);
+
+            score.text = formattedTime;
         }
     }
 }

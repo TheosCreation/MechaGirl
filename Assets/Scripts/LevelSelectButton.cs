@@ -3,15 +3,15 @@ using HeathenEngineering.SteamworksIntegration;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] private int levelToOpen = 1;
-    [SerializeField]
-    private TMP_Text scoreLabel;
     private Button button;
     [SerializeField] private Image levelLockImage;
+    [SerializeField] private TMP_Text score;
     [SerializeField] private LeaderboardManager leaderboardManager;
     [SerializeField]
     private Transform recordRoot;
@@ -35,31 +35,34 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (SteamSettings.Initialized)
         {
-            leaderboardManager.RefreshUserEntry();
+            leaderboardManager.UploadScore(100, new int[] { 123 });
             leaderboardManager.GetAllFriendsEntries();
         }
 
     }
-
     public void UserScoreUpdated(LeaderboardEntry entry)
     {
         if (entry == null)
-            scoreLabel.text = "Score: NA\nRank: NA\nDetails: NULL";
+            score.text = "Entry null";
         else if (entry.details == null)
-            scoreLabel.text = "Score: " + entry.Score.ToString() + "\nRank: " + entry.Rank.ToString() + "\nDetails: NULL";
+            score.text = "Details null";
         else
         {
-            string details = "{ ";
-            for (int i = 0; i < entry.details.Length; i++)
-            {
-                if (i == 0)
-                    details += entry.details[i].ToString();
-                else
-                    details += ", " + entry.details[i].ToString();
-            }
+            // Get total seconds from the entry score
+            int totalSeconds = entry.Score;
 
-            details += " }";
-            scoreLabel.text = "Score: " + entry.Score.ToString() + "\nRank: " + entry.Rank.ToString() + "\nDetails: " + details;
+            // Calculate minutes and seconds
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            // Assuming entry.details[0] contains the milliseconds (as an integer)
+            int milliseconds = entry.details.Length > 0 ? Mathf.FloorToInt(entry.details[0]) : 0;
+
+            // Format the time as mm:ss.mmm
+            string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
+
+            // Set the formatted time as the score text
+            score.text = formattedTime;
         }
     }
 
