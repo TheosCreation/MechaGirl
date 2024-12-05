@@ -3,16 +3,17 @@ using UnityEngine;
 using Steamworks;
 using UserAPI = HeathenEngineering.SteamworksIntegration.API.User.Client;
 using FriendsAPI = HeathenEngineering.SteamworksIntegration.API.Friends.Client;
+using TMPro;
 
 namespace HeathenEngineering.SteamworksIntegration.UI
 {
     /// <summary>
     /// Applies the name of the indicated user to the attached label
     /// </summary>
-    [RequireComponent(typeof(UnityEngine.UI.Text))]
+    [RequireComponent(typeof(TMP_Text))]
     public class UGUISetUserName : MonoBehaviour
     {
-        private UnityEngine.UI.Text label;
+        private TMP_Text label;
         [SerializeField]
         [Tooltip("Should the component load the local user's name on Start.\nIf false you must call SetName and provide the ID of the user to load")]
         private bool useLocalUser;
@@ -60,7 +61,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
 
         private void Start()
         {
-            label = GetComponent<UnityEngine.UI.Text>();
+            label = GetComponent<TMP_Text>();
 
             if (useLocalUser)
             {
@@ -85,7 +86,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
         public void SetName(UserData user)
         {
             if (label == null)
-                label = GetComponent<UnityEngine.UI.Text>();
+                label = GetComponent<TMP_Text>();
 
             if (label == null)
                 return;
@@ -101,7 +102,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
         public void SetName(CSteamID user)
         {
             if (label == null)
-                label = GetComponent<UnityEngine.UI.Text>();
+                label = GetComponent<TMP_Text>();
 
             if (label == null)
                 return;
@@ -117,7 +118,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
         public void SetName(ulong user)
         {
             if (label == null)
-                label = GetComponent<UnityEngine.UI.Text>();
+                label = GetComponent<TMP_Text>();
 
             if (label == null)
                 return;

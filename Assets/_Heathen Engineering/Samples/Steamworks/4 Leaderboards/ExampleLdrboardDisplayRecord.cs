@@ -16,6 +16,7 @@ namespace HeathenEngineering.DEMO
         public SetUserAvatar userImage;
         public UGUISetUserName userName;
         public TMP_Text score;
+        public TMP_Text difficulty;
 
         public void SetEntry(LeaderboardEntry entry)
         {
@@ -31,6 +32,8 @@ namespace HeathenEngineering.DEMO
             string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, entry.details[0]);
 
             score.text = formattedTime;
+
+            //difficulty.text = "";
         }
     }
 }

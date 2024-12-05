@@ -3,31 +3,44 @@ using HeathenEngineering.SteamworksIntegration;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] private int levelToOpen = 1;
+    [SerializeField] private string levelName = "Hell";
     private Button button;
+    [SerializeField] private TMP_Text titleLabel;
+    [SerializeField] private Image levelIcon;
     [SerializeField] private Image levelLockImage;
-    [SerializeField] private TMP_Text score;
     [SerializeField] private LeaderboardManager leaderboardManager;
     [SerializeField]
     private Transform recordRoot;
+    [SerializeField] private GameObject leaderBoardRoot;
     [SerializeField]
     private GameObject recordTemplate;
 
     private List<GameObject> records = new List<GameObject>();
 
+    [SerializeField] private Sprite blurredImage;
+    private Sprite orignalImage;
+
     private void Awake()
     {
         button = GetComponent<Button>();
         button.onClick.AddListener(() => GameManager.Instance.TryOpenLevel(levelToOpen-1));
+        orignalImage = levelIcon.sprite;
 
         if (GameManager.Instance.GameState.IsCurrentLevelLocked(levelToOpen-1))
         {
+            titleLabel.text = levelToOpen + ": - ???";
             levelLockImage.gameObject.SetActive(true);
+            leaderBoardRoot.SetActive(false);
+            levelIcon.sprite = blurredImage;
+        }
+        else
+        {
+            titleLabel.text = levelToOpen + ": - " + levelName;
         }
     }
 
@@ -35,22 +48,20 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (SteamSettings.Initialized)
         {
-            int score = 10; // Example score
-            int[] details = new int[] { 143 }; // Example details array with a value
+            int score = 4; // Example score
+            int[] details = new int[] { 150 }; // Example details array with a value
 
             // Log the details before uploading
             Debug.Log($"Uploading score: {score}, with details: {string.Join(", ", details)}");
 
             leaderboardManager.UploadScore(score, details);
-            //leaderboardManager.GetAllFriendsEntries();
+            leaderboardManager.GetAllFriendsEntries();
         }
 
     }
     public void UserScoreUpdated(LeaderboardEntry entry)
     {
-        if (entry == null)
-            score.text = "Entry null";
-        else
+        if (entry != null)
         {
             if (entry.details == null) Debug.LogWarning("details null");
             // Get total seconds from the entry score
@@ -68,7 +79,7 @@ public class LevelSelectButton : MonoBehaviour
             //string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
 
             // Set the formatted time as the score text
-            score.text = formattedTime;
+            //score.text = formattedTime;
         }
     }
 
@@ -84,6 +95,7 @@ public class LevelSelectButton : MonoBehaviour
         foreach (var entry in entries)
         {
             var go = Instantiate(recordTemplate, recordRoot);
+            go.SetActive(true);
 
             records.Add(go);
 

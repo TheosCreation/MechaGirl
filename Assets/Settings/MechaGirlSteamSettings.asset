@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0265f2c01aac5409a0371f6b6e1c98, type: 3}
   m_Name: '[LdrBrd] Level1Times'
   m_EditorClassIdentifier: 
-  createIfMissing: 1
+  createIfMissing: 0
   sortMethod: 1
   displayType: 1
   leaderboardName: Level1Times
-  maxDetailEntries: 0
+  maxDetailEntries: 1
 --- !u!114 &-3280460287385199896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29,11 +29,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0265f2c01aac5409a0371f6b6e1c98, type: 3}
   m_Name: '[LdrBrd] Level5Times'
   m_EditorClassIdentifier: 
-  createIfMissing: 1
+  createIfMissing: 0
   sortMethod: 1
   displayType: 1
   leaderboardName: Level5Times
-  maxDetailEntries: 0
+  maxDetailEntries: 1
 --- !u!114 &-526266980338427996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,11 +46,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0265f2c01aac5409a0371f6b6e1c98, type: 3}
   m_Name: '[LdrBrd] Level4Times'
   m_EditorClassIdentifier: 
-  createIfMissing: 1
+  createIfMissing: 0
   sortMethod: 1
   displayType: 1
   leaderboardName: Level4Times
-  maxDetailEntries: 0
+  maxDetailEntries: 1
 --- !u!114 &-297789604343281259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,11 +63,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0265f2c01aac5409a0371f6b6e1c98, type: 3}
   m_Name: '[LdrBrd] Level3Times'
   m_EditorClassIdentifier: 
-  createIfMissing: 1
+  createIfMissing: 0
   sortMethod: 1
   displayType: 1
   leaderboardName: Level3Times
-  maxDetailEntries: 0
+  maxDetailEntries: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,8 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec0265f2c01aac5409a0371f6b6e1c98, type: 3}
   m_Name: '[LdrBrd] Level2Times'
   m_EditorClassIdentifier: 
-  createIfMissing: 1
+  createIfMissing: 0
   sortMethod: 1
   displayType: 1
   leaderboardName: Level2Times
-  maxDetailEntries: 0
+  maxDetailEntries: 1

@@ -10,10 +10,10 @@ namespace HeathenEngineering.SteamworksIntegration.UI
     /// <summary>
     /// Applies the avatar of the indicated user to the attached RawImage
     /// </summary>
-    [RequireComponent(typeof(UnityEngine.UI.RawImage))]
+    [RequireComponent(typeof(UnityEngine.UI.Image))]
     public class SetUserAvatar : MonoBehaviour
     {
-        private UnityEngine.UI.RawImage image;
+        private UnityEngine.UI.Image image;
         [SerializeField]
         [Tooltip("Should the component load the local user's avatar on Start.\nIf false you must call LoadAvatar and provide the ID of the user to load")]
         private bool useLocalUser;
@@ -45,7 +45,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
 
         private void Start()
         {
-            image = GetComponent<UnityEngine.UI.RawImage>();
+            image = GetComponent<UnityEngine.UI.Image>();
 
             if (useLocalUser)
             {
@@ -56,7 +56,7 @@ namespace HeathenEngineering.SteamworksIntegration.UI
 
         private void HandlePersonaStateChange(PersonaStateChange_t arg)
         {
-            if(FriendsAPI.PersonaChangeHasFlag(arg.m_nChangeFlags, EPersonaChange.k_EPersonaChangeAvatar)
+            if (FriendsAPI.PersonaChangeHasFlag(arg.m_nChangeFlags, EPersonaChange.k_EPersonaChangeAvatar)
                 && arg.m_ulSteamID == currentUser.SteamId)
             {
                 UserData user = arg.m_ulSteamID;
@@ -64,49 +64,49 @@ namespace HeathenEngineering.SteamworksIntegration.UI
                 {
                     user.LoadAvatar((t) =>
                     {
-                        image.texture = t;
+                        image.sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
                         evtLoaded?.Invoke();
                     });
                 }
             }
         }
 
-        public void LoadAvatar(UserData user) => user.LoadAvatar((r) =>
+        public void LoadAvatar(UserData user) => user.LoadAvatar((t) =>
         {
             if(image == null)
-                image = GetComponent<UnityEngine.UI.RawImage>();
+                image = GetComponent<UnityEngine.UI.Image>();
 
             if (image == null)
                 return;
 
             currentUser = user;
-            image.texture = r;
+            image.sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
             evtLoaded?.Invoke();
         });
 
-        public void LoadAvatar(CSteamID user) => UserData.Get(user).LoadAvatar((r) =>
+        public void LoadAvatar(CSteamID user) => UserData.Get(user).LoadAvatar((t) =>
         {
             if (image == null)
-                image = GetComponent<UnityEngine.UI.RawImage>();
+                image = GetComponent<UnityEngine.UI.Image>();
 
             if (image == null)
                 return;
 
             currentUser = user;
-            image.texture = r;
+            image.sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
             evtLoaded?.Invoke();
         });
 
-        public void LoadAvatar(ulong user) => UserData.Get(user).LoadAvatar((r) =>
+        public void LoadAvatar(ulong user) => UserData.Get(user).LoadAvatar((t) =>
         {
             if (image == null)
-                image = GetComponent<UnityEngine.UI.RawImage>();
+                image = GetComponent<UnityEngine.UI.Image>();
 
             if (image == null)
                 return;
 
             currentUser = user;
-            image.texture = r;
+            image.sprite = Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, 0.5f));
             evtLoaded?.Invoke();
         });
     }

@@ -16,7 +16,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4937139223770450206
 Transform:
@@ -144,6 +144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicToPlay:
+  - {fileID: 8300000, guid: 4c631aab8a0c59449918c64fcb42d007, type: 3}
+  - {fileID: 8300000, guid: 088ffdacf4dbb5a4d97ea22fca7baeda, type: 3}
   - {fileID: 8300000, guid: 9e89ea6000bc4a54ebc90c1bb3d42154, type: 3}
   - {fileID: 8300000, guid: ec058668d59b8f243930b8398cecadeb, type: 3}
   - {fileID: 8300000, guid: 7c732ae1a8f62dc44b9159f7046bedfe, type: 3}
