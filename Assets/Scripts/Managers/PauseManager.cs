@@ -39,7 +39,10 @@ public class PauseManager : Singleton<PauseManager>
     private void Pause()
     {
         InputManager.Instance.DisableInGameInput();
-        UiManager.Instance.PauseMenu(true);
+        if (UiManager.Instance != null)
+        {
+            UiManager.Instance.PauseMenu(true);
+        }
         Time.timeScale = 0;
 
 

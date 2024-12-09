@@ -7,6 +7,7 @@ public class MainMenu : Singleton<MainMenu>, IMenuManager
     [SerializeField] private OptionsMenu optionsPage;
     [SerializeField] private DifficultySelectPage difficultySelectPage;
     [SerializeField] private LevelSelectPage levelSelectPage;
+    [SerializeField] private GameObject loadingScreen;
 
     public PlayerInput Input;
 
@@ -83,6 +84,10 @@ public class MainMenu : Singleton<MainMenu>, IMenuManager
         ActivatePage(difficultySelectPage);
     }
 
+    public void OpenLoadingScreen()
+    {
+        loadingScreen.SetActive(true);
+    }
 
     public void Quit()
     {

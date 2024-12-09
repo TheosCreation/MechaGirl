@@ -42,11 +42,6 @@ public class GameManager : SingletonPersistent<GameManager>
         DontDestroyOnLoad(gameObject); 
         
         audioSourceExample = GetComponent<AudioSource>();
-
-        if (!skipInitOnAwake)
-        {
-            StartCoroutine(Init());
-        }
     }
 
     public IEnumerator Init()
@@ -69,6 +64,13 @@ public class GameManager : SingletonPersistent<GameManager>
 
     private void Start()
     {
+
+
+        if (!skipInitOnAwake && !isInit)
+        {
+            StartCoroutine(Init());
+        }
+
         if (PlayerPrefs.HasKey("rebinds"))
         {
             string json = PlayerPrefs.GetString("rebinds");

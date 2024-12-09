@@ -346,14 +346,14 @@ Transform:
   m_GameObject: {fileID: 1981494554889786624}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2728306228652372209}
   - {fileID: 2959889856872969295}
   - {fileID: 3405714146773124063}
-  m_Father: {fileID: 6517482031046989727}
+  m_Father: {fileID: 6984051278453385433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &5888938806769484294
 Camera:
@@ -496,12 +496,12 @@ Transform:
   m_GameObject: {fileID: 2692979825899768291}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.51, y: 0, z: -1.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6763305810769422760}
-  - {fileID: 6984749821573097308}
+  - {fileID: 6984051278453385433}
   - {fileID: 2545012171741612419}
   - {fileID: 2979469267944310442}
   - {fileID: 5462083731251087061}
@@ -643,11 +643,11 @@ MonoBehaviour:
   originalGravityScale: -28.215
   useFriction: 1
   friction: 0.9995
-  airFriction: 0.5
+  airFriction: 0.05
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  maxGroundDistance: 0.2
+  maxGroundDistance: 0.125
   groundCheckPosition: {fileID: 2545012171741612419}
   groundCheckBoxWidth: 0.4
   isGrounded: 0
@@ -691,14 +691,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ae4443e47b7b8a4cbc33bcb336ee141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxWalkSpeed: 5
-  acceleration: 12
+  maxWalkSpeed: 8
+  acceleration: 11
   deceleration: 3
   walkingRightTransition: 0.025
   canJump: 1
   isJumping: 0
   jumpForce: 10
-  jumpDuration: 0.25
+  jumpDuration: 0.1
   jumpingClip: {fileID: 8300000, guid: db2281b9de1863f409d62f9edf69c6cf, type: 3}
   wallDistance: 1
   maxWallJumps: 3
@@ -708,13 +708,15 @@ MonoBehaviour:
   dashDuration: 0.2
   dashCooldown: 0.3
   isSliding: 0
-  slideSpeed: 16
-  slideAcceleration: 10
+  slideSpeed: 12
+  slideAcceleration: 15
   slideHorizontalMovement: 0.5
   slideHeight: 0.5
   slideTiltAmount: 5
   slideCancelDelay: 0.1
-  maximumHeightOffset: -1.5
+  maximumHeightOffset: -1.2
+  cameraOffset: {fileID: 6984051278453385433}
+  originalCameraPosY: 0.5
   reducedGravityFactor: 0.15
   audioSource: {fileID: 4365726921385332421}
   audioSource2: {fileID: 1436812663872636834}
@@ -1455,6 +1457,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dbd7e557a726fb42b173240da238002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &7936357451438094602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6984051278453385433}
+  m_Layer: 3
+  m_Name: HeightOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6984051278453385433
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7936357451438094602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6984749821573097308}
+  m_Father: {fileID: 6517482031046989727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8633170301286201747
 GameObject:
   m_ObjectHideFlags: 0

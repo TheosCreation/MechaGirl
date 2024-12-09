@@ -20,16 +20,22 @@ namespace HeathenEngineering.DEMO
 
         public void SetEntry(LeaderboardEntry entry)
         {
-            if (entry == null) return;
+            if (entry == null)
+            {
+                Debug.Log("Entry null");
+                return;
+            }
 
             userImage.LoadAvatar(entry.User);
             userName.SetName(entry.User);
 
-            int totalSeconds = entry.Score;
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
+            Debug.Log(entry.Score);
 
-            string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, entry.details[0]);
+            int minutes = entry.Score / 60000; // Calculate minutes
+            int seconds = (entry.Score / 1000) % 60; // Calculate remaining seconds
+            int milliseconds = entry.Score % 1000; // Calculate remaining milliseconds
+
+            string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
 
             score.text = formattedTime;
 

@@ -28,7 +28,7 @@ public class LevelSelectButton : MonoBehaviour
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => GameManager.Instance.TryOpenLevel(levelToOpen-1));
+        button.onClick.AddListener(() => { GameManager.Instance.TryOpenLevel(levelToOpen - 1); MainMenu.Instance.OpenLoadingScreen(); });
         orignalImage = levelIcon.sprite;
 
         if (GameManager.Instance.GameState.IsCurrentLevelLocked(levelToOpen-1))
@@ -48,17 +48,12 @@ public class LevelSelectButton : MonoBehaviour
     {
         if (SteamSettings.Initialized)
         {
-            int score = 4; // Example score
-            int[] details = new int[] { 150 }; // Example details array with a value
-
-            // Log the details before uploading
-            Debug.Log($"Uploading score: {score}, with details: {string.Join(", ", details)}");
-
-            leaderboardManager.UploadScore(score, details);
+            int encodedScore = (2 * 1000) + 150; // 3 seconds and 150 milliseconds
+            leaderboardManager.UploadScore(encodedScore);
             leaderboardManager.GetAllFriendsEntries();
         }
-
     }
+
     public void UserScoreUpdated(LeaderboardEntry entry)
     {
         if (entry != null)

@@ -18,7 +18,7 @@ public class MovementController : MonoBehaviour
     public float originalGravityScale = -18.81f;
 
     [Header("Friction")]
-    [SerializeField] private bool useFriction = true;
+    public bool useFriction = true;
     [SerializeField, Range(0f, 1f)] private float friction = 0.9f;
     [SerializeField, Range(0f, 1f)] private float airFriction = 1f;
 
@@ -141,17 +141,11 @@ public class MovementController : MonoBehaviour
             return;
         }
 
-        // Get the current velocity of the rigidbody
         Vector3 currentVelocity = rb.velocity;
-
-        // Calculate the desired velocity based on the direction vector and target speed
         Vector3 desiredVelocity = directionVector.normalized * maxSpeed;
-
-        // Maintain the current vertical velocity
         desiredVelocity.y = currentVelocity.y;
 
         Vector3 velocityDifference = desiredVelocity - currentVelocity;
-
         movement = true;
 
         if (velocityDifference.sqrMagnitude > Mathf.Epsilon * Mathf.Epsilon)
@@ -161,15 +155,19 @@ public class MovementController : MonoBehaviour
                 velocityDifference = Vector3.ProjectOnPlane(velocityDifference, slopeHit.normal);
             }
 
-            // Determine the rate to use (acceleration or deceleration)
-            float rateX = (Mathf.Sign(velocityDifference.x) == Mathf.Sign(directionVector.x)) ? acceleration : deceleration;
-            float rateZ = (Mathf.Sign(velocityDifference.z) == Mathf.Sign(directionVector.z)) ? acceleration : deceleration;
+            float currentSpeed = new Vector3(currentVelocity.x, 0, currentVelocity.z).magnitude;
+            float rateX = acceleration;
+            float rateZ = acceleration;
 
-            // Calculate new velocities with the appropriate rate
+            if (currentSpeed > maxSpeed)
+            {
+                rateX = deceleration;
+                rateZ = deceleration;
+            }
+
             float newVelocityX = currentVelocity.x + (velocityDifference.x * rateX * Time.fixedDeltaTime);
             float newVelocityZ = currentVelocity.z + (velocityDifference.z * rateZ * Time.fixedDeltaTime);
 
-            // Apply the new velocity to the rigidbody
             rb.velocity = new Vector3(newVelocityX, currentVelocity.y, newVelocityZ);
         }
     }

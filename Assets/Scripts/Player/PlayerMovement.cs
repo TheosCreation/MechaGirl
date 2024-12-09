@@ -51,6 +51,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float slideTiltAmount = 5f;
     [SerializeField] private float slideCancelDelay = 0.1f;
     [SerializeField] private float maximumHeightOffset = -1.5f;
+    [SerializeField] private Transform cameraOffset;
+    [SerializeField] private float originalCameraPosY = 0.5f;
     private Vector3 initialSlideDirection;
     private bool canCancelSlide = false;
     private Timer slideCancelTimer;
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         remainingWallJumps = maxWallJumps; // Initialize remaining wall jumps
         originalCapsuleHeight = capsuleCollider.height;
         originalCapsuleCenterY = capsuleCollider.center.y;
+        originalCameraPosY = cameraOffset.transform.localPosition.y;
     }
 
     private void FixedUpdate()
@@ -176,19 +179,26 @@ public class PlayerMovement : MonoBehaviour
 
     void PerformJump()
     {
-        if(isSliding) EndSlide();
+        movementController.useFriction = false;
+        isJumping = true;
+        jumpTimer.StopTimer();
+        jumpTimer.SetTimer(jumpDuration, JumpEnd);
+
+        float usableForce = jumpForce;
+        if (isSliding)
+        {
+            usableForce *= 0.75f;
+            movementController.AddForce(initialSlideDirection * jumpForce);
+            EndSlide();
+        }
 
         canJump = false;
-        movementController.AddForce(Vector3.up * jumpForce);
+        movementController.AddForce(Vector3.up * usableForce);
 
         // Play a CameraJumpAnimation
         playerController.playerLook.PlayJumpAnimation(jumpDuration);
 
         audioSource2.PlayOneShot(jumpingClip);
-
-        isJumping = true;
-        jumpTimer.StopTimer();
-        jumpTimer.SetTimer(jumpDuration, JumpEnd);
     }
 
     void PerformWallJump()
@@ -212,9 +222,11 @@ public class PlayerMovement : MonoBehaviour
 
     void JumpEnd()
     {
+        movementController.useFriction = true;
         isJumping = false;
         canJump = true;
     }
+
     private void StartReducingGravity()
     {
         if (!isReducingGravity )
@@ -331,6 +343,8 @@ public class PlayerMovement : MonoBehaviour
                                                  capsuleCollider.center.y + (characterHeightOffset / 2),
                                                  capsuleCollider.center.z);
 
+            cameraOffset.transform.localPosition = new Vector3(0, originalCameraPosY + characterHeightOffset, 0);
+
             // Set sliding state and disable the ability to cancel sliding until the timer runs out
             isSliding = true;
             canCancelSlide = false;
@@ -371,6 +385,8 @@ public class PlayerMovement : MonoBehaviour
             capsuleCollider.center = new Vector3(capsuleCollider.center.x,
                                                  capsuleCollider.center.y - (characterHeightOffset / 2),
                                                  capsuleCollider.center.z);
+
+            cameraOffset.transform.localPosition = new Vector3(0, originalCameraPosY, 0);
 
             // Set the sliding state to false
             isSliding = false;

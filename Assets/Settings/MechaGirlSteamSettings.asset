@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createIfMissing: 0
   sortMethod: 1
-  displayType: 1
+  displayType: 2
   leaderboardName: Level1Times
-  maxDetailEntries: 1
+  maxDetailEntries: 0
 --- !u!114 &-3280460287385199896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,9 +31,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createIfMissing: 0
   sortMethod: 1
-  displayType: 1
+  displayType: 2
   leaderboardName: Level5Times
-  maxDetailEntries: 1
+  maxDetailEntries: 0
 --- !u!114 &-526266980338427996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createIfMissing: 0
   sortMethod: 1
-  displayType: 1
+  displayType: 2
   leaderboardName: Level4Times
-  maxDetailEntries: 1
+  maxDetailEntries: 0
 --- !u!114 &-297789604343281259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,9 +65,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createIfMissing: 0
   sortMethod: 1
-  displayType: 1
+  displayType: 2
   leaderboardName: Level3Times
-  maxDetailEntries: 1
+  maxDetailEntries: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   applicationId:
     m_AppId: 480
-  isDebugging: 0
+  isDebugging: 1
   server:
     autoInitialize: 0
     autoLogon: 0
@@ -154,6 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   createIfMissing: 0
   sortMethod: 1
-  displayType: 1
+  displayType: 2
   leaderboardName: Level2Times
-  maxDetailEntries: 1
+  maxDetailEntries: 0
