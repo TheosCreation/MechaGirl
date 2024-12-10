@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 blendedDirection = initialSlideDirection + (movement.x * slideDirectionRight * slideHorizontalMovement);
             blendedDirection.Normalize();
 
-            movementController.MoveWorld(blendedDirection, slideSpeed, slideAcceleration, deceleration);
+            movementController.MoveWorld(blendedDirection, slideSpeed, slideAcceleration);
 
             if (movementController.GetLinearVelocityMagnitude() < (maxWalkSpeed / 2) && canCancelSlide)
             {
@@ -161,7 +161,7 @@ public class PlayerMovement : MonoBehaviour
             audioSource.Play();
         }
 
-        movementController.MoveLocal(movement, maxWalkSpeed, acceleration, deceleration);
+        movementController.MoveLocal(movement, maxWalkSpeed, acceleration);
     }
 
     void Jump()

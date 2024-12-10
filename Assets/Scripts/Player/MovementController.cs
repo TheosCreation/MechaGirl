@@ -125,15 +125,15 @@ public class MovementController : MonoBehaviour
         AddForce(directionalForce);
     }
 
-    public void MoveLocal(Vector3 movementVector, float maxSpeed, float acceleration, float deceleration)
+    public void MoveLocal(Vector3 movementVector, float maxSpeed, float acceleration)
     {
         // Transform the movement vector to world space and normalize it
         movementVector = transform.TransformDirection(movementVector);
 
-        MoveWorld(movementVector, maxSpeed, acceleration, deceleration);
+        MoveWorld(movementVector, maxSpeed, acceleration);
     }
 
-    public void MoveWorld(Vector3 directionVector, float maxSpeed, float acceleration, float deceleration)
+    public void MoveWorld(Vector3 directionVector, float maxSpeed, float acceleration)
     {
         if (directionVector.sqrMagnitude <= 0)
         {
@@ -148,28 +148,27 @@ public class MovementController : MonoBehaviour
         Vector3 velocityDifference = desiredVelocity - currentVelocity;
         movement = true;
 
-        if (velocityDifference.sqrMagnitude > Mathf.Epsilon * Mathf.Epsilon)
+        float newVelocityX = currentVelocity.x;
+        if (Mathf.Abs(velocityDifference.x) > 0.01f)
         {
-            if (isOnSlope)
+            // if we are trying to move in the opposing direction then we dont change velocity
+            if(Mathf.Sign(desiredVelocity.x) == Mathf.Sign(velocityDifference.x))
             {
-                velocityDifference = Vector3.ProjectOnPlane(velocityDifference, slopeHit.normal);
+                newVelocityX += velocityDifference.x * acceleration * Time.fixedDeltaTime;
             }
-
-            float currentSpeed = new Vector3(currentVelocity.x, 0, currentVelocity.z).magnitude;
-            float rateX = acceleration;
-            float rateZ = acceleration;
-
-            if (currentSpeed > maxSpeed)
-            {
-                rateX = deceleration;
-                rateZ = deceleration;
-            }
-
-            float newVelocityX = currentVelocity.x + (velocityDifference.x * rateX * Time.fixedDeltaTime);
-            float newVelocityZ = currentVelocity.z + (velocityDifference.z * rateZ * Time.fixedDeltaTime);
-
-            rb.velocity = new Vector3(newVelocityX, currentVelocity.y, newVelocityZ);
         }
+        
+        float newVelocityZ = currentVelocity.z;
+        if (Mathf.Abs(velocityDifference.z) > 0.01f)
+        {
+            // if we are trying to move in the opposing direction then we dont change velocity
+            if (Mathf.Sign(desiredVelocity.z) == Mathf.Sign(velocityDifference.z))
+            {
+                newVelocityZ += velocityDifference.z * acceleration * Time.fixedDeltaTime;
+            }
+        }
+
+        rb.velocity = new Vector3(newVelocityX, currentVelocity.y, newVelocityZ);
     }
 
     public void StopMovement()
