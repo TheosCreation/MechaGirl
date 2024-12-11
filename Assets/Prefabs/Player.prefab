@@ -643,7 +643,7 @@ MonoBehaviour:
   originalGravityScale: -28.215
   useFriction: 1
   friction: 0.9995
-  airFriction: 0.1
+  airFriction: 0.4
   slowdownFriction: 0.6
   groundMask:
     serializedVersion: 2

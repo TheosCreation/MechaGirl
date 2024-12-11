@@ -29,13 +29,13 @@ public class PlayerHud : UiPage
 
     public void UpdateSpeedText(float speed)
     {
-        speedText.text = speed.ToString("F2");
+        speedText.text = "Speed: " + speed.ToString("F2");
     }
 
     public void UpdateLevelTimeText(int seconds, int milliseconds)
     {
         int minutes = seconds / 60;
         seconds %= 60; // Remaining seconds after minutes are calculated
-        levelTime.text = $"{minutes}:{seconds:00}.{milliseconds:000}";
+        levelTime.text = $"Time: {minutes}:{seconds:00}.{milliseconds:000}";
     }
 }

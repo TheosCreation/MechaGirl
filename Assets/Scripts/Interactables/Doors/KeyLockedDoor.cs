@@ -14,7 +14,7 @@ public class KeyLockedDoor : Door
         {
             if(player.Holds(keysColorTagsToUnlock))
             {
-                if (doorLockOverlay != null)
+                if (doorLockOverlay != null && doorLockOverlay.activeSelf)
                 {
                     doorUnlockSource.PlayOneShot(doorUnlockClip);
                     doorLockOverlay.SetActive(false);
