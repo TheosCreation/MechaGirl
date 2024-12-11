@@ -182,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
         if (isSliding)
         {
             usableForce *= 0.75f;
-            movementController.AddForce(initialSlideDirection * (jumpForce * 0.5f));
+            movementController.AddForce(transform.forward * (jumpForce * 0.5f));
             EndSlide();
         }
 
