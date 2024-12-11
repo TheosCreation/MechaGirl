@@ -94,7 +94,7 @@ public class LevelSelectButton : MonoBehaviour
 
             records.Add(go);
 
-            var comp = go.GetComponent<ExampleLdrboardDisplayRecord>();
+            var comp = go.GetComponent<LeaderboardRecord>();
             comp.SetEntry(entry);
         }
     }

@@ -66,6 +66,10 @@ public class OptionsMenu : UiPage
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Button resolutionResetButton;
 
+    [Header("Speedrun Option")]
+    [SerializeField] private Toggle speedrunToggle;
+    [SerializeField] private Button speedrunResetButton;
+
 
     private OptionsBase[] options;
 
@@ -84,6 +88,7 @@ public class OptionsMenu : UiPage
             CreateToggleOption(SettingsManager.Instance.options.tilt, tiltToggle, tiltResetButton, SettingsManager.Instance.UpdateTilt),
             CreateToggleOption(SettingsManager.Instance.options.fullscreen, fullscreenToggle, fullscreenButton, SettingsManager.Instance.UpdateFullscreen),
             CreateToggleOption(SettingsManager.Instance.options.vSync, vSyncToggle, vSyncButton, SettingsManager.Instance.UpdateVSync),
+            CreateToggleOption(SettingsManager.Instance.options.speedrun, speedrunToggle, speedrunResetButton, SettingsManager.Instance.UpdateSpeedrunMode),
 
             CreateDropdownOption(SettingsManager.Instance.options.graphicsQuality, qualityDropdown, qualityResetButton, SettingsManager.Instance.UpdateGraphicsQuality),
             CreateDropdownOption(SettingsManager.Instance.options.resolution, resolutionDropdown, resolutionResetButton, SettingsManager.Instance.UpdateScreenResolution)

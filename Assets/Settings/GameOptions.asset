@@ -36,6 +36,9 @@ MonoBehaviour:
   vSync:
     name: VSync
     defaultValue: 1
+  speedrun:
+    name: Speedrun
+    defaultValue: 0
   fullscreen:
     name: Fullscreen
     defaultValue: 1

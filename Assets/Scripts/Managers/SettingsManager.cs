@@ -9,6 +9,7 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
     public Options options;
     [SerializeField] private AudioMixer Mixer;
     [HideInInspector] public PlayerController player;
+    public bool speedrunMode = false;
 
     protected override void Awake()
     {
@@ -43,6 +44,7 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
         UpdateTilt(options.tilt);
         UpdateFullscreen(options.fullscreen);
         UpdateVSync(options.vSync);
+        UpdateSpeedrunMode(options.speedrun);
         UpdateScreenShake(options.screenShake);
         UpdateGraphicsQuality(options.graphicsQuality);
         UpdateScreenResolution(options.resolution);
@@ -110,7 +112,13 @@ public class SettingsManager : SingletonPersistent<SettingsManager>
         int defaultValue = vSyncSetting.defaultValue ? 1 : 0;
         QualitySettings.vSyncCount = PlayerPrefs.GetInt(vSyncSetting.name, defaultValue);
     }
-    
+
+    public void UpdateSpeedrunMode(BoolSetting speedrunSetting)
+    {
+        int defaultValue = speedrunSetting.defaultValue ? 1 : 0;
+        speedrunMode = PlayerPrefs.GetInt(speedrunSetting.name, defaultValue) == 1;
+    }
+
     public void UpdateScreenShake(FloatSetting screenShakeSetting)
     {
         if (player == null)

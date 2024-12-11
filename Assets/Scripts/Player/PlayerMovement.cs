@@ -11,10 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float maxWalkSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
-    [SerializeField] private float deceleration = 2.0f;
 
-    [Header("Animations")]
-    [SerializeField] private float walkingRightTransition = 20.0f;
     float smoothRight;
     private float currentVelocity;
 
@@ -91,6 +88,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        UiManager.Instance.playerHud.UpdateSpeedText(movementController.GetHorizontalVelocity().magnitude);
+
         if (InputManager.Instance.playerInput.InGame.Jump.ReadValue<float>() > 0f && !movementController.isGrounded)
         {
             if (movementController.GetVerticalVelocity() < 0f)
@@ -102,8 +101,6 @@ public class PlayerMovement : MonoBehaviour
         {
             StopReducingGravity();
         }
-
-
 
         CheckLanding();
 
@@ -118,7 +115,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Movement();
-       
     }
 
     private void Movement()
@@ -170,11 +166,10 @@ public class PlayerMovement : MonoBehaviour
         {
             PerformJump();
         }
-      
-      /*  else if (canJump && isNearWall() && remainingWallJumps > 0)
+        else if (canJump && isNearWall() && remainingWallJumps > 0)
         {
             PerformWallJump();
-        }*/
+        }
     }
 
     void PerformJump()
@@ -188,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         if (isSliding)
         {
             usableForce *= 0.75f;
-            movementController.AddForce(initialSlideDirection * jumpForce);
+            movementController.AddForce(initialSlideDirection * (jumpForce * 0.5f));
             EndSlide();
         }
 

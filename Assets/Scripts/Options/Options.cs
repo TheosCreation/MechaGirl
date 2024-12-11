@@ -50,6 +50,7 @@ public class Options : ScriptableObject
     public FloatSetting fov = new FloatSetting("Fov", 105.0f);
     public BoolSetting tilt = new BoolSetting("Tilt", true);
     public BoolSetting vSync = new BoolSetting("VSync", true);
+    public BoolSetting speedrun = new BoolSetting("Speedrun", false);
     public BoolSetting fullscreen = new BoolSetting("Fullscreen", true);
     public FloatSetting screenShake = new FloatSetting("ScreenShake", 100.0f);
     public IntSetting graphicsQuality = new IntSetting("GraphicsQuility", 2); //0-Low,1-Medium,2-High

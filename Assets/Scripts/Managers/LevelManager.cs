@@ -68,6 +68,18 @@ class LevelManager : MonoBehaviour
         levelStartTime = Time.time;
         isTimerRunning = true;
     }
+    private void FixedUpdate()
+    {
+        if (isTimerRunning)
+        {
+            float elapsedTime = Time.time - levelStartTime;
+
+            int seconds = Mathf.FloorToInt(elapsedTime); // Total elapsed seconds
+            int milliseconds = Mathf.FloorToInt((elapsedTime - seconds) * 1000); // Milliseconds part
+
+            UiManager.Instance.playerHud.UpdateLevelTimeText(seconds, milliseconds);
+        }
+    }
 
     public void CompleteLevel()
     {
@@ -135,10 +147,6 @@ class LevelManager : MonoBehaviour
         OnPlayerRespawn?.Invoke();
 
         UiManager.Instance.OpenPlayerHud();
-
-
-        //reset doors, remove enemies, reset trigger zones
-        SettingsManager.Instance.player = playerSpawn.playerSpawned;
 
         SetTempCamera(false);
         PauseManager.Instance.SetPaused(false);

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class UiManager : Singleton<UiManager>
 {
     [Header("UI Screens")]
-    [SerializeField] private GameObject playerHud;
+    public PlayerHud playerHud;
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject deathScreen;
     [SerializeField] private LevelCompleteMenuManager levelCompleteScreen;
@@ -43,7 +43,10 @@ public class UiManager : Singleton<UiManager>
     {
         pickedUpWeaponTypes = new HashSet<Type>();
         Time.timeScale = 1;
-        InputManager.Instance.EnableInGameInput();
+        if (InputManager.Instance != null)
+        {
+            InputManager.Instance.EnableInGameInput();
+        }
         deathScreen.SetActive(false);
         levelCompleteScreen.gameObject.SetActive(false);
         bossBar.gameObject.SetActive(false);

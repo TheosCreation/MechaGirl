@@ -7501,7 +7501,7 @@ PrefabInstance:
     - target: {fileID: 2825671632265329042, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
       propertyPath: m_fontSize
-      value: 160.95
+      value: 148.8
       objectReference: {fileID: 0}
     - target: {fileID: 3174672490083505010, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
@@ -7616,13 +7616,23 @@ PrefabInstance:
     - target: {fileID: 7526528832252138668, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
       propertyPath: m_fontSize
-      value: 229.55
+      value: 217.3
       objectReference: {fileID: 0}
     - target: {fileID: 7855893001422108827, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
         type: 3}
       propertyPath: m_Name
       value: UiCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8267657145683673792, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+        type: 3}
+      propertyPath: levelTime
+      value: 
+      objectReference: {fileID: 1998082649}
+    - target: {fileID: 8267657145683673792, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+        type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 1960022196}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13496,6 +13506,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1958995516}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1960022196 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6828118172555824321, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1307345688}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1978079462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13794,6 +13816,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1988239222}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1998082649 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1137429329948916283, guid: 3b24002efa1be7f4c8a1ba091a326ab1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1307345688}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2010575628
 GameObject:
   m_ObjectHideFlags: 0

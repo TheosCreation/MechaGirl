@@ -332,4 +332,9 @@ public class MovementController : MonoBehaviour
         // Update the rigidbody's velocity with the new horizontal velocity and keep the vertical component unchanged
         rb.velocity = new Vector3(horizontalVelocity.x, currentVelocity.y, horizontalVelocity.z);
     }
+
+    public Vector3 GetHorizontalVelocity()
+    {
+        return new Vector3(rb.velocity.x, 0, rb.velocity.z);
+    }
 }

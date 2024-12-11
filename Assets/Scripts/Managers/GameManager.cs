@@ -98,11 +98,8 @@ public class GameManager : SingletonPersistent<GameManager>
                 Debug.Log("No game state data found, starting fresh.");
             }
         }
-        catch (Exception ex)
+        catch
         {
-            // Log the error but ensure the game can still proceed
-            //Debug.LogError("Error loading game state: " + ex.Message);
-
             // Initialize default game state to ensure gameplay can continue
             GameState = new GameState(levelScenes.Length);
             Debug.Log("Initialized fresh game state to allow the game to proceed.");
