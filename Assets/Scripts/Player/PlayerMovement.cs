@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider capsuleCollider;
 
     [Header("Movement")]
-    [SerializeField] private float maxWalkSpeed = 2.0f;
     [SerializeField] private float acceleration = 5.0f;
 
     float smoothRight;
@@ -138,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
             movementController.MoveWorld(blendedDirection, slideSpeed, slideAcceleration);
 
-            if (movementController.GetLinearVelocityMagnitude() < (maxWalkSpeed / 2) && canCancelSlide)
+            if (movementController.GetLinearVelocityMagnitude() < (movementController.maxWalkSpeed / 2) && canCancelSlide)
             {
                 EndSlide();
             }
@@ -157,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
             audioSource.Play();
         }
 
-        movementController.MoveLocal(movement, maxWalkSpeed, acceleration);
+        movementController.MoveLocal(movement, movementController.maxWalkSpeed, acceleration);
     }
 
     void Jump()

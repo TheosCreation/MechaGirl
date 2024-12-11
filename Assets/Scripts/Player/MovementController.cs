@@ -21,6 +21,7 @@ public class MovementController : MonoBehaviour
     public bool useFriction = true;
     [SerializeField, Range(0f, 1f)] private float friction = 0.9f;
     [SerializeField, Range(0f, 1f)] private float airFriction = 1f;
+    [SerializeField, Range(0f, 1f)] private float slowdownFriction = 0.2f;
 
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundMask;
@@ -44,6 +45,7 @@ public class MovementController : MonoBehaviour
     [SerializeField] private bool debug = false;
 
     public bool movement = false;
+    public float maxWalkSpeed = 8f;
 
     private void Awake()
     {
@@ -59,15 +61,19 @@ public class MovementController : MonoBehaviour
     {
         isGrounded = CheckGrounded();
 
-        if (!movement && useFriction)
+        if(useFriction)
         {
-            if(isGrounded)
+            if(isGrounded && !movement)
             {
                 ApplyFriction(friction);
             }
-            else
+            else if(!isGrounded)
             {
                 ApplyFriction(airFriction);
+            }
+            else if(GetHorizontalVelocity().magnitude > maxWalkSpeed)
+            {
+                ApplyFriction(slowdownFriction);
             }
         }
 
