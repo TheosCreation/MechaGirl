@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace HeathenEngineering.SteamworksIntegration
 {
@@ -25,8 +26,8 @@ namespace HeathenEngineering.SteamworksIntegration
         public UserEntryEvent evtUserEntryUpdated;
         public EntryResultsEvent evtQueryCompleted;
         public UnityEvent evtQueryError;
-        public UnityEvent evtUploadError;
-        
+        public UnityEvent evtUploadError; 
+
         public void RefreshUserEntry()
         {
             if(leaderboard == null) {
@@ -53,7 +54,7 @@ namespace HeathenEngineering.SteamworksIntegration
                     if (user != default)
                         LastKnownUserEntry = user;
 
-                    evtQueryCompleted.Invoke(r);
+                    evtQueryCompleted.Invoke(leaderboard.leaderboardId.m_SteamLeaderboard, r);
                 }
                 else
                     evtQueryError?.Invoke();
@@ -70,7 +71,7 @@ namespace HeathenEngineering.SteamworksIntegration
                     if (user != default)
                         LastKnownUserEntry = user;
 
-                    evtQueryCompleted.Invoke(r);
+                    evtQueryCompleted.Invoke(leaderboard.leaderboardId.m_SteamLeaderboard, r);
                 }
                 else
                     evtQueryError?.Invoke();
@@ -87,10 +88,12 @@ namespace HeathenEngineering.SteamworksIntegration
                     if (user != default)
                         LastKnownUserEntry = user;
 
-                    evtQueryCompleted.Invoke(r);
+                    evtQueryCompleted.Invoke(leaderboard.leaderboardId.m_SteamLeaderboard, r); // Pass the ID and the results
                 }
                 else
+                {
                     evtQueryError?.Invoke();
+                }
             });
         }
 
@@ -104,7 +107,7 @@ namespace HeathenEngineering.SteamworksIntegration
                     if (user != default)
                         LastKnownUserEntry = user;
 
-                    evtQueryCompleted.Invoke(r);
+                    evtQueryCompleted.Invoke(leaderboard.leaderboardId.m_SteamLeaderboard, r);
                 }
                 else
                     evtQueryError?.Invoke();
@@ -166,7 +169,7 @@ namespace HeathenEngineering.SteamworksIntegration
         [Serializable]
         public class UserEntryEvent : UnityEvent<LeaderboardEntry> { }
         [Serializable]
-        public class EntryResultsEvent : UnityEvent<LeaderboardEntry[]> { }
+        public class EntryResultsEvent : UnityEvent<ulong, LeaderboardEntry[]> { }
     }
 }
 #endif

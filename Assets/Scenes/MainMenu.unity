@@ -2262,6 +2262,7 @@ MonoBehaviour:
   difficultySelectPage: {fileID: 1323230635}
   levelSelectPage: {fileID: 655317892}
   loadingScreen: {fileID: 825756916}
+  buttonHolder: {fileID: 1418095575}
 --- !u!1 &572926817
 GameObject:
   m_ObjectHideFlags: 0

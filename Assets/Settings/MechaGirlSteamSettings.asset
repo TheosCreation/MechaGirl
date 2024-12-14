@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: MechaGirlSteamSettings
   m_EditorClassIdentifier: 
   applicationId:
-    m_AppId: 480
+    m_AppId: 3386150
   isDebugging: 1
   server:
     autoInitialize: 0

@@ -24,8 +24,6 @@ public class LeaderboardRecord : MonoBehaviour
         userImage.LoadAvatar(entry.User);
         userName.SetName(entry.User);
 
-        Debug.Log(entry.Score);
-
         int minutes = entry.Score / 60000; // Calculate minutes
         int seconds = (entry.Score / 1000) % 60; // Calculate remaining seconds
         int milliseconds = entry.Score % 1000; // Calculate remaining milliseconds

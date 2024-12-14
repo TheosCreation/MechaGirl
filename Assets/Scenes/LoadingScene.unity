@@ -129,6 +129,11 @@ GameObject:
   m_Component:
   - component: {fileID: 38933642}
   - component: {fileID: 38933643}
+  - component: {fileID: 38933648}
+  - component: {fileID: 38933647}
+  - component: {fileID: 38933646}
+  - component: {fileID: 38933645}
+  - component: {fileID: 38933644}
   m_Layer: 0
   m_Name: SteamManager
   m_TagString: Untagged
@@ -164,7 +169,141 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: fc9e9e66af7d1874cb8d297cadfac003, type: 2}
-  leaderboardManager: {fileID: 0}
+  leaderBoardLevel1: {fileID: 38933648}
+  leaderBoardLevel2: {fileID: 38933647}
+  leaderBoardLevel3: {fileID: 38933646}
+  leaderBoardLevel4: {fileID: 38933645}
+  leaderBoardLevel5: {fileID: 38933644}
+--- !u!114 &38933644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc7e6305f98fc547b99dab7e2523a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboard: {fileID: -3280460287385199896, guid: fc9e9e66af7d1874cb8d297cadfac003,
+    type: 2}
+  evtUserEntryUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryError:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUploadError:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &38933645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc7e6305f98fc547b99dab7e2523a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboard: {fileID: -526266980338427996, guid: fc9e9e66af7d1874cb8d297cadfac003,
+    type: 2}
+  evtUserEntryUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryError:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUploadError:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &38933646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc7e6305f98fc547b99dab7e2523a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboard: {fileID: -297789604343281259, guid: fc9e9e66af7d1874cb8d297cadfac003,
+    type: 2}
+  evtUserEntryUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryError:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUploadError:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &38933647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc7e6305f98fc547b99dab7e2523a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboard: {fileID: 9127334517141217645, guid: fc9e9e66af7d1874cb8d297cadfac003,
+    type: 2}
+  evtUserEntryUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryError:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUploadError:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &38933648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38933641}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc7e6305f98fc547b99dab7e2523a5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leaderboard: {fileID: -5871623408888496998, guid: fc9e9e66af7d1874cb8d297cadfac003,
+    type: 2}
+  evtUserEntryUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryCompleted:
+    m_PersistentCalls:
+      m_Calls: []
+  evtQueryError:
+    m_PersistentCalls:
+      m_Calls: []
+  evtUploadError:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &68875056
 GameObject:
   m_ObjectHideFlags: 0

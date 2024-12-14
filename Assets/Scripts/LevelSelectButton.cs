@@ -1,10 +1,12 @@
 using HeathenEngineering.DEMO;
 using HeathenEngineering.SteamworksIntegration;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Decouple the leaderboards from the buttons and make a leaderboard manager that holds all the level entries so we fast track the delay or getting entries
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] private int levelToOpen = 1;
@@ -46,40 +48,13 @@ public class LevelSelectButton : MonoBehaviour
 
     private void OnEnable()
     {
-        if (SteamSettings.Initialized)
-        {
-            int encodedScore = (2 * 1000) + 150; // 3 seconds and 150 milliseconds
-            leaderboardManager.UploadScore(encodedScore);
-            leaderboardManager.GetAllFriendsEntries();
-        }
+        SpawnEntries();
     }
 
-    public void UserScoreUpdated(LeaderboardEntry entry)
+    private void SpawnEntries()
     {
-        if (entry != null)
-        {
-            if (entry.details == null) Debug.LogWarning("details null");
-            // Get total seconds from the entry score
-            int totalSeconds = entry.Score;
+        LeaderboardEntry[] entries = SteamManager.Instance.GetEntries(levelToOpen);
 
-            // Calculate minutes and seconds
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
-
-            // Assuming entry.details[0] contains the milliseconds (as an integer)
-            //int milliseconds = entry.details.Length > 0 ? Mathf.FloorToInt(entry.details[0]) : 0;
-
-            // Format the time as mm:ss.mmm
-            string formattedTime = string.Format("{0:D2}:{1:D2}", minutes, seconds);
-            //string formattedTime = string.Format("{0:D2}:{1:D2}.{2:D3}", minutes, seconds, milliseconds);
-
-            // Set the formatted time as the score text
-            //score.text = formattedTime;
-        }
-    }
-
-    public void HandleBoardQuery(LeaderboardEntry[] entries)
-    {
         while (records.Count > 0)
         {
             var record = records[0];
@@ -97,10 +72,5 @@ public class LevelSelectButton : MonoBehaviour
             var comp = go.GetComponent<LeaderboardRecord>();
             comp.SetEntry(entry);
         }
-    }
-
-    public void LogError(string message)
-    {
-        Debug.LogError(message);
     }
 }

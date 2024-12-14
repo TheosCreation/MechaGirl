@@ -103,17 +103,15 @@ class LevelManager : MonoBehaviour
             }
             int currentLevel = GameManager.Instance.GameState.currentLevelIndex;
             GameManager.Instance.GameState.UnlockLevel(currentLevel + 1);
+            int seconds = (int)Mathf.Floor(bestTimeForCurrentLevel);
+            int milliseconds = (int)((bestTimeForCurrentLevel - seconds) * 1000);
+            SteamManager.Instance.UploadLevelTime(currentLevel + 1, seconds, milliseconds);
 
             // Pass the time to the UIManager and open the level complete screen
             UiManager.Instance.OpenLevelCompleteScreen(levelCompleteTime, currentLevel + 1);
         }
     }
 
-    public float GetLevelCompleteTime()
-    {
-        return levelCompleteTime;
-    }
-    
     // Use only if the player is going to be respawned in the next frame
     public void KillCurrentPlayer()
     {
