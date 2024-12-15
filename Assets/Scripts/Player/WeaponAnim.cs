@@ -58,7 +58,6 @@ public class WeaponAnim : MonoBehaviour
         swayPositionOffset.x = Mathf.Clamp(swayPositionOffset.x, -maxSwayAmount, maxSwayAmount);
         swayPositionOffset.y = Mathf.Clamp(swayPositionOffset.y, -maxSwayAmount, maxSwayAmount);
     }
-
     private Vector3 CalculateBobbing()
     {
         if (player.weaponHolder.currentWeapon == null) return Vector3.zero;
@@ -67,36 +66,27 @@ public class WeaponAnim : MonoBehaviour
 
         if (movementVector.magnitude > 0.1f) // Check if the player is moving
         {
-            // Set target bobbing direction based on initial x input
-            if (movementVector.x < 0)
-            {
-                targetBobbingDirection = -1f; // Moving left
-            }
-            else if (movementVector.x > 0)
-            {
-                targetBobbingDirection = 1f; // Moving right
-            }
-
-            // Smoothly interpolate towards the target direction
-            currentBobbingDirection = Mathf.Lerp(currentBobbingDirection, targetBobbingDirection, Time.deltaTime * bobbingHorizontalSmoothing);
-
-            // Increment bobbing timer
+            // Increment the bobbing timer with a consistent rate
             bobbingTimer += Time.deltaTime * bobbingFrequency;
 
-            // Calculate vertical bobbing (up/down)
-            float verticalOffset = -Mathf.Abs(verticalBobbingAmplitude * Mathf.Sin(bobbingTimer));
+            currentBobbingDirection = Mathf.Lerp(currentBobbingDirection, targetBobbingDirection, Time.deltaTime * bobbingHorizontalSmoothing);
 
-            // Calculate horizontal bobbing (left/right) with lerped direction
+            // Use Mathf.Sin() for smooth, continuous up-and-down motion
+            float verticalOffset = Mathf.Sin(bobbingTimer) * verticalBobbingAmplitude;
+
             float horizontalOffset = horizontalBobbingAmplitude * Mathf.Cos(bobbingTimer) * currentBobbingDirection;
 
-            // Apply bobbing reduction for aiming and return the final bobbing vector
+            // Return vertical bobbing offset
             return new Vector3(horizontalOffset, verticalOffset, 0);
         }
         else
         {
-            // Reset the timer and bobbing direction when not moving
-            bobbingTimer = 0f;
-            return Vector3.zero;
+            // Smoothly reduce bobbing to zero when the player stops moving
+            float verticalOffset = Mathf.Sin(bobbingTimer) * verticalBobbingAmplitude;
+
+            float horizontalOffset = horizontalBobbingAmplitude * Mathf.Cos(bobbingTimer) * currentBobbingDirection;
+            
+            return new Vector3(horizontalOffset, verticalOffset, 0);
         }
     }
 }
