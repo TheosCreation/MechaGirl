@@ -24,9 +24,19 @@ public class PhysicalProjectile : Projectile
     private void OnTriggerEnter(Collider other)
     {
         // Check if we hit an object on the collisionMask
-        if (other.gameObject.layer == ownerLayer) {  return; };
+        if (other.gameObject.layer == ownerLayer) { return; };
         if ((hitMask.value & (1 << other.gameObject.layer)) == 0) return;
 
+        ProcessCollision(other);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        ProcessCollision(collision.collider);
+    }
+
+    protected void ProcessCollision(Collider other)
+    {
         // Calculate the hit point and normal
         Vector3 hitPoint = Physics.ClosestPoint(transform.position, other, other.transform.position, other.transform.rotation);
         Vector3 hitNormal = (transform.position - hitPoint).normalized;
@@ -49,7 +59,7 @@ public class PhysicalProjectile : Projectile
             }
             else
             {
-                damageable.Damage(damage); 
+                damageable.Damage(damage);
                 HitDamageable(hitPoint, hitNormal, GameManager.Instance.prefabs.hitEnemyPrefab, GameManager.Instance.prefabs.enemyWeakspotHitSound);
             }
         }
@@ -58,17 +68,7 @@ public class PhysicalProjectile : Projectile
             // hit a wall
             HitWall(hitPoint, hitNormal);
         }
-        
-        onCollision?.Invoke();
-        // Destroy the projectile on collision
-        if (destroyOnHit)
-        {
-            Destroy(gameObject);
-        }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
         onCollision?.Invoke();
         // Destroy the projectile on collision
         if (destroyOnHit)
