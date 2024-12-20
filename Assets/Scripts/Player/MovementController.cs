@@ -151,20 +151,23 @@ public class MovementController : MonoBehaviour
         Vector3 desiredVelocity = directionVector.normalized * maxSpeed;
         desiredVelocity.y = currentVelocity.y;
 
-        Vector3 velocityDifference = desiredVelocity - currentVelocity;
+        // Project current velocity onto the desired direction
+        Vector3 alignedVelocity = Vector3.Project(currentVelocity, directionVector.normalized);
+
+        Vector3 velocityDifference = desiredVelocity - alignedVelocity;
         movement = true;
 
-        float newVelocityX = currentVelocity.x;
+        float newVelocityX = alignedVelocity.x;
         if (Mathf.Abs(velocityDifference.x) > 0.01f)
         {
             // if we are trying to move in the opposing direction then we dont change velocity
-            if(Mathf.Sign(desiredVelocity.x) == Mathf.Sign(velocityDifference.x))
+            if (Mathf.Sign(desiredVelocity.x) == Mathf.Sign(velocityDifference.x))
             {
                 newVelocityX += velocityDifference.x * acceleration * Time.fixedDeltaTime;
             }
         }
-        
-        float newVelocityZ = currentVelocity.z;
+
+        float newVelocityZ = alignedVelocity.z;
         if (Mathf.Abs(velocityDifference.z) > 0.01f)
         {
             // if we are trying to move in the opposing direction then we dont change velocity
