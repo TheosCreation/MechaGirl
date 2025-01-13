@@ -1,20 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class SwordsSwing : PhysicalProjectile
 {
-    // Start is called before the first frame update
-    public GameObject player;
-    public PlayerMovement playerMove;
+    public MovementController playerMove;
     public Enemy enemy;
     public override void Initialize(Vector3 startPosition, Vector3 direction, WeaponUser weaponUser)
     {
         base.Initialize(startPosition, direction, weaponUser);
 
-        playerMove = owner.GetComponent<PlayerMovement>();
+        playerMove = owner.GetComponent<MovementController>();
         if (playerMove == null)
         {
             enemy = owner.GetComponent<Enemy>();

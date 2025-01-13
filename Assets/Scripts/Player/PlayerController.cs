@@ -5,7 +5,7 @@ public class PlayerController : WeaponUser, IDamageable
 {
     [HideInInspector] public Camera playerCamera;
     [HideInInspector] public PlayerLook playerLook;
-    [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public MovementController playerMovement;
     [HideInInspector] public WeaponHolder weaponHolder;
     [SerializeField] private AudioSource audio1;
     [SerializeField] private AudioSource audio2;
@@ -37,7 +37,7 @@ public class PlayerController : WeaponUser, IDamageable
     {
         playerCamera = GetComponentInChildren<Camera>();
         playerLook = GetComponent<PlayerLook>();
-        playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<MovementController>();
         weaponHolder = GetComponentInChildren<WeaponHolder>();
     }
 
