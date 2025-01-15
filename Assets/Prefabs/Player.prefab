@@ -609,7 +609,10 @@ MonoBehaviour:
   crouchSpeedMultiplier: 0.248
   movementThrashold: 0.01
   acceleration: 10
+  airAcceleration: 0.2
   decceleration: 7
+  airDecceleration: 1
+  slowDownDecceleration: 1
   jumpingClip: {fileID: 8300000, guid: db2281b9de1863f409d62f9edf69c6cf, type: 3}
   jumpVelocity: 20
   jumpTime: 0.3

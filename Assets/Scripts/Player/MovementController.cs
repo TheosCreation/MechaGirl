@@ -15,7 +15,10 @@ public class MovementController : MonoBehaviour
     [Space(2)]
 
     public float acceleration = 0.2f;
+    public float airAcceleration = 0.2f;
     public float decceleration = 0.1f;
+    public float airDecceleration = 0.1f;
+    public float slowDownDecceleration = 0.1f; // for when we are moving faster than walk speed
 
     [Header("Jump and gravity specifics")]
     [SerializeField] private AudioClip jumpingClip;
@@ -36,7 +39,7 @@ public class MovementController : MonoBehaviour
     public float jumpFromWallMultiplier = 30f;
     public float multiplierVerticalLeap = 1f;
     [SerializeField] private int maxWallJumps = 3;
-    private int remainingWallJumps;
+    private int remainingWallJumps = 0;
 
     [Header("Dash")]
     public bool isDashing = false;
@@ -193,19 +196,47 @@ public class MovementController : MonoBehaviour
         {
             MoveWalk();
         }
+        if (!isDashing && !isMoving)
+        {
+            ApplyDecceleration();
+        }
 
         //gravity
         ApplyGravity();
+
+        UiManager.Instance.playerHud.UpdateSpeedText(GetHorizontalVelocity().magnitude);
+    }
+
+    private void ApplyDecceleration()
+    {
+        Vector3 currentVelocity = rigidbody.velocity;
+
+        // Stop horizontal movement while retaining vertical velocity
+        Vector3 newVelocity = new Vector3(0, currentVelocity.y, 0);
+
+        float currentDecceleration = isGrounded ? decceleration : airDecceleration;
+
+        // Dynamically adjust smoothing time for stopping as well
+        float smoothingTime = Mathf.Max(0.01f, 1f / currentDecceleration);
+
+        rigidbody.velocity = Vector3.SmoothDamp(
+            currentVelocity,
+            newVelocity,
+            ref currVelocity,
+            smoothingTime
+        );
     }
 
     private void CheckFalling()
     {
         if (prevGrounded && !isGrounded)
         {
+            // We are now in the are
             height1 = transform.position.y;
         }
         else if (!prevGrounded && isGrounded)
         {
+            // We have landed
             height2 = transform.position.y;
             playerController.playerLook.PlayLandAnimation();
             remainingWallJumps = maxWallJumps;
@@ -366,6 +397,10 @@ public class MovementController : MonoBehaviour
         wallNormal = tmpWallNormal;
     }
 
+    private Vector3 GetHorizontalVelocity()
+    {
+        return new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z);
+    }
 
     private void CheckSlopeAndDirections()
     {
@@ -373,7 +408,12 @@ public class MovementController : MonoBehaviour
         {
             // Airborne logic
             forward = transform.forward; // Keep the forward direction as the character's facing direction
-            globalForward = new Vector3(rigidbody.velocity.x, 0, rigidbody.velocity.z).normalized;
+            Vector3 horizontalVelocity = GetHorizontalVelocity();
+            if (horizontalVelocity.magnitude > 0)
+            {
+                // keeps last moving direction as forward if not moving
+                globalForward = horizontalVelocity.normalized;
+            }
             reactionForward = forward;
 
             // Set default down directions
@@ -483,8 +523,10 @@ public class MovementController : MonoBehaviour
 
             jumpTimer.SetTimer(jumpTime, JumpEnd);
         }
-        else if (isTouchingWall)
+        else if (isTouchingWall && remainingWallJumps > 0)
         {
+            remainingWallJumps--;
+
             rigidbody.AddForce(Vector3.up * jumpVelocity, ForceMode.VelocityChange);
             rigidbody.AddForce(wallNormal * jumpVelocity, ForceMode.VelocityChange);
             isJumping = true;
@@ -663,41 +705,41 @@ public class MovementController : MonoBehaviour
 
             float speed = isSprinting ? sprintSpeed : movementSpeed;
 
-            // Retain vertical velocity for gravity or stepping
-            Vector3 newVelocity = new Vector3(
+            // Calculate target velocity
+            Vector3 targetVelocity = new Vector3(
                 direction.x * speed * crouchMultiplier,
                 currentVelocity.y,
                 direction.z * speed * crouchMultiplier
             );
 
+            // If current velocity is greater than target velocity, scale down gradually
+            if (currentVelocity.magnitude > speed * crouchMultiplier)
+            {
+                // Allow player input to influence direction, but scale the velocity down
+                Vector3 velocityAdjustment = Vector3.Lerp(
+                    currentVelocity,
+                    targetVelocity,
+                    Time.deltaTime * slowDownDecceleration
+                );
+                targetVelocity = velocityAdjustment;
+            }
+
+
             // Dynamically adjust smoothing time based on acceleration
-            float smoothingTime = Mathf.Max(0.01f, 1f / acceleration); // Higher acceleration -> smaller smoothing time
+            float currentAcceleration = isGrounded ? acceleration : airAcceleration;
+            float smoothingTime = Mathf.Max(0.01f, 1f / currentAcceleration);
 
             // Apply smoothing for movement
             rigidbody.velocity = Vector3.SmoothDamp(
                 currentVelocity,
-                newVelocity,
+                targetVelocity,
                 ref currVelocity,
                 smoothingTime
             );
-
             isMoving = true;
         }
-        else if(isGrounded && !isDashing)
+        else
         {
-            // Stop horizontal movement while retaining vertical velocity
-            Vector3 newVelocity = new Vector3(0, currentVelocity.y, 0);
-
-            // Dynamically adjust smoothing time for stopping as well
-            float smoothingTime = Mathf.Max(0.01f, 1f / decceleration);
-
-            rigidbody.velocity = Vector3.SmoothDamp(
-                currentVelocity,
-                newVelocity * crouchMultiplier,
-                ref currVelocity,
-                smoothingTime
-            );
-
             isMoving = false;
         }
     }
@@ -815,11 +857,11 @@ public class MovementController : MonoBehaviour
 
     private void SetFriction(float _frictionWall, bool _isMinimum)
     {
-        //collider.material.dynamicFriction = 0.6f * _frictionWall;
-        //collider.material.staticFriction = 0.6f * _frictionWall;
-        //
-        //if (_isMinimum) collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
-        //else collider.material.frictionCombine = PhysicMaterialCombine.Maximum;
+        collider.material.dynamicFriction = 0.6f * _frictionWall;
+        collider.material.staticFriction = 0.6f * _frictionWall;
+        
+        if (_isMinimum) collider.material.frictionCombine = PhysicMaterialCombine.Minimum;
+        else collider.material.frictionCombine = PhysicMaterialCombine.Maximum;
     }
 
 
